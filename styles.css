@@ -110,6 +110,8 @@ footer a:hover,
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    color: #fff;
 }
 .eyebrow {
   margin: 0 0 24px;
