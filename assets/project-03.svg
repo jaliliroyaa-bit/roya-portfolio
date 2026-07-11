@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#ededeb"/>
+  <circle cx="936.0" cy="198.0" r="171.0" fill="#d8d8d2"/>
+  <rect x="96.0" y="144.0" width="564.0" height="558.0" rx="28" fill="#f7f7f5"/>
+  <text x="144.0" y="513.0" font-family="Arial, sans-serif" font-size="67" font-weight="600" fill="#111">PROJECT 03</text>
+  <text x="144.0" y="576.0" font-family="Arial, sans-serif" font-size="22" fill="#777">AI Concepts</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#ecece8"/>
+  <circle cx="1248.0" cy="198.0" r="171.0" fill="#d4d4ce"/>
+  <rect x="128.0" y="144.0" width="752.0" height="558.0" rx="28" fill="#f7f7f5"/>
+  <text x="192.0" y="513.0" font-family="Arial, sans-serif" font-size="67" font-weight="600" fill="#111">YOUR HERO IMAGE</text>
+  <text x="192.0" y="576.0" font-family="Arial, sans-serif" font-size="22" fill="#777">Replace assets/hero.svg with your best artwork</text>
+</svg>
