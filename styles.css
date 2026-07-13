@@ -413,3 +413,28 @@ footer {
   font-size: 16px;
   line-height: 1.65;
 }
+.project-card {
+    position: relative !important;
+    display: block !important;
+    overflow: hidden !important;
+    border-radius: 24px;
+}
+
+
+.project-overlay {
+    position: absolute !important;
+    left: 28px !important;
+    bottom: 28px !important;
+    z-index: 5 !important;
+
+    padding: 18px 24px;
+
+    background: rgba(255,255,255,.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 18px;
+
+    color: white;
+}
