@@ -339,23 +339,29 @@ footer {
   .project-grid { grid-template-columns: 1fr; gap: 44px; }
   .project-wide { grid-column: auto; }
   .project-wide img, .project img { aspect-ratio: 4 / 3; }
-  .about {
+ .about {
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 36px;
   padding-bottom: 100px;
+}
+
+.about-photo {
+  max-width: 100%;
 }
 
 .about-content {
   max-width: 100%;
+  padding-top: 0;
 }
 
 .about h2 {
-  font-size: clamp(32px, 10vw, 44px);
+  max-width: 100%;
+  font-size: clamp(30px, 9vw, 42px);
+  line-height: 1.08;
 }
 
 .about-copy {
+  max-width: 100%;
   font-size: 16px;
+  line-height: 1.65;
 }
-  .contact { padding: 100px 0; }
-}
-
