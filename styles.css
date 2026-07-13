@@ -4,8 +4,9 @@
     --bg: #EAF3F7;
     --surface: rgba(255,255,255,.45);
     --text: #2F3133;
-    --muted: #6B7377;
+    --text: #ffffff;
     --line: rgba(255,255,255,.35);
+    --muted: rgba(255,255,255,.85);
 
     --primary: #9CC7D8;
     --secondary: #7EAEC2;
@@ -273,3 +274,4 @@ footer {
   .about { grid-template-columns: 1fr; gap: 44px; padding-bottom: 100px; }
   .contact { padding: 100px 0; }
 }
+
