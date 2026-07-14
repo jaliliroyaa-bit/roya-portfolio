@@ -324,8 +324,9 @@ h2 {
 
 
 /* PROJECT CARD */
+/* PROJECT CARD */
 
-.project-card {
+.project-card{
 
     position:relative;
 
@@ -337,90 +338,174 @@ h2 {
 }
 
 
-.project-card img {
+.project-card img{
 
     width:100%;
 
-    aspect-ratio:16 / 9;
+    aspect-ratio:16 / 8.5;
 
     object-fit:cover;
 
     transition:
-    transform .55s cubic-bezier(.2,.75,.25,1);
+        transform .55s cubic-bezier(.2,.75,.25,1);
 }
 
 
-.project-card:hover img {
+.project-card:hover img{
 
     transform:scale(1.03);
 }
 
 
 
-/* GLASS TITLE */
+/* GLASS CARD */
 
-.project-overlay {
+.project-overlay{
 
     position:absolute;
 
-    left:28px;
+    left:32px;
 
-    bottom:28px;
+    bottom:32px;
 
-    z-index:5;
+    width:280px;
 
+    padding:22px 24px;
 
-    padding:18px 24px;
+    background:rgba(255,255,255,.12);
 
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
 
-    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.28);
 
-    backdrop-filter:blur(18px);
+    border-radius:22px;
 
-    -webkit-backdrop-filter:blur(18px);
-
-
-    border:1px solid rgba(255,255,255,.35);
-
-    border-radius:18px;
-
-
-    color:white;
-
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.12),
+        inset 0 1px 0 rgba(255,255,255,.18);
 
     transition:
-
-    background .3s ease,
-
-    transform .3s ease;
+        background .35s ease,
+        border-color .35s ease,
+        transform .35s ease;
 }
 
 
-.project-overlay h3 {
-
-    margin:0 0 6px;
-
-    font-size:22px;
-
-    letter-spacing:-.03em;
-}
-
-
-.project-overlay p {
+.project-overlay h3{
 
     margin:0;
 
-    font-size:14px;
+    font-size:28px;
 
-    opacity:.85;
+    font-weight:650;
+
+    letter-spacing:-.04em;
+
+    color:#fff;
 }
 
 
-.project-card:hover .project-overlay {
+.project-overlay p{
 
-    background:rgba(255,255,255,.28);
+    margin:8px 0 0;
 
-    transform:translateY(-4px);
+    font-size:15px;
+
+    line-height:1.55;
+
+    color:rgba(255,255,255,.78);
+
+}
+
+
+.project-view{
+
+    margin-top:22px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#fff;
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+
+    opacity:.9;
+}
+
+
+.project-card:hover .project-overlay{
+
+    background:rgba(255,255,255,.18);
+
+    border-color:rgba(255,255,255,.42);
+
+    transform:translateY(-6px);
+}
+
+
+.project-card:hover .project-view{
+
+    transform:translateX(8px);
+
+    opacity:1;
+}
+
+.project-overlay h3 {
+
+    margin: 0 0 8px;
+
+    font-size: 28px;
+
+    font-weight: 650;
+
+    letter-spacing: -.04em;
+
+}
+.project-overlay p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+    color: rgba(255,255,255,.78);
+
+}
+.project-overlay {
+
+    position: absolute;
+
+    left: 32px;
+    bottom: 32px;
+
+    width: 270px;
+
+    padding: 22px 24px;
+
+    background: rgba(255,255,255,.14);
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255,255,255,.32);
+
+    border-radius: 22px;
+
+    color: white;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.12),
+        inset 0 1px 0 rgba(255,255,255,.18);
+
+    transition:
+        background .3s ease,
+        transform .35s ease,
+        border-color .35s ease;
 }
 /* ABOUT */
 
