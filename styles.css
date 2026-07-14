@@ -307,205 +307,107 @@ h2 {
 /* PROJECTS */
 
 .project-grid {
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:56px 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px 24px;
 }
-
 
 .project-wide {
-
-    grid-column:1 / -1;
+  grid-column: 1 / -1;
 }
-
 
 
 /* PROJECT CARD */
-/* PROJECT CARD */
 
-.project-card{
-
-    position:relative;
-
-    display:block;
-
-    overflow:hidden;
-
-    border-radius:24px;
+.project-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 24px;
 }
 
+.project-card img {
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  object-fit: cover;
 
-.project-card img{
-
-    width:100%;
-
-    aspect-ratio:16 / 8.5;
-
-    object-fit:cover;
-
-    transition:
-        transform .55s cubic-bezier(.2,.75,.25,1);
+  transition:
+    transform .55s cubic-bezier(.2, .75, .25, 1);
 }
 
-
-.project-card:hover img{
-
-    transform:scale(1.03);
+.project-card:hover img {
+  transform: scale(1.03);
 }
-
 
 
 /* GLASS CARD */
 
-.project-overlay{
+.project-overlay {
+  position: absolute;
+  left: 32px;
+  bottom: 32px;
+  z-index: 5;
 
-    position:absolute;
+  width: 280px;
+  padding: 22px 24px;
 
-    left:32px;
+  background: rgba(255, 255, 255, .12);
 
-    bottom:32px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 
-    width:280px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 22px;
 
-    padding:22px 24px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, .12),
+    inset 0 1px 0 rgba(255, 255, 255, .18);
 
-    background:rgba(255,255,255,.12);
-
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-
-    border:1px solid rgba(255,255,255,.28);
-
-    border-radius:22px;
-
-    box-shadow:
-        0 18px 40px rgba(0,0,0,.12),
-        inset 0 1px 0 rgba(255,255,255,.18);
-
-    transition:
-        background .35s ease,
-        border-color .35s ease,
-        transform .35s ease;
-}
-
-
-.project-overlay h3{
-
-    margin:0;
-
-    font-size:28px;
-
-    font-weight:650;
-
-    letter-spacing:-.04em;
-
-    color:#fff;
-}
-
-
-.project-overlay p{
-
-    margin:8px 0 0;
-
-    font-size:15px;
-
-    line-height:1.55;
-
-    color:rgba(255,255,255,.78);
-
-}
-
-
-.project-view{
-
-    margin-top:22px;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    color:#fff;
-
-    transition:
-        transform .3s ease,
-        opacity .3s ease;
-
-    opacity:.9;
-}
-
-
-.project-card:hover .project-overlay{
-
-    background:rgba(255,255,255,.18);
-
-    border-color:rgba(255,255,255,.42);
-
-    transform:translateY(-6px);
-}
-
-
-.project-card:hover .project-view{
-
-    transform:translateX(8px);
-
-    opacity:1;
+  transition:
+    background .35s ease,
+    border-color .35s ease,
+    transform .35s ease;
 }
 
 .project-overlay h3 {
+  margin: 0;
 
-    margin: 0 0 8px;
-
-    font-size: 28px;
-
-    font-weight: 650;
-
-    letter-spacing: -.04em;
-
+  color: #fff;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -.04em;
 }
+
 .project-overlay p {
+  margin: 8px 0 0;
 
-    margin: 0;
-
-    font-size: 15px;
-
-    line-height: 1.55;
-
-    color: rgba(255,255,255,.78);
-
+  color: rgba(255, 255, 255, .78);
+  font-size: 15px;
+  line-height: 1.55;
 }
-.project-overlay {
 
-    position: absolute;
+.project-view {
+  margin-top: 22px;
 
-    left: 32px;
-    bottom: 32px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: .9;
 
-    width: 270px;
+  transition:
+    transform .3s ease,
+    opacity .3s ease;
+}
 
-    padding: 22px 24px;
+.project-card:hover .project-overlay {
+  background: rgba(255, 255, 255, .18);
+  border-color: rgba(255, 255, 255, .42);
+  transform: translateY(-6px);
+}
 
-    background: rgba(255,255,255,.14);
-
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-
-    border: 1px solid rgba(255,255,255,.32);
-
-    border-radius: 22px;
-
-    color: white;
-
-    box-shadow:
-        0 18px 40px rgba(0,0,0,.12),
-        inset 0 1px 0 rgba(255,255,255,.18);
-
-    transition:
-        background .3s ease,
-        transform .35s ease,
-        border-color .35s ease;
+.project-card:hover .project-view {
+  transform: translateX(8px);
+  opacity: 1;
 }
 /* ABOUT */
 
