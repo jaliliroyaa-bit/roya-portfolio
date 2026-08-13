@@ -227,7 +227,6 @@
       padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
-      scroll-snap-type: x mandatory;
     }
     .project-carousel::-webkit-scrollbar { display: none; }
 
@@ -237,7 +236,6 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      scroll-snap-align: center;
       filter: blur(6px);
       opacity: 0.4;
       transform: scale(0.9);
@@ -280,7 +278,7 @@
     }
 
     .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .project-carousel:hover .project-info {
+    .carousel-card:hover .project-info {
       opacity: 1;
       transform: translateY(0);
     }
@@ -547,12 +545,10 @@
       }
     });
 
-    // اصلاح کامل اسکرول افقی با غلتک موس
+    // اسکریپت کاملاً روان برای تبدیل چرخش موس به اسکرول افقی بدون قفل شدن صفحه
     scrollContainer.addEventListener('wheel', (evt) => {
-      if (evt.deltaY !== 0) {
-        scrollContainer.scrollLeft += evt.deltaY;
-        evt.preventDefault();
-      }
+      scrollContainer.scrollLeft += evt.deltaY;
+      evt.preventDefault();
     }, { passive: false });
 
     scrollContainer.addEventListener('scroll', () => {
