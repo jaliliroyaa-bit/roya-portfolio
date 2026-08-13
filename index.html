@@ -1,109 +1,246 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roya Jalili — Creative Designer</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roya Jalili - Creative Designer</title>
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --text:#2F3133;--muted:#6B7377;--line:rgba(255,255,255,.35);
+      --accent:#A59D94;--max:1280px
+    }
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--text);
+      background:
+        radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
+        radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
+        linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%}
+    
+    .site-header{
+      position:sticky;top:14px;z-index:20;max-width:calc(var(--max) - 40px);
+      margin:14px auto 0;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;
+      background:rgba(255,255,255,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+      border:1px solid rgba(255,255,255,.42);border-radius:18px;
+      box-shadow:0 10px 35px rgba(71,93,102,.08),inset 0 1px 0 rgba(255,255,255,.35)
+    }
+    .logo{font-weight:700;letter-spacing:-.03em}
+    nav{display:flex;gap:28px}
+    nav a,footer a{color:rgba(47,49,51,.68)}
+    main,footer{max-width:var(--max);margin:0 auto;padding-left:32px;padding-right:32px}
+    
+    /* --- تنظیمات بنر و افکت جوهر --- */
+    .hero{
+      position: relative;
+      z-index: 1;
+      overflow:hidden;
+      min-height:76vh;padding:13vh 48px 10vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+      border-radius:24px;color:#fff;
+      background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10; 
+    }
+    .ink-blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      mix-blend-mode: overlay;
+      z-index: 0;
+      animation: mix-ink 15s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+    .color-1 {
+      width: 55vw;
+      height: 55vw;
+      background-color: #8DAEBE; 
+      top: -15%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+    .color-2 {
+      width: 65vw;
+      height: 65vw;
+      background-color: #8C8176; 
+      bottom: -20%;
+      right: -10%;
+      animation-delay: -5s;
+    }
+    .color-3 {
+      width: 50vw;
+      height: 50vw;
+      background-color: #6C8B9B; 
+      top: 20%;
+      left: 20%;
+      animation-delay: -10s;
+    }
+    @keyframes mix-ink {
+      0% { transform: translate(0, 0) scale(1); filter: blur(90px); }
+      33% { transform: translate(8vw, -8vh) scale(1.1); filter: blur(90px); }
+      66% { transform: translate(-8vw, 10vh) scale(0.95); filter: blur(90px); }
+      100% { transform: translate(4vw, 4vh) scale(1.05); filter: blur(90px); }
+    }
+    
+    /* --- سایر استایل‌های سایت --- */
+    .eyebrow{margin:0 0 24px;color:var(--muted);font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+    .hero-eyebrow{color:rgba(255,255,255,.82)}
+    h1,h2,h3,p{margin-top:0}
+    h1{max-width:950px;margin-bottom:32px;font-size:clamp(58px,9vw,132px);line-height:.91;letter-spacing:-.075em;font-weight:650}
+    .hero-copy{max-width:610px;margin-bottom:36px;color:rgba(255,255,255,.92);font-size:clamp(18px,2vw,25px);line-height:1.5}
+    .button{display:inline-flex;padding:14px 20px;border-radius:999px;background:var(--accent);color:#fff;font-size:14px;font-weight:650}
+    
+    .section{padding:150px 0 0}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:32px}
+    h2{max-width:900px;margin-bottom:0;font-size:clamp(42px,6vw,84px);line-height:.98;letter-spacing:-.055em;font-weight:620}
+    
+    .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px}
+    .project-wide{grid-column:1/-1}
+    .project-card{position:relative;display:block;overflow:hidden;border-radius:24px;background:rgba(255,255,255,.2)}
+    .project-card img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .55s cubic-bezier(.2,.75,.25,1)}
+    .project-wide .project-card img{aspect-ratio:16/8.5}
+    .project-card:hover img{transform:scale(1.03)}
+    .project-overlay{
+      position:absolute;left:32px;bottom:32px;z-index:2;width:min(280px,calc(100% - 64px));padding:22px 24px;color:#fff;
+      background:rgba(255,255,255,.12);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+      border:1px solid rgba(255,255,255,.28);border-radius:22px;
+      box-shadow:0 18px 40px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.18);
+      transition:background .35s ease,border-color .35s ease,transform .35s ease
+    }
+    .project-overlay h3{margin:0;color:#fff;font-size:28px;font-weight:650;letter-spacing:-.04em}
+    .project-overlay p{margin:8px 0 0;color:rgba(255,255,255,.78);font-size:15px;line-height:1.55}
+    .project-view{display:block;margin-top:22px;color:#fff;font-size:15px;font-weight:600;opacity:.9;transition:transform .3s ease,opacity .3s ease}
+    .project-card:hover .project-overlay{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.42);transform:translateY(-6px)}
+    .project-card:hover .project-view{transform:translateX(8px);opacity:1}
+    
+    .about{display:grid;grid-template-columns:460px minmax(0,1fr);gap:56px;align-items:start;max-width:1200px;margin:0 auto;padding-bottom:150px;border-bottom:1px solid var(--line)}
+    .about-photo{overflow:hidden;border-radius:28px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.45);box-shadow:0 18px 45px rgba(60,80,90,.14)}
+    .about-photo img{aspect-ratio:839/1086;object-fit:cover;object-position:center 20%}
+    .about-content{max-width:650px;padding-top:6px}
+    .about .eyebrow{margin-bottom:22px;color:var(--text)}
+    .about h2{max-width:560px;margin-bottom:30px;font-size:clamp(28px,3vw,46px);line-height:1.08;letter-spacing:-.04em}
+    .about-copy{max-width:600px;color:#384047;font-size:17px;line-height:1.7}
+    
+    .contact{padding:150px 0;text-align:center}
+    .contact h2{margin:0 auto 36px}
+    .email{display:inline-block;padding-bottom:5px;font-size:clamp(20px,3vw,34px);border-bottom:1px solid var(--text)}
+    footer{padding-top:26px;padding-bottom:30px;display:flex;justify-content:space-between;color:var(--muted);border-top:1px solid var(--line);font-size:13px}
+    
+    @media(max-width:760px){
+      .site-header,main,footer{padding-left:20px;padding-right:20px}
+      nav{gap:16px;font-size:13px}
+      .hero{min-height:72vh;padding:12vh 24px 9vh}
+      .section{padding-top:100px}
+      .section-heading{align-items:start;flex-direction:column;gap:8px}
+      .project-grid{grid-template-columns:1fr;gap:24px}
+      .project-wide{grid-column:auto}
+      .project-card img,.project-wide .project-card img{aspect-ratio:4/3}
+      .project-overlay{left:18px;bottom:18px;width:calc(100% - 36px);padding:18px 20px}
+      .about{grid-template-columns:1fr;gap:36px;padding-bottom:100px}
+      .about-copy{font-size:16px}
+      .contact{padding:100px 0}
+    }
+  </style>
 </head>
 <body>
-<header class="site-header">
-  <a class="logo" href="index.html#top">Roya Jalili</a>
-  <nav>
-    <a href="index.html#work">Work</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
-</header>
-<main id="top">
-  <section class="hero">
-    <p class="eyebrow hero-eyebrow">Creative Designer · AI Artist</p>
-    <h1>Visual ideas,<br>crafted with intention.</h1>
-    <p class="hero-copy">I combine creative direction, AI, compositing, lighting and color grading to create polished commercial imagery.</p>
-    <a class="button" href="#work">View selected work</a>
-  </section>
 
-  <section id="work" class="section">
-    <div class="section-heading">
-      <p class="eyebrow">Selected work</p>
-      <h2>Projects</h2>
-    </div>
+  <!-- هدر سایت -->
+  <header class="site-header">
+    <div class="logo">Roya Jalili</div>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-   <section class="hero">
-  <!-- این ۳ خط، همان قطرات رنگی هستند که در پس‌زمینه حرکت می‌کنند -->
-  <div class="ink-blob color-1"></div>
-  <div class="ink-blob color-2"></div>
-  <div class="ink-blob color-3"></div>
-
-  <!-- این بخش، محتوای متنی روی بنر است -->
-  <div class="hero-content">
-    <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
-    <h1>Visual ideas,<br>crafted with<br>intention.</h1>
-    <p class="hero-copy">I combine creative direction, AI, compositing, lighting and color grading to create polished commercial imagery.</p>
-    <a href="#" class="button">View selected work</a>
-  </div>
-</section>
-
-    <!-- محتوای اصلی بخش Hero -->
-    <div class="hero-content">
-      <p class="eyebrow hero-eyebrow">Creative Designer · AI Artist</p>
-      <h1>Visual ideas,<br>crafted with intention.</h1>
-      <p class="hero-copy">I combine creative direction, AI, compositing, lighting and color grading to create polished commercial imagery.</p>
-      <a class="button" href="#work">View selected work</a>
-    </div>
-  </section>
-      </article>
-
-      <article class="project">
-        <a class="project-card" href="chavosh.html">
-          <img src="assets/chavosh-cover.jpg" alt="CHAVOSH project cover">
-          <div class="project-overlay">
-            <h3>CHAVOSH</h3>
-            <p>Visual Identity &amp; Illustration</p>
-            <span class="project-view">View project →</span>
-          </div>
-        </a>
-      </article>
-
-      <article class="project">
-        <a class="project-card" href="topspin.html">
-          <img src="assets/TOPSPIN-cover.jpg" alt="TOPSPIN project cover">
-          <div class="project-overlay">
-            <h3>TOPSPIN</h3>
-            <p>Brand Identity &amp; Packaging Design</p>
-            <span class="project-view">View project →</span>
-          </div>
-        </a>
-      </article>
-    </div>
-  </section>
-
-  <section id="about" class="section about">
-    <div class="about-photo">
-      <img src="assets/portrait.jpg" alt="Roya Jalili working">
-    </div>
-    <div class="about-content">
-      <p class="eyebrow">About</p>
-      <h2>Technology supports the idea—not the other way around.</h2>
-      <div class="about-copy">
-        <p>Before AI, I developed my skills in compositing, lighting, color grading and visual storytelling. I now use that foundation to guide and refine AI-assisted workflows rather than relying on automated output alone.</p>
-        <p>From ideation and prompt design to composition, color and final retouch, every stage is shaped by creative decisions.</p>
+  <main>
+    <!-- بنر اصلی با افکت جوهر -->
+    <section class="hero">
+      <div class="ink-blob color-1"></div>
+      <div class="ink-blob color-2"></div>
+      <div class="ink-blob color-3"></div>
+      
+      <div class="hero-content">
+        <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
+        <h1>Visual ideas,<br>crafted with<br>intention.</h1>
+        <p class="hero-copy">I combine creative direction, AI, compositing, lighting and color grading to create polished commercial imagery.</p>
+        <a href="#work" class="button">View selected work</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" class="contact">
-    <p class="eyebrow">Contact</p>
-    <h2>Let’s create something memorable.</h2>
-    <a class="email" href="mailto:jalili.royaa@gmail.com">jalili.royaa@gmail.com</a>
-  </section>
-</main>
+    <!-- بخش پروژه‌ها -->
+    <section id="work" class="section">
+      <div class="section-heading">
+        <h2>Selected Work</h2>
+      </div>
+      
+      <div class="project-grid">
+        <!-- پروژه ۱ (عریض) -->
+        <a href="#" class="project-card project-wide">
+          <!-- در صورت نداشتن تصویر موقتا آدرس زیر رو میذاریم -->
+          <img src="https://via.placeholder.com/1200x600/8DAEBE/fff?text=Project+1" alt="Project 1">
+          <div class="project-overlay">
+            <h3>Commercial Imagery</h3>
+            <p>AI & Color Grading</p>
+            <span class="project-view">View Project →</span>
+          </div>
+        </a>
+        
+        <!-- پروژه ۲ -->
+        <a href="#" class="project-card">
+          <img src="https://via.placeholder.com/600x450/8C8176/fff?text=Project+2" alt="Project 2">
+          <div class="project-overlay">
+            <h3>Visual Ideas</h3>
+            <p>Creative Direction</p>
+            <span class="project-view">View Project →</span>
+          </div>
+        </a>
+        
+        <!-- پروژه ۳ -->
+        <a href="#" class="project-card">
+          <img src="https://via.placeholder.com/600x450/6C8B9B/fff?text=Project+3" alt="Project 3">
+          <div class="project-overlay">
+            <h3>Lighting Study</h3>
+            <p>3D & Compositing</p>
+            <span class="project-view">View Project →</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
-<footer>
-  <span>© <span id="year"></span> Roya Jalili</span>
-  <a href="#top">Back to top ↑</a>
-</footer>
+    <!-- بخش درباره من -->
+    <section id="about" class="section">
+      <div class="about">
+        <div class="about-photo">
+          <img src="https://via.placeholder.com/839x1086/A59D94/fff?text=Portrait" alt="Roya Jalili">
+        </div>
+        <div class="about-content">
+          <p class="eyebrow">About</p>
+          <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
+          <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology. My process involves exploring new ways to visualize ideas and bring them to life through compositing, thoughtful lighting, and precise color grading.</p>
+        </div>
+      </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- بخش تماس -->
+    <section id="contact" class="contact">
+      <h2>Let's work together.</h2>
+      <a href="mailto:hello@example.com" class="email">hello@example.com</a>
+    </section>
+  </main>
+
+  <!-- فوتر -->
+  <footer>
+    <div>© 2024 Roya Jalili. All Rights Reserved.</div>
+    <div>Design & Code by You</div>
+  </footer>
+
 </body>
 </html>
