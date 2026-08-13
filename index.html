@@ -219,13 +219,13 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (نمایش لبه کارت‌های قبلی و بعدی در دو طرف) --- */
+    /* --- Horizontal Project Carousel (نمایش متقارن پروژه‌ها در چپ و راست) --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
-      /* تنظیم پدینگ افقی به شکلی که کارت فعال دقیقاً وسط باشد و کارت‌های چپ و راست به صورت نیمه مشخص شوند */
-      padding: 10px calc(50vw - 215px) 80px; 
+      /* پدینگ افقی بزرگ باعث می‌شود همیشه کارت فعال دقیقاً در مرکز باشد و کارت‌های چپ و راست دیده شوند */
+      padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
       scroll-snap-type: x mandatory;
@@ -281,7 +281,7 @@
     }
 
     .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .carousel-card:hover .project-info {
+    .project-carousel:hover .project-info {
       opacity: 1;
       transform: translateY(0);
     }
@@ -370,7 +370,7 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با ۱۰ پروژه واقعی و نمایش متقارن در دو طرف -->
+    <!-- بخش پروژه‌ها با تنظیم اولیه روی کارت سوم/چهارم برای نمایش تقارن در دو طرف -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -541,9 +541,10 @@
       }
     }
 
+    // لود اولیه روی پروژه سوم (Mahboobe) تا سه کارت در چپ و سه کارت در راست قابل مشاهده باشند
     window.addEventListener('load', () => {
-      if(cards[0]) {
-        cards[0].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+      if(cards[2]) {
+        cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
       }
     });
 
