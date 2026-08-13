@@ -6,14 +6,17 @@
     <title>Resume - Roya Jalili</title>
     <style>
         :root {
-            --bg-color: #a4c0cf;
-            --card-bg: #bccdd9;
-            --text-main: #2F3133;
+            /* گرادیان کرمی و قهوه ای هماهنگ با تم سایت اصلی */
+            --bg-color: #C9C4BC;
+            --card-bg: linear-gradient(135deg, #8C8176 0%, #D4CEC7 100%);
+            --text-main: #ffffff;
+            --muted-text: rgba(255, 255, 255, 0.85);
+            --heading-color: #ffffff;
         }
         body {
             margin: 0;
             padding: 40px;
-            background-color: var(--bg-color);
+            background: linear-gradient(120deg, #EAF3F7 0%, #D9EAF2 45%, #C9C4BC 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-main);
         }
@@ -23,28 +26,31 @@
             display: grid;
             grid-template-columns: 350px 1fr;
             gap: 40px;
-            align-items: start; /* تنظیم برای اینکه کادرها بی‌جهت کشیده نشوند */
+            align-items: start;
         }
         .left-sidebar {
-            background-color: var(--card-bg);
+            background: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         .right-content {
             display: flex;
             flex-direction: column;
             gap: 30px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         h1, h2, h3 { margin: 0; }
-        h1 { font-size: 28px; margin-bottom: 20px; }
-        h2 { font-size: 24px; margin-bottom: 15px; color: #1B435D; }
-        h3 { font-size: 16px; margin-bottom: 5px; }
-        .contact-info { margin-bottom: 30px; font-size: 14px; line-height: 1.8; }
-        .resume-section { margin-bottom: 20px; }
+        h1 { font-size: 28px; margin-bottom: 20px; color: var(--heading-color); }
+        h2 { font-size: 22px; margin-bottom: 15px; color: var(--heading-color); border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
+        h3 { font-size: 16px; margin-bottom: 5px; color: var(--heading-color); }
+        .resume-section { margin-bottom: 10px; }
         .resume-item { margin-bottom: 15px; }
-        .resume-item h4 { margin: 0; font-size: 14px; }
-        .resume-item span { font-size: 12px; color: #444; }
-        p { font-size: 14px; line-height: 1.5; margin: 5px 0; }
+        .resume-item span { font-size: 12px; color: var(--muted-text); display: block; }
+        p { font-size: 14px; line-height: 1.6; margin: 5px 0; color: var(--muted-text); }
         
         @media(max-width: 768px) {
             .resume-container { grid-template-columns: 1fr; }
@@ -58,12 +64,6 @@
     <!-- ستون سمت چپ -->
     <div class="left-sidebar">
         <h1>Graphic Designer<br>Roya Jalili</h1>
-        <div class="contact-info">
-            Linkedin: Roya Jalili<br>
-            Behance: Roya Jalili<br>
-            Mobile: +98 901 779 2151<br>
-            Email: jalili.royaa@gmail.com
-        </div>
         <h2>About Me</h2>
         <p>I am a creative and detail-oriented graphic designer with over 6 years of experience. I specialize in developing brand visual identities, social media content, and digital designs that are both visually appealing and effective in communication. I enjoy collaborating with clients and teams to bring ideas to life and am always eager to take on new challenges and opportunities to grow as a designer.</p>
     </div>
@@ -91,11 +91,6 @@
         </div>
 
         <div class="resume-section">
-            <h2>Software Skill</h2>
-            <p>Adobe Illustrator, Adobe Photoshop, Adobe Indesign</p>
-        </div>
-
-        <div class="resume-section">
             <h2>Education</h2>
             <div class="resume-item">
                 <h3>Bachelor's degree in Graphic Design</h3>
@@ -110,14 +105,6 @@
             Inveres school–visual identity course | 2023<br>
             camp graphic–visual identity course | 2022<br>
             logo design course of Mr. Abuzar Mohammadi | 2023</p>
-        </div>
-
-        <div class="resume-section">
-            <h2>Skills</h2>
-            <p>Visual Identity & Branding Design, Logo Design<br>
-            Photo Manipulation<br>
-            Catalogue and brochure Design<br>
-            Social Media & Digital Content Design</p>
         </div>
     </div>
 </div>
