@@ -6,15 +6,15 @@
     <title>Resume - Roya Jalili</title>
     <style>
         :root {
-            --text-main: #2F3133;
-            --muted: #6B7377;
-            --line: rgba(47, 49, 51, 0.15);
+            --text-main: #ffffff;
+            --muted: rgba(255, 255, 255, 0.75);
+            --line: rgba(255, 255, 255, 0.15);
         }
         body {
             margin: 0;
             padding: 40px;
-            /* گرادیان پس‌زمینه مشابه صفحه اصلی سایت */
-            background: 
+            /* پس‌زمینه گرادیان مشابه صفحه اصلی سایت */
+            background:
                 radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
                 radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
                 linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
@@ -25,9 +25,9 @@
         .resume-container {
             max-width: 900px;
             margin: 0 auto;
-            /* کارت روشن و شیشه‌ایِ ملایم مشابه کادر اصلی سایت */
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            /* گرادیان و شیشه‌ای بودن کادر اصلی مشابه صفحه اصلی سایت */
+            background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
+            border: 1px solid var(--line);
             backdrop-filter: blur(16px);
             padding: 50px;
             border-radius: 24px;
@@ -38,8 +38,8 @@
             padding-bottom: 30px;
             margin-bottom: 40px;
         }
-        h1 { font-size: 38px; margin: 0 0 10px 0; font-weight: 700; letter-spacing: -0.02em; color: #2F3133; }
-        .title-sub { font-size: 15px; color: #6B7377; letter-spacing: 0.12em; text-transform: uppercase; margin: 0; font-weight: 600; }
+        h1 { font-size: 38px; margin: 0 0 10px 0; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+        .title-sub { font-size: 15px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin: 0; font-weight: 600; }
         
         .resume-grid {
             display: grid;
@@ -47,23 +47,23 @@
             gap: 50px;
         }
         
-        h2 { font-size: 20px; margin-top: 0; margin-bottom: 20px; color: #2F3133; border-bottom: 1px solid var(--line); padding-bottom: 8px; font-weight: 650; }
+        h2 { font-size: 20px; margin-top: 0; margin-bottom: 20px; color: #fff; border-bottom: 1px solid var(--line); padding-bottom: 8px; font-weight: 650; }
         .resume-section { margin-bottom: 35px; }
         .resume-item { margin-bottom: 22px; }
-        .resume-item h3 { font-size: 16px; margin: 0 0 4px 0; font-weight: 650; color: #2F3133; }
-        .resume-item span { font-size: 13px; color: #6B7377; display: block; font-weight: 500; }
-        p { font-size: 14.5px; line-height: 1.7; margin: 0; color: #2F3133; font-weight: 400; }
+        .resume-item h3 { font-size: 16px; margin: 0 0 4px 0; font-weight: 650; color: #fff; }
+        .resume-item span { font-size: 13px; color: var(--muted); display: block; font-weight: 500; }
+        p { font-size: 14.5px; line-height: 1.7; margin: 0; color: rgba(255, 255, 255, 0.92); font-weight: 400; }
         
         .back-link {
             display: inline-block;
             margin-bottom: 25px;
-            color: #2F3133;
+            color: var(--muted);
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            transition: opacity 0.3s;
+            transition: color 0.3s;
         }
-        .back-link:hover { opacity: 0.6; }
+        .back-link:hover { color: #fff; }
 
         @media(max-width: 768px) {
             .resume-grid { grid-template-columns: 1fr; gap: 30px; }
@@ -104,19 +104,19 @@
             <div class="resume-section">
                 <h2>Experience</h2>
                 <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:#6B7377;">(Full-Time)</span></h3>
+                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
                     <span>Yektanet digital marketing company | Feb 2022–Present</span>
                 </div>
                 <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:#6B7377;">(Remote)</span></h3>
+                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Remote)</span></h3>
                     <span>ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017 – Present</span>
                 </div>
                 <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:#6B7377;">(Full-Time)</span></h3>
+                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
                     <span>Zirofam Digital marketing agency | Jan 2021 – Dec 2021</span>
                 </div>
                 <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:#6B7377;">(Full-Time)</span></h3>
+                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
                     <span>Narsis printing house | Mar 2019 – Dec 2020</span>
                 </div>
             </div>
