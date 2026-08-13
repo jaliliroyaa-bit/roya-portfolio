@@ -38,10 +38,13 @@
     /* --- کادر یکپارچه و اصلی سایت --- */
     main {
       position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
       max-width: var(--max);
-      margin: 3vh auto 2vh auto; 
+      margin: 3vh 0 2vh 0; 
       border-radius: 24px;
-      overflow: hidden;
+      overflow: visible; /* برای اینکه منوی دراپ‌داون هدر بریده نشود */
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
       background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
       --text: #ffffff;
@@ -58,6 +61,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
+      border-radius: 24px;
       z-index: 1;
       pointer-events: none;
     }
@@ -84,7 +88,7 @@
       z-index: 10;
     }
     
-    /* --- Header --- */
+    /* --- Header & Dropdown --- */
     .site-header {
       padding: 36px 96px; 
       display: flex;
@@ -103,6 +107,7 @@
     .site-header nav {
       display: flex;
       gap: 32px;
+      align-items: center;
     }
     .site-header nav a {
       color: rgba(255, 255, 255, 0.75);
@@ -111,6 +116,47 @@
       transition: color 0.3s ease;
     }
     .site-header nav a:hover { color: #fff; }
+    
+    /* منوی آبشاری (Dropdown) */
+    .dropdown {
+      position: relative;
+      padding: 10px 0;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a {
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #fff !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+    .dropdown-menu a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
     /* --- Hero Section --- */
     .hero {
@@ -166,19 +212,19 @@
     }
     h2{margin-bottom:0;font-size:clamp(34px,4.5vw,56px);line-height:1.1;letter-spacing:-0.02em;font-weight:500}
     
-    /* دسته‌بندی‌های هنری و تخصصی */
+    /* فیلترهای جدید و حرفه‌ای */
     .category-filters {
       display: flex;
       gap: 10px;
       margin-bottom: 24px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 900px;
+      max-width: 800px;
     }
     .filter-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.8);
       padding: 8px 16px;
       border-radius: 999px;
       font-size: 13px;
@@ -237,27 +283,6 @@
       height: 13px;
       top: -2px;
     }
-    .tick span {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%) translateY(5px);
-      font-size: 11px;
-      font-weight: 500;
-      color: #fff;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      white-space: nowrap;
-      background: rgba(0,0,0,0.6);
-      padding: 2px 6px;
-      border-radius: 4px;
-      backdrop-filter: blur(4px);
-    }
-    .tick:hover span {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
     
     /* --- Horizontal Project Carousel --- */
     .project-carousel {
@@ -283,7 +308,7 @@
     }
     
     .carousel-card.hidden-card {
-      display: none; 
+      display: none;
     }
     
     .project-carousel:not(:hover) .carousel-card.active {
@@ -340,7 +365,7 @@
       font-weight: 400;
     }
     
-    /* --- About (متناسب و فشرده) --- */
+    /* --- About --- */
     .about {
       display: grid;
       grid-template-columns: 380px minmax(0,1fr);
@@ -473,8 +498,9 @@
     
     /* --- Mobile Responsive --- */
     @media(max-width:760px){
-      main { margin: 2vh 16px 2vh; border-radius: 20px; }
+      main { margin: 2vh 16px 2vh; border-radius: 20px; left: 0; transform: none; width: auto; overflow: hidden; }
       .site-header { padding: 24px 20px; margin: 0 8px; width: calc(100% - 16px); }
+      .dropdown-menu { display: none; } /* مخفی کردن دراپ‌داون در موبایل برای سادگی */
       nav { gap: 16px; font-size: 13px; }
       .hero { padding: 10vh 20px 6vh; }
       .section { padding-top: 40px; }
@@ -511,7 +537,18 @@
     <header class="site-header">
       <div class="logo">Roya Jalili</div>
       <nav>
-        <a href="#work">Work</a>
+        <!-- منوی آبشاری (Dropdown) برای بخش Work -->
+        <div class="dropdown">
+          <a href="#work">Work</a>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0)" onclick="triggerFilter('brand')">Brand & Identity</a>
+            <a href="javascript:void(0)" onclick="triggerFilter('visual')">Visual Arts & Art Direction</a>
+            <a href="javascript:void(0)" onclick="triggerFilter('editorial')">Editorial & Layout</a>
+            <a href="javascript:void(0)" onclick="triggerFilter('digital')">Digital & Social</a>
+            <a href="javascript:void(0)" onclick="triggerFilter('photography')">Photography & Grading</a>
+            <a href="javascript:void(0)" onclick="triggerFilter('concepts')">Concepts & Sketches</a>
+          </div>
+        </div>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -524,22 +561,22 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با دسته‌بندی‌های هنری و حرفه‌ای جدید -->
+    <!-- بخش پروژه‌ها همراه با دسته‌بندی‌های حرفه‌ای -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         
-        <!-- دکمه‌های فیلتر دسته‌بندی‌های تخصصی -->
+        <!-- دکمه‌های فیلتر دسته‌بندی -->
         <div class="category-filters">
-          <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-          <button class="filter-btn" onclick="filterProjects('identity', this)">هویت بصری</button>
-          <button class="filter-btn" onclick="filterProjects('social', this)">سوشال مدیا</button>
-          <button class="filter-btn" onclick="filterProjects('poster', this)">پوستر</button>
-          <button class="filter-btn" onclick="filterProjects('editorial', this)">صفحه آرایی</button>
-          <button class="filter-btn" onclick="filterProjects('photography', this)">عکاسی</button>
-          <button class="filter-btn" onclick="filterProjects('sketches', this)">اتودها و ایده‌ها</button>
+          <button class="filter-btn active" data-filter="all" onclick="filterProjects('all', this)">All</button>
+          <button class="filter-btn" data-filter="brand" onclick="filterProjects('brand', this)">Brand & Identity</button>
+          <button class="filter-btn" data-filter="visual" onclick="filterProjects('visual', this)">Visual Arts</button>
+          <button class="filter-btn" data-filter="editorial" onclick="filterProjects('editorial', this)">Editorial</button>
+          <button class="filter-btn" data-filter="digital" onclick="filterProjects('digital', this)">Digital</button>
+          <button class="filter-btn" data-filter="photography" onclick="filterProjects('photography', this)">Photography</button>
+          <button class="filter-btn" data-filter="concepts" onclick="filterProjects('concepts', this)">Concepts</button>
         </div>
         
         <div class="timeline-container">
@@ -562,99 +599,99 @@
       </div>
       
       <div class="project-carousel" id="horizontal-scroll">
-        <!-- 1. Topspin -->
-        <a href="#" class="carousel-card" data-category="identity">
+        <!-- 1. Topspin (Brand & Identity) -->
+        <a href="#" class="carousel-card" data-category="brand">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
           <div class="project-info">
             <h3>Topspin</h3>
-            <p>هویت بصری • 2026</p>
+            <p>Brand & Identity • 2026</p>
           </div>
         </a>
         
-        <!-- 2. Faraz dental -->
-        <a href="#" class="carousel-card" data-category="identity">
+        <!-- 2. Faraz dental (Brand & Identity) -->
+        <a href="#" class="carousel-card" data-category="brand">
           <img src="assets/car-cover.jpg" alt="Faraz dental">
           <div class="project-info">
             <h3>Faraz Dental</h3>
-            <p>هویت بصری • 2026</p>
+            <p>Brand & Identity • 2026</p>
           </div>
         </a>
         
-        <!-- 3. Mahboobe -->
-        <a href="#" class="carousel-card" data-category="photography">
+        <!-- 3. Mahboobe (Visual Arts) -->
+        <a href="#" class="carousel-card" data-category="visual">
           <img src="assets/chavosh-cover.jpg" alt="Mahboobe">
           <div class="project-info">
             <h3>Mahboobe</h3>
-            <p>عکاسی • 2025</p>
+            <p>Visual Arts • 2025</p>
           </div>
         </a>
         
-        <!-- 4. Travel magazine -->
+        <!-- 4. Travel magazine (Editorial) -->
         <a href="#" class="carousel-card" data-category="editorial">
           <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
           <div class="project-info">
             <h3>Travel Magazine</h3>
-            <p>صفحه آرایی • 2025</p>
+            <p>Editorial & Layout • 2025</p>
           </div>
         </a>
 
-        <!-- 5. Music Album -->
-        <a href="#" class="carousel-card" data-category="poster">
+        <!-- 5. Music Album (Visual Arts / Poster) -->
+        <a href="#" class="carousel-card" data-category="visual">
           <img src="assets/car-cover.jpg" alt="Music Album">
           <div class="project-info">
             <h3>Music Album</h3>
-            <p>پوستر • 2024</p>
+            <p>Art Direction • 2024</p>
           </div>
         </a>
 
-        <!-- 6. Car.ir -->
-        <a href="#" class="carousel-card" data-category="social">
+        <!-- 6. Car.ir (Digital & Social) -->
+        <a href="#" class="carousel-card" data-category="digital">
           <img src="assets/chavosh-cover.jpg" alt="Car.ir">
           <div class="project-info">
             <h3>Car.ir</h3>
-            <p>سوشال مدیا • 2024</p>
+            <p>Digital & Social • 2024</p>
           </div>
         </a>
 
-        <!-- 7. Chavosh -->
-        <a href="#" class="carousel-card" data-category="poster">
+        <!-- 7. Chavosh (Photography) -->
+        <a href="#" class="carousel-card" data-category="photography">
           <img src="assets/TOPSPIN-cover.jpg" alt="Chavosh">
           <div class="project-info">
             <h3>Chavosh</h3>
-            <p>پوستر • 2023</p>
+            <p>Photography & Grading • 2023</p>
           </div>
         </a>
 
-        <!-- 8. Iramzhess -->
-        <a href="#" class="carousel-card" data-category="sketches">
+        <!-- 8. Iramzhess (Editorial) -->
+        <a href="#" class="carousel-card" data-category="editorial">
           <img src="assets/car-cover.jpg" alt="Iramzhess">
           <div class="project-info">
             <h3>Iramzhess</h3>
-            <p>اتودها و ایده‌ها • 2022</p>
+            <p>Editorial & Layout • 2022</p>
           </div>
         </a>
 
-        <!-- 9. Marmoulak -->
-        <a href="#" class="carousel-card" data-category="photography">
+        <!-- 9. Marmoulak (Concepts) -->
+        <a href="#" class="carousel-card" data-category="concepts">
           <img src="assets/chavosh-cover.jpg" alt="Marmoulak">
           <div class="project-info">
             <h3>Marmoulak</h3>
-            <p>عکاسی • 2021</p>
+            <p>Concepts & Sketches • 2021</p>
           </div>
         </a>
 
-        <!-- 10. Archive -->
-        <a href="#" class="carousel-card" data-category="sketches">
+        <!-- 10. Archive (Concepts) -->
+        <a href="#" class="carousel-card" data-category="concepts">
           <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
             <h3>Early Works</h3>
-            <p>اتودها و ایده‌ها • 2020</p>
+            <p>Concepts & Sketches • 2020</p>
           </div>
         </a>
       </div>
     </section>
 
-    <!-- بخش About متناسب‌شده -->
+    <!-- بخش About (فشرده‌تر و متناسب‌شده) -->
     <section id="about" class="section">
       <div class="about">
         <div class="about-photo">
@@ -715,6 +752,7 @@
       const containerRect = scrollContainer.getBoundingClientRect();
       const containerCenter = containerRect.left + containerRect.width / 2;
 
+      // فقط کارت‌هایی که مخفی نیستند را بررسی کن
       const visibleCards = Array.from(cards).filter(c => !c.classList.contains('hidden-card'));
 
       visibleCards.forEach(card => {
@@ -734,9 +772,15 @@
       }
     }
 
-    function filterProjects(category, btn) {
+    // تابع فیلتر کردن دسته‌بندی پروژه‌ها از طریق دکمه‌های بدنه
+    function filterProjects(category, btnElement) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        const targetBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+        if (targetBtn) targetBtn.classList.add('active');
+      }
 
       cards.forEach(card => {
         if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -749,12 +793,14 @@
       scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
       setTimeout(updateActiveCard, 100);
     }
+    
+    // تابعی برای وقتی که از منوی هدر کلیک می‌شود
+    function triggerFilter(category) {
+      document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+      filterProjects(category, null);
+    }
 
     window.addEventListener('load', () => {
-      const visibleCards = Array.from(cards).filter(c => !c.classList.contains('hidden-card'));
-      if(visibleCards[2]) {
-        visibleCards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-      }
       updateActiveCard();
     });
 
