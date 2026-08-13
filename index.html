@@ -219,12 +219,11 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (نمایش متقارن پروژه‌ها در چپ و راست) --- */
+    /* --- Horizontal Project Carousel --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
-      /* پدینگ افقی بزرگ باعث می‌شود همیشه کارت فعال دقیقاً در مرکز باشد و کارت‌های چپ و راست دیده شوند */
       padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
@@ -370,7 +369,7 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با تنظیم اولیه روی کارت سوم/چهارم برای نمایش تقارن در دو طرف -->
+    <!-- بخش پروژه‌ها -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -541,21 +540,18 @@
       }
     }
 
-    // لود اولیه روی پروژه سوم (Mahboobe) تا سه کارت در چپ و سه کارت در راست قابل مشاهده باشند
+    // لود اولیه روی پروژه سوم (Mahboobe) برای نمایش متقارن در دو طرف
     window.addEventListener('load', () => {
       if(cards[2]) {
         cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
       }
     });
 
+    // اصلاح کامل اسکرول افقی با غلتک موس
     scrollContainer.addEventListener('wheel', (evt) => {
-      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      const isAtStart = scrollContainer.scrollLeft <= 0 && evt.deltaY < 0;
-      const isAtEnd = Math.ceil(scrollContainer.scrollLeft) >= maxScrollLeft && evt.deltaY > 0;
-
-      if (!isAtStart && !isAtEnd) {
+      if (evt.deltaY !== 0) {
+        scrollContainer.scrollLeft += evt.deltaY;
         evt.preventDefault();
-        scrollContainer.scrollLeft += evt.deltaY * 1.5;
       }
     }, { passive: false });
 
