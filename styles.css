@@ -1,4 +1,3 @@
-
 *{box-sizing:border-box}
 :root{
   --text:#2F3133;--muted:#6B7377;--line:rgba(255,255,255,.35);
@@ -27,11 +26,73 @@ img{display:block;width:100%}
 nav{display:flex;gap:28px}
 nav a,footer a{color:rgba(47,49,51,.68)}
 main,footer{max-width:var(--max);margin:0 auto;padding-left:32px;padding-right:32px}
+
+/* --- تنظیمات مربوط به بخش Hero و افکت جوهر --- */
 .hero{
+  position: relative;
+  z-index: 1;
+  overflow:hidden;
   min-height:76vh;padding:13vh 48px 10vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
-  overflow:hidden;border-radius:24px;color:#fff;
+  border-radius:24px;color:#fff;
   background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat
 }
+.hero-content {
+  position: relative;
+  z-index: 10; 
+}
+.ink-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  z-index: 0;
+  animation: mix-ink 15s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+.color-1 {
+  width: 50vw;
+  height: 50vw;
+  background-color: #4facfe;
+  top: -20%;
+  left: -10%;
+  animation-delay: 0s;
+}
+.color-2 {
+  width: 60vw;
+  height: 60vw;
+  background-color: #00f2fe;
+  bottom: -20%;
+  right: -20%;
+  animation-delay: -5s;
+}
+.color-3 {
+  width: 45vw;
+  height: 45vw;
+  background-color: #667eea;
+  top: 30%;
+  left: 30%;
+  animation-delay: -10s;
+}
+@keyframes mix-ink {
+  0% {
+    transform: translate(0, 0) scale(1);
+    filter: blur(90px) hue-rotate(0deg);
+  }
+  33% {
+    transform: translate(10vw, -10vh) scale(1.2);
+    filter: blur(90px) hue-rotate(45deg);
+  }
+  66% {
+    transform: translate(-10vw, 15vh) scale(0.9);
+    filter: blur(90px) hue-rotate(90deg);
+  }
+  100% {
+    transform: translate(5vw, 5vh) scale(1.1);
+    filter: blur(90px) hue-rotate(180deg);
+  }
+}
+
+/* --- سایر استایل‌های سایت --- */
 .eyebrow{margin:0 0 24px;color:var(--muted);font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
 .hero-eyebrow{color:rgba(255,255,255,.82)}
 h1,h2,h3,p{margin-top:0}
@@ -98,74 +159,4 @@ footer{padding-top:26px;padding-bottom:30px;display:flex;justify-content:space-b
   .about-copy{font-size:16px}
   .contact{padding:100px 0}
   .case-section{grid-template-columns:1fr;gap:24px;padding-top:72px}
-}
-/* تنظیمات پایه برای بخش Hero */
-.ink-banner {
-  position: relative;
-  overflow: hidden;
-  /* در صورت نیاز می‌تونی بک‌گراند این بخش رو تیره کنی تا رنگ‌ها بهتر دیده بشن */
-  /* background-color: #0a0a0a; */ 
-}
-
-/* قرار دادن متن‌ها روی لایه رنگ‌ها */
-.hero-content {
-  position: relative;
-  z-index: 10; 
-}
-
-/* استایل مشترک قطرات جوهر */
-.ink-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px); /* این فیلتر باعث ایجاد حالت سیال و جوهری می‌شود */
-  opacity: 0.6; /* شفافیت رنگ‌ها رو تعیین می‌کنه که متن خوانا بمونه */
-  z-index: 0;
-  animation: mix-ink 15s infinite alternate ease-in-out;
-  pointer-events: none; /* تا مزاحم کلیک کردن روی دکمه View selected work نشه */
-}
-
-/* تنظیمات قطره اول (می‌تونی کدهای رنگی رو متناسب با هویت بصری سایتت تغییر بدی) */
-.color-1 {
-  width: 50vw;
-  height: 50vw;
-  background-color: #4facfe; /* آبی */
-  top: -20%;
-  left: -10%;
-  animation-delay: 0s;
-}
-
-/* تنظیمات قطره دوم */
-.color-2 {
-  width: 60vw;
-  height: 60vw;
-  background-color: #00f2fe; /* فیروزه‌ای */
-  bottom: -20%;
-  right: -20%;
-  animation-delay: -5s;
-}
-
-/* تنظیمات قطره سوم */
-.color-3 {
-  width: 45vw;
-  height: 45vw;
-  background-color: #667eea; /* بنفش */
-  top: 30%;
-  left: 30%;
-  animation-delay: -10s;
-}
-
-/* انیمیشن حرکت و ترکیب رنگ‌ها */
-@keyframes mix-ink {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(10vw, -10vh) scale(1.2);
-  }
-  66% {
-    transform: translate(-10vw, 15vh) scale(0.9);
-  }
-  100% {
-    transform: translate(5vw, 5vh) scale(1.1);
-  }
 }
