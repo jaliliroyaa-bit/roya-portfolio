@@ -28,14 +28,21 @@ nav a,footer a{color:rgba(47,49,51,.68)}
 main,footer{max-width:var(--max);margin:0 auto;padding-left:32px;padding-right:32px}
 
 /* --- تنظیمات مربوط به بخش Hero و افکت جوهر --- */
-.hero{
+.hero {
   position: relative;
   z-index: 1;
-  overflow:hidden;
-  min-height:76vh;padding:13vh 48px 10vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
-  border-radius:24px;color:#fff;
-  /* می‌توانید تصویر پس‌زمینه را در صورت نیاز حذف کنید تا فقط جوهرها دیده شوند */
-  background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat
+  overflow: hidden;
+  /* ارتفاع رو از 76vh به 65vh کاهش دادم */
+  min-height: 65vh; 
+  /* فاصله‌های بالا و پایین (Padding) رو کمتر کردم تا محتوا جمع‌تر بشه */
+  padding: 8vh 48px 6vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 24px;
+  color: #fff;
+  background: linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.12)), url("assets/hero-bg.jpg") center/cover no-repeat;
 }
 .hero-content {
   position: relative;
