@@ -84,7 +84,7 @@
       z-index: 10;
     }
     
-    /* --- Header (فاصله استاندارد و متقارن از دو طرف) --- */
+    /* --- Header --- */
     .site-header {
       padding: 36px 96px; 
       display: flex;
@@ -112,7 +112,7 @@
     }
     .site-header nav a:hover { color: #fff; }
 
-    /* --- Hero Section (انتقال متن‌ها بالاتر و ایجاد فاصله عمیق از لبه چپ) --- */
+    /* --- Hero Section --- */
     .hero {
       min-height: 52vh;
       padding: 6vh 96px 4vh; 
@@ -126,7 +126,6 @@
     .hero-eyebrow{color:rgba(255,255,255,.9)}
     h1,h2,h3,p{margin-top:0}
     
-    /* فشرده کردن فاصله بین خطوط تیتر اصلی */
     h1{
       max-width:850px;
       margin-bottom:18px;
@@ -138,19 +137,20 @@
     
     .hero-copy{max-width:520px;margin-bottom:24px;color:rgba(255,255,255,.92);font-size:clamp(15px,1.6vw,19px);line-height:1.5;font-weight:400}
     
-    /* دکمه با متن سفید خالص */
+    /* دکمه با پالت رنگی کرمی / خاکی و متن سفید خالص */
     .button{
       display:inline-flex;
       padding:14px 26px;
       border-radius:999px;
-      background:rgba(255, 255, 255, 0.2);
-      color:#ffffff;
+      background: rgba(184, 169, 155, 0.4); /* تناژ کرمی / خاکی ملایم هماهنگ با پالت */
+      color: #ffffff;
       font-size:14px;
       font-weight:500;
       transition:transform 0.3s ease, background 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(8px);
     }
-    .button:hover{transform:translateY(-2px);background:rgba(255, 255, 255, 0.3);}
+    .button:hover{transform:translateY(-2px);background: rgba(184, 169, 155, 0.6);}
     
     /* --- Timeline & Section Header --- */
     .section{padding:50px 0 0}
