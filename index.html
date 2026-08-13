@@ -138,14 +138,14 @@
     }
     .button:hover{transform:translateY(-2px);background:rgba(255, 255, 255, 0.25);}
     
-    /* --- Timeline & Section Header (کاملاً وسط‌چین) --- */
+    /* --- Timeline & Section Header --- */
     .section{padding:80px 0 0}
     .section-header-wrapper {
       padding: 0 48px;
       margin-bottom: 40px;
       display: flex;
       flex-direction: column;
-      align-items: center; /* وسط‌چین کردن کل بخش هدر و تایم‌لاین */
+      align-items: center;
       text-align: center;
     }
     .section-heading {
@@ -153,7 +153,6 @@
     }
     h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* تایم‌لاین کاملاً وسط‌چین */
     .timeline-container {
       position: relative;
       width: 100%;
@@ -220,12 +219,11 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (متمرکز روی کارت وسطی) --- */
+    /* --- Horizontal Project Carousel --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
-      /* پدینگ افقی بزرگ باعث می‌شود کارت اول و آخر دقیقاً در مرکز صفحه قرار بگیرند */
       padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
@@ -239,14 +237,13 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      scroll-snap-align: center; /* قفل شدن دقیق کارت در مرکز صفحه */
+      scroll-snap-align: center;
       filter: blur(6px);
       opacity: 0.4;
       transform: scale(0.9);
       transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
-    /* کارت وسطی که در کانون توجه است روشن و بزرگ می‌شود */
     .project-carousel:not(:hover) .carousel-card.active {
       filter: blur(0px);
       opacity: 1;
@@ -283,7 +280,7 @@
     }
 
     .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .carousel-card:hover .project-info {
+    .project-carousel:hover .project-info {
       opacity: 1;
       transform: translateY(0);
     }
@@ -372,7 +369,7 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با تایم‌لاین وسط‌چین و کارت مرکزی فعال -->
+    <!-- بخش پروژه‌ها با ۱۰ پروژه واقعی و اسکریپت اسکرول با غلتک موس -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -480,7 +477,7 @@
           </div>
         </a>
 
-        <!-- 10. Extra Project -->
+        <!-- 10. Archive / Extra -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
@@ -543,23 +540,25 @@
       }
     }
 
+    // تبدیل چرخش غلتک موس به اسکرول افقی روان
     scrollContainer.addEventListener('wheel', (evt) => {
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      const isAtStart = scrollContainer.scrollLeft === 0 && evt.deltaY < 0;
+      const isAtStart = scrollContainer.scrollLeft <= 0 && evt.deltaY < 0;
       const isAtEnd = Math.ceil(scrollContainer.scrollLeft) >= maxScrollLeft && evt.deltaY > 0;
 
       if (!isAtStart && !isAtEnd) {
         evt.preventDefault();
-        scrollContainer.scrollLeft += evt.deltaY;
+        scrollContainer.scrollLeft += evt.deltaY * 1.5; // ضریب سرعت اسکرول
       }
-    });
+    }, { passive: false });
 
     scrollContainer.addEventListener('scroll', () => {
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
-      const markerPosition = scrollPercentage * 100;
-      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 24}px)`;
-
+      if (maxScrollLeft > 0) {
+        const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
+        const markerPosition = scrollPercentage * 100;
+        timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 24}px)`;
+      }
       updateActiveCard();
     });
 
