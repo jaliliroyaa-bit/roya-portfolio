@@ -12,7 +12,7 @@
   <style>
     *{box-sizing:border-box}
     :root{
-      /* این رنگ‌ها برای بیرون از کادر اصلی (مثل فوتر) هستند */
+      /* رنگ‌های بیرون از کادر */
       --body-text:#2F3133;
       --body-muted:#6B7377;
       --max:1280px;
@@ -23,7 +23,6 @@
     body{
       margin:0;
       color:var(--body-text);
-      /* پس‌زمینه ملایم کل صفحه که کادر اصلی روی آن شناور است */
       background:
         radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
         radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
@@ -40,37 +39,43 @@
     main {
       position: relative;
       max-width: var(--max);
-      margin: 3vh auto 2vh; /* فاصله از بالا و پایین تا فوتر */
+      margin: 3vh auto 2vh; 
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
       
-      /* بک‌گراند یکپارچه برای کل کادر که هرگز قطع نمی‌شود */
+      /* رنگ پایه کادر که با پایینِ عکس کاملاً ترکیب می‌شود */
       background: #8C8176; 
       
-      /* تغییر متغیرهای رنگی برای داخل کادر (چون پس‌زمینه تیره است) */
+      /* متغیرهای رنگی داخل کادر */
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
       --line: rgba(255, 255, 255, 0.15);
       color: var(--text);
     }
 
-    /* عکسی که فقط در بالای سایت است و به نرمی محو می‌شود */
+    /* عکس پس‌زمینه در بالای کادر */
     .main-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 120vh; /* عکس کمی بیشتر از ارتفاع مانیتور کشیده می‌شود */
-      background: url("assets/hero-bg.jpg") center/cover no-repeat;
-      
-      /* ترفند جادویی: محو کردن نرم عکس به سمت پایین تا با رنگ اصلی یکی شود و مرز تیزی نداشته باشد */
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      
+      height: 140vh; /* به اندازه کافی بلند تا پشت پروژه‌ها قرار بگیرد */
+      background: url("assets/hero-bg.jpg") center top / cover no-repeat;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.3; /* شفافیت ملایم برای ترکیب بهتر */
+    }
+
+    /* ترفند جادویی: یک لایه روی عکس که به نرمی به رنگ اصلی کادر تبدیل می‌شود (رفع خط برش) */
+    .main-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* تبدیل نرم از بی‌رنگ به رنگ سالید #8C8176 (کد RGB: 140, 129, 118) */
+      background: linear-gradient(to bottom, rgba(140, 129, 118, 0) 0%, rgba(140, 129, 118, 0.4) 50%, rgba(140, 129, 118, 1) 100%);
     }
 
     /* کانتینر محدودکننده افکت‌های جوهر به بخش بالایی سایت */
@@ -102,7 +107,6 @@
       100% { transform: translate(4vw, 4vh) scale(1.05); filter: blur(90px); }
     }
 
-    /* تمام بخش‌ها باید روی پس‌زمینه قرار بگیرند */
     .site-header, .hero, .section {
       position: relative;
       z-index: 10;
@@ -110,7 +114,7 @@
     
     /* --- Header --- */
     .site-header {
-      position: absolute; /* نسبت به کادر main */
+      position: absolute; 
       top: 0;
       left: 0;
       width: 100%;
@@ -155,7 +159,6 @@
     h1{max-width:850px;margin-bottom:24px;font-size:clamp(40px,6.5vw,85px);line-height:1.12;letter-spacing:-.05em;font-weight:650}
     .hero-copy{max-width:550px;margin-bottom:32px;color:rgba(255,255,255,.92);font-size:clamp(17px,1.8vw,21px);line-height:1.6}
     
-    /* دکمه با ظاهر شیشه‌ای و مینیمال برای هماهنگی با تم جدید */
     .button{
       display:inline-flex;
       padding:16px 28px;
@@ -191,7 +194,6 @@
       margin-top: 10px;
     }
     
-    /* نشانگر تایم‌لاین (کوچک و درخشان) */
     .timeline-marker {
       position: absolute;
       top: -2px;
@@ -232,14 +234,12 @@
       overflow: hidden;
       cursor: pointer;
       scroll-snap-align: start;
-      /* افکت تار و کوچک برای کارت‌های غیرفعال */
       filter: blur(6px);
       opacity: 0.4;
       transform: scale(0.85);
       transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
-    /* پروژه فعال (چپ‌چین شده با اسکرول) واضح می‌ماند (وقتی موس روی بخش نیست) */
     .project-carousel:not(:hover) .carousel-card.active {
       filter: blur(0px);
       opacity: 1;
@@ -247,7 +247,6 @@
       box-shadow: 0 30px 60px rgba(0,0,0,0.15);
     }
 
-    /* واضح شدن کارت با قرار گرفتن موس */
     .project-carousel .carousel-card:hover {
       filter: blur(0px);
       opacity: 1;
@@ -342,12 +341,13 @@
 </head>
 <body>
 
-  <!-- کادر گرافیکی یکپارچه که تمام محتوا را در بر می‌گیرد -->
+  <!-- کادر یکپارچه سایت -->
   <main>
-    <!-- پس‌زمینه ثابت و اصلی که با افکتِ Mask به سمت پایین در رنگ خاکی محو می‌شود -->
+    
+    <!-- پس‌زمینه عکس و گرادیانت ادغام شونده (حل مشکل خط برش) -->
     <div class="main-bg"></div>
     
-    <!-- نگهدارنده انیمیشن جوهرها مختص بخش بالایی -->
+    <!-- انیمیشن جوهرها (پشت متن‌ها) -->
     <div class="ink-wrapper">
       <div class="ink-blob color-1"></div>
       <div class="ink-blob color-2"></div>
@@ -422,7 +422,7 @@
           </div>
         </a>
         
-        <!-- Project 4 -->
+        <!-- Project 4 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
           <div class="project-info">
@@ -431,7 +431,7 @@
           </div>
         </a>
 
-        <!-- Project 5 -->
+        <!-- Project 5 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Minimal Brand">
           <div class="project-info">
@@ -440,7 +440,7 @@
           </div>
         </a>
 
-        <!-- Project 6 -->
+        <!-- Project 6 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Product Viz">
           <div class="project-info">
@@ -449,7 +449,7 @@
           </div>
         </a>
 
-        <!-- Project 7 -->
+        <!-- Project 7 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
           <div class="project-info">
@@ -458,7 +458,7 @@
           </div>
         </a>
 
-        <!-- Project 8 -->
+        <!-- Project 8 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Typography Poster">
           <div class="project-info">
@@ -467,7 +467,7 @@
           </div>
         </a>
 
-        <!-- Project 9 -->
+        <!-- Project 9 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="App UI">
           <div class="project-info">
@@ -476,7 +476,7 @@
           </div>
         </a>
 
-        <!-- Project 10 -->
+        <!-- Project 10 (Dummy) -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
           <div class="project-info">
@@ -506,9 +506,9 @@
       <h2>Let's work together.</h2>
       <a href="mailto:hello@example.com" class="email">hello@example.com</a>
     </section>
-  </main> <!-- در اینجا کادر گرافیکی به زیبایی بالای متن کپی‌رایت بسته می‌شود -->
+  </main> 
 
-  <!-- فوتر که بیرون از کادر است و روی صفحه اصلی قرار دارد -->
+  <!-- فوتر (بیرون کادر) -->
   <footer>
     <div>© 2026 Roya Jalili. All Rights Reserved.</div>
     <div>Design & Code by You</div>
@@ -527,7 +527,7 @@
 
       cards.forEach(card => {
         const cardRect = card.getBoundingClientRect();
-        const distanceToLeft = Math.abs(cardRect.left - containerRect.left - 48); // 48 is padding
+        const distanceToLeft = Math.abs(cardRect.left - containerRect.left - 48);
         
         if (distanceToLeft < minDistance) {
           minDistance = distanceToLeft;
@@ -556,7 +556,7 @@
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
       const markerPosition = scrollPercentage * 100;
-      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 32}px)`; // عدد 32 عرض نشانگر است
+      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 32}px)`;
 
       updateActiveCard();
     });
