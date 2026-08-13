@@ -43,7 +43,7 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      /* رنگ سالیدِ یکدست و بدون هیچ خط یا سایه آبی/خاکستری مزاحم در پس‌زمینه */
+      /* رنگ یکدست کامل بدون هیچ خط سایه در لبه‌ها */
       background: #8C8176; 
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
@@ -51,7 +51,7 @@
       color: var(--text);
     }
 
-    /* انیمیشن جوهرها ملایم و عمیق */
+    /* انیمیشن جوهرها کاملاً نرم و محو */
     .ink-wrapper {
       position: absolute;
       top: 0;
@@ -65,7 +65,7 @@
     .ink-blob {
       position: absolute;
       border-radius: 50%;
-      opacity: 0.35; /* کاهش غلظت برای جلوگیری از ایجاد سایه‌های تند */
+      opacity: 0.25;
       mix-blend-mode: overlay;
       animation: mix-ink 15s infinite alternate ease-in-out;
     }
@@ -74,9 +74,9 @@
     .color-3 { width: 50vw; height: 50vw; background-color: #7d7268; bottom: 10%; left: 20%; animation-delay: -10s; }
     
     @keyframes mix-ink {
-      0% { transform: translate(0, 0) scale(1); filter: blur(100px); }
-      50% { transform: translate(5vw, -5vh) scale(1.05); filter: blur(100px); }
-      100% { transform: translate(-5vw, 5vh) scale(0.95); filter: blur(100px); }
+      0% { transform: translate(0, 0) scale(1); filter: blur(120px); }
+      50% { transform: translate(5vw, -5vh) scale(1.05); filter: blur(120px); }
+      100% { transform: translate(-5vw, 5vh) scale(0.95); filter: blur(120px); }
     }
 
     .site-header, .hero, .section {
@@ -124,7 +124,6 @@
     .hero-eyebrow{color:rgba(255,255,255,.9)}
     h1,h2,h3,p{margin-top:0}
     
-    /* اصلاح فونت تیترها برای رفع مشکل توهم و چسبندگی حروف */
     h1{
       max-width:850px;
       margin-bottom:24px;
@@ -230,7 +229,7 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (کاهش شدت سایه خاکستری روی کارت‌های کناری) --- */
+    /* --- Horizontal Project Carousel --- */
     .project-carousel {
       display: flex;
       gap: 30px;
@@ -247,7 +246,6 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      /* کاهش شدت بلور و افزایش شفافیت برای از بین بردن سایه خاکستری شدید */
       filter: blur(3px);
       opacity: 0.65;
       transform: scale(0.93);
@@ -282,7 +280,8 @@
       left: 0;
       width: 100%;
       padding: 30px 24px 24px;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+      /* اصلاح کامل گرادیانت پایین کارت برای حذف هرگونه سایه کدر یا تیره */
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
       color: #fff;
       opacity: 0;
       transform: translateY(15px);
