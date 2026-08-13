@@ -137,12 +137,11 @@
     
     .hero-copy{max-width:520px;margin-bottom:24px;color:rgba(255,255,255,.92);font-size:clamp(15px,1.6vw,19px);line-height:1.5;font-weight:400}
     
-    /* دکمه با پالت رنگی کرمی / خاکی و متن سفید خالص */
     .button{
       display:inline-flex;
       padding:14px 26px;
       border-radius:999px;
-      background: rgba(184, 169, 155, 0.4); /* تناژ کرمی / خاکی ملایم هماهنگ با پالت */
+      background: rgba(184, 169, 155, 0.4);
       color: #ffffff;
       font-size:14px;
       font-weight:500;
@@ -310,7 +309,7 @@
       font-weight: 400;
     }
     
-    /* --- About & Contact --- */
+    /* --- About --- */
     .about{display:grid;grid-template-columns:460px minmax(0,1fr);gap:56px;align-items:start;padding:0 96px 100px;}
     .about-photo{overflow:hidden;border-radius:28px;background:rgba(255,255,255,.1);border:1px solid var(--line);box-shadow:0 18px 45px rgba(0,0,0,.15)}
     .about-photo img{aspect-ratio:839/1086;object-fit:cover;object-position:center 20%}
@@ -319,9 +318,35 @@
     .about h2{max-width:560px;margin-bottom:30px;font-size:clamp(24px,2.6vw,38px);line-height:1.2;letter-spacing:-0.02em;font-weight:500}
     .about-copy{max-width:600px;color:rgba(255,255,255,0.85);font-size:17px;line-height:1.7;font-weight:400}
     
-    .contact{padding:50px 96px 120px;text-align:center}
-    .contact h2{margin:0 auto 36px;font-weight:500;letter-spacing:-0.02em;}
-    .email{display:inline-block;padding-bottom:5px;font-size:clamp(20px,3vw,32px);border-bottom:1px solid var(--text);font-weight:400}
+    /* --- Contact --- */
+    .contact{padding:50px 96px 120px;text-align:center; position: relative;}
+    .contact h2{margin:0 auto 24px;font-weight:500;letter-spacing:-0.02em;}
+    .contact-email {
+      display:inline-block;
+      margin-bottom: 24px;
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 400;
+      border-bottom: 1px solid var(--text);
+      transition: opacity 0.3s ease;
+    }
+    .contact-email:hover { opacity: 0.8; }
+    
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .contact-details a {
+      transition: color 0.3s ease;
+    }
+    .contact-details a:hover {
+      color: #fff;
+    }
     
     /* --- Footer --- */
     footer{
@@ -353,6 +378,7 @@
       .about { grid-template-columns: 1fr; gap: 36px; padding: 0 20px 80px; }
       .about-copy { font-size: 16px; }
       .contact { padding: 40px 20px 100px; }
+      .contact-details { flex-direction: column; gap: 12px; }
       footer { padding: 16px 20px 32px; }
     }
   </style>
@@ -515,9 +541,19 @@
       </div>
     </section>
 
+    <!-- بخش کانتکت جدید با اطلاعات کامل شما -->
     <section id="contact" class="contact">
       <h2>Let's work together.</h2>
-      <a href="mailto:hello@example.com" class="email">hello@example.com</a>
+      <div>
+        <a href="mailto:jalili.royaa@gmail.com" class="contact-email">jalili.royaa@gmail.com</a>
+      </div>
+      <div class="contact-details">
+        <a href="tel:+989017792151">+98 901 779 2151</a>
+        <span>•</span>
+        <a href="https://linkedin.com/in/royajalili" target="_blank">LinkedIn</a>
+        <span>•</span>
+        <a href="https://www.behance.net/royaajalili" target="_blank">Behance</a>
+      </div>
     </section>
   </main> 
 
