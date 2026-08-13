@@ -44,7 +44,7 @@
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
       
-      /* رنگ پایه کادر که با پایینِ عکس کاملاً ترکیب می‌شود */
+      /* رنگ پایه کادر */
       background: #8C8176; 
       
       /* متغیرهای رنگی داخل کادر */
@@ -60,22 +60,14 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 140vh; /* به اندازه کافی بلند تا پشت پروژه‌ها قرار بگیرد */
+      height: 100%; /* تغییر طلایی: ارتفاع کل کادر رو می‌گیره تا هیچ مرزی نداشته باشه */
       background: url("assets/hero-bg.jpg") center top / cover no-repeat;
       z-index: 0;
       pointer-events: none;
-    }
-
-    /* ترفند جادویی: یک لایه روی عکس که به نرمی به رنگ اصلی کادر تبدیل می‌شود (رفع خط برش) */
-    .main-bg::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* تبدیل نرم از بی‌رنگ به رنگ سالید #8C8176 (کد RGB: 140, 129, 118) */
-      background: linear-gradient(to bottom, rgba(140, 129, 118, 0) 0%, rgba(140, 129, 118, 0.4) 50%, rgba(140, 129, 118, 1) 100%);
+      
+      /* ماسک کردن خود عکس: از بالا واضح است و در ارتفاع 90vh کاملاً نامرئی می‌شود */
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50vh, rgba(0,0,0,0) 90vh);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50vh, rgba(0,0,0,0) 90vh);
     }
 
     /* کانتینر محدودکننده افکت‌های جوهر به بخش بالایی سایت */
@@ -344,7 +336,7 @@
   <!-- کادر یکپارچه سایت -->
   <main>
     
-    <!-- پس‌زمینه عکس و گرادیانت ادغام شونده (حل مشکل خط برش) -->
+    <!-- پس‌زمینه عکس و ماسک رفع خط برش -->
     <div class="main-bg"></div>
     
     <!-- انیمیشن جوهرها (پشت متن‌ها) -->
@@ -422,7 +414,7 @@
           </div>
         </a>
         
-        <!-- Project 4 (Dummy) -->
+        <!-- Project 4 -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
           <div class="project-info">
@@ -431,7 +423,7 @@
           </div>
         </a>
 
-        <!-- Project 5 (Dummy) -->
+        <!-- Project 5 -->
         <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Minimal Brand">
           <div class="project-info">
@@ -440,7 +432,7 @@
           </div>
         </a>
 
-        <!-- Project 6 (Dummy) -->
+        <!-- Project 6 -->
         <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Product Viz">
           <div class="project-info">
@@ -449,7 +441,7 @@
           </div>
         </a>
 
-        <!-- Project 7 (Dummy) -->
+        <!-- Project 7 -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
           <div class="project-info">
@@ -458,7 +450,7 @@
           </div>
         </a>
 
-        <!-- Project 8 (Dummy) -->
+        <!-- Project 8 -->
         <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Typography Poster">
           <div class="project-info">
@@ -467,7 +459,7 @@
           </div>
         </a>
 
-        <!-- Project 9 (Dummy) -->
+        <!-- Project 9 -->
         <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="App UI">
           <div class="project-info">
@@ -476,7 +468,7 @@
           </div>
         </a>
 
-        <!-- Project 10 (Dummy) -->
+        <!-- Project 10 -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
           <div class="project-info">
