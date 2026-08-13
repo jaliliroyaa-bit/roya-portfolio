@@ -35,11 +35,12 @@
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
     
-    /* --- کادر یکپارچه و اصلی سایت --- */
+    /* --- کادر یکپارچه و اصلی سایت (فیکس شدن قطعی وسط‌چین بودن) --- */
     main {
       position: relative;
+      width: 94%;
       max-width: var(--max);
-      margin: 3vh auto 2vh; 
+      margin: 3vh auto 2vh auto; 
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
@@ -307,7 +308,7 @@
       font-weight: 400;
     }
     
-    /* --- About (ساختار و پدینگ کاملاً استانداردِ اولیه) --- */
+    /* --- About --- */
     .about {
       display: grid;
       grid-template-columns: 460px minmax(0,1fr);
@@ -440,7 +441,7 @@
     
     /* --- Mobile Responsive --- */
     @media(max-width:760px){
-      main { margin: 2vh 16px 2vh; border-radius: 20px; }
+      main { width: 92%; margin: 2vh auto; border-radius: 20px; }
       .site-header { padding: 24px 20px; }
       nav { gap: 16px; font-size: 13px; }
       .hero { padding: 15vh 20px 8vh; }
@@ -609,7 +610,7 @@
       </div>
     </section>
 
-    <!-- بخش About با مارجین و ساختار مرجع و کاملاً مرتب -->
+    <!-- بخش About -->
     <section id="about" class="section">
       <div class="about">
         <div class="about-photo">
