@@ -197,7 +197,7 @@
     }
     .button:hover{transform:translateY(-2px);background: rgba(184, 169, 155, 0.6);}
     
-    /* --- Work Section & Categories Filter --- */
+    /* --- Work Section --- */
     .section{padding:40px 0 0}
     .section-header-wrapper {
       padding: 0 96px;
@@ -211,32 +211,6 @@
       margin-bottom: 16px;
     }
     h2{margin-bottom:0;font-size:clamp(34px,4.5vw,56px);line-height:1.1;letter-spacing:-0.02em;font-weight:500}
-    
-    .category-filters {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 850px;
-    }
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: rgba(255, 255, 255, 0.8);
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(6px);
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: rgba(255, 255, 255, 0.3);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.4);
-    }
 
     .timeline-container {
       position: relative;
@@ -304,10 +278,6 @@
       opacity: 0.7;
       transform: scale(0.93);
       transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    
-    .carousel-card.hidden-card {
-      display: none;
     }
     
     .project-carousel:not(:hover) .carousel-card.active {
@@ -540,12 +510,12 @@
         <div class="dropdown">
           <a href="#work">Projects</a>
           <div class="dropdown-menu">
-            <a href="javascript:void(0)" onclick="triggerFilter('brand')">Brand & Identity</a>
-            <a href="javascript:void(0)" onclick="triggerFilter('visual')">Visual Arts & Art Direction</a>
-            <a href="javascript:void(0)" onclick="triggerFilter('editorial')">Editorial & Layout</a>
-            <a href="javascript:void(0)" onclick="triggerFilter('digital')">Digital & Social</a>
-            <a href="javascript:void(0)" onclick="triggerFilter('photography')">Photography & Grading</a>
-            <a href="javascript:void(0)" onclick="triggerFilter('concepts')">Concepts & Sketches</a>
+            <a href="#work">Brand & Identity</a>
+            <a href="#work">Visual Arts & Art Direction</a>
+            <a href="#work">Editorial & Layout</a>
+            <a href="#work">Digital & Social</a>
+            <a href="#work">Photography & Grading</a>
+            <a href="#work">Concepts & Sketches</a>
           </div>
         </div>
         <a href="#about">About</a>
@@ -560,38 +530,27 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش گلچین آثار (Selected Work) -->
+    <!-- بخش گلچین آثار (Selected Work بدون دسته‌بندی و سال) -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         
-        <!-- دکمه‌های فیلتر دسته‌بندی در بدنه -->
-        <div class="category-filters">
-          <button class="filter-btn active" data-filter="all" onclick="filterProjects('all', this)">All</button>
-          <button class="filter-btn" data-filter="brand" onclick="filterProjects('brand', this)">Brand & Identity</button>
-          <button class="filter-btn" data-filter="visual" onclick="filterProjects('visual', this)">Visual Arts</button>
-          <button class="filter-btn" data-filter="editorial" onclick="filterProjects('editorial', this)">Editorial</button>
-          <button class="filter-btn" data-filter="digital" onclick="filterProjects('digital', this)">Digital</button>
-          <button class="filter-btn" data-filter="photography" onclick="filterProjects('photography', this)">Photography</button>
-          <button class="filter-btn" data-filter="concepts" onclick="filterProjects('concepts', this)">Concepts</button>
-        </div>
-        
         <div class="timeline-container">
           <div class="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
             <div class="timeline-ticks">
-              <div class="tick" onclick="scrollToCard(0)"><span>2026</span></div>
-              <div class="tick" onclick="scrollToCard(1)"><span>2026</span></div>
-              <div class="tick" onclick="scrollToCard(2)"><span>2025</span></div>
-              <div class="tick" onclick="scrollToCard(3)"><span>2025</span></div>
-              <div class="tick" onclick="scrollToCard(4)"><span>2024</span></div>
-              <div class="tick" onclick="scrollToCard(5)"><span>2024</span></div>
-              <div class="tick" onclick="scrollToCard(6)"><span>2023</span></div>
-              <div class="tick" onclick="scrollToCard(7)"><span>2022</span></div>
-              <div class="tick" onclick="scrollToCard(8)"><span>2021</span></div>
-              <div class="tick" onclick="scrollToCard(9)"><span>2020</span></div>
+              <div class="tick" onclick="scrollToCard(0)"></div>
+              <div class="tick" onclick="scrollToCard(1)"></div>
+              <div class="tick" onclick="scrollToCard(2)"></div>
+              <div class="tick" onclick="scrollToCard(3)"></div>
+              <div class="tick" onclick="scrollToCard(4)"></div>
+              <div class="tick" onclick="scrollToCard(5)"></div>
+              <div class="tick" onclick="scrollToCard(6)"></div>
+              <div class="tick" onclick="scrollToCard(7)"></div>
+              <div class="tick" onclick="scrollToCard(8)"></div>
+              <div class="tick" onclick="scrollToCard(9)"></div>
             </div>
           </div>
         </div>
@@ -599,92 +558,82 @@
       
       <div class="project-carousel" id="horizontal-scroll">
         <!-- 1. Topspin -->
-        <a href="#" class="carousel-card" data-category="brand">
+        <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
           <div class="project-info">
             <h3>Topspin</h3>
-            <p>Brand & Identity • 2026</p>
           </div>
         </a>
         
         <!-- 2. Faraz dental -->
-        <a href="#" class="carousel-card" data-category="brand">
+        <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Faraz dental">
           <div class="project-info">
             <h3>Faraz Dental</h3>
-            <p>Brand & Identity • 2026</p>
           </div>
         </a>
         
         <!-- 3. Mahboobe -->
-        <a href="#" class="carousel-card" data-category="visual">
+        <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Mahboobe">
           <div class="project-info">
             <h3>Mahboobe</h3>
-            <p>Visual Arts & Art Direction • 2025</p>
           </div>
         </a>
         
         <!-- 4. Travel magazine -->
-        <a href="#" class="carousel-card" data-category="editorial">
+        <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
           <div class="project-info">
             <h3>Travel Magazine</h3>
-            <p>Editorial & Layout • 2025</p>
           </div>
         </a>
 
         <!-- 5. Music Album -->
-        <a href="#" class="carousel-card" data-category="visual">
+        <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Music Album">
           <div class="project-info">
             <h3>Music Album</h3>
-            <p>Visual Arts & Art Direction • 2024</p>
           </div>
         </a>
 
         <!-- 6. Car.ir -->
-        <a href="#" class="carousel-card" data-category="digital">
+        <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Car.ir">
           <div class="project-info">
             <h3>Car.ir</h3>
-            <p>Digital & Social • 2024</p>
           </div>
         </a>
 
         <!-- 7. Chavosh -->
-        <a href="#" class="carousel-card" data-category="photography">
+        <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Chavosh">
           <div class="project-info">
             <h3>Chavosh</h3>
-            <p>Photography & Grading • 2023</p>
           </div>
         </a>
 
         <!-- 8. Iramzhess -->
-        <a href="#" class="carousel-card" data-category="editorial">
+        <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Iramzhess">
           <div class="project-info">
             <h3>Iramzhess</h3>
-            <p>Editorial & Layout • 2022</p>
           </div>
         </a>
 
         <!-- 9. Marmoulak -->
-        <a href="#" class="carousel-card" data-category="concepts">
+        <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Marmoulak">
           <div class="project-info">
             <h3>Marmoulak</h3>
-            <p>Concepts & Sketches • 2021</p>
           </div>
         </a>
 
         <!-- 10. Archive -->
-        <a href="#" class="carousel-card" data-category="concepts">
+        <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
             <h3>Early Works</h3>
-            <p>Concepts & Sketches • 2020</p>
           </div>
         </a>
       </div>
@@ -743,7 +692,7 @@
   <script>
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timelineMarker = document.querySelector('#timeline-marker');
-    let cards = document.querySelectorAll('.carousel-card');
+    const cards = document.querySelectorAll('.carousel-card');
 
     function updateActiveCard() {
       let closestCard = null;
@@ -751,9 +700,7 @@
       const containerRect = scrollContainer.getBoundingClientRect();
       const containerCenter = containerRect.left + containerRect.width / 2;
 
-      const visibleCards = Array.from(cards).filter(c => !c.classList.contains('hidden-card'));
-
-      visibleCards.forEach(card => {
+      cards.forEach(card => {
         const cardRect = card.getBoundingClientRect();
         const cardCenter = cardRect.left + cardRect.width / 2;
         const distanceToCenter = Math.abs(cardCenter - containerCenter);
@@ -768,32 +715,6 @@
       if (closestCard) {
         closestCard.classList.add('active');
       }
-    }
-
-    function filterProjects(category, btnElement) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      if (btnElement) {
-        btnElement.classList.add('active');
-      } else {
-        const targetBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
-        if (targetBtn) targetBtn.classList.add('active');
-      }
-
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.classList.remove('hidden-card');
-        } else {
-          card.classList.add('hidden-card');
-        }
-      });
-
-      scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-      setTimeout(updateActiveCard, 100);
-    }
-    
-    function triggerFilter(category) {
-      document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
-      filterProjects(category, null);
     }
 
     window.addEventListener('load', () => {
@@ -816,9 +737,8 @@
     });
 
     function scrollToCard(index) {
-      const visibleCards = Array.from(cards).filter(c => !c.classList.contains('hidden-card'));
-      if(visibleCards[index]) {
-        visibleCards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      if(cards[index]) {
+        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       }
     }
 
