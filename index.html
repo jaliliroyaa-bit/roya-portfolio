@@ -219,13 +219,13 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (تراز دقیق برای نمایش کارت‌های اطراف در مرکز) --- */
+    /* --- Horizontal Project Carousel (نمایش لبه کارت‌های قبلی و بعدی در دو طرف) --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
-      /* پدینگ افقی به اندازه نصف عرض صفحه منهای نصف عرض کارت فیکس شده تا همیشه کارت دقیقاً وسط باشد */
-      padding: 10px calc(50vw - 190px) 80px; 
+      /* تنظیم پدینگ افقی به شکلی که کارت فعال دقیقاً وسط باشد و کارت‌های چپ و راست به صورت نیمه مشخص شوند */
+      padding: 10px calc(50vw - 215px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
       scroll-snap-type: x mandatory;
@@ -281,7 +281,7 @@
     }
 
     .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .project-carousel:hover .project-info {
+    .carousel-card:hover .project-info {
       opacity: 1;
       transform: translateY(0);
     }
@@ -370,7 +370,7 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با ۱۰ پروژه واقعی و اسکریپت اسکرول با غلتک موس -->
+    <!-- بخش پروژه‌ها با ۱۰ پروژه واقعی و نمایش متقارن در دو طرف -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -541,14 +541,12 @@
       }
     }
 
-    // تنظیم اولیه اسکرول روی کارت وسط (کارت سوم یا چهارم برای نمایش متقارن اطراف)
     window.addEventListener('load', () => {
       if(cards[0]) {
         cards[0].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
       }
     });
 
-    // تبدیل چرخش غلتک موس به اسکرول افقی روان
     scrollContainer.addEventListener('wheel', (evt) => {
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       const isAtStart = scrollContainer.scrollLeft <= 0 && evt.deltaY < 0;
