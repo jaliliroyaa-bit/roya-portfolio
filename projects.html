@@ -45,13 +45,13 @@
     </div>
 
     <div class="grid" id="project-grid">
-      <!-- تولید ۱۰ پروژه برای هر دسته (مجموعاً ۶۰) -->
+      <!-- تولید ۹ پروژه برای هر دسته -->
       <script>
         const categories = ['brand', 'visual', 'editorial', 'digital', 'photography', 'concepts'];
         const grid = document.getElementById('project-grid');
         
         categories.forEach(cat => {
-          for(let i=1; i<=10; i++) {
+          for(let i=1; i<=9; i++) {
             grid.innerHTML += `
               <div class="card" data-cat="${cat}">
                 <img src="assets/p-${cat}-${i}.jpg" alt="Project">
