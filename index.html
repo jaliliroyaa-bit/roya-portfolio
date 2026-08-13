@@ -34,7 +34,7 @@
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
     
-    /* --- کادر یکپارچه و بدون مرز سایت --- */
+    /* --- کادر یکپارچه و اصلی سایت --- */
     main {
       position: relative;
       max-width: var(--max);
@@ -42,17 +42,14 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      
-      /* گرادیانت یکپارچه از بالا تا پایین که جایگزین عکس شد و هیچ‌وقت خط برش نمی‌اندازد */
       background: linear-gradient(180deg, #96b3c2 0%, #8C8176 40%, #7d7268 100%);
-      
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
       --line: rgba(255, 255, 255, 0.15);
       color: var(--text);
     }
 
-    /* انیمیشن جوهرها که در کل ارتفاع کادر به زیبایی پخش می‌شوند */
+    /* انیمیشن جوهرها */
     .ink-wrapper {
       position: absolute;
       top: 0;
@@ -141,7 +138,7 @@
     }
     .button:hover{transform:translateY(-2px);background:rgba(255, 255, 255, 0.25);}
     
-    /* --- Timeline & Section Header --- */
+    /* --- Timeline & Section Header (مینیمال و وسط‌چین) --- */
     .section{padding:80px 0 0}
     .section-header-wrapper {
       padding: 0 48px;
@@ -155,39 +152,80 @@
     }
     h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
+    /* تایم‌لاین درجه‌بندی شده */
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      margin-top: 15px;
+    }
     .timeline {
       position: relative;
       width: 100%;
       height: 1px;
-      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 15%, rgba(255,255,255,0.15) 85%, transparent 100%);
-      margin-top: 10px;
+      background: rgba(255,255,255,0.2);
     }
-    
     .timeline-marker {
       position: absolute;
-      top: -2px;
+      top: -3px;
       left: 0; 
-      width: 32px;
-      height: 5px;
+      width: 24px;
+      height: 7px;
       background: #fff;
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(255,255,255,0.4);
       transition: left 0.05s ease-out; 
     }
-    .timeline-labels {
+    /* خطوط درجه‌بندی (Ticks) و هاور سال‌ها */
+    .timeline-ticks {
       display: flex;
       justify-content: space-between;
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 12px;
+      width: 100%;
+      position: absolute;
+      top: -4px;
+      padding: 0 10px;
+    }
+    .tick {
+      width: 1px;
+      height: 9px;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .tick:hover {
+      background: #fff;
+      height: 13px;
+      top: -2px;
+    }
+    /* نمایش عدد سال به صورت هاور روی هر درجه */
+    .tick span {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+    .tick:hover span {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel --- */
+    /* --- Horizontal Project Carousel (سایز کوچک‌تر برای دیدن حداقل ۵ پروژه) --- */
     .project-carousel {
       display: flex;
-      gap: 30px;
+      gap: 24px;
       overflow-x: auto;
       padding: 10px 48px 80px; 
       scrollbar-width: none; 
@@ -197,7 +235,7 @@
     .project-carousel::-webkit-scrollbar { display: none; }
 
     .carousel-card {
-      flex: 0 0 min(600px, 75vw); 
+      flex: 0 0 min(380px, 60vw); /* کوچک‌تر شده تا ۵ پروژه در دید اول حس شوند */
       position: relative;
       border-radius: 16px;
       overflow: hidden;
@@ -205,7 +243,7 @@
       scroll-snap-align: start;
       filter: blur(6px);
       opacity: 0.4;
-      transform: scale(0.85);
+      transform: scale(0.9);
       transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
@@ -226,7 +264,7 @@
 
     .carousel-card img {
       width: 100%;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/11;
       object-fit: cover;
       display: block;
     }
@@ -236,8 +274,8 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 40px 32px 32px;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      padding: 30px 24px 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
       color: #fff;
       opacity: 0;
       transform: translateY(20px);
@@ -251,14 +289,14 @@
     }
 
     .project-info h3 {
-      margin: 0 0 6px 0;
-      font-size: clamp(20px, 2vw, 28px);
+      margin: 0 0 4px 0;
+      font-size: 22px;
       font-weight: 650;
       letter-spacing: -0.02em;
     }
     .project-info p {
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
       color: rgba(255,255,255,0.8);
     }
     
@@ -296,7 +334,7 @@
       .section-header-wrapper { padding: 0 20px; }
       
       .project-carousel { padding: 10px 20px 40px; gap: 20px; }
-      .carousel-card { filter: none; opacity: 1; transform: none; }
+      .carousel-card { flex: 0 0 75vw; filter: none; opacity: 1; transform: none; }
       .project-carousel:not(:hover) .carousel-card.active { transform: none; box-shadow: none; }
       .project-carousel .carousel-card:hover { transform: none; }
       .project-info { opacity: 1; transform: translateY(0); }
@@ -311,7 +349,6 @@
 <body>
 
   <main>
-    <!-- انیمیشن جوهرها که در تمام طول صفحه جریان دارند -->
     <div class="ink-wrapper">
       <div class="ink-blob color-1"></div>
       <div class="ink-blob color-2"></div>
@@ -334,6 +371,7 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
+    <!-- بخش پروژه‌ها با تایم‌لاین درجه‌بندی‌شده مینیمال -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -343,93 +381,110 @@
         <div class="timeline-container">
           <div class="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
-          </div>
-          <div class="timeline-labels">
-            <span>2026</span>
-            <span>2024</span>
-            <span>2022</span>
-            <span>2020</span>
+            <!-- درجه‌های مینیمال سال‌ها -->
+            <div class="timeline-ticks">
+              <div class="tick" onclick="scrollToCard(0)"><span>2026</span></div>
+              <div class="tick" onclick="scrollToCard(1)"><span>2026</span></div>
+              <div class="tick" onclick="scrollToCard(2)"><span>2025</span></div>
+              <div class="tick" onclick="scrollToCard(3)"><span>2025</span></div>
+              <div class="tick" onclick="scrollToCard(4)"><span>2024</span></div>
+              <div class="tick" onclick="scrollToCard(5)"><span>2024</span></div>
+              <div class="tick" onclick="scrollToCard(6)"><span>2023</span></div>
+              <div class="tick" onclick="scrollToCard(7)"><span>2022</span></div>
+              <div class="tick" onclick="scrollToCard(8)"><span>2021</span></div>
+              <div class="tick" onclick="scrollToCard(9)"><span>2020</span></div>
+            </div>
           </div>
         </div>
       </div>
       
       <div class="project-carousel" id="horizontal-scroll">
+        <!-- 1. Topspin -->
         <a href="#" class="carousel-card">
-          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin Project">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
           <div class="project-info">
             <h3>Topspin</h3>
             <p>AI & Color Grading • 2026</p>
           </div>
         </a>
         
+        <!-- 2. Faraz dental -->
         <a href="#" class="carousel-card">
-          <img src="assets/car-cover.jpg" alt="Car.ir Project">
+          <img src="assets/car-cover.jpg" alt="Faraz dental">
+          <div class="project-info">
+            <h3>Faraz Dental</h3>
+            <p>Brand Identity • 2026</p>
+          </div>
+        </a>
+        
+        <!-- 3. Mahboobe -->
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="Mahboobe">
+          <div class="project-info">
+            <h3>Mahboobe</h3>
+            <p>Visual Arts • 2025</p>
+          </div>
+        </a>
+        
+        <!-- 4. Travel magazin -->
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
+          <div class="project-info">
+            <h3>Travel Magazine</h3>
+            <p>Editorial Design • 2025</p>
+          </div>
+        </a>
+
+        <!-- 5. Music Album -->
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Music Album">
+          <div class="project-info">
+            <h3>Music Album</h3>
+            <p>Cover Art • 2024</p>
+          </div>
+        </a>
+
+        <!-- 6. Car.ir -->
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="Car.ir">
           <div class="project-info">
             <h3>Car.ir</h3>
-            <p>Creative Direction • 2025</p>
+            <p>Creative Direction • 2024</p>
           </div>
         </a>
-        
+
+        <!-- 7. Chavosh -->
         <a href="#" class="carousel-card">
-          <img src="assets/chavosh-cover.jpg" alt="Chavosh Project">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Chavosh">
           <div class="project-info">
             <h3>Chavosh</h3>
-            <p>3D & Compositing • 2025</p>
-          </div>
-        </a>
-        
-        <a href="#" class="carousel-card">
-          <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
-          <div class="project-info">
-            <h3>Spatial Design</h3>
-            <p>Visual Layouts • 2024</p>
+            <p>3D & Compositing • 2023</p>
           </div>
         </a>
 
+        <!-- 8. Iramzhess -->
         <a href="#" class="carousel-card">
-          <img src="assets/car-cover.jpg" alt="Minimal Brand">
+          <img src="assets/car-cover.jpg" alt="Iramzhess">
           <div class="project-info">
-            <h3>Minimal Brand</h3>
-            <p>Identity & UI • 2024</p>
+            <h3>Iramzhess</h3>
+            <p>UI/UX Concept • 2022</p>
           </div>
         </a>
 
+        <!-- 9. Marmoulak -->
         <a href="#" class="carousel-card">
-          <img src="assets/chavosh-cover.jpg" alt="Product Viz">
+          <img src="assets/chavosh-cover.jpg" alt="Marmoulak">
           <div class="project-info">
-            <h3>Product Viz</h3>
-            <p>Lighting Study • 2023</p>
+            <h3>Marmoulak</h3>
+            <p>Illustration • 2021</p>
           </div>
         </a>
 
+        <!-- 10. Extra Dummy -->
         <a href="#" class="carousel-card">
-          <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
-            <h3>Web Concept</h3>
-            <p>Editorial UI • 2022</p>
-          </div>
-        </a>
-
-        <a href="#" class="carousel-card">
-          <img src="assets/car-cover.jpg" alt="Typography Poster">
-          <div class="project-info">
-            <h3>Auto Mag</h3>
-            <p>Print & Layout • 2022</p>
-          </div>
-        </a>
-
-        <a href="#" class="carousel-card">
-          <img src="assets/chavosh-cover.jpg" alt="App UI">
-          <div class="project-info">
-            <h3>Capsule App</h3>
-            <p>UX / UI Design • 2021</p>
-          </div>
-        </a>
-
-        <a href="#" class="carousel-card">
-          <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
-          <div class="project-info">
-            <h3>Early Compositions</h3>
+            <h3>Early Works</h3>
             <p>Art Direction • 2020</p>
           </div>
         </a>
@@ -501,10 +556,17 @@
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
       const markerPosition = scrollPercentage * 100;
-      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 32}px)`;
+      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 24}px)`;
 
       updateActiveCard();
     });
+
+    // قابلیت کلیک روی هر درجه برای اسکرول به پروژه مربوطه
+    function scrollToCard(index) {
+      if(cards[index]) {
+        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      }
+    }
 
     updateActiveCard();
     window.addEventListener('resize', updateActiveCard);
