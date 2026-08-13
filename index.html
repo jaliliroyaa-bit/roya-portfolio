@@ -26,7 +26,6 @@
         radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
         radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
         linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
-      /* فونت استاندارد، مینیمال و خوانا با فاصله حروف بهینه */
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       letter-spacing: -0.01em;
@@ -44,7 +43,6 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      /* پس‌زمینه یکدست و گرم بدون هاله‌های مزاحم یا خطوط ناخواسته */
       background: #8C8176; 
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
@@ -52,7 +50,7 @@
       color: var(--text);
     }
 
-    /* انیمیشن جوهرها (ملایم و بدون تداخل) */
+    /* انیمیشن جوهرها */
     .ink-wrapper {
       position: absolute;
       top: 0;
@@ -126,7 +124,6 @@
     .hero-eyebrow{color:rgba(255,255,255,.9)}
     h1,h2,h3,p{margin-top:0}
     
-    /* اصلاح فونت تیترها برای جلوگیری از توهم و چسبندگی حروف */
     h1{
       max-width:850px;
       margin-bottom:24px;
@@ -283,8 +280,8 @@
       left: 0;
       width: 100%;
       padding: 30px 24px 24px;
-      /* اصلاح گرادیانت کارت‌ها برای حذف هرگونه سایه ناخواسته یا خط کثیف */
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      /* گرادیانت شفاف و تمیز روی کارت‌ها بدون هیچ خط و سایه اضافی */
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
       color: #fff;
       opacity: 0;
       transform: translateY(20px);
@@ -292,7 +289,7 @@
     }
 
     .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .carousel-card:hover .project-info {
+    .project-carousel:hover .project-info {
       opacity: 1;
       transform: translateY(0);
     }
@@ -553,14 +550,13 @@
       }
     }
 
-    // لود اولیه روی پروژه سوم (Mahboobe) برای نمایش متقارن در دو طرف
+    // لود اولیه دقیقاً روی پروژه سوم (Mahboobe) برای نمایش متقارن در دو طرف
     window.addEventListener('load', () => {
       if(cards[2]) {
         cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
       }
     });
 
-    // اسکریپت کاملاً روان برای اسکرول افقی با موس و غلتک
     scrollContainer.addEventListener('wheel', (evt) => {
       scrollContainer.scrollLeft += evt.deltaY;
       evt.preventDefault();
