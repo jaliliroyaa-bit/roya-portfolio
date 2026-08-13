@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roya Jalili - Creative Designer</title>
   
-  <!-- اضافه کردن فونت امضایی و لوکس از گوگل -->
+  <!-- فونت مینیمال و دست‌نویس (Caveat) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
     *{box-sizing:border-box}
@@ -44,14 +44,12 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
     
-    /* استایل جدید برای لوگو (حالت امضای واقعی) */
+    /* استایل لوگو با فونت Caveat */
     .site-header .logo {
-      font-family: 'Alex Brush', cursive;
-      font-weight: 400;
-      font-size: 38px; 
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 32px; 
       letter-spacing: 1px;
-      transform: rotate(-3deg); /* چرخش بسیار کم برای طبیعی‌تر شدن امضا */
-      padding-top: 5px;
     }
     
     .site-header nav {
@@ -75,9 +73,9 @@
       position: relative;
       z-index: 1;
       overflow:hidden;
-      min-height:55vh;
-      margin-top: 12vh; 
-      padding:16vh 48px 5vh; 
+      min-height: 80vh; 
+      margin-top: 4vh; 
+      padding: 12vh 48px 6vh; 
       display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
       border-radius:24px;color:#fff;
       background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat;
@@ -156,7 +154,7 @@
       main,footer{padding-left:20px;padding-right:20px}
       .site-header{padding: 24px 20px;}
       nav{gap:16px;font-size:13px}
-      .hero{margin-top: 6vh; min-height:50vh;padding:16vh 24px 9vh}
+      .hero{margin-top: 4vh; min-height:60vh;padding:14vh 24px 8vh}
       .section{padding-top:100px}
       .section-heading{align-items:start;flex-direction:column;gap:8px}
       .project-grid{grid-template-columns:1fr;gap:24px}
@@ -172,15 +170,12 @@
 <body>
 
   <main>
-    <!-- بنر اصلی با افکت جوهر و هدر یکپارچه -->
     <section class="hero">
       
-      <!-- انیمیشن جوهرها -->
       <div class="ink-blob color-1"></div>
       <div class="ink-blob color-2"></div>
       <div class="ink-blob color-3"></div>
       
-      <!-- هدر سایت -->
       <header class="site-header">
         <div class="logo">Roya Jalili</div>
         <nav>
@@ -190,11 +185,11 @@
         </nav>
       </header>
 
-      <!-- محتوای متنی بنر -->
+      <!-- محتوای متنی جدید -->
       <div class="hero-content">
         <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
-        <h1>Where art,<br>meets<br>algorithm.</h1>
-        <p class="hero-copy">Elevating commercial imagery through creative direction, lighting, and cutting-edge AI.</p>
+        <h1>Designing<br>with<br>intention.</h1>
+        <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
         <a href="#work" class="button">View selected work</a>
       </div>
       
