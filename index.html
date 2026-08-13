@@ -219,11 +219,12 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel --- */
+    /* --- Horizontal Project Carousel (تراز دقیق برای نمایش کارت‌های اطراف در مرکز) --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
+      /* پدینگ افقی به اندازه نصف عرض صفحه منهای نصف عرض کارت فیکس شده تا همیشه کارت دقیقاً وسط باشد */
       padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
@@ -423,7 +424,7 @@
           </div>
         </a>
         
-        <!-- 4. Traver magazin -->
+        <!-- 4. Travel magazin -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
           <div class="project-info">
@@ -540,6 +541,13 @@
       }
     }
 
+    // تنظیم اولیه اسکرول روی کارت وسط (کارت سوم یا چهارم برای نمایش متقارن اطراف)
+    window.addEventListener('load', () => {
+      if(cards[0]) {
+        cards[0].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+      }
+    });
+
     // تبدیل چرخش غلتک موس به اسکرول افقی روان
     scrollContainer.addEventListener('wheel', (evt) => {
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
@@ -548,7 +556,7 @@
 
       if (!isAtStart && !isAtEnd) {
         evt.preventDefault();
-        scrollContainer.scrollLeft += evt.deltaY * 1.5; // ضریب سرعت اسکرول
+        scrollContainer.scrollLeft += evt.deltaY * 1.5;
       }
     }, { passive: false });
 
