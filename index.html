@@ -22,7 +22,6 @@
     body{
       margin:0;
       color:var(--body-text);
-      /* پس‌زمینه بیرون از کادر */
       background:
         radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
         radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
@@ -35,7 +34,7 @@
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
     
-    /* --- کادر یکپارچه و اصلی سایت --- */
+    /* --- کادر یکپارچه و بدون مرز سایت --- */
     main {
       position: relative;
       max-width: var(--max);
@@ -43,56 +42,37 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      background: #8C8176; 
+      
+      /* گرادیانت یکپارچه از بالا تا پایین که جایگزین عکس شد و هیچ‌وقت خط برش نمی‌اندازد */
+      background: linear-gradient(180deg, #96b3c2 0%, #8C8176 40%, #7d7268 100%);
+      
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
       --line: rgba(255, 255, 255, 0.15);
       color: var(--text);
     }
 
-    /* ========================================= */
-    /* بک‌گراند زنده و انیمیشن‌دار (Sticky Layer) */
-    /* ========================================= */
-    .bg-layer {
+    /* انیمیشن جوهرها که در کل ارتفاع کادر به زیبایی پخش می‌شوند */
+    .ink-wrapper {
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
       pointer-events: none;
     }
-
-    .sticky-bg {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .main-bg {
-      position: absolute;
-      inset: 0;
-      /* اضافه کردن یک هاله بسیار ملایم تیره برای خوانایی بهتر متن‌ها در کل صفحه */
-      background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.1)), url("assets/hero-bg.jpg") center/cover no-repeat;
-    }
-
-    .ink-wrapper {
-      position: absolute;
-      inset: 0;
-    }
-    
     .ink-blob {
       position: absolute;
       border-radius: 50%;
-      opacity: 0.8;
+      opacity: 0.6;
       mix-blend-mode: overlay;
       animation: mix-ink 15s infinite alternate ease-in-out;
     }
-    .color-1 { width: 55vw; height: 55vw; background-color: #8DAEBE; top: -15%; left: -10%; animation-delay: 0s; }
-    .color-2 { width: 65vw; height: 65vw; background-color: #8C8176; bottom: -20%; right: -10%; animation-delay: -5s; }
-    .color-3 { width: 50vw; height: 50vw; background-color: #6C8B9B; top: 20%; left: 20%; animation-delay: -10s; }
+    .color-1 { width: 55vw; height: 55vw; background-color: #8DAEBE; top: -10%; left: -10%; animation-delay: 0s; }
+    .color-2 { width: 65vw; height: 65vw; background-color: #6C8B9B; top: 40%; right: -10%; animation-delay: -5s; }
+    .color-3 { width: 50vw; height: 50vw; background-color: #8C8176; bottom: 10%; left: 20%; animation-delay: -10s; }
     
     @keyframes mix-ink {
       0% { transform: translate(0, 0) scale(1); filter: blur(90px); }
@@ -101,8 +81,7 @@
       100% { transform: translate(4vw, 4vh) scale(1.05); filter: blur(90px); }
     }
 
-    /* لایه محتوای سایت (روی بک‌گراند زنده) */
-    .content-layer {
+    .site-header, .hero, .section {
       position: relative;
       z-index: 10;
     }
@@ -331,164 +310,151 @@
 </head>
 <body>
 
-  <!-- کادر گرافیکی یکپارچه -->
   <main>
-    
-    <!-- لایه بک‌گراند زنده که در کل صفحه ثابت می‌ماند و مرزی ایجاد نمی‌کند -->
-    <div class="bg-layer">
-      <div class="sticky-bg">
-        <div class="main-bg"></div>
-        <div class="ink-wrapper">
-          <div class="ink-blob color-1"></div>
-          <div class="ink-blob color-2"></div>
-          <div class="ink-blob color-3"></div>
-        </div>
-      </div>
+    <!-- انیمیشن جوهرها که در تمام طول صفحه جریان دارند -->
+    <div class="ink-wrapper">
+      <div class="ink-blob color-1"></div>
+      <div class="ink-blob color-2"></div>
+      <div class="ink-blob color-3"></div>
     </div>
 
-    <!-- لایه محتوای سایت که روی بک‌گراند اسکرول می‌شود -->
-    <div class="content-layer">
-      
-      <header class="site-header">
-        <div class="logo">Roya Jalili</div>
-        <nav>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
+    <header class="site-header">
+      <div class="logo">Roya Jalili</div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-      <section class="hero">
-        <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
-        <h1>Designing<br>with<br>intention.</h1>
-        <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
-        <a href="#work" class="button">View selected work</a>
-      </section>
+    <section class="hero">
+      <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
+      <h1>Designing<br>with<br>intention.</h1>
+      <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
+      <a href="#work" class="button">View selected work</a>
+    </section>
 
-      <section id="work" class="section">
-        <div class="section-header-wrapper">
-          <div class="section-heading">
-            <h2>Selected Work</h2>
-          </div>
-          
-          <div class="timeline-container">
-            <div class="timeline">
-              <div class="timeline-marker" id="timeline-marker"></div>
-            </div>
-            <div class="timeline-labels">
-              <span>2026</span>
-              <span>2024</span>
-              <span>2022</span>
-              <span>2020</span>
-            </div>
-          </div>
+    <section id="work" class="section">
+      <div class="section-header-wrapper">
+        <div class="section-heading">
+          <h2>Selected Work</h2>
         </div>
         
-        <div class="project-carousel" id="horizontal-scroll">
-          <a href="#" class="carousel-card">
-            <img src="assets/TOPSPIN-cover.jpg" alt="Topspin Project">
-            <div class="project-info">
-              <h3>Topspin</h3>
-              <p>AI & Color Grading • 2026</p>
-            </div>
-          </a>
-          
-          <a href="#" class="carousel-card">
-            <img src="assets/car-cover.jpg" alt="Car.ir Project">
-            <div class="project-info">
-              <h3>Car.ir</h3>
-              <p>Creative Direction • 2025</p>
-            </div>
-          </a>
-          
-          <a href="#" class="carousel-card">
-            <img src="assets/chavosh-cover.jpg" alt="Chavosh Project">
-            <div class="project-info">
-              <h3>Chavosh</h3>
-              <p>3D & Compositing • 2025</p>
-            </div>
-          </a>
-          
-          <a href="#" class="carousel-card">
-            <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
-            <div class="project-info">
-              <h3>Spatial Design</h3>
-              <p>Visual Layouts • 2024</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/car-cover.jpg" alt="Minimal Brand">
-            <div class="project-info">
-              <h3>Minimal Brand</h3>
-              <p>Identity & UI • 2024</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/chavosh-cover.jpg" alt="Product Viz">
-            <div class="project-info">
-              <h3>Product Viz</h3>
-              <p>Lighting Study • 2023</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
-            <div class="project-info">
-              <h3>Web Concept</h3>
-              <p>Editorial UI • 2022</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/car-cover.jpg" alt="Typography Poster">
-            <div class="project-info">
-              <h3>Auto Mag</h3>
-              <p>Print & Layout • 2022</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/chavosh-cover.jpg" alt="App UI">
-            <div class="project-info">
-              <h3>Capsule App</h3>
-              <p>UX / UI Design • 2021</p>
-            </div>
-          </a>
-
-          <a href="#" class="carousel-card">
-            <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
-            <div class="project-info">
-              <h3>Early Compositions</h3>
-              <p>Art Direction • 2020</p>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <section id="about" class="section">
-        <div class="about">
-          <div class="about-photo">
-            <img src="assets/portrait.jpg" alt="Roya Jalili">
+        <div class="timeline-container">
+          <div class="timeline">
+            <div class="timeline-marker" id="timeline-marker"></div>
           </div>
-          <div class="about-content">
-            <p class="eyebrow">About</p>
-            <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
-            <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology. My process involves exploring new ways to visualize ideas and bring them to life through compositing, thoughtful lighting, and precise color grading.</p>
+          <div class="timeline-labels">
+            <span>2026</span>
+            <span>2024</span>
+            <span>2022</span>
+            <span>2020</span>
           </div>
         </div>
-      </section>
+      </div>
+      
+      <div class="project-carousel" id="horizontal-scroll">
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin Project">
+          <div class="project-info">
+            <h3>Topspin</h3>
+            <p>AI & Color Grading • 2026</p>
+          </div>
+        </a>
+        
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Car.ir Project">
+          <div class="project-info">
+            <h3>Car.ir</h3>
+            <p>Creative Direction • 2025</p>
+          </div>
+        </a>
+        
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="Chavosh Project">
+          <div class="project-info">
+            <h3>Chavosh</h3>
+            <p>3D & Compositing • 2025</p>
+          </div>
+        </a>
+        
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
+          <div class="project-info">
+            <h3>Spatial Design</h3>
+            <p>Visual Layouts • 2024</p>
+          </div>
+        </a>
 
-      <section id="contact" class="contact">
-        <h2>Let's work together.</h2>
-        <a href="mailto:hello@example.com" class="email">hello@example.com</a>
-      </section>
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Minimal Brand">
+          <div class="project-info">
+            <h3>Minimal Brand</h3>
+            <p>Identity & UI • 2024</p>
+          </div>
+        </a>
 
-    </div>
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="Product Viz">
+          <div class="project-info">
+            <h3>Product Viz</h3>
+            <p>Lighting Study • 2023</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
+          <div class="project-info">
+            <h3>Web Concept</h3>
+            <p>Editorial UI • 2022</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Typography Poster">
+          <div class="project-info">
+            <h3>Auto Mag</h3>
+            <p>Print & Layout • 2022</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="App UI">
+          <div class="project-info">
+            <h3>Capsule App</h3>
+            <p>UX / UI Design • 2021</p>
+          </div>
+        </a>
+
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
+          <div class="project-info">
+            <h3>Early Compositions</h3>
+            <p>Art Direction • 2020</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="about">
+        <div class="about-photo">
+          <img src="assets/portrait.jpg" alt="Roya Jalili">
+        </div>
+        <div class="about-content">
+          <p class="eyebrow">About</p>
+          <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
+          <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology. My process involves exploring new ways to visualize ideas and bring them to life through compositing, thoughtful lighting, and precise color grading.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Let's work together.</h2>
+      <a href="mailto:hello@example.com" class="email">hello@example.com</a>
+    </section>
   </main> 
 
-  <!-- فوتر بیرون از کادر اصلی -->
   <footer>
     <div>© 2026 Roya Jalili. All Rights Reserved.</div>
     <div>Design & Code by You</div>
