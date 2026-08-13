@@ -138,21 +138,26 @@
     }
     .button:hover{transform:translateY(-2px);background:rgba(255, 255, 255, 0.25);}
     
-    /* --- Timeline & Section Header (تراز و متمرکز زیر عنوان) --- */
+    /* --- Timeline & Section Header (کاملاً وسط‌چین) --- */
     .section{padding:80px 0 0}
     .section-header-wrapper {
       padding: 0 48px;
       margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* وسط‌چین کردن کل بخش هدر و تایم‌لاین */
+      text-align: center;
     }
     .section-heading {
       margin-bottom: 20px;
     }
     h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* کانتینر تایم‌لاین که دقیقاً به اندازه طول عنوان هماهنگ شده است */
+    /* تایم‌لاین کاملاً وسط‌چین */
     .timeline-container {
       position: relative;
-      width: 320px; /* عرض متناسب و جمع‌وجور دقیقاً زیر متن Selected Work */
+      width: 100%;
+      max-width: 500px;
       margin-top: 10px;
     }
     .timeline {
@@ -172,7 +177,6 @@
       box-shadow: 0 0 10px rgba(255,255,255,0.4);
       transition: left 0.05s ease-out; 
     }
-    /* خطوط درجه‌بندی (Ticks) دقیقاً برای ۱۰ پروژه */
     .timeline-ticks {
       display: flex;
       justify-content: space-between;
@@ -194,7 +198,6 @@
       height: 13px;
       top: -2px;
     }
-    /* نمایش عدد سال به صورت هاور روی هر درجه */
     .tick span {
       position: absolute;
       bottom: 16px;
@@ -217,12 +220,13 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel --- */
+    /* --- Horizontal Project Carousel (متمرکز روی کارت وسطی) --- */
     .project-carousel {
       display: flex;
-      gap: 24px;
+      gap: 30px;
       overflow-x: auto;
-      padding: 10px 48px 80px; 
+      /* پدینگ افقی بزرگ باعث می‌شود کارت اول و آخر دقیقاً در مرکز صفحه قرار بگیرند */
+      padding: 10px calc(50vw - 190px) 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
       scroll-snap-type: x mandatory;
@@ -235,26 +239,27 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      scroll-snap-align: start;
+      scroll-snap-align: center; /* قفل شدن دقیق کارت در مرکز صفحه */
       filter: blur(6px);
       opacity: 0.4;
       transform: scale(0.9);
       transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
+    /* کارت وسطی که در کانون توجه است روشن و بزرگ می‌شود */
     .project-carousel:not(:hover) .carousel-card.active {
       filter: blur(0px);
       opacity: 1;
-      transform: scale(1);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      transform: scale(1.05);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
     }
 
     .project-carousel .carousel-card:hover {
       filter: blur(0px);
       opacity: 1;
-      transform: scale(1.02);
+      transform: scale(1.05);
       z-index: 10;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
     }
 
     .carousel-card img {
@@ -326,8 +331,8 @@
       nav { gap: 16px; font-size: 13px; }
       .hero { padding: 15vh 20px 8vh; }
       .section { padding-top: 60px; }
-      .section-header-wrapper { padding: 0 20px; }
-      .timeline-container { width: 100%; }
+      .section-header-wrapper { padding: 0 20px; align-items: flex-start; text-align: left; }
+      .timeline-container { width: 100%; max-width: none; }
       
       .project-carousel { padding: 10px 20px 40px; gap: 20px; }
       .carousel-card { flex: 0 0 75vw; filter: none; opacity: 1; transform: none; }
@@ -367,14 +372,13 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با تایم‌لاین متمرکز و درجه‌بندی دقیق ۱۰ پروژه -->
+    <!-- بخش پروژه‌ها با تایم‌لاین وسط‌چین و کارت مرکزی فعال -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         
-        <!-- تایم‌لاین تراز شده با تعداد ۱۰ پروژه -->
         <div class="timeline-container">
           <div class="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
@@ -520,13 +524,15 @@
       let closestCard = null;
       let minDistance = Infinity;
       const containerRect = scrollContainer.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
 
       cards.forEach(card => {
         const cardRect = card.getBoundingClientRect();
-        const distanceToLeft = Math.abs(cardRect.left - containerRect.left - 48);
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const distanceToCenter = Math.abs(cardCenter - containerCenter);
         
-        if (distanceToLeft < minDistance) {
-          minDistance = distanceToLeft;
+        if (distanceToCenter < minDistance) {
+          minDistance = distanceToCenter;
           closestCard = card;
         }
       });
@@ -559,7 +565,7 @@
 
     function scrollToCard(index) {
       if(cards[index]) {
-        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       }
     }
 
