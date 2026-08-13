@@ -7,70 +7,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box}
-    body{margin:0; background: linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%); font-family: system-ui, sans-serif;}
+    body{ margin:0; background: linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%); font-family: system-ui, sans-serif; }
     main { max-width: 1280px; margin: 3vh auto; border-radius: 24px; padding: 40px 96px 80px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%); color: #fff; }
     
-    .site-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 24px; margin-bottom: 40px; }
-    .logo { font-family: 'Caveat', cursive; font-weight: 700; font-size: 32px; }
-    .back-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; font-weight: 500; }
-    .back-link:hover { color: #fff; }
+    .archive-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 24px; margin-bottom: 40px; }
+    .logo { font-family: 'Caveat', cursive; font-size: 32px; font-weight: 700; }
+    .back-link { color: #fff; text-decoration: none; font-size: 14px; }
 
-    h1 { font-size: 42px; font-weight: 500; margin-bottom: 30px; text-align: center; }
+    .filter-bar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px; }
+    .filter-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 18px; border-radius: 999px; cursor: pointer; transition: 0.3s; }
+    .filter-btn.active { background: rgba(255,255,255,0.3); }
 
-    /* دکمه‌های فیلتر دسته‌بندی برای اپلای و بررسی راحت‌تر استاد */
-    .filter-bar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-    .filter-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.8); padding: 8px 18px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: 0.3s; }
-    .filter-btn:hover, .filter-btn.active { background: rgba(255, 255, 255, 0.3); color: #fff; }
-
-    /* گرید مرتب برای نمایش تعداد پروژه‌های زیاد */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-    .card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); padding: 16px; border-radius: 16px; }
-    .card img { width: 100%; aspect-ratio: 16/11; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
-    .card h3 { margin: 0 0 4px 0; font-size: 18px; font-weight: 500; }
-    .card p { margin: 0; font-size: 13px; color: rgba(255,255,255,0.7); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    .card { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 16px; transition: 0.3s; }
+    .card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.15); }
+    .card img { width: 100%; aspect-ratio: 16/11; object-fit: cover; border-radius: 10px; }
+    .card h3 { font-size: 16px; margin: 12px 0 4px; }
+    .card p { font-size: 12px; color: rgba(255,255,255,0.6); }
   </style>
 </head>
 <body>
   <main>
-    <header class="site-header">
+    <div class="archive-header">
       <div class="logo">Roya Jalili</div>
       <a href="index.html" class="back-link">← Back to Home</a>
-    </header>
+    </div>
 
-    <h1>Full Project Archive</h1>
-
+    <h1>Project Archive</h1>
     <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-      <button class="filter-btn" onclick="filterProjects('brand', this)">Brand & Identity</button>
-      <button class="filter-btn" onclick="filterProjects('visual', this)">Visual Arts</button>
-      <button class="filter-btn" onclick="filterProjects('editorial', this)">Editorial</button>
-      <button class="filter-btn" onclick="filterProjects('digital', this)">Digital</button>
-      <button class="filter-btn" onclick="filterProjects('photography', this)">Photography</button>
-      <button class="filter-btn" onclick="filterProjects('concepts', this)">Concepts</button>
+      <button class="filter-btn active" onclick="filter('all', this)">All</button>
+      <button class="filter-btn" onclick="filter('brand', this)">Brand & Identity</button>
+      <button class="filter-btn" onclick="filter('visual', this)">Visual Arts</button>
+      <button class="filter-btn" onclick="filter('editorial', this)">Editorial</button>
+      <button class="filter-btn" onclick="filter('digital', this)">Digital & Social</button>
+      <button class="filter-btn" onclick="filter('photography', this)">Photography</button>
+      <button class="filter-btn" onclick="filter('concepts', this)">Concepts</button>
     </div>
 
     <div class="grid" id="project-grid">
-      <div class="card" data-cat="brand">
-        <img src="assets/TOPSPIN-cover.jpg">
-        <h3>Topspin</h3>
-        <p>Brand & Identity</p>
-      </div>
-      <div class="card" data-cat="visual">
-        <img src="assets/chavosh-cover.jpg">
-        <h3>Mahboobe</h3>
-        <p>Visual Arts & Art Direction</p>
-      </div>
+      <!-- تولید ۱۰ پروژه برای هر دسته (مجموعاً ۶۰) -->
+      <script>
+        const categories = ['brand', 'visual', 'editorial', 'digital', 'photography', 'concepts'];
+        const grid = document.getElementById('project-grid');
+        
+        categories.forEach(cat => {
+          for(let i=1; i<=10; i++) {
+            grid.innerHTML += `
+              <div class="card" data-cat="${cat}">
+                <img src="assets/p-${cat}-${i}.jpg" alt="Project">
+                <h3>Project ${cat} ${i}</h3>
+                <p>${cat.toUpperCase()}</p>
+              </div>`;
+          }
+        });
+
+        function filter(cat, btn) {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.card').forEach(c => {
+            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
+          });
+        }
+      </script>
     </div>
   </main>
-
-  <script>
-    function filterProjects(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.card').forEach(card => {
-        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
-      });
-    }
-  </script>
 </body>
 </html>
