@@ -6,14 +6,13 @@
     <title>Resume - Roya Jalili</title>
     <style>
         :root {
-            --bg-color: #a4c0cf;
-            --card-bg: #bccdd9;
-            --text-main: #2F3133;
+            --text-main: #ffffff;
+            --muted: rgba(255, 255, 255, 0.75);
         }
         body {
             margin: 0;
             padding: 40px;
-            /* اضافه شدن گرادیان کرمی و قهوه ای ثبات */
+            /* گرادیان کرمی و قهوه‌ایِ ثابت هماهنگ با سایت اصلی */
             background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-main);
@@ -28,7 +27,9 @@
             align-items: start;
         }
         .left-sidebar {
-            background-color: var(--card-bg);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
             padding: 40px;
             border-radius: 20px;
         }
@@ -37,15 +38,14 @@
             flex-direction: column;
             gap: 30px;
         }
-        h1, h2, h3 { margin: 0; }
+        h1, h2, h3 { margin: 0; color: #fff; }
         h1 { font-size: 28px; margin-bottom: 20px; }
-        h2 { font-size: 24px; margin-bottom: 15px; color: #1B435D; }
-        h3 { font-size: 16px; margin-bottom: 5px; }
+        h2 { font-size: 24px; margin-bottom: 15px; color: #fff; }
+        h3 { font-size: 16px; margin-bottom: 5px; color: #fff; }
         .resume-section { margin-bottom: 20px; }
         .resume-item { margin-bottom: 15px; }
-        .resume-item h4 { margin: 0; font-size: 14px; }
-        .resume-item span { font-size: 12px; color: #444; }
-        p { font-size: 14px; line-height: 1.5; margin: 5px 0; }
+        .resume-item span { font-size: 12px; color: var(--muted); display: block; }
+        p { font-size: 14px; line-height: 1.6; margin: 5px 0; color: rgba(255, 255, 255, 0.85); }
         
         @media(max-width: 768px) {
             .resume-container { grid-template-columns: 1fr; }
