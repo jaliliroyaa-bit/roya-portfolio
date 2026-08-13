@@ -83,24 +83,16 @@
       position: relative;
       z-index: 10;
     }
-
-    /* کانتینر سراسری برای تراز دقیق و کاملاً متقارن تمام بخش‌ها */
-    .container {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 56px;
-    }
     
-    /* --- Header --- */
+    /* --- Header (مارجین و پدینگ کاملاً متقارن و صحیح) --- */
     .site-header {
-      padding: 36px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .header-inner {
+      padding: 36px 96px; 
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      margin: 0 36px;
+      width: calc(100% - 72px);
     }
     .site-header .logo {
       font-family: 'Caveat', cursive;
@@ -123,7 +115,7 @@
     /* --- Hero Section --- */
     .hero {
       min-height: 52vh;
-      padding: 8vh 0 6vh; 
+      padding: 6vh 96px 4vh; 
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -162,6 +154,7 @@
     /* --- Timeline & Section Header --- */
     .section{padding:50px 0 0}
     .section-header-wrapper {
+      padding: 0 96px;
       margin-bottom: 36px;
       display: flex;
       flex-direction: column;
@@ -316,13 +309,13 @@
       font-weight: 400;
     }
     
-    /* --- About (با تراز دقیق و فیکس شده درون کانتینر سراسری) --- */
+    /* --- About (بازگشت به پدینگ مرجع و بدون به‌هم‌ریختگی) --- */
     .about {
       display: grid;
       grid-template-columns: 420px minmax(0,1fr);
       gap: 56px;
       align-items: start;
-      padding: 0 0 100px;
+      padding: 0 96px 100px;
     }
     .about-photo {
       overflow: hidden;
@@ -361,11 +354,11 @@
     }
     
     /* --- Contact --- */
-    .contact{
-      padding: 60px 0 140px;
+    .contact {
+      padding: 60px 96px 140px;
       text-align: center;
     }
-    .contact h2{
+    .contact h2 {
       margin: 0 auto 36px;
       font-size: clamp(36px, 5vw, 52px);
       font-weight: 500;
@@ -449,11 +442,11 @@
     /* --- Mobile Responsive --- */
     @media(max-width:760px){
       main { margin: 2vh 16px 2vh; border-radius: 20px; }
-      .container { padding: 0 24px; }
+      .site-header { padding: 24px 20px; margin: 0 8px; width: calc(100% - 16px); }
       nav { gap: 16px; font-size: 13px; }
-      .hero { padding: 8vh 0 4vh; }
+      .hero { padding: 8vh 20px 4vh; }
       .section { padding-top: 50px; }
-      .section-header-wrapper { align-items: flex-start; text-align: left; }
+      .section-header-wrapper { padding: 0 20px; align-items: flex-start; text-align: left; }
       .timeline-container { width: 100%; max-width: none; }
       
       .project-carousel { padding: 10px 20px 40px; gap: 20px; }
@@ -462,9 +455,9 @@
       .project-carousel .carousel-card:hover { transform: none; }
       .project-info { opacity: 1; transform: translateY(0); }
       
-      .about { grid-template-columns: 1fr; gap: 36px; padding: 0 0 80px; }
+      .about { grid-template-columns: 1fr; gap: 36px; padding: 0 20px 80px; }
       .about-copy { font-size: 16px; }
-      .contact { padding: 40px 0 100px; }
+      .contact { padding: 40px 20px 100px; }
       .social-dock { flex-direction: column; border-radius: 20px; width: 100%; max-width: 280px; padding: 12px; }
       .social-item { width: 100%; max-width: 100% !important; justify-content: flex-start; padding: 0 16px; height: 44px; }
       .social-text { opacity: 1 !important; transform: none !important; }
@@ -482,31 +475,25 @@
       <div class="ink-blob color-4"></div>
     </div>
 
-    <!-- هدر متقارن -->
     <header class="site-header">
-      <div class="container header-inner">
-        <div class="logo">Roya Jalili</div>
-        <nav>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </div>
+      <div class="logo">Roya Jalili</div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </header>
 
-    <!-- بخش هیرو -->
     <section class="hero">
-      <div class="container">
-        <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
-        <h1>Designing<br>with<br>intention.</h1>
-        <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
-        <a href="#work" class="button">View selected work</a>
-      </div>
+      <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
+      <h1>Designing<br>with<br>intention.</h1>
+      <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
+      <a href="#work" class="button">View selected work</a>
     </section>
 
     <!-- بخش پروژه‌ها -->
     <section id="work" class="section">
-      <div class="container section-header-wrapper">
+      <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
@@ -623,51 +610,47 @@
       </div>
     </section>
 
-    <!-- بخش About با کانتینر سراسری برای تراز دقیق -->
+    <!-- بخش About با مارجین و پدینگ کاملاً مرتب و استاندارد -->
     <section id="about" class="section">
-      <div class="container">
-        <div class="about">
-          <div class="about-photo">
-            <img src="assets/portrait.jpg" alt="Roya Jalili">
-          </div>
-          <div class="about-content">
-            <p class="eyebrow">About</p>
-            <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
-            <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology. My process involves exploring new ways to visualize ideas and bring them to life through compositing, thoughtful lighting, and precise color grading.</p>
-          </div>
+      <div class="about">
+        <div class="about-photo">
+          <img src="assets/portrait.jpg" alt="Roya Jalili">
+        </div>
+        <div class="about-content">
+          <p class="eyebrow">About</p>
+          <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
+          <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology. My process involves exploring new ways to visualize ideas and bring them to life through compositing, thoughtful lighting, and precise color grading.</p>
         </div>
       </div>
     </section>
 
     <!-- بخش Contact -->
     <section id="contact" class="contact">
-      <div class="container">
-        <h2>Let's work together.</h2>
-        <div class="social-dock">
-          <!-- ایمیل -->
-          <a href="mailto:jalili.royaa@gmail.com" class="social-item" title="Email">
-            <div class="social-icon">
-              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-8V6l8 5 8-8v2z"/></svg>
-            </div>
-            <span class="social-text">jalili.royaa@gmail.com</span>
-          </a>
+      <h2>Let's work together.</h2>
+      <div class="social-dock">
+        <!-- ایمیل -->
+        <a href="mailto:jalili.royaa@gmail.com" class="social-item" title="Email">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-8V6l8 5 8-8v2z"/></svg>
+          </div>
+          <span class="social-text">jalili.royaa@gmail.com</span>
+        </a>
 
-          <!-- شماره تماس -->
-          <a href="tel:+989017792151" class="social-item" title="Phone">
-            <div class="social-icon">
-              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            </div>
-            <span class="social-text">+98 901 779 2151</span>
-          </a>
+        <!-- شماره تماس -->
+        <a href="tel:+989017792151" class="social-item" title="Phone">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <span class="social-text">+98 901 779 2151</span>
+        </a>
 
-          <!-- لینکدین -->
-          <a href="https://linkedin.com/in/royajalili" target="_blank" class="social-item" title="LinkedIn">
-            <div class="social-icon">
-              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-            </div>
-            <span class="social-text">LinkedIn / royajalili</span>
-          </a>
-        </div>
+        <!-- لینکدین -->
+        <a href="https://linkedin.com/in/royajalili" target="_blank" class="social-item" title="LinkedIn">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </div>
+          <span class="social-text">LinkedIn / royajalili</span>
+        </a>
       </div>
     </section>
   </main> 
