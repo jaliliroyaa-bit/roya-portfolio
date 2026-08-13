@@ -75,7 +75,8 @@
       overflow:hidden;
       min-height: 80vh; 
       margin-top: 4vh; 
-      padding: 12vh 48px 6vh; 
+      /* پدینگ اصلاح شده برای مرکزیت بهتر محتوا و فاصله گرفتن از هدر */
+      padding: 20vh 48px 8vh; 
       display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
       border-radius:24px;color:#fff;
       background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat;
@@ -109,10 +110,15 @@
     .eyebrow{margin:0 0 24px;color:var(--muted);font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
     .hero-eyebrow{color:rgba(255,255,255,.82)}
     h1,h2,h3,p{margin-top:0}
-    h1{max-width:950px;margin-bottom:18px;font-size:clamp(48px,8vw,110px);line-height:.91;letter-spacing:-.075em;font-weight:650}
+    
+    /* اصلاح فشردگی خطوط عنوان اصلی */
+    h1{max-width:950px;margin-bottom:20px;font-size:clamp(48px,8vw,110px);line-height:1.02;letter-spacing:-.075em;font-weight:650}
+    
     .hero-copy{max-width:610px;margin-bottom:24px;color:rgba(255,255,255,.92);font-size:clamp(16px,1.8vw,22px);line-height:1.5}
-    .button{display:inline-flex;padding:14px 20px;border-radius:999px;background:var(--accent);color:#fff;font-size:14px;font-weight:650;transition:transform 0.3s ease;}
-    .button:hover{transform:translateY(-2px);}
+    
+    /* بهبود کنتراست و ظاهر دکمه */
+    .button{display:inline-flex;padding:14px 24px;border-radius:999px;background:#8c8176;color:#fff;font-size:15px;font-weight:700;transition:transform 0.3s ease, background 0.3s ease;}
+    .button:hover{transform:translateY(-2px);background:#7a7066;}
     
     .section{padding:150px 0 0}
     .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:32px}
@@ -154,7 +160,7 @@
       main,footer{padding-left:20px;padding-right:20px}
       .site-header{padding: 24px 20px;}
       nav{gap:16px;font-size:13px}
-      .hero{margin-top: 4vh; min-height:60vh;padding:14vh 24px 8vh}
+      .hero{margin-top: 4vh; min-height:60vh;padding:18vh 24px 8vh}
       .section{padding-top:100px}
       .section-heading{align-items:start;flex-direction:column;gap:8px}
       .project-grid{grid-template-columns:1fr;gap:24px}
@@ -185,7 +191,6 @@
         </nav>
       </header>
 
-      <!-- محتوای متنی جدید -->
       <div class="hero-content">
         <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
         <h1>Designing<br>with<br>intention.</h1>
