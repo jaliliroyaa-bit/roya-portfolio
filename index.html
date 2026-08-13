@@ -112,18 +112,56 @@
     .button{display:inline-flex;padding:16px 28px;border-radius:999px;background:#8c8176;color:#fff;font-size:15px;font-weight:700;transition:transform 0.3s ease, background 0.3s ease;}
     .button:hover{transform:translateY(-2px);background:#7a7066;}
     
-    /* --- Horizontal Project Carousel (سبک Aristide) --- */
+    /* --- Timeline & Section Header --- */
     .section{padding:120px 0 0}
-    .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:40px; padding: 0 48px; max-width: var(--max); margin-left: auto; margin-right: auto;}
-    h2{max-width:900px;margin-bottom:0;font-size:clamp(42px,6vw,84px);line-height:.98;letter-spacing:-.055em;font-weight:620}
+    .section-header-wrapper {
+      max-width: var(--max);
+      margin: 0 auto 40px;
+      padding: 0 48px;
+    }
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* کانتینر اسکرول افقی */
+    /* نمودار خط زمان (Timeline) */
+    .timeline {
+      position: relative;
+      width: 100%;
+      height: 2px;
+      background: rgba(47, 49, 51, 0.15);
+      border-radius: 2px;
+      margin-top: 10px;
+    }
+    .timeline-marker {
+      position: absolute;
+      top: -3px;
+      left: 0; /* موقعیت این نشانگر توسط جاوا اسکریپت تغییر می‌کند */
+      width: 40px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 4px;
+      transition: left 0.1s ease-out; /* حرکت نرم هنگام اسکرول */
+    }
+    .timeline-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    
+    /* --- Horizontal Project Carousel --- */
     .project-carousel {
       display: flex;
       gap: 30px;
       overflow-x: auto;
-      padding: 20px 5vw 80px; 
-      /* مخفی کردن اسکرول‌بار مرورگر */
+      padding: 10px 5vw 80px; 
       scrollbar-width: none; 
       -ms-overflow-style: none;
     }
@@ -131,27 +169,20 @@
       display: none; 
     }
 
-    /* کارت پروژه‌ها (افکت گلس/شیشه مات پیش‌فرض) */
     .carousel-card {
-      flex: 0 0 600px; /* عرض کارت‌ها */
+      flex: 0 0 min(600px, 75vw); 
       position: relative;
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      /* اعمال افکت گلس (بلور و نیمه‌شفاف) */
-      filter: blur(4px);
-      opacity: 0.6;
+      /* افکت پیش‌فرض: بلور و نیمه‌شفاف */
+      filter: blur(5px);
+      opacity: 0.5;
       transform: scale(0.95);
       transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
-    /* وقتی کاربر موس را روی نوار پروژه‌ها می‌آورد، بقیه عکس‌ها بیشتر مات می‌شوند */
-    .project-carousel:hover .carousel-card {
-      filter: blur(6px);
-      opacity: 0.4;
-    }
-
-    /* شفاف شدن پروژه‌ای که موس روی آن است */
+    /* افکت نوری: عکسی که موس روی آن است واضح می‌شود */
     .project-carousel .carousel-card:hover {
       filter: blur(0px);
       opacity: 1;
@@ -167,7 +198,6 @@
       display: block;
     }
 
-    /* اطلاعات پروژه (نام و دسته‌بندی) */
     .project-info {
       position: absolute;
       bottom: 0;
@@ -188,14 +218,14 @@
 
     .project-info h3 {
       margin: 0 0 6px 0;
-      font-size: 28px;
+      font-size: clamp(20px, 2vw, 28px);
       font-weight: 650;
       letter-spacing: -0.02em;
     }
 
     .project-info p {
       margin: 0;
-      font-size: 15px;
+      font-size: 14px;
       color: rgba(255,255,255,0.8);
     }
     
@@ -220,19 +250,18 @@
       nav{gap:16px;font-size:13px}
       .hero{margin-top: 4vh; min-height:50vh;padding:14vh 24px 8vh}
       .section{padding-top:100px}
-      .section-heading{padding: 0; margin-bottom:24px}
+      .section-header-wrapper{padding: 0;}
       
       .project-carousel {
         padding: 10px 0 40px;
         gap: 20px;
       }
       .carousel-card {
-        flex: 0 0 85vw; /* تنظیم سایز برای موبایل */
         filter: none;
         opacity: 1;
         transform: none;
       }
-      .project-carousel:hover .carousel-card { filter: none; opacity: 1; transform: none; }
+      .project-carousel .carousel-card:hover { transform: none; }
       .project-info {
         opacity: 1;
         transform: translateY(0);
@@ -271,35 +300,117 @@
       
     </section>
 
-    <!-- بخش پروژه‌ها با اسکرول افقی بی‌نقص و افکت گلس -->
+    <!-- بخش پروژه‌ها با خط زمان -->
     <section id="work" class="section">
-      <div class="section-heading">
-        <h2>Selected Work</h2>
+      
+      <!-- هدر بخش و نمودار خط زمان -->
+      <div class="section-header-wrapper">
+        <div class="section-heading">
+          <h2>Selected Work</h2>
+        </div>
+        
+        <div class="timeline-container">
+          <div class="timeline">
+            <div class="timeline-marker" id="timeline-marker"></div>
+          </div>
+          <div class="timeline-labels">
+            <span>2026</span>
+            <span>2024</span>
+            <span>2022</span>
+            <span>2020</span>
+          </div>
+        </div>
       </div>
       
       <div class="project-carousel" id="horizontal-scroll">
         
+        <!-- Project 1 (Real) -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin Project">
           <div class="project-info">
             <h3>Topspin</h3>
-            <p>AI & Color Grading</p>
+            <p>AI & Color Grading • 2026</p>
           </div>
         </a>
         
+        <!-- Project 2 (Real) -->
         <a href="#" class="carousel-card">
           <img src="assets/car-cover.jpg" alt="Car.ir Project">
           <div class="project-info">
             <h3>Car.ir</h3>
-            <p>Creative Direction</p>
+            <p>Creative Direction • 2025</p>
           </div>
         </a>
         
+        <!-- Project 3 (Real) -->
         <a href="#" class="carousel-card">
           <img src="assets/chavosh-cover.jpg" alt="Chavosh Project">
           <div class="project-info">
             <h3>Chavosh</h3>
-            <p>3D & Compositing</p>
+            <p>3D & Compositing • 2025</p>
+          </div>
+        </a>
+        
+        <!-- Project 4 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Spatial Design">
+          <div class="project-info">
+            <h3>Spatial Design</h3>
+            <p>Visual Layouts • 2024</p>
+          </div>
+        </a>
+
+        <!-- Project 5 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Minimal Brand">
+          <div class="project-info">
+            <h3>Minimal Brand</h3>
+            <p>Identity & UI • 2024</p>
+          </div>
+        </a>
+
+        <!-- Project 6 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="Product Viz">
+          <div class="project-info">
+            <h3>Product Viz</h3>
+            <p>Lighting Study • 2023</p>
+          </div>
+        </a>
+
+        <!-- Project 7 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Web Concept">
+          <div class="project-info">
+            <h3>Web Concept</h3>
+            <p>Editorial UI • 2022</p>
+          </div>
+        </a>
+
+        <!-- Project 8 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/car-cover.jpg" alt="Typography Poster">
+          <div class="project-info">
+            <h3>Auto Mag</h3>
+            <p>Print & Layout • 2022</p>
+          </div>
+        </a>
+
+        <!-- Project 9 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/chavosh-cover.jpg" alt="App UI">
+          <div class="project-info">
+            <h3>Capsule App</h3>
+            <p>UX / UI Design • 2021</p>
+          </div>
+        </a>
+
+        <!-- Project 10 (Dummy) -->
+        <a href="#" class="carousel-card">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Early Compositions">
+          <div class="project-info">
+            <h3>Early Compositions</h3>
+            <p>Art Direction • 2020</p>
           </div>
         </a>
         
@@ -333,13 +444,26 @@
     <div>Design & Code by You</div>
   </footer>
 
-  <!-- اسکریپت تبدیل اسکرول عمودی موس به اسکرول افقی برای تجربه کاربری بهتر -->
+  <!-- اسکریپت کنترل خط زمان (Timeline) و اسکرول -->
   <script>
     const scrollContainer = document.querySelector('#horizontal-scroll');
+    const timelineMarker = document.querySelector('#timeline-marker');
+
+    // تبدیل اسکرول عمودی موس به اسکرول افقی
     scrollContainer.addEventListener('wheel', (evt) => {
-      // فقط زمانی که ماوس روی کروسل است، اسکرول عمودی را لغو و به افقی تبدیل می‌کند
       evt.preventDefault();
       scrollContainer.scrollLeft += evt.deltaY;
+    });
+
+    // همگام‌سازی خط زمان با اسکرول پروژه‌ها
+    scrollContainer.addEventListener('scroll', () => {
+      // محاسبه میزان اسکرول شده به صورت درصد
+      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
+      
+      // حرکت دادن نشانگر روی خط زمان (از 0 تا 100 درصد منهای عرض خود نشانگر)
+      const markerPosition = scrollPercentage * 100;
+      timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 40}px)`;
     });
   </script>
 
