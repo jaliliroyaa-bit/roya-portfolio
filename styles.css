@@ -288,3 +288,41 @@ footer{
   .contact { padding: 40px 20px 100px; }
   .footer { padding: 16px 20px 32px; }
 }
+/* --- Resume Section Styles --- */
+    .resume-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+    }
+    .resume-category h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .resume-item {
+      margin-bottom: 20px;
+    }
+    .resume-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 4px 0;
+    }
+    .resume-item span {
+      font-size: 13px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .resume-item p, .resume-list {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+      line-height: 1.5;
+    }
+    @media(max-width:760px){
+      .resume-grid { grid-template-columns: 1fr; gap: 30px; }
+    }
