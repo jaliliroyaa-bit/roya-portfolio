@@ -44,7 +44,7 @@
       max-width: var(--max);
       margin: 3vh 0 2vh 0; 
       border-radius: 24px;
-      overflow: visible; /* برای اینکه منوی دراپ‌داون هدر بریده نشود */
+      overflow: visible;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
       background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
       --text: #ffffff;
@@ -117,7 +117,7 @@
     }
     .site-header nav a:hover { color: #fff; }
     
-    /* منوی آبشاری (Dropdown) */
+    /* منوی آبشاری (Dropdown) برای پروژه‌ها */
     .dropdown {
       position: relative;
       padding: 10px 0;
@@ -212,14 +212,13 @@
     }
     h2{margin-bottom:0;font-size:clamp(34px,4.5vw,56px);line-height:1.1;letter-spacing:-0.02em;font-weight:500}
     
-    /* فیلترهای جدید و حرفه‌ای */
     .category-filters {
       display: flex;
       gap: 10px;
       margin-bottom: 24px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 800px;
+      max-width: 850px;
     }
     .filter-btn {
       background: rgba(255, 255, 255, 0.1);
@@ -500,7 +499,7 @@
     @media(max-width:760px){
       main { margin: 2vh 16px 2vh; border-radius: 20px; left: 0; transform: none; width: auto; overflow: hidden; }
       .site-header { padding: 24px 20px; margin: 0 8px; width: calc(100% - 16px); }
-      .dropdown-menu { display: none; } /* مخفی کردن دراپ‌داون در موبایل برای سادگی */
+      .dropdown-menu { display: none; }
       nav { gap: 16px; font-size: 13px; }
       .hero { padding: 10vh 20px 6vh; }
       .section { padding-top: 40px; }
@@ -537,9 +536,9 @@
     <header class="site-header">
       <div class="logo">Roya Jalili</div>
       <nav>
-        <!-- منوی آبشاری (Dropdown) برای بخش Work -->
+        <!-- منوی آبشاری Projects با زیرمجموعه‌های دقیق هنری -->
         <div class="dropdown">
-          <a href="#work">Work</a>
+          <a href="#work">Projects</a>
           <div class="dropdown-menu">
             <a href="javascript:void(0)" onclick="triggerFilter('brand')">Brand & Identity</a>
             <a href="javascript:void(0)" onclick="triggerFilter('visual')">Visual Arts & Art Direction</a>
@@ -561,14 +560,14 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها همراه با دسته‌بندی‌های حرفه‌ای -->
+    <!-- بخش گلچین آثار (Selected Work) -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         
-        <!-- دکمه‌های فیلتر دسته‌بندی -->
+        <!-- دکمه‌های فیلتر دسته‌بندی در بدنه -->
         <div class="category-filters">
           <button class="filter-btn active" data-filter="all" onclick="filterProjects('all', this)">All</button>
           <button class="filter-btn" data-filter="brand" onclick="filterProjects('brand', this)">Brand & Identity</button>
@@ -599,7 +598,7 @@
       </div>
       
       <div class="project-carousel" id="horizontal-scroll">
-        <!-- 1. Topspin (Brand & Identity) -->
+        <!-- 1. Topspin -->
         <a href="#" class="carousel-card" data-category="brand">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
           <div class="project-info">
@@ -608,7 +607,7 @@
           </div>
         </a>
         
-        <!-- 2. Faraz dental (Brand & Identity) -->
+        <!-- 2. Faraz dental -->
         <a href="#" class="carousel-card" data-category="brand">
           <img src="assets/car-cover.jpg" alt="Faraz dental">
           <div class="project-info">
@@ -617,16 +616,16 @@
           </div>
         </a>
         
-        <!-- 3. Mahboobe (Visual Arts) -->
+        <!-- 3. Mahboobe -->
         <a href="#" class="carousel-card" data-category="visual">
           <img src="assets/chavosh-cover.jpg" alt="Mahboobe">
           <div class="project-info">
             <h3>Mahboobe</h3>
-            <p>Visual Arts • 2025</p>
+            <p>Visual Arts & Art Direction • 2025</p>
           </div>
         </a>
         
-        <!-- 4. Travel magazine (Editorial) -->
+        <!-- 4. Travel magazine -->
         <a href="#" class="carousel-card" data-category="editorial">
           <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
           <div class="project-info">
@@ -635,16 +634,16 @@
           </div>
         </a>
 
-        <!-- 5. Music Album (Visual Arts / Poster) -->
+        <!-- 5. Music Album -->
         <a href="#" class="carousel-card" data-category="visual">
           <img src="assets/car-cover.jpg" alt="Music Album">
           <div class="project-info">
             <h3>Music Album</h3>
-            <p>Art Direction • 2024</p>
+            <p>Visual Arts & Art Direction • 2024</p>
           </div>
         </a>
 
-        <!-- 6. Car.ir (Digital & Social) -->
+        <!-- 6. Car.ir -->
         <a href="#" class="carousel-card" data-category="digital">
           <img src="assets/chavosh-cover.jpg" alt="Car.ir">
           <div class="project-info">
@@ -653,7 +652,7 @@
           </div>
         </a>
 
-        <!-- 7. Chavosh (Photography) -->
+        <!-- 7. Chavosh -->
         <a href="#" class="carousel-card" data-category="photography">
           <img src="assets/TOPSPIN-cover.jpg" alt="Chavosh">
           <div class="project-info">
@@ -662,7 +661,7 @@
           </div>
         </a>
 
-        <!-- 8. Iramzhess (Editorial) -->
+        <!-- 8. Iramzhess -->
         <a href="#" class="carousel-card" data-category="editorial">
           <img src="assets/car-cover.jpg" alt="Iramzhess">
           <div class="project-info">
@@ -671,7 +670,7 @@
           </div>
         </a>
 
-        <!-- 9. Marmoulak (Concepts) -->
+        <!-- 9. Marmoulak -->
         <a href="#" class="carousel-card" data-category="concepts">
           <img src="assets/chavosh-cover.jpg" alt="Marmoulak">
           <div class="project-info">
@@ -680,7 +679,7 @@
           </div>
         </a>
 
-        <!-- 10. Archive (Concepts) -->
+        <!-- 10. Archive -->
         <a href="#" class="carousel-card" data-category="concepts">
           <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
@@ -691,7 +690,7 @@
       </div>
     </section>
 
-    <!-- بخش About (فشرده‌تر و متناسب‌شده) -->
+    <!-- بخش About -->
     <section id="about" class="section">
       <div class="about">
         <div class="about-photo">
@@ -752,7 +751,6 @@
       const containerRect = scrollContainer.getBoundingClientRect();
       const containerCenter = containerRect.left + containerRect.width / 2;
 
-      // فقط کارت‌هایی که مخفی نیستند را بررسی کن
       const visibleCards = Array.from(cards).filter(c => !c.classList.contains('hidden-card'));
 
       visibleCards.forEach(card => {
@@ -772,7 +770,6 @@
       }
     }
 
-    // تابع فیلتر کردن دسته‌بندی پروژه‌ها از طریق دکمه‌های بدنه
     function filterProjects(category, btnElement) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       if (btnElement) {
@@ -794,7 +791,6 @@
       setTimeout(updateActiveCard, 100);
     }
     
-    // تابعی برای وقتی که از منوی هدر کلیک می‌شود
     function triggerFilter(category) {
       document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
       filterProjects(category, null);
