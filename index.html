@@ -24,7 +24,6 @@
         linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
       font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       -webkit-font-smoothing:antialiased;
-      overflow-x: hidden;
     }
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
@@ -112,79 +111,63 @@
     .button{display:inline-flex;padding:16px 28px;border-radius:999px;background:#8c8176;color:#fff;font-size:15px;font-weight:700;transition:transform 0.3s ease, background 0.3s ease;}
     .button:hover{transform:translateY(-2px);background:#7a7066;}
     
-    /* --- Horizontal Project Carousel --- */
+    /* --- Staggered Project Grid (چیدمان پلکانی) --- */
     .section{padding:150px 0 0}
-    .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:40px}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:56px}
     h2{max-width:900px;margin-bottom:0;font-size:clamp(42px,6vw,84px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* تنظیمات جدید اسکرول افقی (تراز شده از سمت چپ) */
-    .project-carousel {
-      display: flex;
-      gap: 40px;
-      overflow-x: auto;
-      padding: 10px 0 60px; /* فاصله از چپ برداشته شد تا زیر عنوان قرار بگیرد */
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .project-carousel::-webkit-scrollbar {
-      display: none; 
-    }
-
-    /* کارت هر پروژه (حالت پیش‌فرض: واضح، رنگی و طبیعی) */
-    .carousel-card {
-      flex: 0 0 550px;
-      max-width: 85vw; /* برای جلوگیری از به هم ریختگی در صفحه‌های کوچکتر */
-      scroll-snap-align: start; /* هر عکس هنگام اسکرول دقیقاً در لبه سمت چپ قفل می‌شود */
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
-      cursor: pointer;
+    /* گرید دو ستونه */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 64px 40px; /* فاصله بین سطرها و ستون‌ها */
+      padding-bottom: 120px;
     }
     
-    /* افکت Spotlight: وقتی موس وارد بخش کروسل می‌شود، *همه* عکس‌ها محو می‌شوند */
-    .project-carousel:hover .carousel-card {
-      filter: grayscale(100%) blur(4px);
-      opacity: 0.4;
-      transform: scale(0.95);
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-decoration: none;
+      cursor: pointer;
     }
 
-    /* اما عکسی که موس *دقیقاً* روی آن است، دوباره واضح و برجسته می‌شود */
-    .project-carousel .carousel-card:hover {
-      filter: grayscale(0%) blur(0px);
-      opacity: 1;
-      transform: scale(1.02);
+    /* ایجاد حالت پلکانی: ستون‌های زوج به سمت پایین هل داده می‌شوند */
+    .project-card:nth-child(even) {
+      margin-top: 120px;
     }
 
-    .carousel-card .img-wrapper {
+    .img-wrapper {
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.2);
     }
 
-    .carousel-card img {
+    .img-wrapper img {
       width: 100%;
-      aspect-ratio: 16/11;
+      aspect-ratio: 4/3;
       object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* اطلاعات متنی زیر عکس (همیشه واضح و تراز چپ) */
-    .project-info {
-      text-align: left;
+    /* افکت هاور ملایم روی عکس */
+    .project-card:hover .img-wrapper img {
+      transform: scale(1.03);
     }
 
+    /* اطلاعات پروژه زیر عکس */
     .project-info h3 {
-      margin: 0;
-      font-size: 24px;
+      font-size: 26px;
+      margin: 0 0 6px 0;
       color: var(--text);
       letter-spacing: -0.02em;
     }
 
     .project-info p {
-      margin: 8px 0 0;
-      font-size: 15px;
+      margin: 0;
       color: var(--muted);
+      font-size: 15px;
     }
     
     /* --- About & Contact --- */
@@ -208,20 +191,16 @@
       nav{gap:16px;font-size:13px}
       .hero{margin-top: 4vh; min-height:50vh;padding:14vh 24px 8vh}
       .section{padding-top:100px}
-      .section-heading{align-items:start;flex-direction:column;gap:8px}
+      .section-heading{align-items:start;flex-direction:column;gap:8px;margin-bottom:40px}
       
-      /* در موبایل افکت‌های نوری (محو شدن گروهی) را غیرفعال می‌کنیم */
-      .project-carousel {
-        padding: 10px 0 40px;
-        gap: 20px;
+      /* در موبایل گرید پلکانی را لغو می‌کنیم تا پشت سر هم بیایند */
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-bottom: 0;
       }
-      .project-carousel:hover .carousel-card {
-        filter: none;
-        opacity: 1;
-        transform: none;
-      }
-      .project-carousel .carousel-card:hover {
-        transform: none;
+      .project-card:nth-child(even) {
+        margin-top: 0;
       }
       
       .about{grid-template-columns:1fr;gap:36px;padding-bottom:100px}
@@ -257,40 +236,43 @@
       
     </section>
 
-    <!-- بخش پروژه‌ها (نوار افقی سینمایی) -->
+    <!-- بخش پروژه‌ها با چیدمان پلکانی و اسکرول عمودی -->
     <section id="work" class="section">
       <div class="section-heading">
         <h2>Selected Work</h2>
       </div>
       
-      <div class="project-carousel">
+      <div class="project-grid">
         
-        <a href="#" class="carousel-card">
+        <!-- پروژه اول -->
+        <a href="#" class="project-card">
           <div class="img-wrapper">
             <img src="assets/TOPSPIN-cover.jpg" alt="Topspin Project">
           </div>
           <div class="project-info">
-            <h3>Commercial Imagery</h3>
+            <h3>Topspin</h3>
             <p>AI & Color Grading</p>
           </div>
         </a>
         
-        <a href="#" class="carousel-card">
+        <!-- پروژه دوم (به صورت خودکار پایین‌تر قرار می‌گیرد) -->
+        <a href="#" class="project-card">
           <div class="img-wrapper">
-            <img src="assets/car-cover.jpg" alt="Car Project">
+            <img src="assets/car-cover.jpg" alt="Car.ir Project">
           </div>
           <div class="project-info">
-            <h3>Visual Ideas</h3>
+            <h3>Car.ir</h3>
             <p>Creative Direction</p>
           </div>
         </a>
         
-        <a href="#" class="carousel-card">
+        <!-- پروژه سوم -->
+        <a href="#" class="project-card">
           <div class="img-wrapper">
             <img src="assets/chavosh-cover.jpg" alt="Chavosh Project">
           </div>
           <div class="project-info">
-            <h3>Lighting Study</h3>
+            <h3>Chavosh</h3>
             <p>3D & Compositing</p>
           </div>
         </a>
