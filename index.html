@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roya Jalili - Creative Designer</title>
   
-  <!-- اضافه کردن فونت دست‌نویس از گوگل -->
+  <!-- اضافه کردن فونت امضایی و لوکس از گوگل -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
   
   <style>
     *{box-sizing:border-box}
@@ -44,12 +44,14 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
     
-    /* فونت دست‌نویس برای لوگو */
+    /* استایل جدید برای لوگو (حالت امضای واقعی) */
     .site-header .logo {
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
-      font-size: 32px; /* سایز بزرگ‌تر برای نمایش بهتر فونت دست‌نویس */
+      font-family: 'Alex Brush', cursive;
+      font-weight: 400;
+      font-size: 38px; 
       letter-spacing: 1px;
+      transform: rotate(-3deg); /* چرخش بسیار کم برای طبیعی‌تر شدن امضا */
+      padding-top: 5px;
     }
     
     .site-header nav {
@@ -74,13 +76,12 @@
       z-index: 1;
       overflow:hidden;
       min-height:55vh;
-      /* بنر را به سمت وسط صفحه هول دادیم */
       margin-top: 12vh; 
       padding:16vh 48px 5vh; 
       display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
       border-radius:24px;color:#fff;
       background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)),url("assets/hero-bg.jpg") center/cover no-repeat;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.05); /* یک سایه بسیار نرم برای جدا شدن بنر از پس‌زمینه */
+      box-shadow: 0 20px 50px rgba(0,0,0,0.05);
     }
     .hero-content {
       position: relative;
@@ -189,7 +190,7 @@
         </nav>
       </header>
 
-      <!-- محتوای متنی بنر با متن جدید -->
+      <!-- محتوای متنی بنر -->
       <div class="hero-content">
         <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
         <h1>Where art,<br>meets<br>algorithm.</h1>
