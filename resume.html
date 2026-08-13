@@ -8,47 +8,60 @@
         :root {
             --text-main: #ffffff;
             --muted: rgba(255, 255, 255, 0.75);
+            --line: rgba(255, 255, 255, 0.2);
         }
         body {
             margin: 0;
             padding: 40px;
-            /* گرادیان کرمی و قهوه‌ایِ ثابت هماهنگ با سایت اصلی */
             background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-main);
             min-height: 100vh;
         }
         .resume-container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        .left-sidebar {
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            padding: 40px;
-            border-radius: 20px;
+            border: 1px solid var(--line);
+            backdrop-filter: blur(16px);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
-        .right-content {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        .resume-header {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
         }
-        h1, h2, h3 { margin: 0; color: #fff; }
-        h1 { font-size: 28px; margin-bottom: 20px; }
-        h2 { font-size: 24px; margin-bottom: 15px; color: #fff; }
-        h3 { font-size: 16px; margin-bottom: 5px; color: #fff; }
-        .resume-section { margin-bottom: 20px; }
-        .resume-item { margin-bottom: 15px; }
-        .resume-item span { font-size: 12px; color: var(--muted); display: block; }
-        p { font-size: 14px; line-height: 1.6; margin: 5px 0; color: rgba(255, 255, 255, 0.85); }
+        h1 { font-size: 36px; margin: 0 0 10px 0; font-weight: 650; }
+        .title-sub { font-size: 16px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin: 0; }
         
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        h2 { font-size: 20px; margin-top: 0; margin-bottom: 20px; color: #fff; border-bottom: 1px solid var(--line); padding-bottom: 8px; letter-spacing: -0.02em; }
+        .resume-section { margin-bottom: 35px; }
+        .resume-item { margin-bottom: 20px; }
+        .resume-item h3 { font-size: 15px; margin: 0 0 4px 0; font-weight: 600; }
+        .resume-item span { font-size: 12px; color: var(--muted); display: block; }
+        p { font-size: 14px; line-height: 1.6; margin: 0; color: rgba(255, 255, 255, 0.85); }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: #fff; }
+
         @media(max-width: 768px) {
-            .resume-container { grid-template-columns: 1fr; }
+            .resume-grid { grid-template-columns: 1fr; gap: 30px; }
+            .resume-container { padding: 25px; }
             body { padding: 15px; }
         }
     </style>
@@ -56,50 +69,60 @@
 <body>
 
 <div class="resume-container">
-    <!-- ستون سمت چپ -->
-    <div class="left-sidebar">
-        <h1>Graphic Designer<br>Roya Jalili</h1>
-        <h2>About Me</h2>
-        <p>I am a creative and detail-oriented graphic designer with over 6 years of experience. I specialize in developing brand visual identities, social media content, and digital designs that are both visually appealing and effective in communication. I enjoy collaborating with clients and teams to bring ideas to life and am always eager to take on new challenges and opportunities to grow as a designer.</p>
+    <a href="index.html" class="back-link">← Back to Home</a>
+    
+    <div class="resume-header">
+        <h1>Roya Jalili</h1>
+        <p class="title-sub">Graphic Designer & AI Artist</p>
     </div>
 
-    <!-- ستون سمت راست -->
-    <div class="right-content">
-        <div class="resume-section">
-            <h2>Experience</h2>
-            <div class="resume-item">
-                <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
-                <span>Yektanet digital marketing company | Feb 2022–Present</span>
+    <div class="resume-grid">
+        <!-- ستون سمت چپ: درباره من و تحصیلات -->
+        <div>
+            <div class="resume-section">
+                <h2>About Me</h2>
+                <p>I am a creative and detail-oriented graphic designer with over 6 years of experience. I specialize in developing brand visual identities, social media content, and digital designs that are both visually appealing and effective in communication. I enjoy collaborating with clients and teams to bring ideas to life and am always eager to take on new challenges and opportunities to grow as a designer.</p>
             </div>
-            <div class="resume-item">
-                <h3>Graphic Designer <span style="font-weight:normal">(Remote)</span></h3>
-                <span>Collaborated with companies including ArvinSpid Immigration Co., Darisazma Concrete Company, Emarat Architecture Co., Chavosh Affiliate Marketing, and Arefian Medical Clinic | Jan 2017 – Present</span>
-            </div>
-            <div class="resume-item">
-                <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
-                <span>Zirofam Digital marketing agency | Jan 2021 – Dec 2021</span>
-            </div>
-            <div class="resume-item">
-                <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
-                <span>Narsis printing house | Mar 2019 – Dec 2020</span>
+
+            <div class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-item">
+                    <h3>Bachelor's degree in Graphic Design</h3>
+                    <span>University of Technical and Vocational | 2016–2019</span>
+                </div>
             </div>
         </div>
 
-        <div class="resume-section">
-            <h2>Education</h2>
-            <div class="resume-item">
-                <h3>Bachelor's degree in Graphic Design</h3>
-                <span>University of Technical and Vocational | 2016–2019</span>
+        <!-- ستون سمت راست: تجربیات و دوره‌ها -->
+        <div>
+            <div class="resume-section">
+                <h2>Experience</h2>
+                <div class="resume-item">
+                    <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
+                    <span>Yektanet digital marketing company | Feb 2022–Present</span>
+                </div>
+                <div class="resume-item">
+                    <h3>Graphic Designer <span style="font-weight:normal">(Remote)</span></h3>
+                    <span>ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017 – Present</span>
+                </div>
+                <div class="resume-item">
+                    <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
+                    <span>Zirofam Digital marketing agency | Jan 2021 – Dec 2021</span>
+                </div>
+                <div class="resume-item">
+                    <h3>Graphic Designer <span style="font-weight:normal">(Full-Time)</span></h3>
+                    <span>Narsis printing house | Mar 2019 – Dec 2020</span>
+                </div>
             </div>
-        </div>
 
-        <div class="resume-section">
-            <h2>Courses</h2>
-            <p>Inveres school–logo design course | 2020<br>
-            SaatSheni school–photomontage course | 2021<br>
-            Inveres school–visual identity course | 2023<br>
-            camp graphic–visual identity course | 2022<br>
-            logo design course of Mr. Abuzar Mohammadi | 2023</p>
+            <div class="resume-section">
+                <h2>Courses</h2>
+                <p>Inveres school–logo design course | 2020<br>
+                SaatSheni school–photomontage course | 2021<br>
+                Inveres school–visual identity course | 2023<br>
+                camp graphic–visual identity course | 2022<br>
+                logo design course of Mr. Abuzar Mohammadi | 2023</p>
+            </div>
         </div>
     </div>
 </div>
