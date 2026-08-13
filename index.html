@@ -35,14 +35,11 @@
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
     
-    /* --- کادر یکپارچه و اصلی سایت (تضمین صددرصدی وسط‌چین بودن با تکنیک ترنسفورم) --- */
+    /* --- کادر یکپارچه و اصلی سایت (مرکزچین کاملاً ثابت و بدون پرش) --- */
     main {
       position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94%;
       max-width: var(--max);
-      margin: 3vh 0 2vh 0; 
+      margin: 3vh auto 2vh auto; 
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
@@ -445,7 +442,7 @@
     
     /* --- Mobile Responsive --- */
     @media(max-width:760px){
-      main { width: 92%; margin: 2vh auto; border-radius: 20px; left: 0; transform: none; }
+      main { margin: 2vh 16px 2vh; border-radius: 20px; }
       .site-header { padding: 24px 20px; margin: 0 8px; width: calc(100% - 16px); }
       nav { gap: 16px; font-size: 13px; }
       .hero { padding: 15vh 20px 8vh; }
@@ -692,11 +689,7 @@
       }
     }
 
-    window.addEventListener('load', () => {
-      if(cards[2]) {
-        cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-      }
-    });
+    // حذف اسکریپت لود اولیه روی کارت سوم که باعث پرش و به‌هم‌ریختگی مارجین می‌شد
 
     scrollContainer.addEventListener('wheel', (evt) => {
       scrollContainer.scrollLeft += evt.deltaY;
