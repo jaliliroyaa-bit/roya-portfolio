@@ -84,7 +84,6 @@
       z-index: 10;
     }
 
-    /* کانتینر سراسری برای تراز دقیق و کاملاً متقارن (جلوگیری از متمایل شدن به چپ) */
     .container {
       width: 100%;
       max-width: 1120px;
@@ -325,7 +324,7 @@
     .about h2{max-width:560px;margin-bottom:30px;font-size:clamp(24px,2.6vw,38px);line-height:1.2;letter-spacing:-0.02em;font-weight:500}
     .about-copy{max-width:600px;color:rgba(255,255,255,0.85);font-size:17px;line-height:1.7;font-weight:400}
     
-    /* --- Contact جدید با آیکون‌های تعاملی و افقی (Expand on Hover) --- */
+    /* --- Contact با آیکون‌های آبی و پس‌زمینه شفافِ روشن --- */
     .contact{
       padding: 60px 0 140px;
       text-align: center;
@@ -340,11 +339,11 @@
     .social-dock {
       display: inline-flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(255, 255, 255, 0.08);
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.15); /* پس‌زمینه شفافِ روشن */
       padding: 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(12px);
     }
     
@@ -352,23 +351,24 @@
       position: relative;
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2); /* پس‌زمینه شفاف‌تر برای آیتم‌ها */
       border-radius: 999px;
       height: 48px;
-      padding: 0 16px 0 12px;
+      padding: 0 18px 0 12px;
       gap: 10px;
-      color: #fff;
+      color: #245876; /* رنگ آبی جذاب برای متن و آیکون */
       overflow: hidden;
-      max-width: 48px; /* در حالت عادی فقط آیکون پیداست */
+      max-width: 48px; /* در حالت عادی فقط آیکون مشخص است */
       transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
       cursor: pointer;
       text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     
-    /* وقتی موس می‌رود روی هر آیتم، باز می‌شود و متن را نمایش می‌دهد */
+    /* افکت هاور: باز شدن و نمایش متن با پس‌زمینه شفاف روشن‌تر */
     .social-item:hover {
-      max-width: 320px; 
-      background: rgba(255, 255, 255, 0.22);
+      max-width: 300px; 
+      background: rgba(255, 255, 255, 0.45);
     }
     
     .social-icon {
@@ -382,13 +382,14 @@
     .social-icon svg {
       width: 20px;
       height: 20px;
-      fill: currentColor;
+      fill: #245876; /* رنگ آبی برای آیکون‌ها */
     }
     
     .social-text {
       white-space: nowrap;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
+      color: #245876; /* رنگ آبی برای متن */
       opacity: 0;
       transform: translateX(-10px);
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -601,7 +602,7 @@
       </div>
     </section>
 
-    <!-- بخش Contact جدید با آیکون‌های تعاملیِ مدرن -->
+    <!-- بخش Contact با آیکون‌های آبی و افقی تعاملی -->
     <section id="contact" class="contact">
       <div class="container">
         <h2>Let's work together.</h2>
@@ -630,7 +631,7 @@
             <span class="social-text">LinkedIn / royajalili</span>
           </a>
 
-          <!-- بهنس -->
+          <!-- بهنس (Behance) با لوگوی اختصاصی -->
           <a href="https://www.behance.net/royaajalili" target="_blank" class="social-item" title="Behance">
             <div class="social-icon">
               <svg viewBox="0 0 24 24"><path d="M22 7h-7v-2h7v2m1.72 10c-.47 1.05-1.4 1.77-2.72 1.77-1.78 0-3.13-1.39-3.13-3.37 0-2.02 1.44-3.41 3.29-3.41 1.37 0 2.27.7 2.68 1.63h-2.12c-.22-.38-.63-.61-1.15-.61-.75 0-1.36.57-1.36 1.54 0 .96.61 1.52 1.36 1.52.56 0 .98-.24 1.15-.61h2.16m-11.45-2.28c0 1.25-.97 2.21-2.43 2.21H5.5v-8.24h2.24c1.39 0 2.33.91 2.33 2.12 0 .82-.46 1.44-1.22 1.83.91.36 1.39 1.07 1.39 2.08m-4.08-5.36v1.94h1.74c.67 0 1.08-.34 1.08-.97 0-.64-.41-.97-1.08-.97H8.22m0 3.39v2.13h1.83c.73 0 1.16-.36 1.16-1.06 0-.7-.43-1.07-1.16-1.07H8.22zM15 13.5h5v1.5h-5v-1.5z"/></svg>
