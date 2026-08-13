@@ -6,19 +6,18 @@
     <title>Resume - Roya Jalili</title>
     <style>
         :root {
-            /* گرادیان کرمی و قهوه ای هماهنگ با تم سایت اصلی */
-            --bg-color: #C9C4BC;
-            --card-bg: linear-gradient(135deg, #8C8176 0%, #D4CEC7 100%);
-            --text-main: #ffffff;
-            --muted-text: rgba(255, 255, 255, 0.85);
-            --heading-color: #ffffff;
+            --bg-color: #a4c0cf;
+            --card-bg: #bccdd9;
+            --text-main: #2F3133;
         }
         body {
             margin: 0;
             padding: 40px;
-            background: linear-gradient(120deg, #EAF3F7 0%, #D9EAF2 45%, #C9C4BC 100%);
+            /* اضافه شدن گرادیان کرمی و قهوه ای ثبات */
+            background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-main);
+            min-height: 100vh;
         }
         .resume-container {
             max-width: 1000px;
@@ -29,28 +28,24 @@
             align-items: start;
         }
         .left-sidebar {
-            background: var(--card-bg);
+            background-color: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         .right-content {
             display: flex;
             flex-direction: column;
             gap: 30px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         h1, h2, h3 { margin: 0; }
-        h1 { font-size: 28px; margin-bottom: 20px; color: var(--heading-color); }
-        h2 { font-size: 22px; margin-bottom: 15px; color: var(--heading-color); border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
-        h3 { font-size: 16px; margin-bottom: 5px; color: var(--heading-color); }
-        .resume-section { margin-bottom: 10px; }
+        h1 { font-size: 28px; margin-bottom: 20px; }
+        h2 { font-size: 24px; margin-bottom: 15px; color: #1B435D; }
+        h3 { font-size: 16px; margin-bottom: 5px; }
+        .resume-section { margin-bottom: 20px; }
         .resume-item { margin-bottom: 15px; }
-        .resume-item span { font-size: 12px; color: var(--muted-text); display: block; }
-        p { font-size: 14px; line-height: 1.6; margin: 5px 0; color: var(--muted-text); }
+        .resume-item h4 { margin: 0; font-size: 14px; }
+        .resume-item span { font-size: 12px; color: #444; }
+        p { font-size: 14px; line-height: 1.5; margin: 5px 0; }
         
         @media(max-width: 768px) {
             .resume-container { grid-template-columns: 1fr; }
