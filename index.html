@@ -313,22 +313,22 @@
       letter-spacing: -0.01em;
     }
     
-    /* --- About (با کنترل دقیق ابعاد عکس به اندازه کارت پروژه) --- */
+    /* --- About (عرض ۳۰۰ پیکسل برای عکس) --- */
     .about {
       display: grid;
-      grid-template-columns: 380px minmax(0,1fr);
+      grid-template-columns: 300px minmax(0,1fr);
       gap: 56px;
       align-items: start;
       padding: 50px 96px 100px;
     }
     .about-photo {
-      width: 380px;
+      width: 300px;
       max-width: 100%;
       overflow: hidden;
       border-radius: 16px;
       background: rgba(255,255,255,.1);
       border: 1px solid var(--line);
-      box-shadow: 0 15px 35px rgba(0,0,0,.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
     .about-photo img {
       width: 100%;
@@ -466,7 +466,7 @@
       .project-info { opacity: 1; transform: translateY(0); }
       
       .about { grid-template-columns: 1fr; gap: 36px; padding: 0 20px 80px; justify-items: center; text-align: center; }
-      .about-photo { width: 260px; margin: 0 auto; }
+      .about-photo { width: 240px; margin: 0 auto; }
       .about-content { text-align: center; }
       .about h2, .about-copy { max-width: 100%; }
       .contact { padding: 30px 20px 80px; }
