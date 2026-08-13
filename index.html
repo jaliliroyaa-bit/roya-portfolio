@@ -1,46 +1,374 @@
-/* --- About (با عکس کوچک‌تر و مینیمال‌تر - عرض 300px) --- */
-    .about {
-      display: grid;
-      grid-template-columns: 300px minmax(0,1fr);
-      gap: 56px;
-      align-items: start;
-      padding: 50px 96px 100px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roya Jalili - Creative Designer</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --body-text:#2F3133;
+      --body-muted:#6B7377;
+      --max:1280px;
     }
-    .about-photo {
-      width: 300px; /* اندازه جدید و کوچک‌تر */
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      color:var(--body-text);
+      background:
+        radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
+        radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
+        linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+      overflow-x: hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%}
+
+    /* --- کادر یکپارچه و اصلی سایت (Immersive Card) --- */
+    main {
+      position: relative;
+      max-width: var(--max);
+      margin: 3vh auto 2vh; 
+      border-radius: 24px;
       overflow: hidden;
-      border-radius: 16px;
-      background: rgba(255,255,255,.1);
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.75);
+      --line: rgba(255, 255, 255, 0.15);
+      color: var(--text);
     }
-    .about-photo img {
+
+    .main-bg {
+      position: absolute;
+      inset: 0; 
+      background: linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),url("assets/hero-bg.jpg") center/cover fixed no-repeat;
+      background-color: #8C8176; 
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ink-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      aspect-ratio: 4/5;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .ink-blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      mix-blend-mode: overlay;
+      animation: mix-ink 15s infinite alternate ease-in-out;
+    }
+    .color-1 { width: 55vw; height: 55vw; background-color: #8DAEBE; top: -15%; left: -10%; animation-delay: 0s; }
+    .color-2 { width: 65vw; height: 65vw; background-color: #8C8176; bottom: -20%; right: -10%; animation-delay: -5s; }
+    .color-3 { width: 50vw; height: 50vw; background-color: #6C8B9B; top: 20%; left: 20%; animation-delay: -10s; }
+
+    @keyframes mix-ink {
+      0% { transform: translate(0, 0) scale(1); filter: blur(90px); }
+      33% { transform: translate(8vw, -8vh) scale(1.1); filter: blur(90px); }
+      66% { transform: translate(-8vw, 10vh) scale(0.95); filter: blur(90px); }
+      100% { transform: translate(4vw, 4vh) scale(1.05); filter: blur(90px); }
+    }
+
+    .site-header, .hero, .section, .contact {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* --- Header --- */
+    .site-header {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 48px; 
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .logo {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 32px; 
+      letter-spacing: 1px;
+    }
+    .site-header nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .site-header nav a {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .site-header nav a:hover { color: #fff; }
+
+    /* استایل خط دور برای دکمه Projects */
+    .projects-btn {
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: all 0.3s ease;
+    }
+    .projects-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      min-height: 70vh;
+      padding: 20vh 48px 10vh; 
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .eyebrow{margin:0 0 20px;color:var(--muted);font-size:12px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+    .hero-eyebrow{color:rgba(255,255,255,.9)}
+    h1,h2,h3,p{margin-top:0}
+    h1{max-width:850px;margin-bottom:24px;font-size:clamp(40px,6.5vw,85px);line-height:1.12;letter-spacing:-.05em;font-weight:650}
+    .hero-copy{max-width:550px;margin-bottom:32px;color:rgba(255,255,255,.92);font-size:clamp(17px,1.8vw,21px);line-height:1.6}
+
+    /* --- Timeline & Section Header --- */
+    .section{padding:100px 0 0}
+    .section-header-wrapper {
+      padding: 0 48px;
+      margin-bottom: 40px;
+    }
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
+
+    .timeline {
+      position: relative;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 15%, rgba(255,255,255,0.15) 85%, transparent 100%);
+      margin-top: 10px;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      top: -2px;
+      left: 0; 
+      width: 32px;
+      height: 5px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+      transition: left 0.05s ease-out; 
+    }
+
+    /* --- Horizontal Project Carousel --- */
+    .project-carousel {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      padding: 10px 48px 80px; 
+      scrollbar-width: none; 
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory;
+    }
+    .project-carousel::-webkit-scrollbar { display: none; }
+
+    .carousel-card {
+      flex: 0 0 min(600px, 75vw); 
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      scroll-snap-align: start;
+      filter: blur(6px);
+      opacity: 0.4;
+      transform: scale(0.85);
+      transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .project-carousel:not(:hover) .carousel-card.active {
+      filter: blur(0px);
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    }
+
+    .project-carousel .carousel-card:hover {
+      filter: blur(0px);
+      opacity: 1;
+      transform: scale(1.02);
+      z-index: 10;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    }
+
+    .carousel-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
       object-fit: cover;
-      object-position: center 20%;
       display: block;
     }
-    .about-content {
-      max-width: 650px;
-      padding-top: 6px;
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 32px 32px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      color: #fff;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .about .eyebrow {
-      margin-bottom: 22px;
-      color: var(--muted);
+
+    .project-carousel:not(:hover) .carousel-card.active .project-info,
+    .project-carousel:hover .project-info {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .about h2 {
-      max-width: 560px;
-      margin-bottom: 20px;
-      font-size: clamp(24px,2.6vw,36px);
-      line-height: 1.25;
+
+    .project-info h3 {
+      margin: 0 0 6px 0;
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 650;
       letter-spacing: -0.02em;
-      font-weight: 500;
     }
-    .about-copy {
-      max-width: 600px;
-      color: rgba(255,255,255,0.85);
-      font-size: 16px;
-      line-height: 1.7;
-      font-weight: 400;
+
+    /* --- About & Contact --- */
+    .about{display:grid;grid-template-columns:460px minmax(0,1fr);gap:56px;align-items:start;padding:0 48px 100px;}
+    .about-photo{overflow:hidden;border-radius:28px;background:rgba(255,255,255,.1);border:1px solid var(--line);box-shadow:0 18px 45px rgba(0,0,0,.15)}
+    .about-photo img{aspect-ratio:839/1086;object-fit:cover;object-position:center 20%}
+    .about-content{max-width:650px;padding-top:6px}
+    .about .eyebrow{margin-bottom:22px;color:var(--muted)}
+    .about h2{max-width:560px;margin-bottom:30px;font-size:clamp(28px,3vw,46px);line-height:1.08;letter-spacing:-.04em}
+    .about-copy{max-width:600px;color:rgba(255,255,255,0.85);font-size:17px;line-height:1.7}
+
+    .contact{padding:50px 48px 120px;text-align:center}
+    .contact h2{margin:0 auto 36px}
+
+    /* --- Footer --- */
+    footer{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 32px 32px;
+      display:flex;
+      justify-content:space-between;
+      color:var(--body-muted);
+      font-size:13px;
     }
+
+    /* --- Mobile Responsive --- */
+    @media(max-width:760px){
+      main { margin: 2vh 16px 2vh; border-radius: 20px; }
+      .site-header { padding: 24px 20px; }
+      nav { gap: 16px; font-size: 13px; }
+      .hero { padding: 15vh 20px 8vh; }
+      .section { padding-top: 80px; }
+      .section-header-wrapper { padding: 0 20px; }
+      
+      .project-carousel { padding: 10px 20px 40px; gap: 20px; }
+      .carousel-card { filter: none; opacity: 1; transform: none; }
+      .project-carousel:not(:hover) .carousel-card.active { transform: none; box-shadow: none; }
+      .project-carousel .carousel-card:hover { transform: none; }
+      .project-info { opacity: 1; transform: translateY(0); }
+      
+      .about { grid-template-columns: 1fr; gap: 36px; padding: 0 20px 80px; }
+      .about-copy { font-size: 16px; }
+      .contact { padding: 40px 20px 100px; }
+      .footer { padding: 16px 20px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="main-bg"></div>
+    <div class="ink-wrapper">
+      <div class="ink-blob color-1"></div>
+      <div class="ink-blob color-2"></div>
+      <div class="ink-blob color-3"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="logo">Roya Jalili</div>
+      <nav>
+        <a href="projects.html" class="projects-btn">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow hero-eyebrow">CREATIVE DESIGNER - AI ARTIST</p>
+      <h1>Designing<br>with<br>intention.</h1>
+      <p class="hero-copy">Exploring the space between traditional design and technology to create thoughtful visual stories.</p>
+    </section>
+
+    <section id="work" class="section">
+      <div class="section-header-wrapper">
+        <div class="section-heading"><h2>Selected Work</h2></div>
+        <div class="timeline"><div class="timeline-marker" id="timeline-marker"></div></div>
+      </div>
+      <div class="project-carousel" id="horizontal-scroll">
+        <a href="projects.html" class="carousel-card"><img src="assets/TOPSPIN-cover.jpg"><div class="project-info"><h3>Topspin</h3></div></a>
+        <a href="projects.html" class="carousel-card"><img src="assets/car-cover.jpg"><div class="project-info"><h3>Faraz Dental</h3></div></a>
+        <a href="projects.html" class="carousel-card"><img src="assets/chavosh-cover.jpg"><div class="project-info"><h3>Mahboobe</h3></div></a>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="about-photo"><img src="assets/portrait.jpg" alt="Roya Jalili"></div>
+      <div class="about-content">
+        <p class="eyebrow">About</p>
+        <h2>A multidisciplinary designer focused on creating meaningful visual experiences.</h2>
+        <p class="about-copy">With a background in creative direction and an evolving expertise in AI tools, I aim to merge traditional design principles with cutting-edge technology.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 Roya Jalili. All Rights Reserved.</div>
+    <div>Design & Code by You</div>
+  </footer>
+
+  <script>
+    const scrollContainer = document.querySelector('#horizontal-scroll');
+    const timelineMarker = document.querySelector('#timeline-marker');
+    const cards = document.querySelectorAll('.carousel-card');
+    function updateActiveCard() {
+      let closestCard = null; let minDistance = Infinity; const containerRect = scrollContainer.getBoundingClientRect(); const containerCenter = containerRect.left + containerRect.width / 2;
+      cards.forEach(card => { const cardRect = card.getBoundingClientRect(); const cardCenter = cardRect.left + cardRect.width / 2; const distanceToCenter = Math.abs(cardCenter - containerCenter); if (distanceToCenter < minDistance) { minDistance = distanceToCenter; closestCard = card; } });
+      cards.forEach(c => c.classList.remove('active')); if (closestCard) closestCard.classList.add('active');
+    }
+    scrollContainer.addEventListener('scroll', () => {
+      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      if (maxScrollLeft > 0) { const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft; timelineMarker.style.left = `calc(${scrollPercentage * 100}% - ${scrollPercentage * 32}px)`; }
+      updateActiveCard();
+    });
+    updateActiveCard();
+  </script>
+</body>
+</html>
