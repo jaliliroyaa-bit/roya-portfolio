@@ -117,42 +117,44 @@
     .section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:40px}
     h2{max-width:900px;margin-bottom:0;font-size:clamp(42px,6vw,84px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* تنظیمات اسکرول افقی */
+    /* تنظیمات جدید اسکرول افقی (تراز شده از سمت چپ) */
     .project-carousel {
       display: flex;
       gap: 40px;
       overflow-x: auto;
-      /* فاصله از چپ و راست تا عکس وسط قرار بگیرد */
-      padding: 20px calc(50vw - 250px) 60px; 
+      padding: 10px 0 60px; /* فاصله از چپ برداشته شد تا زیر عنوان قرار بگیرد */
       scroll-snap-type: x mandatory;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
     .project-carousel::-webkit-scrollbar {
-      display: none; /* Chrome, Safari and Opera */
+      display: none; 
     }
 
-    /* کارت هر پروژه */
+    /* کارت هر پروژه (حالت پیش‌فرض: واضح، رنگی و طبیعی) */
     .carousel-card {
-      flex: 0 0 500px;
-      scroll-snap-align: center;
+      flex: 0 0 550px;
+      max-width: 85vw; /* برای جلوگیری از به هم ریختگی در صفحه‌های کوچکتر */
+      scroll-snap-align: start; /* هر عکس هنگام اسکرول دقیقاً در لبه سمت چپ قفل می‌شود */
       display: flex;
       flex-direction: column;
       gap: 24px;
-      
-      /* حالت خارج از فریم (کوچک، سیاه و سفید، محو) */
-      transform: scale(0.8);
-      filter: grayscale(100%) blur(4px);
-      opacity: 0.4;
-      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease, opacity 0.6s ease;
+      transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
       cursor: pointer;
     }
     
-    /* حالت قرار گرفتن موس (بزرگ، رنگی، واضح) */
-    .carousel-card:hover {
-      transform: scale(1);
+    /* افکت Spotlight: وقتی موس وارد بخش کروسل می‌شود، *همه* عکس‌ها محو می‌شوند */
+    .project-carousel:hover .carousel-card {
+      filter: grayscale(100%) blur(4px);
+      opacity: 0.4;
+      transform: scale(0.95);
+    }
+
+    /* اما عکسی که موس *دقیقاً* روی آن است، دوباره واضح و برجسته می‌شود */
+    .project-carousel .carousel-card:hover {
       filter: grayscale(0%) blur(0px);
       opacity: 1;
+      transform: scale(1.02);
     }
 
     .carousel-card .img-wrapper {
@@ -165,24 +167,11 @@
       width: 100%;
       aspect-ratio: 16/11;
       object-fit: cover;
-      transition: transform 0.6s ease;
     }
 
-    .carousel-card:hover img {
-      transform: scale(1.02);
-    }
-
-    /* اطلاعات متنی زیر عکس */
+    /* اطلاعات متنی زیر عکس (همیشه واضح و تراز چپ) */
     .project-info {
-      text-align: center;
-      opacity: 0; /* در حالت عادی مخفی است */
-      transform: translateY(15px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .carousel-card:hover .project-info {
-      opacity: 1;
-      transform: translateY(0);
+      text-align: left;
     }
 
     .project-info h3 {
@@ -221,21 +210,17 @@
       .section{padding-top:100px}
       .section-heading{align-items:start;flex-direction:column;gap:8px}
       
-      /* تنظیمات کروسل برای موبایل */
+      /* در موبایل افکت‌های نوری (محو شدن گروهی) را غیرفعال می‌کنیم */
       .project-carousel {
-        padding: 10px 20px 40px;
+        padding: 10px 0 40px;
         gap: 20px;
-        scroll-padding-left: 20px;
       }
-      .carousel-card {
-        flex: 0 0 85vw;
-        /* در موبایل چون موس وجود ندارد افکت‌های محوی را غیرفعال می‌کنیم */
-        transform: scale(1);
+      .project-carousel:hover .carousel-card {
         filter: none;
         opacity: 1;
+        transform: none;
       }
-      .project-info {
-        opacity: 1;
+      .project-carousel .carousel-card:hover {
         transform: none;
       }
       
@@ -272,13 +257,12 @@
       
     </section>
 
-    <!-- بخش جدید پروژه‌ها (نوار افقی سینمایی) -->
+    <!-- بخش پروژه‌ها (نوار افقی سینمایی) -->
     <section id="work" class="section">
       <div class="section-heading">
         <h2>Selected Work</h2>
       </div>
       
-      <!-- نگهدارنده اسکرول افقی -->
       <div class="project-carousel">
         
         <a href="#" class="carousel-card">
