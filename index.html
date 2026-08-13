@@ -138,27 +138,22 @@
     }
     .button:hover{transform:translateY(-2px);background:rgba(255, 255, 255, 0.25);}
     
-    /* --- Timeline & Section Header (مینیمال و وسط‌چین) --- */
+    /* --- Timeline & Section Header (تراز و متمرکز زیر عنوان) --- */
     .section{padding:80px 0 0}
     .section-header-wrapper {
       padding: 0 48px;
       margin-bottom: 40px;
     }
     .section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.055em;font-weight:620}
     
-    /* تایم‌لاین درجه‌بندی شده */
+    /* کانتینر تایم‌لاین که دقیقاً به اندازه طول عنوان هماهنگ شده است */
     .timeline-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       position: relative;
-      margin-top: 15px;
+      width: 320px; /* عرض متناسب و جمع‌وجور دقیقاً زیر متن Selected Work */
+      margin-top: 10px;
     }
     .timeline {
       position: relative;
@@ -177,14 +172,14 @@
       box-shadow: 0 0 10px rgba(255,255,255,0.4);
       transition: left 0.05s ease-out; 
     }
-    /* خطوط درجه‌بندی (Ticks) و هاور سال‌ها */
+    /* خطوط درجه‌بندی (Ticks) دقیقاً برای ۱۰ پروژه */
     .timeline-ticks {
       display: flex;
       justify-content: space-between;
       width: 100%;
       position: absolute;
       top: -4px;
-      padding: 0 10px;
+      padding: 0 2px;
     }
     .tick {
       width: 1px;
@@ -222,7 +217,7 @@
       transform: translateX(-50%) translateY(0);
     }
     
-    /* --- Horizontal Project Carousel (سایز کوچک‌تر برای دیدن حداقل ۵ پروژه) --- */
+    /* --- Horizontal Project Carousel --- */
     .project-carousel {
       display: flex;
       gap: 24px;
@@ -235,7 +230,7 @@
     .project-carousel::-webkit-scrollbar { display: none; }
 
     .carousel-card {
-      flex: 0 0 min(380px, 60vw); /* کوچک‌تر شده تا ۵ پروژه در دید اول حس شوند */
+      flex: 0 0 min(380px, 60vw); 
       position: relative;
       border-radius: 16px;
       overflow: hidden;
@@ -332,6 +327,7 @@
       .hero { padding: 15vh 20px 8vh; }
       .section { padding-top: 60px; }
       .section-header-wrapper { padding: 0 20px; }
+      .timeline-container { width: 100%; }
       
       .project-carousel { padding: 10px 20px 40px; gap: 20px; }
       .carousel-card { flex: 0 0 75vw; filter: none; opacity: 1; transform: none; }
@@ -371,17 +367,17 @@
       <a href="#work" class="button">View selected work</a>
     </section>
 
-    <!-- بخش پروژه‌ها با تایم‌لاین درجه‌بندی‌شده مینیمال -->
+    <!-- بخش پروژه‌ها با تایم‌لاین متمرکز و درجه‌بندی دقیق ۱۰ پروژه -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         
+        <!-- تایم‌لاین تراز شده با تعداد ۱۰ پروژه -->
         <div class="timeline-container">
           <div class="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
-            <!-- درجه‌های مینیمال سال‌ها -->
             <div class="timeline-ticks">
               <div class="tick" onclick="scrollToCard(0)"><span>2026</span></div>
               <div class="tick" onclick="scrollToCard(1)"><span>2026</span></div>
@@ -426,7 +422,7 @@
           </div>
         </a>
         
-        <!-- 4. Travel magazin -->
+        <!-- 4. Traver magazin -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Travel magazin">
           <div class="project-info">
@@ -480,7 +476,7 @@
           </div>
         </a>
 
-        <!-- 10. Extra Dummy -->
+        <!-- 10. Extra Project -->
         <a href="#" class="carousel-card">
           <img src="assets/TOPSPIN-cover.jpg" alt="Archive">
           <div class="project-info">
@@ -561,7 +557,6 @@
       updateActiveCard();
     });
 
-    // قابلیت کلیک روی هر درجه برای اسکرول به پروژه مربوطه
     function scrollToCard(index) {
       if(cards[index]) {
         cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
