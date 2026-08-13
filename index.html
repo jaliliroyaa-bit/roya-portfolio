@@ -35,7 +35,7 @@
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%}
     
-    /* --- کادر یکپارچه و اصلی سایت --- */
+    /* --- کادر یکپارچه و اصلی سایت (کاملاً یکدست و بدون سایه حاشیه) --- */
     main {
       position: relative;
       max-width: var(--max);
@@ -43,7 +43,6 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      /* رنگ یکدست کامل بدون هیچ خط سایه در لبه‌ها */
       background: #8C8176; 
       --text: #ffffff;
       --muted: rgba(255, 255, 255, 0.75);
@@ -51,7 +50,7 @@
       color: var(--text);
     }
 
-    /* انیمیشن جوهرها کاملاً نرم و محو */
+    /* انیمیشن جوهرها فوق‌العاده نرم و محو */
     .ink-wrapper {
       position: absolute;
       top: 0;
@@ -65,18 +64,16 @@
     .ink-blob {
       position: absolute;
       border-radius: 50%;
-      opacity: 0.25;
+      opacity: 0.2;
       mix-blend-mode: overlay;
-      animation: mix-ink 15s infinite alternate ease-in-out;
+      animation: mix-ink 20s infinite alternate ease-in-out;
     }
-    .color-1 { width: 55vw; height: 55vw; background-color: #8DAEBE; top: -10%; left: -10%; animation-delay: 0s; }
-    .color-2 { width: 65vw; height: 65vw; background-color: #6C8B9B; top: 40%; right: -10%; animation-delay: -5s; }
-    .color-3 { width: 50vw; height: 50vw; background-color: #7d7268; bottom: 10%; left: 20%; animation-delay: -10s; }
+    .color-1 { width: 60vw; height: 60vw; background-color: #8DAEBE; top: -15%; left: -10%; animation-delay: 0s; }
+    .color-2 { width: 70vw; height: 70vw; background-color: #6C8B9B; top: 35%; right: -15%; animation-delay: -7s; }
     
     @keyframes mix-ink {
-      0% { transform: translate(0, 0) scale(1); filter: blur(120px); }
-      50% { transform: translate(5vw, -5vh) scale(1.05); filter: blur(120px); }
-      100% { transform: translate(-5vw, 5vh) scale(0.95); filter: blur(120px); }
+      0% { transform: translate(0, 0) scale(1); filter: blur(140px); }
+      100% { transform: translate(4vw, 4vh) scale(1.05); filter: blur(140px); }
     }
 
     .site-header, .hero, .section {
@@ -246,17 +243,17 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      filter: blur(3px);
-      opacity: 0.65;
+      filter: blur(2px);
+      opacity: 0.7;
       transform: scale(0.93);
-      transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
     .project-carousel:not(:hover) .carousel-card.active {
       filter: blur(0px);
       opacity: 1;
       transform: scale(1.03);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
 
     .project-carousel .carousel-card:hover {
@@ -264,7 +261,7 @@
       opacity: 1;
       transform: scale(1.03);
       z-index: 10;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
 
     .carousel-card img {
@@ -279,12 +276,12 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 30px 24px 24px;
-      /* اصلاح کامل گرادیانت پایین کارت برای حذف هرگونه سایه کدر یا تیره */
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+      padding: 24px;
+      /* حذف کامل هرگونه سایه تیره یا کدر در پایین کارت */
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
       color: #fff;
       opacity: 0;
-      transform: translateY(15px);
+      transform: translateY(10px);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
@@ -360,7 +357,6 @@
     <div class="ink-wrapper">
       <div class="ink-blob color-1"></div>
       <div class="ink-blob color-2"></div>
-      <div class="ink-blob color-3"></div>
     </div>
 
     <header class="site-header">
@@ -550,7 +546,6 @@
       }
     }
 
-    // لود اولیه روی پروژه سوم (Mahboobe) برای نمایش متقارن در دو طرف
     window.addEventListener('load', () => {
       if(cards[2]) {
         cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
