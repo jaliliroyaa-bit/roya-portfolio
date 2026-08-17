@@ -184,6 +184,7 @@
     
     /* --- Work Section --- */
     .section{padding:50px 0 0}
+    #work { overflow: hidden; }
     .section-header-wrapper {
       padding: 0 96px;
       margin-bottom: 36px;
@@ -247,46 +248,33 @@
       height: 13px;
       top: -2px;
     }
-    
-  /* --- Horizontal Project Carousel --- */
-
-.project-carousel {
-  --card-width: min(520px, 68vw);
-
-  cursor: grab;
-
-  display: flex;
-  gap: 30px;
-
-  /* بقیه کدهای همین بخش */
-}
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  padding-top: 10px;
-  padding-bottom: 80px;
-
-  padding-left: max(
-    48px,
-    calc((100% - var(--card-width)) / 2)
-  );
-
-  padding-right: max(
-    48px,
-    calc((100% - var(--card-width)) / 2)
-  );
-
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.project-carousel::-webkit-scrollbar {
-  display: none;
-}
+    /* --- Horizontal Project Carousel --- */
+    .project-carousel {
+      --card-width: min(520px, 68vw);
+      display: flex;
+      gap: 30px;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-top: 10px;
+      padding-bottom: 80px;
+      padding-left: max(32px, calc((100% - var(--card-width)) / 2));
+      padding-right: max(32px, calc((100% - var(--card-width)) / 2));
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+    .project-carousel.dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+    }
+    .project-carousel::-webkit-scrollbar { display: none; }
 
 .carousel-card {
   flex: 0 0 var(--card-width);
@@ -309,14 +297,14 @@
     transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.project-carousel:not(:hover) .carousel-card.active {
+.carousel-card.active {
   filter: blur(0px);
   opacity: 1;
   transform: scale(1.03);
   box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
-.project-carousel .carousel-card:hover {
+.carousel-card:hover {
   filter: blur(0px);
   opacity: 1;
   transform: scale(1.03);
@@ -484,10 +472,10 @@
       .section-header-wrapper { padding: 0 20px; align-items: flex-start; text-align: left; }
       .timeline-container { width: 100%; max-width: none; }
       
-      .project-carousel { padding: 10px 20px 40px; gap: 20px; }
-      .carousel-card { flex: 0 0 75vw; filter: none; opacity: 1; transform: none; }
-      .project-carousel:not(:hover) .carousel-card.active { transform: none; box-shadow: none; }
-      .project-carousel .carousel-card:hover { transform: none; }
+      .project-carousel { --card-width: 75vw; padding: 10px max(20px, calc((100% - var(--card-width)) / 2)) 40px; gap: 20px; }
+      .carousel-card { flex: 0 0 var(--card-width); filter: none; opacity: 1; transform: none; }
+      .carousel-card.active { transform: none; box-shadow: none; }
+      .carousel-card:hover { transform: none; }
       .project-info { opacity: 1; transform: translateY(0); }
       
       .about { grid-template-columns: 1fr; gap: 36px; padding: 0 20px 80px; justify-items: center; text-align: center; }
@@ -896,6 +884,26 @@
 
     updateActiveCard();
     updateTimeline();
+
+    if (hasDragged) {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(cardCenter - containerCenter);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      scrollToCard(closestIndex);
+    }
   }
 
 
