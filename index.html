@@ -242,69 +242,84 @@
       top: -2px;
     }
     
-    /* --- Horizontal Project Carousel --- */
-    .project-carousel {
-      display: flex;
-      gap: 30px;
-      overflow-x: auto;
-      padding: 10px calc(50vw - 190px) 80px; 
-      scrollbar-width: none; 
-      -ms-overflow-style: none;
-    }
-    .project-carousel::-webkit-scrollbar { display: none; }
+  /* --- Horizontal Project Carousel --- */
 
-    .carousel-card {
-      flex: 0 0 min(380px, 60vw); 
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      filter: blur(2px);
-      opacity: 0.7;
-      transform: scale(0.93);
-      transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    
-    .project-carousel:not(:hover) .carousel-card.active {
-      filter: blur(0px);
-      opacity: 1;
-      transform: scale(1.03);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
+.project-carousel {
+  --card-width: min(520px, 68vw);
 
-    .project-carousel .carousel-card:hover {
-      filter: blur(0px);
-      opacity: 1;
-      transform: scale(1.03);
-      z-index: 10;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
+  display: flex;
+  gap: 30px;
 
-    .carousel-card img {
-      width: 100%;
-      aspect-ratio: 16/11;
-      object-fit: cover;
-      display: block;
-    }
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-    .project-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 24px;
-      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
-      color: #fff;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
+  padding-top: 10px;
+  padding-bottom: 80px;
 
-    .project-carousel:not(:hover) .carousel-card.active .project-info,
-    .project-carousel:hover .project-info {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  padding-left: max(
+    48px,
+    calc((100% - var(--card-width)) / 2)
+  );
+
+  padding-right: max(
+    48px,
+    calc((100% - var(--card-width)) / 2)
+  );
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.project-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-card {
+  flex: 0 0 var(--card-width);
+
+  position: relative;
+
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+
+  scroll-snap-align: center;
+
+  filter: blur(2px);
+  opacity: 0.7;
+  transform: scale(0.93);
+
+  transition:
+    filter 0.4s ease,
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.project-carousel:not(:hover) .carousel-card.active {
+  filter: blur(0px);
+  opacity: 1;
+  transform: scale(1.03);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.project-carousel .carousel-card:hover {
+  filter: blur(0px);
+  opacity: 1;
+  transform: scale(1.03);
+  z-index: 10;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.carousel-card img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  display: block;
+} 
 
     .project-info h3 {
       margin: 0;
@@ -701,18 +716,24 @@
       }
     }
 
-  window.addEventListener('load', () => {
+window.addEventListener('load', () => {
   const initialIndex = 2;
   const card = cards[initialIndex];
 
   if (card) {
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+
     const target =
-      card.offsetLeft
-      - (scrollContainer.clientWidth / 2)
-      + (card.offsetWidth / 2);
+      scrollContainer.scrollLeft +
+      (cardRect.left + cardRect.width / 2) -
+      (containerRect.left + containerRect.width / 2);
 
     scrollContainer.scrollLeft = target;
   }
+
+  updateActiveCard();
+});
 
   updateActiveCard();
 });
@@ -737,10 +758,13 @@
 
   if (!card) return;
 
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+
   const target =
-    card.offsetLeft
-    - (scrollContainer.clientWidth / 2)
-    + (card.offsetWidth / 2);
+    scrollContainer.scrollLeft +
+    (cardRect.left + cardRect.width / 2) -
+    (containerRect.left + containerRect.width / 2);
 
   scrollContainer.scrollTo({
     left: target,
