@@ -210,16 +210,22 @@
       background: rgba(255,255,255,0.2);
     }
     .timeline-marker {
-      position: absolute;
-      top: -3px;
-      left: 0; 
-      width: 24px;
-      height: 7px;
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.4);
-      transition: left 0.05s ease-out; 
-    }
+  position: absolute;
+  top: -3px;
+  left: 0;
+
+  width: 24px;
+  height: 7px;
+
+  background: #fff;
+  border-radius: 4px;
+
+  cursor: grab;
+  touch-action: none;
+  z-index: 5;
+
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
     .timeline-ticks {
       display: flex;
       justify-content: space-between;
@@ -247,9 +253,13 @@
 .project-carousel {
   --card-width: min(520px, 68vw);
 
+  cursor: grab;
+
   display: flex;
   gap: 30px;
 
+  /* بقیه کدهای همین بخش */
+}
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -688,93 +698,362 @@
     <div>Design & Code by You</div>
   </footer>
 
-  <script>
-    const scrollContainer = document.querySelector('#horizontal-scroll');
-    const timelineMarker = document.querySelector('#timeline-marker');
-    const cards = document.querySelectorAll('.carousel-card');
+ <script>
+  const scrollContainer = document.querySelector('#horizontal-scroll');
+  const timelineMarker = document.querySelector('#timeline-marker');
+  const timeline = document.querySelector('.timeline');
+  const cards = document.querySelectorAll('.carousel-card');
 
-    function updateActiveCard() {
-      let closestCard = null;
-      let minDistance = Infinity;
-      const containerRect = scrollContainer.getBoundingClientRect();
-      const containerCenter = containerRect.left + containerRect.width / 2;
+  let isDraggingCarousel = false;
+  let carouselStartX = 0;
+  let carouselStartScroll = 0;
+  let hasDragged = false;
 
-      cards.forEach(card => {
-        const cardRect = card.getBoundingClientRect();
-        const cardCenter = cardRect.left + cardRect.width / 2;
-        const distanceToCenter = Math.abs(cardCenter - containerCenter);
-        
-        if (distanceToCenter < minDistance) {
-          minDistance = distanceToCenter;
-          closestCard = card;
-        }
-      });
+  let isDraggingTimeline = false;
 
-      cards.forEach(c => c.classList.remove('active'));
-      if (closestCard) {
-        closestCard.classList.add('active');
-      }
-    }
 
-window.addEventListener('load', () => {
-  const initialIndex = 2;
-  const card = cards[initialIndex];
+  /* =========================
+     ACTIVE CARD
+  ========================= */
 
-  if (card) {
+  function updateActiveCard() {
+    let closestCard = null;
+    let minDistance = Infinity;
+
     const containerRect = scrollContainer.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
+    const containerCenter =
+      containerRect.left + containerRect.width / 2;
+
+    cards.forEach(card => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter =
+        cardRect.left + cardRect.width / 2;
+
+      const distance =
+        Math.abs(cardCenter - containerCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestCard = card;
+      }
+    });
+
+    cards.forEach(card =>
+      card.classList.remove('active')
+    );
+
+    if (closestCard) {
+      closestCard.classList.add('active');
+    }
+  }
+
+
+  /* =========================
+     TIMELINE POSITION
+  ========================= */
+
+  function updateTimeline() {
+    const maxScroll =
+      scrollContainer.scrollWidth -
+      scrollContainer.clientWidth;
+
+    if (maxScroll <= 0) return;
+
+    const progress =
+      scrollContainer.scrollLeft / maxScroll;
+
+    const timelineWidth = timeline.clientWidth;
+    const markerWidth = timelineMarker.offsetWidth;
+
+    const maxMarkerX =
+      timelineWidth - markerWidth;
+
+    timelineMarker.style.left =
+      `${progress * maxMarkerX}px`;
+  }
+
+
+  /* =========================
+     SCROLL TO CARD
+  ========================= */
+
+  function scrollToCard(index) {
+    const card = cards[index];
+
+    if (!card) return;
+
+    const containerRect =
+      scrollContainer.getBoundingClientRect();
+
+    const cardRect =
+      card.getBoundingClientRect();
 
     const target =
       scrollContainer.scrollLeft +
       (cardRect.left + cardRect.width / 2) -
       (containerRect.left + containerRect.width / 2);
 
-    scrollContainer.scrollLeft = target;
+    scrollContainer.scrollTo({
+      left: target,
+      behavior: 'smooth'
+    });
   }
 
-  updateActiveCard();
-});
 
-  updateActiveCard();
-});
+  /* =========================
+     INITIAL CARD
+  ========================= */
 
-    scrollContainer.addEventListener('wheel', (evt) => {
-      scrollContainer.scrollLeft += evt.deltaY;
-      evt.preventDefault();
-    }, { passive: false });
+  window.addEventListener('load', () => {
+    const initialIndex = 2;
 
-    scrollContainer.addEventListener('scroll', () => {
-      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      if (maxScrollLeft > 0) {
-        const scrollPercentage = scrollContainer.scrollLeft / maxScrollLeft;
-        const markerPosition = scrollPercentage * 100;
-        timelineMarker.style.left = `calc(${markerPosition}% - ${scrollPercentage * 24}px)`;
-      }
-      updateActiveCard();
-    });
+    setTimeout(() => {
+      scrollToCard(initialIndex);
 
-   function scrollToCard(index) {
-  const card = cards[index];
+      setTimeout(() => {
+        updateActiveCard();
+        updateTimeline();
+      }, 350);
 
-  if (!card) return;
-
-  const containerRect = scrollContainer.getBoundingClientRect();
-  const cardRect = card.getBoundingClientRect();
-
-  const target =
-    scrollContainer.scrollLeft +
-    (cardRect.left + cardRect.width / 2) -
-    (containerRect.left + containerRect.width / 2);
-
-  scrollContainer.scrollTo({
-    left: target,
-    behavior: 'smooth'
+    }, 50);
   });
-}
+
+
+  /* =========================
+     MOUSE WHEEL
+  ========================= */
+
+  scrollContainer.addEventListener(
+    'wheel',
+    event => {
+
+      scrollContainer.scrollLeft += event.deltaY;
+
+      event.preventDefault();
+
+    },
+    { passive: false }
+  );
+
+
+  /* =========================
+     DRAG CAROUSEL
+  ========================= */
+
+  scrollContainer.addEventListener(
+    'pointerdown',
+    event => {
+
+      isDraggingCarousel = true;
+      hasDragged = false;
+
+      carouselStartX = event.clientX;
+      carouselStartScroll =
+        scrollContainer.scrollLeft;
+
+      scrollContainer.setPointerCapture(
+        event.pointerId
+      );
+
+      scrollContainer.style.cursor =
+        'grabbing';
+
+      scrollContainer.style.scrollSnapType =
+        'none';
+    }
+  );
+
+
+  scrollContainer.addEventListener(
+    'pointermove',
+    event => {
+
+      if (!isDraggingCarousel) return;
+
+      const distance =
+        event.clientX - carouselStartX;
+
+      if (Math.abs(distance) > 4) {
+        hasDragged = true;
+      }
+
+      scrollContainer.scrollLeft =
+        carouselStartScroll - distance;
+    }
+  );
+
+
+  function endCarouselDrag() {
+
+    if (!isDraggingCarousel) return;
+
+    isDraggingCarousel = false;
+
+    scrollContainer.style.cursor = 'grab';
+
+    scrollContainer.style.scrollSnapType =
+      'x mandatory';
 
     updateActiveCard();
-    window.addEventListener('resize', updateActiveCard);
-  </script>
+    updateTimeline();
+  }
+
+
+  scrollContainer.addEventListener(
+    'pointerup',
+    endCarouselDrag
+  );
+
+  scrollContainer.addEventListener(
+    'pointercancel',
+    endCarouselDrag
+  );
+
+
+  /* جلوگیری از باز شدن پروژه موقع Drag */
+
+  cards.forEach(card => {
+
+    card.addEventListener(
+      'click',
+      event => {
+
+        if (hasDragged) {
+          event.preventDefault();
+          hasDragged = false;
+        }
+
+      }
+    );
+
+  });
+
+
+  /* =========================
+     DRAG TIMELINE MARKER
+  ========================= */
+
+  timelineMarker.addEventListener(
+    'pointerdown',
+    event => {
+
+      isDraggingTimeline = true;
+
+      timelineMarker.setPointerCapture(
+        event.pointerId
+      );
+
+      event.preventDefault();
+    }
+  );
+
+
+  window.addEventListener(
+    'pointermove',
+    event => {
+
+      if (!isDraggingTimeline) return;
+
+      const rect =
+        timeline.getBoundingClientRect();
+
+      let x =
+        event.clientX - rect.left;
+
+      x = Math.max(
+        0,
+        Math.min(x, rect.width)
+      );
+
+      const progress =
+        x / rect.width;
+
+      const maxScroll =
+        scrollContainer.scrollWidth -
+        scrollContainer.clientWidth;
+
+      scrollContainer.scrollLeft =
+        progress * maxScroll;
+    }
+  );
+
+
+  window.addEventListener(
+    'pointerup',
+    () => {
+
+      if (!isDraggingTimeline) return;
+
+      isDraggingTimeline = false;
+
+      updateActiveCard();
+      updateTimeline();
+    }
+  );
+
+
+  /* =========================
+     CLICK TIMELINE
+  ========================= */
+
+  timeline.addEventListener(
+    'click',
+    event => {
+
+      if (event.target === timelineMarker)
+        return;
+
+      const rect =
+        timeline.getBoundingClientRect();
+
+      const x =
+        event.clientX - rect.left;
+
+      const progress =
+        x / rect.width;
+
+      const maxScroll =
+        scrollContainer.scrollWidth -
+        scrollContainer.clientWidth;
+
+      scrollContainer.scrollTo({
+        left: progress * maxScroll,
+        behavior: 'smooth'
+      });
+    }
+  );
+
+
+  /* =========================
+     ON SCROLL
+  ========================= */
+
+  scrollContainer.addEventListener(
+    'scroll',
+    () => {
+
+      updateTimeline();
+      updateActiveCard();
+
+    }
+  );
+
+
+  window.addEventListener(
+    'resize',
+    () => {
+
+      updateTimeline();
+      updateActiveCard();
+
+    }
+  );
+
+
+  updateActiveCard();
+  updateTimeline();
+
+</script>
 
 </body>
 </html>
