@@ -173,39 +173,60 @@ h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing
 }
 
 /* --- Horizontal Project Carousel --- */
+
 .project-carousel {
   display: flex;
   gap: 30px;
+
+  width: 100%;
   overflow-x: auto;
-  padding: 10px 48px 80px; 
-  scrollbar-width: none; 
+  overflow-y: hidden;
+
+  padding: 10px 48px 80px;
+
+  scrollbar-width: none;
   -ms-overflow-style: none;
+
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 48px;
 }
-.project-carousel::-webkit-scrollbar { display: none; }
+
+.project-carousel::-webkit-scrollbar {
+  display: none;
+}
 
 .carousel-card {
-  flex: 0 0 min(600px, 75vw); 
+  flex: 0 0 min(520px, 68vw);
+
   position: relative;
+
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  scroll-snap-align: start;
-  filter: blur(6px);
-  opacity: 0.4;
-  transform: scale(0.85);
-  transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  scroll-snap-align: center;
+
+  filter: blur(4px);
+  opacity: 0.45;
+  transform: scale(0.88);
+
+  transition:
+    filter 0.5s ease,
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s ease;
 }
 
 .project-carousel:not(:hover) .carousel-card.active {
-  filter: blur(0px);
+  filter: blur(0);
   opacity: 1;
   transform: scale(1);
   box-shadow: 0 30px 60px rgba(0,0,0,0.15);
 }
 
 .project-carousel .carousel-card:hover {
-  filter: blur(0px);
+  filter: blur(0);
   opacity: 1;
   transform: scale(1.02);
   z-index: 10;
@@ -214,11 +235,10 @@ h2{margin-bottom:0;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing
 
 .carousel-card img {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
 }
-
 .project-info {
   position: absolute;
   bottom: 0;
