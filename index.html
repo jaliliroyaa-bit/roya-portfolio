@@ -701,12 +701,21 @@
       }
     }
 
-    window.addEventListener('load', () => {
-      if(cards[2]) {
-        cards[2].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-      }
-      updateActiveCard();
-    });
+  window.addEventListener('load', () => {
+  const initialIndex = 2;
+  const card = cards[initialIndex];
+
+  if (card) {
+    const target =
+      card.offsetLeft
+      - (scrollContainer.clientWidth / 2)
+      + (card.offsetWidth / 2);
+
+    scrollContainer.scrollLeft = target;
+  }
+
+  updateActiveCard();
+});
 
     scrollContainer.addEventListener('wheel', (evt) => {
       scrollContainer.scrollLeft += evt.deltaY;
@@ -723,11 +732,21 @@
       updateActiveCard();
     });
 
-    function scrollToCard(index) {
-      if(cards[index]) {
-        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
-    }
+   function scrollToCard(index) {
+  const card = cards[index];
+
+  if (!card) return;
+
+  const target =
+    card.offsetLeft
+    - (scrollContainer.clientWidth / 2)
+    + (card.offsetWidth / 2);
+
+  scrollContainer.scrollTo({
+    left: target,
+    behavior: 'smooth'
+  });
+}
 
     updateActiveCard();
     window.addEventListener('resize', updateActiveCard);
