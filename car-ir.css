@@ -35,6 +35,7 @@
   line-height: .95;
 
   letter-spacing: -.045em;
+
   font-weight: 650;
 }
 
@@ -45,6 +46,7 @@
 
   font-size: 14px;
   font-weight: 500;
+
   line-height: 1.5;
 }
 
@@ -66,7 +68,8 @@
 
   border: 1px solid rgba(255,255,255,.14);
 
-  box-shadow: 0 18px 45px rgba(0,0,0,.08);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.08);
 }
 
 .project-hero img {
@@ -83,18 +86,17 @@
 
 /* =========================================================
    CASE STUDY ROW
-   LEFT = TITLE
-   RIGHT = CONTENT
+
+   LEFT  = SECTION TITLE
+   RIGHT = SECTION CONTENT
 ========================================================= */
 
 .case-row {
   display: grid;
 
-  /*
-     Wider title column so longer section titles
-     can stay on one line.
-  */
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns:
+    280px
+    minmax(0, 1fr);
 
   gap: 48px;
 
@@ -138,11 +140,8 @@
 
   color: #fff;
 
-  /*
-     Intentionally smaller than homepage headings.
-     Keeps titles such as "Identity System" on one line.
-  */
-  font-size: clamp(17px, 1.4vw, 21px);
+  font-size:
+    clamp(17px, 1.4vw, 21px);
 
   line-height: 1.08;
 
@@ -155,7 +154,7 @@
 
 
 /* =========================================================
-   RIGHT SECTION CONTENT
+   RIGHT CONTENT
 ========================================================= */
 
 .case-content {
@@ -166,16 +165,12 @@
 
 
 /* =========================================================
-   BRAND OVERVIEW TEXT
+   BRAND OVERVIEW
 ========================================================= */
 
 .overview-copy {
   width: 100%;
 
-  /*
-     Browser decides where lines break.
-     There are no manual line breaks in the HTML.
-  */
   max-width: 850px;
 }
 
@@ -185,6 +180,7 @@
   color: rgba(255,255,255,.84);
 
   font-size: 15px;
+
   font-weight: 400;
 
   line-height: 1.75;
@@ -204,9 +200,6 @@
 
   width: 100%;
 
-  /*
-     The entire diagram, text and lines are inside the PNG.
-  */
   max-width: 760px;
 
   height: auto;
@@ -253,22 +246,27 @@
 
   border-radius: 16px;
 
-  background: rgba(255,255,255,.08);
+  background:
+    rgba(255,255,255,.08);
 
-  border: 1px solid rgba(255,255,255,.12);
+  border:
+    1px solid rgba(255,255,255,.12);
 
-  box-shadow: 0 14px 35px rgba(0,0,0,.05);
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.05);
+
+  cursor: zoom-in;
 }
 
 
-/* Full-width gallery images */
+/* FULL WIDTH */
 
 .project-image.wide {
   grid-column: 1 / -1;
 }
 
 
-/* All project images displayed at 16:9 */
+/* IMAGE */
 
 .project-image img {
   display: block;
@@ -278,6 +276,8 @@
   aspect-ratio: 16 / 9;
 
   object-fit: cover;
+
+  cursor: zoom-in;
 
   transition:
     transform .65s cubic-bezier(.2,.8,.2,1);
@@ -308,13 +308,280 @@
 
 
 /* =========================================================
+   LIGHTBOX
+========================================================= */
+
+.project-lightbox {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px 90px;
+
+  background:
+    rgba(8,10,12,.92);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity .28s ease,
+    visibility .28s ease;
+}
+
+
+/* =========================================================
+   LIGHTBOX OPEN
+========================================================= */
+
+.project-lightbox.open {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   LIGHTBOX IMAGE WRAPPER
+========================================================= */
+
+.lightbox-image-wrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 1500px;
+}
+
+
+/* =========================================================
+   LIGHTBOX IMAGE
+========================================================= */
+
+.lightbox-image {
+  display: block;
+
+  width: auto;
+  height: auto;
+
+  max-width: 100%;
+
+  max-height:
+    calc(100vh - 110px);
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.4);
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   LIGHTBOX CLOSE
+========================================================= */
+
+.lightbox-close {
+  position: absolute;
+
+  top: 24px;
+  right: 28px;
+
+  z-index: 10;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.08);
+
+  color: #fff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 27px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.lightbox-close:hover {
+  background:
+    rgba(255,255,255,.16);
+
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   LIGHTBOX ARROWS
+========================================================= */
+
+.lightbox-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  z-index: 10;
+
+  transform:
+    translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border:
+    1px solid rgba(255,255,255,.16);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.07);
+
+  color: #fff;
+
+  font-family: Inter, sans-serif;
+
+  font-size: 32px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease;
+}
+
+.lightbox-arrow:hover {
+  background:
+    rgba(255,255,255,.16);
+}
+
+
+/* PREVIOUS */
+
+.lightbox-prev {
+  left: 28px;
+}
+
+
+/* NEXT */
+
+.lightbox-next {
+  right: 28px;
+}
+
+
+/* =========================================================
+   LIGHTBOX COUNTER
+========================================================= */
+
+.lightbox-counter {
+  position: absolute;
+
+  left: 50%;
+  bottom: 4px;
+
+  transform:
+    translateX(-50%);
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(0,0,0,.42);
+
+  color:
+    rgba(255,255,255,.78);
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: .08em;
+
+  white-space: nowrap;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   DISABLE BODY SCROLL WHILE LIGHTBOX IS OPEN
+========================================================= */
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+
+/* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 1000px) {
 
   .project-page {
-    padding: 120px 36px 70px;
+    padding:
+      120px
+      36px
+      70px;
   }
 
 
@@ -343,6 +610,13 @@
     max-width: 100%;
   }
 
+
+  .project-lightbox {
+    padding:
+      50px
+      70px;
+  }
+
 }
 
 
@@ -355,18 +629,25 @@
   /* PAGE */
 
   .project-page {
-    padding: 100px 20px 55px;
+    padding:
+      100px
+      20px
+      55px;
   }
 
 
-  /* PROJECT INTRO */
+  /* INTRO */
 
   .project-intro {
-    padding: 38px 0 42px;
+    padding:
+      38px
+      0
+      42px;
   }
 
   .project-intro h1 {
-    font-size: clamp(38px, 13vw, 54px);
+    font-size:
+      clamp(38px, 13vw, 54px);
   }
 
   .project-category {
@@ -383,7 +664,7 @@
   }
 
 
-  /* CASE STUDY ROWS */
+  /* CASE ROW */
 
   .case-row {
     display: block;
@@ -392,7 +673,7 @@
   }
 
 
-  /* LABEL */
+  /* SECTION LABEL */
 
   .case-label {
     margin-bottom: 24px;
@@ -403,10 +684,6 @@
   .case-label h2 {
     font-size: 20px;
 
-    /*
-       Mobile may wrap if the screen is too narrow.
-       Desktop remains single-line.
-    */
     white-space: normal;
   }
 
@@ -426,7 +703,7 @@
   }
 
 
-  /* BRAINSTORMING PNG */
+  /* BRAINSTORM */
 
   .brainstorm-image {
     width: 100%;
@@ -434,12 +711,10 @@
     max-width: none;
 
     height: auto;
-
-    object-fit: contain;
   }
 
 
-  /* PROJECT GALLERY */
+  /* GALLERY */
 
   .project-gallery {
     grid-template-columns: 1fr;
@@ -459,7 +734,72 @@
   /* PROJECT END */
 
   .project-end {
-    padding: 55px 0 5px;
+    padding:
+      55px
+      0
+      5px;
+  }
+
+
+  /* LIGHTBOX */
+
+  .project-lightbox {
+    padding:
+      60px
+      14px;
+  }
+
+
+  .lightbox-image {
+    max-width: 100%;
+
+    max-height:
+      calc(100vh - 120px);
+
+    border-radius: 8px;
+  }
+
+
+  /* CLOSE */
+
+  .lightbox-close {
+    top: 14px;
+    right: 14px;
+
+    width: 40px;
+    height: 40px;
+
+    font-size: 24px;
+  }
+
+
+  /* ARROWS */
+
+  .lightbox-arrow {
+    width: 40px;
+    height: 40px;
+
+    font-size: 27px;
+
+    background:
+      rgba(0,0,0,.42);
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+
+
+  /* COUNTER */
+
+  .lightbox-counter {
+    bottom: 2px;
+
+    font-size: 10px;
   }
 
 }
