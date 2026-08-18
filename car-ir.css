@@ -14,8 +14,8 @@
 
   width: 100%;
 
-  /* same horizontal safe space as homepage */
-  padding: 130px 48px 80px;
+  /* کمی جمع‌وجورتر از قبل */
+  padding: 110px 48px 80px;
 }
 
 
@@ -24,15 +24,15 @@
 ========================================================= */
 
 .project-intro {
-  padding: 52px 0 34px;
+  padding: 46px 0 30px;
 }
 
 .project-intro h1 {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 
   max-width: none;
 
-  font-size: clamp(48px, 5.5vw, 72px);
+  font-size: clamp(48px, 5.2vw, 70px);
   line-height: .95;
 
   letter-spacing: -.05em;
@@ -58,7 +58,7 @@
 .project-hero {
   width: 100%;
 
-  margin: 48px 0 90px;
+  margin: 36px 0 80px;
 
   overflow: hidden;
 
@@ -97,17 +97,17 @@
 
   align-items: start;
 
-  margin-bottom: 100px;
+  margin-bottom: 90px;
 }
 
 .overview-heading .eyebrow {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .overview-heading h2 {
   margin: 0;
 
-  font-size: clamp(38px, 4.5vw, 58px);
+  font-size: clamp(36px, 4.2vw, 54px);
   line-height: 1;
 
   letter-spacing: -.04em;
@@ -118,7 +118,7 @@
 }
 
 .overview-copy p {
-  margin: 0 0 24px;
+  margin: 0 0 22px;
 
   color: rgba(255,255,255,.84);
 
@@ -138,11 +138,11 @@
 .project-page .section-heading {
   display: block;
 
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .project-page .section-heading .eyebrow {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .project-page .section-heading h2 {
@@ -157,16 +157,13 @@
 .brainstorming-section {
   width: 100%;
 
-  margin-bottom: 100px;
+  margin-bottom: 90px;
 }
-
-
-/* board is intentionally smaller than project images */
 
 .brainstorm-board {
   position: relative;
 
-  width: min(100%, 880px);
+  width: min(100%, 820px);
 
   aspect-ratio: 16 / 9;
 
@@ -202,7 +199,7 @@
   position: absolute;
 
   left: 50%;
-  top: 50%;
+  top: 49%;
 
   transform: translate(-50%, -50%);
 
@@ -212,7 +209,7 @@
 
   font-family: "Caveat", cursive;
 
-  font-size: clamp(34px, 3.4vw, 50px);
+  font-size: clamp(32px, 3.2vw, 46px);
 
   font-weight: 700;
 
@@ -239,7 +236,7 @@
 .brainstorm-branch h3 {
   margin: 0 0 6px;
 
-  font-size: clamp(19px, 1.6vw, 25px);
+  font-size: clamp(18px, 1.5vw, 24px);
 
   line-height: 1;
 
@@ -249,7 +246,7 @@
 .brainstorm-branch p {
   margin: 0;
 
-  font-size: clamp(15px, 1.3vw, 20px);
+  font-size: clamp(14px, 1.2vw, 19px);
 
   line-height: 1.25;
 }
@@ -259,7 +256,7 @@
 
 .branch-automotive {
   left: 7%;
-  top: 36%;
+  top: 35%;
 }
 
 
@@ -267,14 +264,14 @@
 
 .branch-personality {
   right: 6%;
-  top: 16%;
+  top: 17%;
 }
 
 
 /* Digital Media — lower center */
 
 .branch-digital {
-  left: 55%;
+  left: 53%;
   top: 68%;
 }
 
@@ -299,36 +296,36 @@
 /* CAR.IR → Automotive */
 
 .line-left {
-  width: 25%;
+  width: 22%;
 
-  left: 49%;
-  top: 50%;
+  left: 48%;
+  top: 49%;
 
-  transform: rotate(190deg);
+  transform: rotate(198deg);
 }
 
 
 /* CAR.IR → Brand Personality */
 
 .line-right {
-  width: 23%;
+  width: 19%;
 
   left: 52%;
   top: 47%;
 
-  transform: rotate(-45deg);
+  transform: rotate(-58deg);
 }
 
 
 /* CAR.IR → Digital Media */
 
 .line-bottom {
-  width: 18%;
+  width: 16%;
 
-  left: 51%;
+  left: 50%;
   top: 54%;
 
-  transform: rotate(55deg);
+  transform: rotate(76deg);
 }
 
 
@@ -343,7 +340,7 @@
   .brainstorming-section,
   .project-end
 ) {
-  margin-bottom: 90px;
+  margin-bottom: 85px;
 }
 
 
@@ -374,15 +371,9 @@
   box-shadow: 0 14px 35px rgba(0,0,0,.06);
 }
 
-
-/* Full width image */
-
 .project-image.wide {
   grid-column: 1 / -1;
 }
-
-
-/* All portfolio images displayed as 16:9 */
 
 .project-image img {
   display: block;
@@ -414,7 +405,7 @@
 
   justify-content: center;
 
-  padding: 80px 0 20px;
+  padding: 70px 0 15px;
 }
 
 
@@ -426,7 +417,7 @@
 
   .project-page {
     padding:
-      120px
+      105px
       32px
       70px;
   }
@@ -434,7 +425,7 @@
   .brand-overview {
     grid-template-columns: 1fr;
 
-    gap: 32px;
+    gap: 30px;
   }
 
   .brainstorm-board {
@@ -452,9 +443,9 @@
 
   .project-page {
     padding:
-      100px
+      95px
       20px
-      60px;
+      55px;
   }
 
 
@@ -462,14 +453,14 @@
 
   .project-intro {
     padding:
-      42px
+      36px
       0
-      36px;
+      30px;
   }
 
   .project-intro h1 {
     font-size:
-      clamp(46px, 16vw, 68px);
+      clamp(44px, 15vw, 64px);
   }
 
 
@@ -477,9 +468,9 @@
 
   .project-hero {
     margin:
-      32px
+      28px
       0
-      65px;
+      58px;
 
     border-radius: 16px;
   }
@@ -488,7 +479,7 @@
   /* OVERVIEW */
 
   .brand-overview {
-    margin-bottom: 70px;
+    margin-bottom: 65px;
   }
 
   .overview-copy p {
@@ -499,7 +490,7 @@
   /* BRAINSTORM */
 
   .brainstorming-section {
-    margin-bottom: 70px;
+    margin-bottom: 65px;
   }
 
   .brainstorm-board {
@@ -507,7 +498,7 @@
 
     aspect-ratio: auto;
 
-    min-height: 500px;
+    min-height: 470px;
 
     border-radius: 18px;
   }
@@ -516,7 +507,7 @@
     left: 50%;
     top: 45%;
 
-    font-size: 38px;
+    font-size: 36px;
   }
 
   .branch-automotive {
@@ -562,7 +553,7 @@
 
   .project-end {
     padding:
-      65px
+      60px
       0
       10px;
   }
