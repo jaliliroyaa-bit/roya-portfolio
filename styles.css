@@ -977,26 +977,29 @@ h2 {
   line-height: 1.75;
 }
 
-
 /* =========================================================
    BRAINSTORMING
 ========================================================= */
 
 .brainstorming-section {
   width: 100%;
+  margin-bottom: 90px;
+}
 
-  margin-bottom: 110px;
+.brainstorming-section .section-heading {
+  margin-bottom: 28px;
 }
 
 .brainstorm-board {
   position: relative;
 
   width: 100%;
+  max-width: 1040px;
 
-  aspect-ratio:
-    16 / 9;
+  margin: 0 auto;
 
-  min-height: 520px;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
 
   overflow: hidden;
 
@@ -1008,48 +1011,39 @@ h2 {
   border:
     1px solid rgba(255,255,255,.20);
 
-  backdrop-filter:
-    blur(20px);
-
-  -webkit-backdrop-filter:
-    blur(20px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
   box-shadow:
-    inset
-    0 1px 0
-    rgba(255,255,255,.22),
-    0 20px 60px
-    rgba(0,0,0,.06);
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 18px 45px rgba(0,0,0,.05);
 }
+
+
+/* CENTER */
 
 .brainstorm-center {
   position: absolute;
 
   left: 50%;
-  top: 50%;
+  top: 49%;
 
-  transform:
-    translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 
   z-index: 5;
 
-  font-family:
-    "Caveat",
-    cursive;
+  font-family: "Caveat", cursive;
 
-  font-size:
-    clamp(
-      42px,
-      5vw,
-      72px
-    );
-
+  font-size: clamp(34px, 3.7vw, 58px);
   font-weight: 700;
 
   color: #181818;
 
   white-space: nowrap;
 }
+
+
+/* BRANCH TEXT */
 
 .brainstorm-branch {
   position: absolute;
@@ -1058,21 +1052,13 @@ h2 {
 
   color: #181818;
 
-  font-family:
-    "Caveat",
-    cursive;
+  font-family: "Caveat", cursive;
 }
 
 .brainstorm-branch h3 {
-  margin:
-    0 0 6px;
+  margin: 0 0 5px;
 
-  font-size:
-    clamp(
-      24px,
-      2.3vw,
-      38px
-    );
+  font-size: clamp(20px, 1.8vw, 30px);
 
   font-weight: 500;
 
@@ -1082,33 +1068,39 @@ h2 {
 .brainstorm-branch p {
   margin: 0;
 
-  font-size:
-    clamp(
-      20px,
-      2vw,
-      32px
-    );
+  font-size: clamp(17px, 1.55vw, 25px);
 
-  line-height: 1.15;
+  line-height: 1.16;
 }
+
+
+/* LEFT */
 
 .branch-automotive {
   left: 5%;
-  top: 36%;
+  top: 35%;
 }
 
+
+/* TOP RIGHT */
+
 .branch-personality {
-  right: 5%;
-  top: 20%;
+  right: 6%;
+  top: 18%;
 }
+
+
+/* BOTTOM */
 
 .branch-digital {
   left: 48%;
-  top: 66%;
+  top: 64%;
 
-  transform:
-    translateX(-10%);
+  transform: translateX(-8%);
 }
+
+
+/* CONNECTION LINES */
 
 .branch-line {
   position: absolute;
@@ -1118,40 +1110,93 @@ h2 {
   height: 1px;
 
   background:
-    rgba(20,20,20,.7);
+    rgba(24,24,24,.72);
 
-  transform-origin:
-    left center;
+  transform-origin: left center;
 }
+
+
+/* CAR.IR → AUTOMOTIVE */
 
 .line-left {
-  width: 17%;
+  width: 16%;
 
-  left: 35%;
+  left: 39%;
   top: 48%;
 
-  transform:
-    rotate(205deg);
+  transform: rotate(205deg);
 }
+
+
+/* CAR.IR → BRAND PERSONALITY */
 
 .line-right {
-  width: 18%;
+  width: 17%;
 
-  left: 52%;
-  top: 47%;
+  left: 53%;
+  top: 46%;
 
-  transform:
-    rotate(-68deg);
+  transform: rotate(-68deg);
 }
 
+
+/* CAR.IR → DIGITAL MEDIA */
+
 .line-bottom {
-  width: 13%;
+  width: 11%;
 
   left: 50%;
-  top: 55%;
+  top: 54%;
 
-  transform:
-    rotate(90deg);
+  transform: rotate(90deg);
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+  .brainstorm-board {
+    max-width: 100%;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .brainstorm-board {
+    aspect-ratio: auto;
+    min-height: 560px;
+  }
+
+  .brainstorm-center {
+    top: 45%;
+    font-size: 38px;
+  }
+
+  .branch-automotive {
+    left: 6%;
+    top: 13%;
+  }
+
+  .branch-personality {
+    right: 6%;
+    top: 55%;
+    text-align: right;
+  }
+
+  .branch-digital {
+    left: 6%;
+    top: 75%;
+    transform: none;
+  }
+
+  .branch-line {
+    display: none;
+  }
 }
 
 
