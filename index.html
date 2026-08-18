@@ -877,119 +877,157 @@
     });
   });
 
-  /* =========================
-     DRAG CAROUSEL
-  ========================= */
+ /* =========================
+   DRAG CAROUSEL
+========================= */
 
-  scrollContainer.addEventListener(
-    'pointerdown',
-    event => {
-
-      event.preventDefault();
-
-      isDraggingCarousel = true;
-      hasDragged = false;
-
-      carouselStartX = event.clientX;
-      carouselStartScroll =
-        scrollContainer.scrollLeft;
-
-      scrollContainer.setPointerCapture(
-        event.pointerId
-      );
-
-      scrollContainer.style.cursor =
-        'grabbing';
-
-      scrollContainer.style.scrollSnapType =
-        'none';
-    }
-  );
+let isDraggingCarousel = false;
+let carouselStartX = 0;
+let carouselStartScroll = 0;
+let hasDragged = false;
 
 
-  scrollContainer.addEventListener(
-    'pointermove',
-    event => {
+/* جلوگیری از Drag پیش‌فرض عکس و لینک */
+cards.forEach(card => {
+  card.setAttribute('draggable', 'false');
 
-      if (!isDraggingCarousel) return;
+  card.addEventListener('dragstart', event => {
+    event.preventDefault();
+  });
 
-      const distance =
-        event.clientX - carouselStartX;
+  const img = card.querySelector('img');
 
-      if (Math.abs(distance) > 4) {
-        hasDragged = true;
-      }
-
-      scrollContainer.scrollLeft =
-        carouselStartScroll - distance;
-    }
-  );
+  if (img) {
+    img.setAttribute('draggable', 'false');
+  }
+});
 
 
-  function endCarouselDrag() {
+/* شروع Drag */
+scrollContainer.addEventListener('pointerdown', event => {
 
-    if (!isDraggingCarousel) return;
-
-    isDraggingCarousel = false;
-
-    scrollContainer.style.cursor = 'grab';
-
-    scrollContainer.style.scrollSnapType =
-      'x mandatory';
-
-    updateActiveCard();
-    updateTimeline();
-
-    if (hasDragged) {
-      const containerRect = scrollContainer.getBoundingClientRect();
-      const containerCenter = containerRect.left + containerRect.width / 2;
-      let closestIndex = 0;
-      let minDistance = Infinity;
-
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.left + rect.width / 2;
-        const distance = Math.abs(cardCenter - containerCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      scrollToCard(closestIndex);
-    }
+  /* فقط کلیک اصلی موس */
+  if (event.pointerType === 'mouse' && event.button !== 0) {
+    return;
   }
 
+  isDraggingCarousel = true;
+  hasDragged = false;
 
-  scrollContainer.addEventListener(
-    'pointerup',
-    endCarouselDrag
-  );
+  carouselStartX = event.clientX;
+  carouselStartScroll = scrollContainer.scrollLeft;
 
-  scrollContainer.addEventListener(
-    'pointercancel',
-    endCarouselDrag
-  );
+  scrollContainer.classList.add('dragging');
+
+  scrollContainer.setPointerCapture(event.pointerId);
+
+  event.preventDefault();
+});
 
 
-  /* جلوگیری از باز شدن پروژه موقع Drag */
+/* حرکت */
+scrollContainer.addEventListener('pointermove', event => {
 
-  cards.forEach(card => {
+  if (!isDraggingCarousel) return;
 
-    card.addEventListener(
-      'click',
-      event => {
+  const distance = event.clientX - carouselStartX;
 
-        if (hasDragged) {
-          event.preventDefault();
-          hasDragged = false;
-        }
+  if (Math.abs(distance) > 5) {
+    hasDragged = true;
+  }
+
+  scrollContainer.scrollLeft =
+    carouselStartScroll - distance;
+
+  event.preventDefault();
+});
+
+
+/* پایان Drag */
+function endCarouselDrag(event) {
+
+  if (!isDraggingCarousel) return;
+
+  isDraggingCarousel = false;
+
+  scrollContainer.classList.remove('dragging');
+
+  if (
+    event &&
+    scrollContainer.hasPointerCapture(event.pointerId)
+  ) {
+    scrollContainer.releasePointerCapture(event.pointerId);
+  }
+
+  updateActiveCard();
+  updateTimeline();
+
+
+  /* پیدا کردن نزدیک‌ترین کارت */
+  if (hasDragged) {
+
+    const containerRect =
+      scrollContainer.getBoundingClientRect();
+
+    const containerCenter =
+      containerRect.left + containerRect.width / 2;
+
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, index) => {
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const cardCenter =
+        rect.left + rect.width / 2;
+
+      const distance =
+        Math.abs(cardCenter - containerCenter);
+
+      if (distance < minDistance) {
+
+        minDistance = distance;
+        closestIndex = index;
 
       }
-    );
+
+    });
+
+    scrollToCard(closestIndex);
+  }
+}
+
+
+scrollContainer.addEventListener(
+  'pointerup',
+  endCarouselDrag
+);
+
+scrollContainer.addEventListener(
+  'pointercancel',
+  endCarouselDrag
+);
+
+
+/* اگر Drag کردیم لینک پروژه باز نشود */
+cards.forEach(card => {
+
+  card.addEventListener('click', event => {
+
+    if (hasDragged) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      hasDragged = false;
+
+    }
 
   });
+
+});
 
 
   /* =========================
