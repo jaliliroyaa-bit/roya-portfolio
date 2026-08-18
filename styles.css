@@ -1,1596 +1,482 @@
-/* =========================================================
-   GLOBAL
-========================================================= */
+<!DOCTYPE html>
+<html lang="en">
 
-* {
-  box-sizing: border-box;
-}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-:root {
-  --body-text: #2F3133;
-  --body-muted: #6B7377;
+  <title>CAR.IR — Roya Jalili</title>
 
-  --max: 1280px;
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  /* فاصله استاندارد داخل صفحات */
-  --page-gap: 48px;
-  --mobile-gap: 20px;
-
-  --radius-main: 24px;
-  --radius-card: 16px;
-}
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;650&display=swap"
+    rel="stylesheet"
+  >
 
-html {
-  scroll-behavior: smooth;
-}
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-body {
-  margin: 0;
 
-  color: var(--body-text);
+<body>
 
-  background:
-    radial-gradient(
-      circle at top left,
-      #9CC7D8 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      #C9C4BC 0%,
-      transparent 35%
-    ),
-    linear-gradient(
-      120deg,
-      #EAF3F7 0%,
-      #D9EAF2 45%,
-      #C9C4BC 100%
-    );
+<main id="top">
 
-  font-family:
-    Inter,
-    ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  <!-- =========================
+       BACKGROUND
+  ========================== -->
 
-  -webkit-font-smoothing: antialiased;
+  <div class="main-bg"></div>
 
-  overflow-x: hidden;
-}
+  <div class="ink-wrapper">
+    <div class="ink-blob color-1"></div>
+    <div class="ink-blob color-2"></div>
+    <div class="ink-blob color-3"></div>
+  </div>
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
-img {
-  display: block;
-  width: 100%;
-}
+  <!-- =========================
+       HEADER
+  ========================== -->
 
+  <header class="site-header">
 
-/* =========================================================
-   MAIN IMMERSIVE FRAME
-========================================================= */
+    <a
+      href="index.html"
+      class="logo"
+    >
+      Roya Jalili
+    </a>
 
-main {
-  position: relative;
+    <nav>
 
-  width: calc(100% - 48px);
-  max-width: var(--max);
+      <a
+        href="projects.html"
+        class="projects-btn"
+      >
+        Projects
+      </a>
 
-  margin: 3vh auto 2vh;
+      <a href="index.html#about">
+        About
+      </a>
 
-  border-radius: var(--radius-main);
+      <a href="index.html#contact">
+        Contact
+      </a>
 
-  overflow: hidden;
+    </nav>
 
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.10);
+  </header>
 
-  --text: #ffffff;
-  --muted: rgba(255, 255, 255, 0.75);
-  --line: rgba(255, 255, 255, 0.15);
 
-  color: var(--text);
-}
+  <!-- =========================
+       PROJECT PAGE
+  ========================== -->
 
+  <div class="project-page">
 
-/* =========================================================
-   MAIN BACKGROUND
-========================================================= */
 
-.main-bg {
-  position: absolute;
+    <!-- =========================
+         INTRO
+    ========================== -->
 
-  inset: 0;
+    <section class="project-intro">
 
-  background:
-    linear-gradient(
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.08)
-    ),
-    url("assets/hero-bg.jpg")
-    center / cover
-    fixed
-    no-repeat;
+      <p class="eyebrow">
+        Brand & Identity
+      </p>
 
-  background-color: #8C8176;
+      <h1>
+        CAR.IR
+      </h1>
 
-  z-index: 0;
+      <p class="project-category">
+        Visual Identity & Digital Experience
+      </p>
 
-  pointer-events: none;
-}
+    </section>
 
 
-/* =========================================================
-   ANIMATED INK BACKGROUND
-========================================================= */
+    <!-- =========================
+         HERO
+    ========================== -->
 
-.ink-wrapper {
-  position: absolute;
+    <section class="project-hero">
 
-  top: 0;
-  left: 0;
+      <img
+        src="assets/car-ir/cover.jpg"
+        alt="CAR.IR Brand Identity"
+      >
 
-  width: 100%;
-  height: 100vh;
+    </section>
 
-  overflow: hidden;
 
-  z-index: 1;
+    <!-- =========================
+         BRAND OVERVIEW
+    ========================== -->
 
-  pointer-events: none;
-}
+    <section class="brand-overview">
 
-.ink-blob {
-  position: absolute;
+      <div class="overview-heading">
 
-  border-radius: 50%;
+        <p class="eyebrow">
+          Brand Overview
+        </p>
 
-  opacity: 0.8;
+        <h2>
+          CAR.IR
+        </h2>
 
-  mix-blend-mode: overlay;
+      </div>
 
-  animation:
-    mix-ink
-    15s
-    infinite
-    alternate
-    ease-in-out;
-}
 
-.color-1 {
-  width: 55vw;
-  height: 55vw;
+      <div class="overview-copy">
 
-  background-color: #8DAEBE;
+        <p>
+          CAR.IR is a digital automotive media platform that delivers
+          the latest automotive news, in-depth vehicle reviews, and
+          comprehensive car information. By providing reliable content
+          and up-to-date market insights, the platform helps users stay
+          informed and make confident automotive decisions.
+        </p>
 
-  top: -15%;
-  left: -10%;
+        <p>
+          Before this project, the brand relied solely on its logo
+          without a supporting visual identity system. The objective
+          was to refine the existing logo and develop a flexible
+          identity system that could seamlessly extend across the
+          website, editorial content, stationery, and future brand
+          communications while preserving the brand's existing
+          recognition.
+        </p>
 
-  animation-delay: 0s;
-}
+      </div>
 
-.color-2 {
-  width: 65vw;
-  height: 65vw;
+    </section>
 
-  background-color: #8C8176;
 
-  bottom: -20%;
-  right: -10%;
+    <!-- =========================
+         BRAINSTORMING
+    ========================== -->
 
-  animation-delay: -5s;
-}
+    <section class="brainstorming-section">
 
-.color-3 {
-  width: 50vw;
-  height: 50vw;
+      <div class="section-heading">
 
-  background-color: #6C8B9B;
+        <div>
 
-  top: 20%;
-  left: 20%;
+          <p class="eyebrow">
+            Brand Exploration
+          </p>
 
-  animation-delay: -10s;
-}
+          <h2>
+            Brainstorming
+          </h2>
 
-@keyframes mix-ink {
+        </div>
 
-  0% {
-    transform:
-      translate(0, 0)
-      scale(1);
+      </div>
 
-    filter: blur(90px);
-  }
 
-  33% {
-    transform:
-      translate(8vw, -8vh)
-      scale(1.1);
+      <div class="brainstorm-board">
 
-    filter: blur(90px);
-  }
 
-  66% {
-    transform:
-      translate(-8vw, 10vh)
-      scale(.95);
+        <!-- CENTER -->
 
-    filter: blur(90px);
-  }
+        <div class="brainstorm-center">
+          CAR.IR
+        </div>
 
-  100% {
-    transform:
-      translate(4vw, 4vh)
-      scale(1.05);
 
-    filter: blur(90px);
-  }
-}
+        <!-- LEFT -->
 
+        <div class="brainstorm-branch branch-automotive">
 
-/* =========================================================
-   CONTENT LAYERS
-========================================================= */
+          <h3>
+            Automotive
+          </h3>
 
-.site-header,
-.hero,
-.section,
-.contact {
-  position: relative;
+          <p>
+            Track · Corner · Apex<br>
+            Tire · Wheel · Brake<br>
+            Steering · Turbo
+          </p>
 
-  z-index: 10;
-}
+        </div>
 
 
-/* =========================================================
-   HEADER
-========================================================= */
+        <!-- TOP RIGHT -->
 
-.site-header {
-  position: absolute;
+        <div class="brainstorm-branch branch-personality">
 
-  top: 0;
-  left: 0;
+          <h3>
+            Brand Personality
+          </h3>
 
-  width: 100%;
+          <p>
+            Reliable · Accurate · Dynamic<br>
+            Professional · Modern · Innovative<br>
+            Clear · Trustworthy
+          </p>
 
-  padding:
-    24px
-    var(--page-gap);
+        </div>
 
-  display: flex;
 
-  align-items: center;
+        <!-- BOTTOM -->
 
-  justify-content: space-between;
+        <div class="brainstorm-branch branch-digital">
 
-  border-bottom:
-    1px solid var(--line);
-}
+          <h3>
+            Digital Media
+          </h3>
 
-.site-header .logo {
-  font-family:
-    "Caveat",
-    cursive;
+          <p>
+            News · Information · Reviews<br>
+            Analysis · Articles · Comparison<br>
+            Updates · Content Publishing
+          </p>
 
-  font-weight: 700;
+        </div>
 
-  font-size: 32px;
 
-  letter-spacing: 1px;
-}
+        <!-- CONNECTION LINES -->
 
-.site-header nav {
-  display: flex;
+        <span class="branch-line line-left"></span>
+        <span class="branch-line line-right"></span>
+        <span class="branch-line line-bottom"></span>
 
-  gap: 32px;
+      </div>
 
-  align-items: center;
-}
+    </section>
 
-.site-header nav a {
-  color:
-    rgba(255,255,255,.75);
 
-  font-size: 14px;
+    <!-- =========================
+         IDENTITY SYSTEM
+    ========================== -->
 
-  font-weight: 500;
+    <section>
 
-  transition:
-    color .3s ease;
-}
+      <div class="section-heading">
 
-.site-header nav a:hover {
-  color: #fff;
-}
+        <div>
 
+          <p class="eyebrow">
+            Brand Identity
+          </p>
 
-/* =========================================================
-   PROJECTS BUTTON
-========================================================= */
+          <h2>
+            Identity System
+          </h2>
 
-.projects-btn {
-  border:
-    1px solid rgba(255,255,255,.4);
+        </div>
 
-  padding:
-    6px 16px;
+      </div>
 
-  border-radius:
-    999px;
 
-  transition:
-    all .3s ease;
-}
+      <div class="project-gallery">
 
-.projects-btn:hover {
-  background:
-    rgba(255,255,255,.1);
 
-  border-color: #fff;
-}
+        <!-- 21 -->
 
+        <div class="project-image wide">
 
-/* =========================================================
-   HERO
-========================================================= */
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-21.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-.hero {
-  min-height: 70vh;
+        </div>
 
-  padding:
-    20vh
-    var(--page-gap)
-    10vh;
 
-  display: flex;
+        <!-- 22 -->
 
-  flex-direction: column;
+        <div class="project-image">
 
-  align-items: flex-start;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-22.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  justify-content: center;
-}
+        </div>
 
-.eyebrow {
-  margin:
-    0 0 20px;
 
-  color: var(--muted);
+        <!-- 23 -->
 
-  font-size: 12px;
+        <div class="project-image">
 
-  font-weight: 650;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-23.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  letter-spacing: .12em;
+        </div>
 
-  text-transform: uppercase;
-}
 
-.hero-eyebrow {
-  color:
-    rgba(255,255,255,.9);
-}
+        <!-- 24 -->
 
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
-}
+        <div class="project-image wide">
 
-h1 {
-  max-width: 850px;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-24.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  margin-bottom: 24px;
+        </div>
 
-  font-size:
-    clamp(
-      40px,
-      6.5vw,
-      85px
-    );
 
-  line-height: 1.12;
+        <!-- 25 -->
 
-  letter-spacing: -.05em;
+        <div class="project-image">
 
-  font-weight: 650;
-}
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-25.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-.hero-copy {
-  max-width: 550px;
+        </div>
 
-  margin-bottom: 32px;
 
-  color:
-    rgba(255,255,255,.92);
+        <!-- 26 -->
 
-  font-size:
-    clamp(
-      17px,
-      1.8vw,
-      21px
-    );
+        <div class="project-image">
 
-  line-height: 1.6;
-}
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-26.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
+        </div>
 
-/* =========================================================
-   GENERAL SECTIONS
-========================================================= */
 
-.section {
-  padding:
-    100px 0 0;
-}
+        <!-- 27 -->
 
-.section-header-wrapper {
-  padding:
-    0
-    var(--page-gap);
+        <div class="project-image wide">
 
-  margin-bottom: 40px;
-}
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-27.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-.section-heading {
-  display: flex;
+        </div>
 
-  align-items: center;
 
-  justify-content: space-between;
+        <!-- 28 -->
 
-  margin-bottom: 24px;
-}
+        <div class="project-image">
 
-h2 {
-  margin-bottom: 0;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-28.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  font-size:
-    clamp(
-      36px,
-      5vw,
-      64px
-    );
+        </div>
 
-  line-height: .98;
 
-  letter-spacing: -.055em;
+        <!-- 33 -->
 
-  font-weight: 620;
-}
+        <div class="project-image">
 
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-33.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-/* =========================================================
-   TIMELINE
-========================================================= */
+        </div>
 
-.timeline {
-  position: relative;
 
-  width: 100%;
-  height: 1px;
+        <!-- 41 -->
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,255,255,.15) 15%,
-      rgba(255,255,255,.15) 85%,
-      transparent 100%
-    );
+        <div class="project-image wide">
 
-  margin-top: 10px;
-}
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-41.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-.timeline-marker {
-  position: absolute;
+        </div>
 
-  top: -2px;
-  left: 0;
 
-  width: 32px;
-  height: 5px;
+        <!-- 42 -->
 
-  background: #fff;
+        <div class="project-image">
 
-  border-radius: 4px;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-42.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  box-shadow:
-    0 0 10px
-    rgba(255,255,255,.4);
+        </div>
 
-  transition:
-    left .05s ease-out;
-}
 
+        <!-- 43 -->
 
-/* =========================================================
-   HORIZONTAL PROJECT CAROUSEL
-========================================================= */
+        <div class="project-image">
 
-.project-carousel {
-  display: flex;
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-43.jpg"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
+          >
 
-  gap: 30px;
+        </div>
 
-  width: 100%;
 
-  overflow-x: auto;
-  overflow-y: hidden;
+      </div>
 
-  padding:
-    10px
-    var(--page-gap)
-    80px;
+    </section>
 
-  scrollbar-width: none;
 
-  -ms-overflow-style: none;
+    <!-- =========================
+         PROJECT END
+    ========================== -->
 
-  scroll-snap-type:
-    x mandatory;
+    <section class="project-end">
 
-  scroll-behavior: smooth;
+      <a
+        href="projects.html"
+        class="projects-btn"
+      >
+        ← Back to Project Archive
+      </a>
 
-  scroll-padding-inline:
-    var(--page-gap);
-}
+    </section>
 
-.project-carousel::-webkit-scrollbar {
-  display: none;
-}
 
+  </div>
 
-/* =========================================================
-   CAROUSEL CARD
-========================================================= */
+</main>
 
-.carousel-card {
-  flex:
-    0 0 min(520px, 68vw);
 
-  position: relative;
+<!-- =========================
+     FOOTER
+========================== -->
 
-  border-radius:
-    var(--radius-card);
+<footer>
 
-  overflow: hidden;
+  <div>
+    © 2026 Roya Jalili
+  </div>
 
-  cursor: pointer;
+  <div>
+    CAR.IR — Brand Identity
+  </div>
 
-  scroll-snap-align: center;
+</footer>
 
-  filter: blur(4px);
 
-  opacity: .45;
+</body>
 
-  transform:
-    scale(.88);
-
-  transition:
-    filter .5s ease,
-    opacity .5s ease,
-    transform .5s cubic-bezier(.2,.8,.2,1),
-    box-shadow .5s ease;
-}
-
-.project-carousel:not(:hover)
-.carousel-card.active {
-  filter: blur(0);
-
-  opacity: 1;
-
-  transform:
-    scale(1);
-
-  box-shadow:
-    0 30px 60px
-    rgba(0,0,0,.15);
-}
-
-.project-carousel
-.carousel-card:hover {
-  filter: blur(0);
-
-  opacity: 1;
-
-  transform:
-    scale(1.02);
-
-  z-index: 10;
-
-  box-shadow:
-    0 30px 60px
-    rgba(0,0,0,.15);
-}
-
-.carousel-card img {
-  width: 100%;
-
-  aspect-ratio:
-    4 / 3;
-
-  object-fit: cover;
-
-  display: block;
-}
-
-
-/* =========================================================
-   PROJECT INFO
-========================================================= */
-
-.project-info {
-  position: absolute;
-
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-
-  padding:
-    40px
-    32px
-    32px;
-
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,.8) 0%,
-      rgba(0,0,0,0) 100%
-    );
-
-  color: #fff;
-
-  opacity: 0;
-
-  transform:
-    translateY(20px);
-
-  transition:
-    opacity .4s ease,
-    transform .4s ease;
-}
-
-.project-carousel:not(:hover)
-.carousel-card.active
-.project-info,
-.project-carousel:hover
-.project-info {
-  opacity: 1;
-
-  transform:
-    translateY(0);
-}
-
-.project-info h3 {
-  margin:
-    0 0 6px;
-
-  font-size:
-    clamp(
-      20px,
-      2vw,
-      28px
-    );
-
-  font-weight: 650;
-
-  letter-spacing: -.02em;
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about {
-  display: grid;
-
-  grid-template-columns:
-    460px
-    minmax(0,1fr);
-
-  gap: 56px;
-
-  align-items: start;
-
-  padding:
-    0
-    var(--page-gap)
-    100px;
-}
-
-.about-photo {
-  overflow: hidden;
-
-  border-radius: 28px;
-
-  background:
-    rgba(255,255,255,.1);
-
-  border:
-    1px solid var(--line);
-
-  box-shadow:
-    0 18px 45px
-    rgba(0,0,0,.15);
-}
-
-.about-photo img {
-  aspect-ratio:
-    839 / 1086;
-
-  object-fit: cover;
-
-  object-position:
-    center 20%;
-}
-
-.about-content {
-  max-width: 650px;
-
-  padding-top: 6px;
-}
-
-.about .eyebrow {
-  margin-bottom: 22px;
-
-  color: var(--muted);
-}
-
-.about h2 {
-  max-width: 560px;
-
-  margin-bottom: 30px;
-
-  font-size:
-    clamp(
-      28px,
-      3vw,
-      46px
-    );
-
-  line-height: 1.08;
-
-  letter-spacing: -.04em;
-}
-
-.about-copy {
-  max-width: 600px;
-
-  color:
-    rgba(255,255,255,.85);
-
-  font-size: 17px;
-
-  line-height: 1.7;
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact {
-  padding:
-    50px
-    var(--page-gap)
-    120px;
-
-  text-align: center;
-}
-
-.contact h2 {
-  margin:
-    0 auto 36px;
-}
-
-
-/* =========================================================
-   PROJECT / CASE STUDY PAGE
-   CAR.IR / TOPSPIN / CHAVOSH ...
-========================================================= */
-
-.project-page {
-  position: relative;
-
-  z-index: 10;
-
-  width: 100%;
-
-  padding:
-    130px
-    var(--page-gap)
-    90px;
-}
-
-
-/* Intro */
-
-.project-intro {
-  width: 100%;
-
-  max-width: 900px;
-
-  margin-bottom: 56px;
-}
-
-.project-category {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,.72);
-
-  font-size:
-    clamp(
-      16px,
-      1.8vw,
-      21px
-    );
-}
-
-
-/* Project Hero */
-
-.project-hero {
-  width: 100%;
-
-  margin:
-    0 0 96px;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-
-  background:
-    rgba(255,255,255,.08);
-}
-
-.project-hero img {
-  width: 100%;
-
-  aspect-ratio:
-    16 / 9;
-
-  object-fit: cover;
-
-  display: block;
-}
-
-
-/* Case Study Section */
-
-.case-section {
-  width: 100%;
-
-  margin:
-    0 0 100px;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(180px,.38fr)
-    minmax(0,1fr);
-
-  gap:
-    clamp(
-      40px,
-      7vw,
-      90px
-    );
-
-  align-items: start;
-}
-
-.case-copy {
-  width: 100%;
-
-  max-width: 760px;
-}
-
-.case-copy p {
-  margin:
-    0 0 22px;
-
-  color:
-    rgba(255,255,255,.84);
-
-  font-size:
-    clamp(
-      16px,
-      1.5vw,
-      19px
-    );
-
-  line-height: 1.75;
-}
-
-
-/* =========================================================
-   BRAND OVERVIEW
-========================================================= */
-
-.brand-overview {
-  width: 100%;
-
-  margin:
-    0 0 110px;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(220px,.65fr)
-    minmax(0,1.35fr);
-
-  gap:
-    clamp(
-      50px,
-      8vw,
-      120px
-    );
-
-  align-items: start;
-}
-
-.overview-heading h2 {
-  margin: 0;
-
-  font-size:
-    clamp(
-      38px,
-      5vw,
-      64px
-    );
-
-  line-height: 1;
-
-  letter-spacing: -.045em;
-}
-
-.overview-copy {
-  max-width: 720px;
-}
-
-.overview-copy p {
-  margin:
-    0 0 26px;
-
-  color:
-    rgba(255,255,255,.84);
-
-  font-size:
-    clamp(
-      16px,
-      1.5vw,
-      19px
-    );
-
-  line-height: 1.75;
-}
-
-/* =========================================================
-   BRAINSTORMING
-========================================================= */
-
-.brainstorming-section {
-  width: 100%;
-  margin-bottom: 90px;
-}
-
-.brainstorming-section .section-heading {
-  margin-bottom: 28px;
-}
-
-.brainstorm-board {
-  position: relative;
-
-  width: 100%;
-  max-width: 1040px;
-
-  margin: 0 auto;
-
-  aspect-ratio: 16 / 9;
-  min-height: 0;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-
-  background:
-    rgba(255,255,255,.10);
-
-  border:
-    1px solid rgba(255,255,255,.20);
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.22),
-    0 18px 45px rgba(0,0,0,.05);
-}
-
-
-/* CENTER */
-
-.brainstorm-center {
-  position: absolute;
-
-  left: 50%;
-  top: 49%;
-
-  transform: translate(-50%, -50%);
-
-  z-index: 5;
-
-  font-family: "Caveat", cursive;
-
-  font-size: clamp(34px, 3.7vw, 58px);
-  font-weight: 700;
-
-  color: #181818;
-
-  white-space: nowrap;
-}
-
-
-/* BRANCH TEXT */
-
-.brainstorm-branch {
-  position: absolute;
-
-  z-index: 5;
-
-  color: #181818;
-
-  font-family: "Caveat", cursive;
-}
-
-.brainstorm-branch h3 {
-  margin: 0 0 5px;
-
-  font-size: clamp(20px, 1.8vw, 30px);
-
-  font-weight: 500;
-
-  line-height: 1;
-}
-
-.brainstorm-branch p {
-  margin: 0;
-
-  font-size: clamp(17px, 1.55vw, 25px);
-
-  line-height: 1.16;
-}
-
-
-/* LEFT */
-
-.branch-automotive {
-  left: 5%;
-  top: 35%;
-}
-
-
-/* TOP RIGHT */
-
-.branch-personality {
-  right: 6%;
-  top: 18%;
-}
-
-
-/* BOTTOM */
-
-.branch-digital {
-  left: 48%;
-  top: 64%;
-
-  transform: translateX(-8%);
-}
-
-
-/* CONNECTION LINES */
-
-.branch-line {
-  position: absolute;
-
-  z-index: 2;
-
-  height: 1px;
-
-  background:
-    rgba(24,24,24,.72);
-
-  transform-origin: left center;
-}
-
-
-/* CAR.IR → AUTOMOTIVE */
-
-.line-left {
-  width: 16%;
-
-  left: 39%;
-  top: 48%;
-
-  transform: rotate(205deg);
-}
-
-
-/* CAR.IR → BRAND PERSONALITY */
-
-.line-right {
-  width: 17%;
-
-  left: 53%;
-  top: 46%;
-
-  transform: rotate(-68deg);
-}
-
-
-/* CAR.IR → DIGITAL MEDIA */
-
-.line-bottom {
-  width: 11%;
-
-  left: 50%;
-  top: 54%;
-
-  transform: rotate(90deg);
-}
-
-
-/* TABLET */
-
-@media (max-width: 900px) {
-
-  .brainstorm-board {
-    max-width: 100%;
-  }
-
-}
-
-
-/* MOBILE */
-
-@media (max-width: 700px) {
-
-  .brainstorm-board {
-    aspect-ratio: auto;
-    min-height: 560px;
-  }
-
-  .brainstorm-center {
-    top: 45%;
-    font-size: 38px;
-  }
-
-  .branch-automotive {
-    left: 6%;
-    top: 13%;
-  }
-
-  .branch-personality {
-    right: 6%;
-    top: 55%;
-    text-align: right;
-  }
-
-  .branch-digital {
-    left: 6%;
-    top: 75%;
-    transform: none;
-  }
-
-  .branch-line {
-    display: none;
-  }
-}
-
-
-/* =========================================================
-   PROJECT GALLERY
-========================================================= */
-
-.project-gallery {
-  width: 100%;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap: 24px;
-}
-
-.project-image {
-  width: 100%;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-
-  background:
-    rgba(255,255,255,.08);
-}
-
-.project-image.wide {
-  grid-column:
-    1 / -1;
-}
-
-.project-image img {
-  display: block;
-
-  width: 100%;
-
-  aspect-ratio:
-    16 / 9;
-
-  object-fit: cover;
-
-  transition:
-    transform .7s
-    cubic-bezier(.2,.75,.25,1);
-}
-
-.project-image:hover img {
-  transform:
-    scale(1.02);
-}
-
-
-/* =========================================================
-   RESUME
-========================================================= */
-
-.resume-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap: 40px;
-
-  margin-top: 40px;
-
-  padding-top: 40px;
-
-  border-top:
-    1px solid var(--line);
-}
-
-.resume-category h3 {
-  margin-bottom: 16px;
-
-  color: #fff;
-
-  font-size: 20px;
-
-  font-weight: 600;
-}
-
-.resume-item {
-  margin-bottom: 20px;
-}
-
-.resume-item h4 {
-  margin:
-    0 0 4px;
-
-  font-size: 15px;
-
-  font-weight: 600;
-}
-
-.resume-item span {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-}
-
-.resume-item p,
-.resume-list {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,.8);
-
-  font-size: 14px;
-
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-  width: calc(100% - 48px);
-  max-width: var(--max);
-
-  margin: 0 auto;
-
-  padding:
-    16px 32px 32px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  color:
-    var(--body-muted);
-
-  font-size: 13px;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .about {
-    grid-template-columns:
-      340px
-      minmax(0,1fr);
-  }
-
-  .brand-overview,
-  .case-section {
-    grid-template-columns: 1fr;
-
-    gap: 34px;
-  }
-
-  .project-gallery {
-    grid-template-columns: 1fr;
-  }
-
-  .project-image.wide {
-    grid-column: auto;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 760px) {
-
-  main {
-    width:
-      calc(100% - 24px);
-
-    margin:
-      12px auto;
-
-    border-radius: 20px;
-  }
-
-  .site-header {
-    padding:
-      24px
-      var(--mobile-gap);
-  }
-
-  .site-header nav {
-    gap: 16px;
-
-    font-size: 13px;
-  }
-
-  .site-header .logo {
-    font-size: 28px;
-  }
-
-
-  /* Hero */
-
-  .hero {
-    padding:
-      15vh
-      var(--mobile-gap)
-      8vh;
-  }
-
-
-  /* Sections */
-
-  .section {
-    padding-top: 80px;
-  }
-
-  .section-header-wrapper {
-    padding:
-      0
-      var(--mobile-gap);
-  }
-
-
-  /* Carousel */
-
-  .project-carousel {
-    padding:
-      10px
-      var(--mobile-gap)
-      40px;
-
-    gap: 20px;
-
-    scroll-padding-inline:
-      var(--mobile-gap);
-  }
-
-  .carousel-card {
-    filter: none;
-
-    opacity: 1;
-
-    transform: none;
-  }
-
-  .project-carousel:not(:hover)
-  .carousel-card.active {
-    transform: none;
-
-    box-shadow: none;
-  }
-
-  .project-carousel
-  .carousel-card:hover {
-    transform: none;
-  }
-
-  .project-info {
-    opacity: 1;
-
-    transform:
-      translateY(0);
-  }
-
-
-  /* About */
-
-  .about {
-    grid-template-columns:
-      1fr;
-
-    gap: 36px;
-
-    padding:
-      0
-      var(--mobile-gap)
-      80px;
-  }
-
-  .about-copy {
-    font-size: 16px;
-  }
-
-
-  /* Contact */
-
-  .contact {
-    padding:
-      40px
-      var(--mobile-gap)
-      100px;
-  }
-
-
-  /* Project Pages */
-
-  .project-page {
-    padding:
-      110px
-      var(--mobile-gap)
-      60px;
-  }
-
-  .project-intro {
-    margin-bottom: 40px;
-  }
-
-  .project-hero {
-    margin-bottom: 70px;
-
-    border-radius: 18px;
-  }
-
-  .brand-overview,
-  .brainstorming-section,
-  .case-section {
-    margin-bottom: 75px;
-  }
-
-  .project-gallery {
-    gap: 16px;
-  }
-
-  .project-image {
-    border-radius: 16px;
-  }
-
-
-  /* Brainstorm */
-
-  .brainstorm-board {
-    aspect-ratio: auto;
-
-    min-height: 650px;
-  }
-
-  .brainstorm-center {
-    top: 45%;
-
-    font-size: 42px;
-  }
-
-  .branch-automotive {
-    left: 6%;
-    top: 15%;
-  }
-
-  .branch-personality {
-    right: 6%;
-    top: 56%;
-
-    text-align: right;
-  }
-
-  .branch-digital {
-    left: 6%;
-    top: 77%;
-
-    transform: none;
-  }
-
-  .branch-line {
-    display: none;
-  }
-
-
-  /* Resume */
-
-  .resume-grid {
-    grid-template-columns:
-      1fr;
-
-    gap: 30px;
-  }
-
-
-  /* Footer */
-
-  footer {
-    width:
-      calc(100% - 24px);
-
-    padding:
-      16px
-      var(--mobile-gap)
-      32px;
-  }
-
-}
+</html>
