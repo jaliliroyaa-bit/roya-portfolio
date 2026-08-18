@@ -7,15 +7,17 @@
 
   <title>CAR.IR — Roya Jalili</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
     rel="stylesheet"
   >
 
   <style>
+
+    /* =========================
+       RESET
+    ========================= */
+
     * {
       box-sizing: border-box;
     }
@@ -26,10 +28,17 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
       background:
-        radial-gradient(circle at top left, #9CC7D8 0%, transparent 38%),
-        radial-gradient(circle at bottom right, #C9C4BC 0%, transparent 35%),
         linear-gradient(
           120deg,
           #EAF3F7 0%,
@@ -37,42 +46,35 @@
           #C9C4BC 100%
         );
 
-      color: #2F3133;
+      color: #fff;
+    }
 
-      font-family:
-        Inter,
-        system-ui,
-        sans-serif;
-
-      -webkit-font-smoothing: antialiased;
+    img {
+      max-width: 100%;
     }
 
     a {
       color: inherit;
-      text-decoration: none;
     }
 
-    img,
-    video {
-      display: block;
-      width: 100%;
-    }
 
     /* =========================
-       PAGE SHELL
+       MAIN
     ========================= */
 
-    .page-shell {
+    main {
+      position: relative;
+
       width: 94%;
       max-width: 1280px;
 
       margin: 3vh auto;
 
-      border-radius: 26px;
-
+      border-radius: 24px;
       overflow: hidden;
 
-      position: relative;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.10);
 
       background:
         linear-gradient(
@@ -82,15 +84,11 @@
           #8C8176 75%,
           #D4CEC7 100%
         );
-
-      color: #fff;
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.12);
     }
 
+
     /* =========================
-       BACKGROUND MOTION
+       ANIMATED BACKGROUND
     ========================= */
 
     .ink-wrapper {
@@ -99,9 +97,8 @@
 
       overflow: hidden;
 
-      pointer-events: none;
-
       z-index: 0;
+      pointer-events: none;
     }
 
     .ink-blob {
@@ -109,36 +106,33 @@
 
       border-radius: 50%;
 
-      opacity: .62;
-
+      opacity: .5;
       mix-blend-mode: overlay;
 
       filter: blur(90px);
 
       animation:
-        mix-ink 11s infinite alternate ease-in-out;
-
-      will-change: transform;
+        mix-ink 10s infinite alternate ease-in-out;
     }
 
     .color-1 {
       width: 55vw;
       height: 55vw;
 
-      background: #5B8FA8;
+      background-color: #5B8FA8;
 
-      top: -10%;
-      left: -15%;
+      top: -15%;
+      left: -10%;
     }
 
     .color-2 {
       width: 60vw;
       height: 60vw;
 
-      background: #EFECE6;
+      background-color: #EFECE6;
 
-      top: 25%;
-      right: -15%;
+      top: 30%;
+      right: -10%;
 
       animation-delay: -3s;
     }
@@ -147,105 +141,98 @@
       width: 50vw;
       height: 50vw;
 
-      background: #fff;
+      background-color: #FFFFFF;
 
-      bottom: -15%;
-      left: 15%;
+      bottom: -10%;
+      left: 20%;
 
       animation-delay: -6s;
     }
 
     .color-4 {
-      width: 48vw;
-      height: 48vw;
+      width: 50vw;
+      height: 50vw;
 
-      background: #A39B93;
+      background-color: #A39B93;
 
-      top: 15%;
-      left: 35%;
+      top: 10%;
+      left: 30%;
 
       animation-delay: -9s;
     }
 
     @keyframes mix-ink {
+
       0% {
-        transform:
-          translate3d(-4vw,-3vh,0)
-          scale(1);
+        transform: translate(0,0) scale(1);
       }
 
-      35% {
-        transform:
-          translate3d(10vw,6vh,0)
-          scale(1.15);
-      }
-
-      70% {
-        transform:
-          translate3d(-6vw,11vh,0)
-          scale(.95);
+      50% {
+        transform: translate(8vw,-8vh) scale(1.12);
       }
 
       100% {
-        transform:
-          translate3d(10vw,-8vh,0)
-          scale(1.1);
+        transform: translate(-8vw,8vh) scale(.9);
       }
+
     }
 
-    .site-header,
-    main {
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
       position: relative;
-      z-index: 5;
+      z-index: 10;
+
+      padding:
+        40px
+        clamp(24px, 6vw, 96px)
+        80px;
     }
+
 
     /* =========================
        HEADER
     ========================= */
 
-    .site-header {
+    .project-header {
       display: flex;
-
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
 
-      margin: 0 36px;
-
-      padding: 32px 60px;
+      padding-bottom: 24px;
 
       border-bottom:
         1px solid rgba(255,255,255,.15);
     }
 
     .logo {
-      font-family:
-        Caveat,
-        cursive;
+      font-family: "Caveat", cursive;
 
       font-size: 32px;
-
       font-weight: 700;
+
+      text-decoration: none;
+
+      color: #fff;
     }
 
-    nav {
-      display: flex;
+    .back-link {
+      color: rgba(255,255,255,.85);
 
-      gap: 28px;
-    }
-
-    nav a {
-      color:
-        rgba(255,255,255,.72);
+      text-decoration: none;
 
       font-size: 14px;
 
-      transition:
-        color .25s ease;
+      transition: opacity .3s ease;
     }
 
-    nav a:hover {
-      color: #fff;
+    .back-link:hover {
+      opacity: .55;
     }
+
 
     /* =========================
        INTRO
@@ -253,535 +240,458 @@
 
     .project-intro {
       padding:
-        110px 96px 70px;
+        clamp(70px, 10vw, 130px)
+        0
+        60px;
+
+      max-width: 900px;
     }
 
     .eyebrow {
-      margin:
-        0 0 18px;
+      margin: 0 0 18px;
 
-      font-size: 12px;
-
+      font-size: 13px;
       font-weight: 600;
 
-      letter-spacing: .16em;
+      letter-spacing: .14em;
 
       text-transform: uppercase;
 
-      color:
-        rgba(255,255,255,.7);
+      color: rgba(255,255,255,.65);
     }
 
     .project-intro h1 {
-      margin:
-        0 0 24px;
+      margin: 0;
 
       font-size:
-        clamp(
-          70px,
-          11vw,
-          150px
-        );
+        clamp(64px, 10vw, 140px);
 
-      line-height: .84;
+      line-height: .88;
 
-      letter-spacing:
-        -.075em;
+      letter-spacing: -.06em;
 
       font-weight: 600;
     }
 
     .project-category {
-      margin: 0;
+      margin: 30px 0 0;
 
       font-size:
-        clamp(
-          17px,
-          2vw,
-          22px
-        );
+        clamp(18px, 2vw, 26px);
 
-      color:
-        rgba(255,255,255,.82);
+      color: rgba(255,255,255,.75);
     }
+
 
     /* =========================
        HERO
     ========================= */
 
     .project-hero {
-      padding:
-        0 48px;
+      width: 100%;
+
+      margin-bottom: 110px;
+
+      overflow: hidden;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.08);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.12);
     }
 
     .project-hero img {
-      border-radius: 24px;
+      width: 100%;
 
-      aspect-ratio:
-        16 / 9;
+      aspect-ratio: 16 / 9;
 
       object-fit: cover;
 
-      box-shadow:
-        0 30px 70px rgba(0,0,0,.18);
+      display: block;
     }
+
 
     /* =========================
        BRAND OVERVIEW
     ========================= */
 
-    .car-overview {
-      max-width: 1180px;
-
-      margin: 120px auto;
-
-      padding: 0 48px;
-
+    .brand-overview {
       display: grid;
 
       grid-template-columns:
-        1fr 1.35fr;
+        minmax(220px, .65fr)
+        minmax(0, 1.35fr);
 
-      column-gap: 90px;
+      gap:
+        clamp(50px, 8vw, 120px);
 
-      row-gap: 40px;
+      padding:
+        10px 0
+        120px;
     }
 
-    .overview-label {
-      grid-column: 1 / -1;
+    .overview-heading {
+      align-self: start;
     }
 
-    .overview-label .eyebrow {
-      margin: 0;
+    .overview-number {
+      display: block;
 
-      color:
-        rgba(255,255,255,.7);
+      margin-bottom: 22px;
 
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 600;
 
       letter-spacing: .14em;
 
       text-transform: uppercase;
+
+      color: rgba(255,255,255,.6);
     }
 
-    .overview-content h2 {
-      margin:
-        0 0 32px;
+    .overview-heading h2 {
+      margin: 0;
 
       font-size:
-        clamp(
-          42px,
-          5vw,
-          68px
-        );
+        clamp(42px, 6vw, 76px);
 
       line-height: 1;
 
-      font-weight: 500;
-
-      letter-spacing:
-        -.04em;
-    }
-
-    .overview-content p {
-      max-width: 520px;
-
-      margin:
-        0 0 28px;
-
-      color:
-        rgba(255,255,255,.85);
-
-      font-size: 16px;
-
-      line-height: 1.75;
-    }
-
-    .overview-notes {
-      padding: 38px;
-
-      border:
-        1px solid rgba(255,255,255,.18);
-
-      border-radius: 28px;
-
-      background:
-        rgba(255,255,255,.08);
-
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-
-      display: grid;
-
-      gap: 34px;
-    }
-
-    .note-group span {
-      display: block;
-
-      margin-bottom: 9px;
-
-      color: #fff;
-
-      font-size: 13px;
+      letter-spacing: -.045em;
 
       font-weight: 600;
-
-      letter-spacing: .08em;
-
-      text-transform: uppercase;
     }
 
-    .note-group p {
-      margin: 0;
-
-      color:
-        rgba(255,255,255,.72);
-
-      font-size: 14px;
-
-      line-height: 1.7;
+    .overview-copy {
+      max-width: 680px;
     }
+
+    .overview-copy p {
+      margin: 0 0 28px;
+
+      font-size:
+        clamp(17px, 1.6vw, 20px);
+
+      line-height: 1.75;
+
+      color: rgba(255,255,255,.88);
+    }
+
+    .overview-copy p:last-child {
+      margin-bottom: 0;
+    }
+
 
     /* =========================
-       SECTION TITLE
+       SECTION HEADING
     ========================= */
 
-    .chapter {
-      padding:
-        20px 96px 42px;
+    .section-heading {
+      margin-bottom: 36px;
     }
 
-    .chapter-number {
-      margin:
-        0 0 12px;
-
-      font-size: 12px;
-
-      letter-spacing: .14em;
-
-      color:
-        rgba(255,255,255,.55);
-    }
-
-    .chapter h2 {
+    .section-heading h2 {
       margin: 0;
 
       font-size:
-        clamp(
-          36px,
-          5vw,
-          64px
-        );
+        clamp(38px, 5vw, 64px);
 
-      letter-spacing:
-        -.045em;
+      font-weight: 600;
 
-      font-weight: 500;
+      line-height: 1;
+
+      letter-spacing: -.04em;
     }
+
 
     /* =========================
-       PROJECT IMAGES
+       BRAINSTORMING
     ========================= */
 
-    .gallery {
-      padding:
-        0 48px 40px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 24px;
+    .brainstorming-section {
+      margin-bottom: 120px;
     }
 
-    .project-image {
+    .brainstorming-image {
+      width: 100%;
+
       overflow: hidden;
 
-      border-radius: 22px;
+      border-radius: 20px;
 
       background:
         rgba(255,255,255,.08);
 
       box-shadow:
-        0 20px 50px rgba(0,0,0,.1);
-
-      opacity: 0;
-
-      transform:
-        translateY(45px);
-
-      transition:
-        opacity .8s ease,
-        transform .8s cubic-bezier(.2,.7,.2,1);
+        0 16px 45px rgba(0,0,0,.09);
     }
 
-    .project-image.visible {
-      opacity: 1;
-
-      transform:
-        translateY(0);
-    }
-
-    .project-image img {
+    .brainstorming-image img {
       width: 100%;
-      height: 100%;
+
+      aspect-ratio: 16 / 9;
 
       object-fit: cover;
 
+      display: block;
+
       transition:
-        transform .7s cubic-bezier(.2,.75,.25,1);
+        transform .8s
+        cubic-bezier(.2,.75,.25,1);
     }
 
-    .project-image:hover img {
-      transform:
-        scale(1.025);
+    .brainstorming-image:hover img {
+      transform: scale(1.015);
     }
 
-    .project-image.wide {
-      grid-column:
-        1 / -1;
-    }
-
-    .project-image.wide img {
-      aspect-ratio:
-        16 / 9;
-    }
-
-    .project-image.half img {
-      aspect-ratio:
-        4 / 3;
-    }
 
     /* =========================
-       MOTION
+       IDENTITY SYSTEM
     ========================= */
 
-    .motion-section {
-      padding:
-        100px 48px;
+    .identity-section {
+      margin-top: 20px;
     }
 
-    .motion-card {
+    .identity-header {
+      margin-bottom: 40px;
+    }
+
+    .identity-header h2 {
+      margin: 0;
+
+      font-size:
+        clamp(38px, 5vw, 64px);
+
+      line-height: 1;
+
+      font-weight: 600;
+
+      letter-spacing: -.04em;
+    }
+
+
+    /* =========================
+       PROJECT GALLERY
+    ========================= */
+
+    .project-gallery {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 24px;
+    }
+
+
+    /* =========================
+       PROJECT IMAGES
+       ALL 16:9
+    ========================= */
+
+    .project-image {
       position: relative;
 
       overflow: hidden;
 
-      border-radius: 24px;
+      border-radius: 18px;
 
       background:
-        rgba(0,0,0,.22);
+        rgba(255,255,255,.08);
 
-      min-height: 420px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      border:
-        1px solid rgba(255,255,255,.14);
+      box-shadow:
+        0 14px 40px rgba(0,0,0,.08);
     }
 
-    .motion-placeholder {
-      text-align: center;
-
-      color:
-        rgba(255,255,255,.65);
+    .project-image.wide {
+      grid-column: 1 / -1;
     }
 
-    .motion-placeholder strong {
+    .project-image img {
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      object-fit: cover;
+
       display: block;
 
-      margin-bottom: 10px;
-
-      color: #fff;
-
-      font-size: 24px;
+      transition:
+        transform .8s
+        cubic-bezier(.2,.75,.25,1);
     }
 
+    .project-image:hover img {
+      transform: scale(1.025);
+    }
+
+
     /* =========================
-       END NAV
+       SCROLL REVEAL
     ========================= */
 
-    .project-end {
-      padding:
-        120px 96px;
+    .reveal {
+      opacity: 0;
 
+      transform:
+        translateY(45px)
+        scale(.99);
+
+      transition:
+        opacity .9s ease,
+        transform .9s
+        cubic-bezier(.2,.75,.25,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .project-bottom {
       display: flex;
 
       justify-content: space-between;
-
-      align-items: center;
-    }
-
-    .back-link,
-    .next-link {
-      display: inline-flex;
-
       align-items: center;
 
-      padding:
-        14px 20px;
+      margin-top: 110px;
 
-      border:
-        1px solid rgba(255,255,255,.24);
+      padding-top: 30px;
 
-      border-radius: 999px;
-
-      background:
-        rgba(255,255,255,.12);
-
-      backdrop-filter: blur(14px);
-
-      color: #fff;
-
-      font-size: 14px;
-
-      transition:
-        background .3s ease,
-        transform .3s ease;
+      border-top:
+        1px solid rgba(255,255,255,.18);
     }
 
-    .back-link:hover,
-    .next-link:hover {
-      background:
-        rgba(255,255,255,.22);
+    .project-bottom a {
+      text-decoration: none;
 
-      transform:
-        translateY(-2px);
+      font-size: 15px;
+
+      color: rgba(255,255,255,.88);
     }
+
+    .project-bottom a:hover {
+      opacity: .6;
+    }
+
+    .project-bottom span {
+      font-size: 13px;
+
+      color: rgba(255,255,255,.55);
+    }
+
 
     /* =========================
-       MOBILE
+       TABLET
     ========================= */
 
-    @media (max-width: 760px) {
+    @media (max-width: 900px) {
 
-      .page-shell {
-        width:
-          calc(100% - 24px);
-
-        margin:
-          12px auto;
-
-        border-radius: 20px;
-      }
-
-      .site-header {
-        margin:
-          0 8px;
-
+      .content {
         padding:
-          24px 18px;
+          30px
+          28px
+          60px;
       }
 
-      .logo {
-        font-size: 27px;
+      .brand-overview {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
       }
 
-      nav {
-        gap: 14px;
-      }
-
-      nav a {
-        font-size: 12px;
-      }
-
-      .project-intro {
-        padding:
-          85px 24px 45px;
-      }
-
-      .project-hero {
-        padding:
-          0 16px;
-      }
-
-      .car-overview {
-        margin:
-          70px auto;
-
-        padding:
-          0 20px;
-
-        grid-template-columns:
-          1fr;
-
-        gap: 32px;
-      }
-
-      .overview-label {
-        grid-column: auto;
-      }
-
-      .overview-content h2 {
-        font-size: 42px;
-
-        margin-bottom: 24px;
-      }
-
-      .overview-content p {
-        font-size: 15px;
-      }
-
-      .overview-notes {
-        padding: 26px;
-
-        border-radius: 20px;
-      }
-
-      .chapter {
-        padding:
-          15px 24px 30px;
-      }
-
-      .gallery {
-        grid-template-columns:
-          1fr;
-
-        padding:
-          0 16px 24px;
-
-        gap: 16px;
+      .project-gallery {
+        grid-template-columns: 1fr;
       }
 
       .project-image.wide {
         grid-column: auto;
       }
 
-      .project-image.wide img,
-      .project-image.half img {
-        aspect-ratio:
-          4 / 3;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      main {
+        width: calc(100% - 20px);
+
+        margin: 10px auto;
+
+        border-radius: 18px;
       }
 
-      .motion-section {
+      .content {
         padding:
-          60px 16px;
+          24px
+          18px
+          45px;
       }
 
-      .motion-card {
-        min-height: 260px;
+      .project-header {
+        padding-bottom: 18px;
       }
 
-      .project-end {
+      .logo {
+        font-size: 27px;
+      }
+
+      .back-link {
+        font-size: 12px;
+      }
+
+      .project-intro {
         padding:
-          80px 24px;
-
-        gap: 12px;
-
-        flex-direction: column;
-
-        align-items: stretch;
+          70px 0
+          40px;
       }
 
-      .back-link,
-      .next-link {
-        justify-content: center;
+      .project-hero {
+        margin-bottom: 75px;
+
+        border-radius: 14px;
       }
+
+      .brand-overview {
+        padding-bottom: 80px;
+      }
+
+      .brainstorming-section {
+        margin-bottom: 80px;
+      }
+
+      .brainstorming-image {
+        border-radius: 14px;
+      }
+
+      .project-gallery {
+        gap: 14px;
+      }
+
+      .project-image {
+        border-radius: 13px;
+      }
+
+      .project-bottom {
+        margin-top: 70px;
+      }
+
     }
 
   </style>
@@ -790,495 +700,431 @@
 
 <body>
 
-  <div class="page-shell">
-
-    <div class="ink-wrapper">
-      <div class="ink-blob color-1"></div>
-      <div class="ink-blob color-2"></div>
-      <div class="ink-blob color-3"></div>
-      <div class="ink-blob color-4"></div>
-    </div>
+<main>
 
 
-    <header class="site-header">
+  <!-- =========================
+       ANIMATED BACKGROUND
+  ========================== -->
+
+  <div class="ink-wrapper">
+
+    <div class="ink-blob color-1"></div>
+    <div class="ink-blob color-2"></div>
+    <div class="ink-blob color-3"></div>
+    <div class="ink-blob color-4"></div>
+
+  </div>
+
+
+
+  <div class="content">
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="project-header">
 
       <a
-        class="logo"
         href="index.html"
+        class="logo"
       >
         Roya Jalili
       </a>
 
-      <nav>
-
-        <a href="projects.html">
-          Projects
-        </a>
-
-        <a href="index.html#about">
-          About
-        </a>
-
-        <a href="index.html#contact">
-          Contact
-        </a>
-
-      </nav>
+      <a
+        href="projects.html"
+        class="back-link"
+      >
+        ← Project Archive
+      </a>
 
     </header>
 
 
-    <main>
+
+    <!-- =========================
+         PROJECT INTRO
+    ========================== -->
+
+    <section class="project-intro">
+
+      <p class="eyebrow">
+        Brand & Identity
+      </p>
+
+      <h1>
+        CAR.IR
+      </h1>
+
+      <p class="project-category">
+        Visual Identity & Digital Experience
+      </p>
+
+    </section>
 
 
-      <!-- =========================
-           INTRO
-      ========================== -->
 
-      <section class="project-intro">
+    <!-- =========================
+         COVER
+    ========================== -->
+
+    <section class="project-hero reveal">
+
+      <img
+        src="assets/car-cover.jpg"
+        alt="CAR.IR Brand Identity"
+      >
+
+    </section>
+
+
+
+    <!-- =========================
+         BRAND OVERVIEW
+    ========================== -->
+
+    <section class="brand-overview reveal">
+
+
+      <div class="overview-heading">
+
+        <span class="overview-number">
+          Brand Overview
+        </span>
+
+        <h2>
+          CAR.IR
+        </h2>
+
+      </div>
+
+
+      <div class="overview-copy">
+
+        <p>
+          CAR.IR is a digital automotive media platform that
+          delivers the latest automotive news, in-depth vehicle
+          reviews, and comprehensive car information. By providing
+          reliable content and up-to-date market insights, the
+          platform helps users stay informed and make confident
+          automotive decisions.
+        </p>
+
+        <p>
+          Before this project, the brand relied solely on its logo
+          without a supporting visual identity system. The objective
+          was to refine the existing logo and develop a flexible
+          identity system that could seamlessly extend across the
+          website, editorial content, stationery, and future brand
+          communications while preserving the brand's existing
+          recognition.
+        </p>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         BRAINSTORMING
+    ========================== -->
+
+    <section class="brainstorming-section reveal">
+
+
+      <div class="section-heading">
 
         <p class="eyebrow">
-          Selected Project
+          Brand Exploration
         </p>
 
-        <h1>
-          CAR.IR
-        </h1>
+        <h2>
+          Brainstorming
+        </h2>
 
-        <p class="project-category">
-          Visual Identity · Brand System · Digital Experience
-        </p>
-
-      </section>
+      </div>
 
 
-      <!-- =========================
-           HERO
-      ========================== -->
-
-      <section class="project-hero">
+      <div class="brainstorming-image">
 
         <img
-          src="assets/car-cover.jpg"
-          alt="CAR.IR visual identity"
+          src="assets/car-ir/brainstorming.jpg"
+          alt="CAR.IR Brand Brainstorming"
+          loading="lazy"
         >
 
-      </section>
+      </div>
 
 
-      <!-- =========================
-           BRAND OVERVIEW
-      ========================== -->
-
-      <section class="car-overview">
-
-        <div class="overview-label">
-          <p class="eyebrow">
-            Brand Overview
-          </p>
-        </div>
+    </section>
 
 
-        <div class="overview-content">
 
-          <h2>
-            CAR.IR
-          </h2>
+    <!-- =========================
+         IDENTITY SYSTEM
+    ========================== -->
 
-          <p>
-            CAR.IR is a digital automotive media platform that delivers
-            the latest automotive news, in-depth vehicle reviews, and
-            comprehensive car information. By providing reliable content
-            and up-to-date market insights, the platform helps users stay
-            informed and make confident automotive decisions.
-          </p>
-
-          <p>
-            Before this project, the brand relied solely on its logo
-            without a supporting visual identity system. The objective
-            was to refine the existing logo and develop a flexible
-            identity system that could seamlessly extend across the
-            website, editorial content, stationery, and future brand
-            communications while preserving the brand's existing
-            recognition.
-          </p>
-
-        </div>
+    <section class="identity-section">
 
 
-        <div class="overview-notes">
+      <div class="identity-header reveal">
 
-          <div class="note-group">
-
-            <span>
-              Automotive
-            </span>
-
-            <p>
-              Track · Corner · Apex<br>
-              Tire · Wheel · Brake<br>
-              Steering · Turbo
-            </p>
-
-          </div>
-
-
-          <div class="note-group">
-
-            <span>
-              Brand Personality
-            </span>
-
-            <p>
-              Reliable · Accurate · Dynamic<br>
-              Professional · Modern · Innovative<br>
-              Clear · Trustworthy
-            </p>
-
-          </div>
-
-
-          <div class="note-group">
-
-            <span>
-              Digital Media
-            </span>
-
-            <p>
-              News · Information · Reviews<br>
-              Analysis · Articles · Comparison<br>
-              Updates · Content Publishing
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           01 IDENTITY SYSTEM
-      ========================== -->
-
-      <section class="chapter">
-
-        <p class="chapter-number">
-          01
+        <p class="eyebrow">
+          Brand Identity
         </p>
 
         <h2>
           Identity System
         </h2>
 
-      </section>
+      </div>
 
 
-      <section class="gallery">
 
-        <div class="project-image wide">
+      <div class="project-gallery">
+
+
+        <!-- 21 -->
+
+        <div class="project-image wide reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-21.jpg"
-            alt="CAR.IR identity presentation"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 22 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-22.jpg"
-            alt="CAR.IR logo system"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 23 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-23.jpg"
-            alt="CAR.IR visual identity"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
-      </section>
 
+        <!-- 24 -->
 
-      <!-- =========================
-           02 BRAND APPLICATIONS
-      ========================== -->
-
-      <section class="chapter">
-
-        <p class="chapter-number">
-          02
-        </p>
-
-        <h2>
-          Brand Applications
-        </h2>
-
-      </section>
-
-
-      <section class="gallery">
-
-        <div class="project-image half">
+        <div class="project-image wide reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-24.jpg"
-            alt="CAR.IR brand application"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 25 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-25.jpg"
-            alt="CAR.IR brand application"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image wide">
+        <!-- 26 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-26.jpg"
-            alt="CAR.IR brand system"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
-      </section>
 
+        <!-- 27 -->
 
-      <!-- =========================
-           03 EDITORIAL & SOCIAL
-      ========================== -->
-
-      <section class="chapter">
-
-        <p class="chapter-number">
-          03
-        </p>
-
-        <h2>
-          Editorial & Social
-        </h2>
-
-      </section>
-
-
-      <section class="gallery">
-
-        <div class="project-image half">
+        <div class="project-image wide reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-27.jpg"
-            alt="CAR.IR editorial design"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 28 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-28.jpg"
-            alt="CAR.IR social media"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image wide">
+        <!-- 33 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-33.jpg"
-            alt="CAR.IR social identity"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
-      </section>
 
+        <!-- 41 -->
 
-      <!-- =========================
-           04 DIGITAL EXPERIENCE
-      ========================== -->
-
-      <section class="chapter">
-
-        <p class="chapter-number">
-          04
-        </p>
-
-        <h2>
-          Digital Experience
-        </h2>
-
-      </section>
-
-
-      <section class="gallery">
-
-        <div class="project-image wide">
+        <div class="project-image wide reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-41.jpg"
-            alt="CAR.IR digital experience"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 42 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-42.jpg"
-            alt="CAR.IR website identity"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
 
-        <div class="project-image half">
+        <!-- 43 -->
+
+        <div class="project-image reveal">
 
           <img
             src="assets/car-ir/Portfolio Imm copy2-43.jpg"
-            alt="CAR.IR website visual identity"
+            alt="CAR.IR Brand Identity"
+            loading="lazy"
           >
 
         </div>
 
-      </section>
+
+      </div>
 
 
-      <!-- =========================
-           MOTION
-      ========================== -->
-
-      <section class="chapter">
-
-        <p class="chapter-number">
-          05
-        </p>
-
-        <h2>
-          Motion
-        </h2>
-
-      </section>
+    </section>
 
 
-      <section class="motion-section">
 
-        <div class="motion-card">
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
-          <div class="motion-placeholder">
+    <div class="project-bottom">
 
-            <strong>
-              Motion coming next
-            </strong>
+      <a href="projects.html">
+        ← All Projects
+      </a>
 
-            Logo animation / brand motion
+      <span>
+        © 2026 Roya Jalili
+      </span>
 
-          </div>
+    </div>
 
-        </div>
-
-      </section>
-
-
-      <!-- =========================
-           END
-      ========================== -->
-
-      <section class="project-end">
-
-        <a
-          href="projects.html"
-          class="back-link"
-        >
-          ← All Projects
-        </a>
-
-
-        <a
-          href="chavosh.html"
-          class="next-link"
-        >
-          Next Project — CHAVOSH →
-        </a>
-
-      </section>
-
-
-    </main>
 
   </div>
 
 
-  <script>
-
-    const projectImages =
-      document.querySelectorAll(
-        '.project-image'
-      );
+</main>
 
 
-    const observer =
-      new IntersectionObserver(
 
-        entries => {
+<script>
 
-          entries.forEach(
-            entry => {
+  /* =========================
+     IMAGE REVEAL
+  ========================= */
 
-              if (
-                entry.isIntersecting
-              ) {
-
-                entry.target
-                  .classList
-                  .add('visible');
-
-                observer.unobserve(
-                  entry.target
-                );
-
-              }
-
-            }
-          );
-
-        },
-
-        {
-          threshold: 0.12
-        }
-
-      );
+  const revealElements =
+    document.querySelectorAll('.reveal');
 
 
-    projectImages.forEach(
-      image => {
+  const observer =
+    new IntersectionObserver(
 
-        observer.observe(
-          image
-        );
+      entries => {
 
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add(
+              'visible'
+            );
+
+            observer.unobserve(
+              entry.target
+            );
+
+          }
+
+        });
+
+      },
+
+      {
+        threshold: 0.10
       }
+
     );
 
-  </script>
+
+  revealElements.forEach(element => {
+
+    observer.observe(element);
+
+  });
+
+
+</script>
+
 
 </body>
 
