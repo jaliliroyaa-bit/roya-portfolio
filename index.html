@@ -95,39 +95,35 @@
 
     /* =========================
        BACKGROUND INK
+       ALWAYS BEHIND CONTENT
     ========================= */
+
+    main {
+      isolation: isolate;
+    }
 
     .ink-wrapper {
       position: absolute;
       inset: 0;
-
       overflow: hidden;
-
       border-radius: 24px;
-
-      z-index: 1;
+      z-index: 0;
       pointer-events: none;
     }
 
-   .ink-blob {
-  position: absolute;
-  border-radius: 50%;
+    .ink-blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.72;
+      filter: blur(80px);
+      will-change: transform;
+      animation: mix-ink 8s infinite alternate ease-in-out;
+    }
 
-  opacity: 0.72;
-  mix-blend-mode: overlay;
-
-  filter: blur(80px);
-
-  will-change: transform;
-
-  animation: mix-ink 8s infinite alternate ease-in-out;
-}
     .color-1 {
       width: 55vw;
       height: 55vw;
-
       background-color: #5B8FA8;
-
       top: -15%;
       left: -10%;
     }
@@ -135,64 +131,73 @@
     .color-2 {
       width: 60vw;
       height: 60vw;
-
       background-color: #EFECE6;
-
       top: 30%;
       right: -10%;
-
       animation-delay: -3s;
     }
 
     .color-3 {
       width: 50vw;
       height: 50vw;
-
       background-color: #FFFFFF;
-
       bottom: -10%;
       left: 20%;
-
       animation-delay: -6s;
     }
 
     .color-4 {
       width: 50vw;
       height: 50vw;
-
       background-color: #A39B93;
-
       top: 10%;
       left: 30%;
-
       animation-delay: -9s;
     }
 
-   @keyframes mix-ink {
-  0% {
-    transform:
-      translate3d(-4vw, -3vh, 0)
-      scale(1);
-  }
+    .site-header,
+    .hero,
+    #work,
+    #about,
+    #contact {
+      position: relative;
+      z-index: 2;
+    }
 
-  35% {
-    transform:
-      translate3d(10vw, 6vh, 0)
-      scale(1.18);
-  }
+    .section-header-wrapper,
+    .project-carousel,
+    .about,
+    .social-dock {
+      position: relative;
+      z-index: 3;
+    }
 
-  70% {
-    transform:
-      translate3d(-6vw, 12vh, 0)
-      scale(0.95);
-  }
+    @keyframes mix-ink {
+      0% {
+        transform:
+          translate3d(-4vw, -3vh, 0)
+          scale(1);
+      }
 
-  100% {
-    transform:
-      translate3d(12vw, -10vh, 0)
-      scale(1.12);
-  }
-}
+      35% {
+        transform:
+          translate3d(10vw, 6vh, 0)
+          scale(1.18);
+      }
+
+      70% {
+        transform:
+          translate3d(-6vw, 12vh, 0)
+          scale(0.95);
+      }
+
+      100% {
+        transform:
+          translate3d(12vw, -10vh, 0)
+          scale(1.12);
+      }
+    }
+
     /* =========================
        HEADER
     ========================= */
