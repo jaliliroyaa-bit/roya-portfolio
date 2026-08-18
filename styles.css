@@ -1049,3 +1049,164 @@ footer {
   }
 
 }
+/* =========================================================
+   FINAL BACKGROUND FIX
+   Gradient stays BEHIND all content
+========================================================= */
+
+
+/* Disable old overlay layers */
+
+main > .main-bg,
+main > .ink-wrapper {
+  display: none !important;
+}
+
+
+/* Main card becomes the animated background itself */
+
+main {
+  position: relative;
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      #7faec3 0%,
+      rgba(127,174,195,.85) 22%,
+      transparent 48%
+    ),
+
+    radial-gradient(
+      circle at 82% 18%,
+      #aaa49e 0%,
+      rgba(170,164,158,.82) 24%,
+      transparent 50%
+    ),
+
+    radial-gradient(
+      circle at 52% 58%,
+      #9ecbd5 0%,
+      rgba(158,203,213,.72) 20%,
+      transparent 48%
+    ),
+
+    radial-gradient(
+      circle at 25% 86%,
+      #7d8f95 0%,
+      rgba(125,143,149,.70) 25%,
+      transparent 52%
+    ),
+
+    linear-gradient(
+      135deg,
+      #7898a7 0%,
+      #9bbbc6 38%,
+      #a49c94 72%,
+      #c7c1bb 100%
+    );
+
+  background-size:
+    150% 150%,
+    160% 160%,
+    170% 170%,
+    160% 160%,
+    100% 100%;
+
+  animation:
+    portfolio-background-motion
+    18s
+    ease-in-out
+    infinite alternate;
+}
+
+
+/* Smooth background motion */
+
+@keyframes portfolio-background-motion {
+
+  0% {
+    background-position:
+      0% 0%,
+      100% 0%,
+      50% 40%,
+      0% 100%,
+      center;
+  }
+
+  50% {
+    background-position:
+      10% 8%,
+      92% 12%,
+      58% 50%,
+      15% 90%,
+      center;
+  }
+
+  100% {
+    background-position:
+      20% 4%,
+      80% 18%,
+      45% 65%,
+      5% 82%,
+      center;
+  }
+
+}
+
+
+/* =========================================================
+   CONTENT ALWAYS ABOVE BACKGROUND
+========================================================= */
+
+main > header,
+main > section,
+main > .hero,
+main > .section,
+main > .contact,
+main > .project-page {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Selected work elements */
+
+.section-header-wrapper,
+.timeline,
+.project-carousel,
+.carousel-card,
+.project-info {
+  position: relative;
+  z-index: 3;
+}
+
+
+/* About */
+
+.about,
+.about-photo,
+.about-content {
+  position: relative;
+  z-index: 3;
+}
+
+
+/* Images must never inherit background blending */
+
+main img {
+  mix-blend-mode: normal !important;
+}
+
+
+/* Text must remain fully opaque */
+
+main h1,
+main h2,
+main h3,
+main h4,
+main p,
+main a,
+main span {
+  mix-blend-mode: normal;
+}
