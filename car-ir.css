@@ -1,1 +1,574 @@
+/* =========================================================
+   CAR.IR — PROJECT PAGE ONLY
+   This file only affects car-ir.html
+========================================================= */
 
+
+/* =========================================================
+   PROJECT PAGE / SAFE MARGINS
+========================================================= */
+
+.project-page {
+  position: relative;
+  z-index: 10;
+
+  width: 100%;
+
+  /* same horizontal safe space as homepage */
+  padding: 130px 48px 80px;
+}
+
+
+/* =========================================================
+   PROJECT INTRO
+========================================================= */
+
+.project-intro {
+  padding: 55px 0 48px;
+
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.project-intro .eyebrow {
+  margin-bottom: 18px;
+}
+
+.project-intro h1 {
+  margin: 0 0 16px;
+
+  max-width: none;
+
+  font-size: clamp(48px, 6vw, 78px);
+  line-height: .95;
+
+  letter-spacing: -.05em;
+  font-weight: 650;
+}
+
+.project-category {
+  margin: 0;
+
+  color: rgba(255,255,255,.72);
+
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   PROJECT HERO
+========================================================= */
+
+.project-hero {
+  width: 100%;
+
+  margin: 48px 0 90px;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.08);
+
+  border: 1px solid rgba(255,255,255,.14);
+
+  box-shadow: 0 18px 45px rgba(0,0,0,.08);
+}
+
+.project-hero img {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+}
+
+
+/* =========================================================
+   BRAND OVERVIEW
+========================================================= */
+
+.brand-overview {
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, .7fr)
+    minmax(0, 1.3fr);
+
+  gap: 72px;
+
+  align-items: start;
+
+  margin-bottom: 100px;
+}
+
+.overview-heading .eyebrow {
+  margin-bottom: 18px;
+}
+
+.overview-heading h2 {
+  margin: 0;
+
+  font-size: clamp(38px, 4.5vw, 58px);
+  line-height: 1;
+
+  letter-spacing: -.04em;
+}
+
+.overview-copy {
+  max-width: 650px;
+}
+
+.overview-copy p {
+  margin: 0 0 24px;
+
+  color: rgba(255,255,255,.84);
+
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.overview-copy p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.project-page .section-heading {
+  display: block;
+
+  margin-bottom: 30px;
+}
+
+.project-page .section-heading .eyebrow {
+  margin-bottom: 14px;
+}
+
+.project-page .section-heading h2 {
+  margin: 0;
+}
+
+
+/* =========================================================
+   BRAINSTORMING
+========================================================= */
+
+.brainstorming-section {
+  width: 100%;
+
+  margin-bottom: 100px;
+}
+
+
+/* board is intentionally smaller than project images */
+
+.brainstorm-board {
+  position: relative;
+
+  width: min(100%, 880px);
+
+  aspect-ratio: 16 / 9;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.18),
+      rgba(255,255,255,.07)
+    );
+
+  border: 1px solid rgba(255,255,255,.20);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    0 18px 45px rgba(0,0,0,.05);
+}
+
+
+/* =========================================================
+   BRAINSTORM — CENTER
+========================================================= */
+
+.brainstorm-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 5;
+
+  color: #181818;
+
+  font-family: "Caveat", cursive;
+
+  font-size: clamp(34px, 3.4vw, 50px);
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   BRAINSTORM — BRANCHES
+========================================================= */
+
+.brainstorm-branch {
+  position: absolute;
+
+  z-index: 5;
+
+  color: #181818;
+
+  font-family: "Caveat", cursive;
+}
+
+.brainstorm-branch h3 {
+  margin: 0 0 6px;
+
+  font-size: clamp(19px, 1.6vw, 25px);
+
+  line-height: 1;
+
+  font-weight: 700;
+}
+
+.brainstorm-branch p {
+  margin: 0;
+
+  font-size: clamp(15px, 1.3vw, 20px);
+
+  line-height: 1.25;
+}
+
+
+/* Automotive — left */
+
+.branch-automotive {
+  left: 7%;
+  top: 36%;
+}
+
+
+/* Brand Personality — upper right */
+
+.branch-personality {
+  right: 6%;
+  top: 16%;
+}
+
+
+/* Digital Media — lower center */
+
+.branch-digital {
+  left: 55%;
+  top: 68%;
+}
+
+
+/* =========================================================
+   BRAINSTORM — CONNECTION LINES
+========================================================= */
+
+.branch-line {
+  position: absolute;
+
+  z-index: 2;
+
+  height: 1px;
+
+  background: rgba(24,24,24,.62);
+
+  transform-origin: left center;
+}
+
+
+/* CAR.IR → Automotive */
+
+.line-left {
+  width: 25%;
+
+  left: 49%;
+  top: 50%;
+
+  transform: rotate(190deg);
+}
+
+
+/* CAR.IR → Brand Personality */
+
+.line-right {
+  width: 23%;
+
+  left: 52%;
+  top: 47%;
+
+  transform: rotate(-45deg);
+}
+
+
+/* CAR.IR → Digital Media */
+
+.line-bottom {
+  width: 18%;
+
+  left: 51%;
+  top: 54%;
+
+  transform: rotate(55deg);
+}
+
+
+/* =========================================================
+   IDENTITY SYSTEM
+========================================================= */
+
+.project-page > section:not(
+  .project-intro,
+  .project-hero,
+  .brand-overview,
+  .brainstorming-section,
+  .project-end
+) {
+  margin-bottom: 90px;
+}
+
+
+/* =========================================================
+   PROJECT GALLERY
+========================================================= */
+
+.project-gallery {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+.project-image {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,.08);
+
+  border: 1px solid rgba(255,255,255,.12);
+
+  box-shadow: 0 14px 35px rgba(0,0,0,.06);
+}
+
+
+/* Full width image */
+
+.project-image.wide {
+  grid-column: 1 / -1;
+}
+
+
+/* All portfolio images displayed as 16:9 */
+
+.project-image img {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+
+  transition:
+    transform .65s cubic-bezier(.2,.8,.2,1);
+}
+
+.project-image:hover img {
+  transform: scale(1.015);
+}
+
+
+/* =========================================================
+   PROJECT END
+========================================================= */
+
+.project-end {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+
+  justify-content: center;
+
+  padding: 80px 0 20px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .project-page {
+    padding:
+      120px
+      32px
+      70px;
+  }
+
+  .brand-overview {
+    grid-template-columns: 1fr;
+
+    gap: 32px;
+  }
+
+  .brainstorm-board {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .project-page {
+    padding:
+      100px
+      20px
+      60px;
+  }
+
+
+  /* INTRO */
+
+  .project-intro {
+    padding:
+      42px
+      0
+      36px;
+  }
+
+  .project-intro h1 {
+    font-size:
+      clamp(46px, 16vw, 68px);
+  }
+
+
+  /* HERO */
+
+  .project-hero {
+    margin:
+      32px
+      0
+      65px;
+
+    border-radius: 16px;
+  }
+
+
+  /* OVERVIEW */
+
+  .brand-overview {
+    margin-bottom: 70px;
+  }
+
+  .overview-copy p {
+    font-size: 15px;
+  }
+
+
+  /* BRAINSTORM */
+
+  .brainstorming-section {
+    margin-bottom: 70px;
+  }
+
+  .brainstorm-board {
+    width: 100%;
+
+    aspect-ratio: auto;
+
+    min-height: 500px;
+
+    border-radius: 18px;
+  }
+
+  .brainstorm-center {
+    left: 50%;
+    top: 45%;
+
+    font-size: 38px;
+  }
+
+  .branch-automotive {
+    left: 7%;
+    top: 12%;
+  }
+
+  .branch-personality {
+    right: 7%;
+    top: 55%;
+
+    text-align: right;
+  }
+
+  .branch-digital {
+    left: 7%;
+    top: 77%;
+  }
+
+  .branch-line {
+    display: none;
+  }
+
+
+  /* GALLERY */
+
+  .project-gallery {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .project-image.wide {
+    grid-column: auto;
+  }
+
+  .project-image {
+    border-radius: 14px;
+  }
+
+
+  /* END */
+
+  .project-end {
+    padding:
+      65px
+      0
+      10px;
+  }
+
+}
