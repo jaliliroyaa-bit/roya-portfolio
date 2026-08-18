@@ -850,15 +850,58 @@
       </div>
 
 
-      <div class="brainstorming-image">
+    <section class="brainstorming-section reveal">
 
-        <img
-          src="assets/car-ir/brainstorming.jpg"
-          alt="CAR.IR Brand Brainstorming"
-          loading="lazy"
-        >
+  <div class="section-heading">
+    <p class="eyebrow">Brand Exploration</p>
+    <h2>Brainstorming</h2>
+  </div>
 
-      </div>
+  <div class="brainstorm-board">
+
+    <!-- CENTER -->
+    <div class="brainstorm-center">
+      CAR.IR
+    </div>
+
+    <!-- AUTOMOTIVE -->
+    <div class="brainstorm-branch branch-automotive">
+      <h3>AUTOMOTIVE:</h3>
+      <p>
+        Track · Corner · Apex<br>
+        Tire · Wheel · Brake<br>
+        Steering · Turbo
+      </p>
+    </div>
+
+    <!-- BRAND PERSONALITY -->
+    <div class="brainstorm-branch branch-personality">
+      <h3>Brand Personality:</h3>
+      <p>
+        Reliable · Accurate · Dynamic<br>
+        Professional · Modern · Innovative<br>
+        Clear · Trustworthy
+      </p>
+    </div>
+
+    <!-- DIGITAL MEDIA -->
+    <div class="brainstorm-branch branch-digital">
+      <h3>Digital Media:</h3>
+      <p>
+        News · Information · Reviews<br>
+        Analysis · Articles · Comparison<br>
+        Updates · Content Publishing
+      </p>
+    </div>
+
+    <!-- CONNECTION LINES -->
+    <span class="branch-line line-left"></span>
+    <span class="branch-line line-right"></span>
+    <span class="branch-line line-bottom"></span>
+
+  </div>
+
+</section>
 
 
     </section>
