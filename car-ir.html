@@ -16,7 +16,6 @@
   >
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -29,16 +28,8 @@
       margin: 0;
 
       background:
-        radial-gradient(
-          circle at top left,
-          #9CC7D8 0%,
-          transparent 38%
-        ),
-        radial-gradient(
-          circle at bottom right,
-          #C9C4BC 0%,
-          transparent 35%
-        ),
+        radial-gradient(circle at top left, #9CC7D8 0%, transparent 38%),
+        radial-gradient(circle at bottom right, #C9C4BC 0%, transparent 35%),
         linear-gradient(
           120deg,
           #EAF3F7 0%,
@@ -53,8 +44,7 @@
         system-ui,
         sans-serif;
 
-      -webkit-font-smoothing:
-        antialiased;
+      -webkit-font-smoothing: antialiased;
     }
 
     a {
@@ -68,9 +58,8 @@
       width: 100%;
     }
 
-
     /* =========================
-       MAIN GLASS FRAME
+       PAGE SHELL
     ========================= */
 
     .page-shell {
@@ -97,10 +86,8 @@
       color: #fff;
 
       box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.12);
+        0 20px 60px rgba(0,0,0,.12);
     }
-
 
     /* =========================
        BACKGROUND MOTION
@@ -181,7 +168,6 @@
     }
 
     @keyframes mix-ink {
-
       0% {
         transform:
           translate3d(-4vw,-3vh,0)
@@ -207,18 +193,11 @@
       }
     }
 
-
-    /* =========================
-       CONTENT ABOVE BACKGROUND
-    ========================= */
-
     .site-header,
     main {
       position: relative;
-
       z-index: 5;
     }
-
 
     /* =========================
        HEADER
@@ -228,19 +207,14 @@
       display: flex;
 
       align-items: center;
+      justify-content: space-between;
 
-      justify-content:
-        space-between;
+      margin: 0 36px;
 
-      margin:
-        0 36px;
-
-      padding:
-        32px 60px;
+      padding: 32px 60px;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.15);
+        1px solid rgba(255,255,255,.15);
     }
 
     .logo {
@@ -272,7 +246,6 @@
     nav a:hover {
       color: #fff;
     }
-
 
     /* =========================
        INTRO
@@ -332,7 +305,6 @@
         rgba(255,255,255,.82);
     }
 
-
     /* =========================
        HERO
     ========================= */
@@ -351,62 +323,125 @@
       object-fit: cover;
 
       box-shadow:
-        0 30px 70px
-        rgba(0,0,0,.18);
+        0 30px 70px rgba(0,0,0,.18);
     }
 
-
     /* =========================
-       OVERVIEW
+       BRAND OVERVIEW
     ========================= */
 
-    .case-section {
+    .car-overview {
+      max-width: 1180px;
+
+      margin: 120px auto;
+
+      padding: 0 48px;
+
       display: grid;
 
       grid-template-columns:
-        260px 1fr;
+        1fr 1.35fr;
 
-      gap: 70px;
+      column-gap: 90px;
 
-      padding:
-        110px 96px;
+      row-gap: 40px;
     }
 
-    .case-section h2 {
+    .overview-label {
+      grid-column: 1 / -1;
+    }
+
+    .overview-label .eyebrow {
       margin: 0;
+
+      color:
+        rgba(255,255,255,.7);
+
+      font-size: 12px;
+
+      letter-spacing: .14em;
+
+      text-transform: uppercase;
+    }
+
+    .overview-content h2 {
+      margin:
+        0 0 32px;
 
       font-size:
         clamp(
-          34px,
-          4vw,
-          54px
+          42px,
+          5vw,
+          68px
         );
 
       line-height: 1;
 
-      letter-spacing:
-        -.045em;
-
       font-weight: 500;
+
+      letter-spacing:
+        -.04em;
     }
 
-    .case-copy {
-      max-width: 700px;
-    }
+    .overview-content p {
+      max-width: 520px;
 
-    .case-copy p {
       margin:
-        0 0 20px;
-
-      font-size:
-        18px;
-
-      line-height: 1.75;
+        0 0 28px;
 
       color:
-        rgba(255,255,255,.84);
+        rgba(255,255,255,.85);
+
+      font-size: 16px;
+
+      line-height: 1.75;
     }
 
+    .overview-notes {
+      padding: 38px;
+
+      border:
+        1px solid rgba(255,255,255,.18);
+
+      border-radius: 28px;
+
+      background:
+        rgba(255,255,255,.08);
+
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+
+      display: grid;
+
+      gap: 34px;
+    }
+
+    .note-group span {
+      display: block;
+
+      margin-bottom: 9px;
+
+      color: #fff;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    .note-group p {
+      margin: 0;
+
+      color:
+        rgba(255,255,255,.72);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
 
     /* =========================
        SECTION TITLE
@@ -423,8 +458,7 @@
 
       font-size: 12px;
 
-      letter-spacing:
-        .14em;
+      letter-spacing: .14em;
 
       color:
         rgba(255,255,255,.55);
@@ -445,7 +479,6 @@
 
       font-weight: 500;
     }
-
 
     /* =========================
        PROJECT IMAGES
@@ -472,8 +505,7 @@
         rgba(255,255,255,.08);
 
       box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.1);
+        0 20px 50px rgba(0,0,0,.1);
 
       opacity: 0;
 
@@ -482,8 +514,7 @@
 
       transition:
         opacity .8s ease,
-        transform .8s
-        cubic-bezier(.2,.7,.2,1);
+        transform .8s cubic-bezier(.2,.7,.2,1);
     }
 
     .project-image.visible {
@@ -500,8 +531,7 @@
       object-fit: cover;
 
       transition:
-        transform .7s
-        cubic-bezier(.2,.75,.25,1);
+        transform .7s cubic-bezier(.2,.75,.25,1);
     }
 
     .project-image:hover img {
@@ -523,7 +553,6 @@
       aspect-ratio:
         4 / 3;
     }
-
 
     /* =========================
        MOTION
@@ -553,8 +582,7 @@
       justify-content: center;
 
       border:
-        1px solid
-        rgba(255,255,255,.14);
+        1px solid rgba(255,255,255,.14);
     }
 
     .motion-placeholder {
@@ -574,9 +602,8 @@
       font-size: 24px;
     }
 
-
     /* =========================
-       NEXT / BACK
+       END NAV
     ========================= */
 
     .project-end {
@@ -585,8 +612,7 @@
 
       display: flex;
 
-      justify-content:
-        space-between;
+      justify-content: space-between;
 
       align-items: center;
     }
@@ -601,16 +627,14 @@
         14px 20px;
 
       border:
-        1px solid
-        rgba(255,255,255,.24);
+        1px solid rgba(255,255,255,.24);
 
       border-radius: 999px;
 
       background:
         rgba(255,255,255,.12);
 
-      backdrop-filter:
-        blur(14px);
+      backdrop-filter: blur(14px);
 
       color: #fff;
 
@@ -629,7 +653,6 @@
       transform:
         translateY(-2px);
     }
-
 
     /* =========================
        MOBILE
@@ -677,18 +700,37 @@
           0 16px;
       }
 
-      .case-section {
+      .car-overview {
+        margin:
+          70px auto;
+
+        padding:
+          0 20px;
+
         grid-template-columns:
           1fr;
 
-        gap: 28px;
-
-        padding:
-          70px 24px;
+        gap: 32px;
       }
 
-      .case-copy p {
-        font-size: 16px;
+      .overview-label {
+        grid-column: auto;
+      }
+
+      .overview-content h2 {
+        font-size: 42px;
+
+        margin-bottom: 24px;
+      }
+
+      .overview-content p {
+        font-size: 15px;
+      }
+
+      .overview-notes {
+        padding: 26px;
+
+        border-radius: 20px;
       }
 
       .chapter {
@@ -743,7 +785,6 @@
     }
 
   </style>
-
 </head>
 
 
@@ -790,7 +831,9 @@
     <main>
 
 
-      <!-- INTRO -->
+      <!-- =========================
+           INTRO
+      ========================== -->
 
       <section class="project-intro">
 
@@ -809,7 +852,9 @@
       </section>
 
 
-      <!-- HERO -->
+      <!-- =========================
+           HERO
+      ========================== -->
 
       <section class="project-hero">
 
@@ -821,51 +866,100 @@
       </section>
 
 
-      <!-- OVERVIEW -->
+      <!-- =========================
+           BRAND OVERVIEW
+      ========================== -->
 
-      <section class="case-section">
+      <section class="car-overview">
 
-        <div>
-
+        <div class="overview-label">
           <p class="eyebrow">
-            Overview
+            Brand Overview
           </p>
+        </div>
+
+
+        <div class="overview-content">
 
           <h2>
-            A unified identity for an automotive media platform.
+            CAR.IR
           </h2>
+
+          <p>
+            CAR.IR is a digital automotive media platform that delivers
+            the latest automotive news, in-depth vehicle reviews, and
+            comprehensive car information. By providing reliable content
+            and up-to-date market insights, the platform helps users stay
+            informed and make confident automotive decisions.
+          </p>
+
+          <p>
+            Before this project, the brand relied solely on its logo
+            without a supporting visual identity system. The objective
+            was to refine the existing logo and develop a flexible
+            identity system that could seamlessly extend across the
+            website, editorial content, stationery, and future brand
+            communications while preserving the brand's existing
+            recognition.
+          </p>
 
         </div>
 
 
-        <div class="case-copy">
+        <div class="overview-notes">
 
-          <p>
-            CAR.IR is an automotive media platform focused on
-            delivering automotive news, reviews, tests and
-            digital content.
-          </p>
+          <div class="note-group">
 
-          <p>
-            The project focused on developing and refining a
-            cohesive visual identity system across different
-            brand touchpoints — from logo and typography to
-            stationery, reporter apparel, social media and the
-            digital experience.
-          </p>
+            <span>
+              Automotive
+            </span>
 
-          <p>
-            The goal was to create a recognizable and flexible
-            system that could remain consistent across both
-            editorial and commercial applications.
-          </p>
+            <p>
+              Track · Corner · Apex<br>
+              Tire · Wheel · Brake<br>
+              Steering · Turbo
+            </p>
+
+          </div>
+
+
+          <div class="note-group">
+
+            <span>
+              Brand Personality
+            </span>
+
+            <p>
+              Reliable · Accurate · Dynamic<br>
+              Professional · Modern · Innovative<br>
+              Clear · Trustworthy
+            </p>
+
+          </div>
+
+
+          <div class="note-group">
+
+            <span>
+              Digital Media
+            </span>
+
+            <p>
+              News · Information · Reviews<br>
+              Analysis · Articles · Comparison<br>
+              Updates · Content Publishing
+            </p>
+
+          </div>
 
         </div>
 
       </section>
 
 
-      <!-- 01 -->
+      <!-- =========================
+           01 IDENTITY SYSTEM
+      ========================== -->
 
       <section class="chapter">
 
@@ -883,32 +977,40 @@
       <section class="gallery">
 
         <div class="project-image wide">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-21.jpg"
             alt="CAR.IR identity presentation"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-22.jpg"
             alt="CAR.IR logo system"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-23.jpg"
             alt="CAR.IR visual identity"
           >
+
         </div>
 
       </section>
 
 
-      <!-- 02 -->
+      <!-- =========================
+           02 BRAND APPLICATIONS
+      ========================== -->
 
       <section class="chapter">
 
@@ -926,32 +1028,40 @@
       <section class="gallery">
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-24.jpg"
             alt="CAR.IR brand application"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-25.jpg"
             alt="CAR.IR brand application"
           >
+
         </div>
 
 
         <div class="project-image wide">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-26.jpg"
             alt="CAR.IR brand system"
           >
+
         </div>
 
       </section>
 
 
-      <!-- 03 -->
+      <!-- =========================
+           03 EDITORIAL & SOCIAL
+      ========================== -->
 
       <section class="chapter">
 
@@ -969,32 +1079,40 @@
       <section class="gallery">
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-27.jpg"
             alt="CAR.IR editorial design"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-28.jpg"
             alt="CAR.IR social media"
           >
+
         </div>
 
 
         <div class="project-image wide">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-33.jpg"
             alt="CAR.IR social identity"
           >
+
         </div>
 
       </section>
 
 
-      <!-- 04 -->
+      <!-- =========================
+           04 DIGITAL EXPERIENCE
+      ========================== -->
 
       <section class="chapter">
 
@@ -1012,32 +1130,40 @@
       <section class="gallery">
 
         <div class="project-image wide">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-41.jpg"
             alt="CAR.IR digital experience"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-42.jpg"
             alt="CAR.IR website identity"
           >
+
         </div>
 
 
         <div class="project-image half">
+
           <img
             src="assets/car-ir/Portfolio Imm copy2-43.jpg"
             alt="CAR.IR website visual identity"
           >
+
         </div>
 
       </section>
 
 
-      <!-- MOTION -->
+      <!-- =========================
+           MOTION
+      ========================== -->
 
       <section class="chapter">
 
@@ -1071,7 +1197,9 @@
       </section>
 
 
-      <!-- END -->
+      <!-- =========================
+           END
+      ========================== -->
 
       <section class="project-end">
 
