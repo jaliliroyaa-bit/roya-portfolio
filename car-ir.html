@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="car-ir.css">
 </head>
 
+
 <body>
 
 <main id="top">
@@ -47,6 +48,7 @@
     </a>
 
     <nav>
+
       <a href="projects.html" class="projects-btn">
         Projects
       </a>
@@ -58,6 +60,7 @@
       <a href="index.html#contact">
         Contact
       </a>
+
     </nav>
 
   </header>
@@ -192,156 +195,156 @@
         <div class="project-gallery">
 
 
-          <!-- IMAGE 21 -->
+          <!-- IMAGE 01 -->
 
           <div class="project-image wide">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-21.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 01"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 22 -->
+          <!-- IMAGE 02 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-22.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 02"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 23 -->
+          <!-- IMAGE 03 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-23.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 03"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 24 -->
+          <!-- IMAGE 04 -->
 
           <div class="project-image wide">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-24.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 04"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 25 -->
+          <!-- IMAGE 05 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-25.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 05"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 26 -->
+          <!-- IMAGE 06 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-26.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 06"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 27 -->
+          <!-- IMAGE 07 -->
 
           <div class="project-image wide">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-27.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 07"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 28 -->
+          <!-- IMAGE 08 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-28.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 08"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 33 -->
+          <!-- IMAGE 09 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-33.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 09"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 41 -->
+          <!-- IMAGE 10 -->
 
           <div class="project-image wide">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-41.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 10"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 42 -->
+          <!-- IMAGE 11 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-42.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 11"
               loading="lazy"
             >
 
           </div>
 
 
-          <!-- IMAGE 43 -->
+          <!-- IMAGE 12 -->
 
           <div class="project-image">
 
             <img
               src="assets/car-ir/Portfolio Imm copy2-43.jpg"
-              alt="CAR.IR Brand Identity"
+              alt="CAR.IR Brand Identity — 12"
               loading="lazy"
             >
 
@@ -391,6 +394,396 @@
   </div>
 
 </footer>
+
+
+<!-- =====================================================
+     LIGHTBOX
+====================================================== -->
+
+<div
+  class="project-lightbox"
+  id="projectLightbox"
+  aria-hidden="true"
+>
+
+  <!-- CLOSE -->
+
+  <button
+    class="lightbox-close"
+    type="button"
+    aria-label="Close image"
+  >
+    ×
+  </button>
+
+
+  <!-- PREVIOUS -->
+
+  <button
+    class="lightbox-arrow lightbox-prev"
+    type="button"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
+
+  <!-- IMAGE -->
+
+  <div class="lightbox-image-wrapper">
+
+    <img
+      class="lightbox-image"
+      src=""
+      alt=""
+    >
+
+    <div class="lightbox-counter"></div>
+
+  </div>
+
+
+  <!-- NEXT -->
+
+  <button
+    class="lightbox-arrow lightbox-next"
+    type="button"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     LIGHTBOX SCRIPT
+====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* -----------------------------------------
+     GET ALL IDENTITY SYSTEM IMAGES
+  ----------------------------------------- */
+
+  const images = Array.from(
+    document.querySelectorAll(
+      ".project-gallery .project-image img"
+    )
+  );
+
+
+  /* -----------------------------------------
+     LIGHTBOX ELEMENTS
+  ----------------------------------------- */
+
+  const lightbox =
+    document.getElementById("projectLightbox");
+
+  const lightboxImage =
+    lightbox.querySelector(".lightbox-image");
+
+  const counter =
+    lightbox.querySelector(".lightbox-counter");
+
+  const closeButton =
+    lightbox.querySelector(".lightbox-close");
+
+  const prevButton =
+    lightbox.querySelector(".lightbox-prev");
+
+  const nextButton =
+    lightbox.querySelector(".lightbox-next");
+
+
+  /* -----------------------------------------
+     VARIABLES
+  ----------------------------------------- */
+
+  let currentIndex = 0;
+
+  let touchStartX = 0;
+
+  let touchEndX = 0;
+
+
+  /* -----------------------------------------
+     UPDATE LIGHTBOX
+  ----------------------------------------- */
+
+  function updateLightbox() {
+
+    const selectedImage =
+      images[currentIndex];
+
+    lightboxImage.src =
+      selectedImage.src;
+
+    lightboxImage.alt =
+      selectedImage.alt;
+
+    counter.textContent =
+      `${currentIndex + 1} / ${images.length}`;
+
+  }
+
+
+  /* -----------------------------------------
+     OPEN
+  ----------------------------------------- */
+
+  function openLightbox(index) {
+
+    currentIndex = index;
+
+    updateLightbox();
+
+    lightbox.classList.add("open");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "lightbox-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     CLOSE
+  ----------------------------------------- */
+
+  function closeLightbox() {
+
+    lightbox.classList.remove("open");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "lightbox-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     NEXT IMAGE
+  ----------------------------------------- */
+
+  function nextImage() {
+
+    currentIndex =
+      (currentIndex + 1) %
+      images.length;
+
+    updateLightbox();
+
+  }
+
+
+  /* -----------------------------------------
+     PREVIOUS IMAGE
+  ----------------------------------------- */
+
+  function previousImage() {
+
+    currentIndex =
+      (
+        currentIndex -
+        1 +
+        images.length
+      ) %
+      images.length;
+
+    updateLightbox();
+
+  }
+
+
+  /* -----------------------------------------
+     OPEN IMAGE ON CLICK
+  ----------------------------------------- */
+
+  images.forEach(
+    function (image, index) {
+
+      image.addEventListener(
+        "click",
+        function () {
+
+          openLightbox(index);
+
+        }
+      );
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     BUTTONS
+  ----------------------------------------- */
+
+  closeButton.addEventListener(
+    "click",
+    closeLightbox
+  );
+
+
+  nextButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.stopPropagation();
+
+      nextImage();
+
+    }
+  );
+
+
+  prevButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.stopPropagation();
+
+      previousImage();
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     CLICK OUTSIDE IMAGE = CLOSE
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target === lightbox ||
+        event.target.classList.contains(
+          "lightbox-image-wrapper"
+        )
+      ) {
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     KEYBOARD
+  ----------------------------------------- */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        !lightbox.classList.contains("open")
+      ) {
+        return;
+      }
+
+
+      if (event.key === "Escape") {
+
+        closeLightbox();
+
+      }
+
+
+      if (event.key === "ArrowRight") {
+
+        nextImage();
+
+      }
+
+
+      if (event.key === "ArrowLeft") {
+
+        previousImage();
+
+      }
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     MOBILE SWIPE — START
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "touchstart",
+    function (event) {
+
+      touchStartX =
+        event.changedTouches[0].screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /* -----------------------------------------
+     MOBILE SWIPE — END
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "touchend",
+    function (event) {
+
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+
+      const difference =
+        touchStartX - touchEndX;
+
+
+      if (
+        Math.abs(difference) < 50
+      ) {
+        return;
+      }
+
+
+      if (difference > 0) {
+
+        nextImage();
+
+      } else {
+
+        previousImage();
+
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
+
+});
+
+</script>
 
 
 </body>
