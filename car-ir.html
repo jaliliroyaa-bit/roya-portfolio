@@ -1,42 +1,1157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>CAR.IR — Roya Jalili</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          #9CC7D8 0%,
+          transparent 38%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          #C9C4BC 0%,
+          transparent 35%
+        ),
+        linear-gradient(
+          120deg,
+          #EAF3F7 0%,
+          #D9EAF2 45%,
+          #C9C4BC 100%
+        );
+
+      color: #2F3133;
+
+      font-family:
+        Inter,
+        system-ui,
+        sans-serif;
+
+      -webkit-font-smoothing:
+        antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video {
+      display: block;
+      width: 100%;
+    }
+
+
+    /* =========================
+       MAIN GLASS FRAME
+    ========================= */
+
+    .page-shell {
+      width: 94%;
+      max-width: 1280px;
+
+      margin: 3vh auto;
+
+      border-radius: 26px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7A9EAF 0%,
+          #9EB8C5 30%,
+          #8C8176 75%,
+          #D4CEC7 100%
+        );
+
+      color: #fff;
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.12);
+    }
+
+
+    /* =========================
+       BACKGROUND MOTION
+    ========================= */
+
+    .ink-wrapper {
+      position: absolute;
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 0;
+    }
+
+    .ink-blob {
+      position: absolute;
+
+      border-radius: 50%;
+
+      opacity: .62;
+
+      mix-blend-mode: overlay;
+
+      filter: blur(90px);
+
+      animation:
+        mix-ink 11s infinite alternate ease-in-out;
+
+      will-change: transform;
+    }
+
+    .color-1 {
+      width: 55vw;
+      height: 55vw;
+
+      background: #5B8FA8;
+
+      top: -10%;
+      left: -15%;
+    }
+
+    .color-2 {
+      width: 60vw;
+      height: 60vw;
+
+      background: #EFECE6;
+
+      top: 25%;
+      right: -15%;
+
+      animation-delay: -3s;
+    }
+
+    .color-3 {
+      width: 50vw;
+      height: 50vw;
+
+      background: #fff;
+
+      bottom: -15%;
+      left: 15%;
+
+      animation-delay: -6s;
+    }
+
+    .color-4 {
+      width: 48vw;
+      height: 48vw;
+
+      background: #A39B93;
+
+      top: 15%;
+      left: 35%;
+
+      animation-delay: -9s;
+    }
+
+    @keyframes mix-ink {
+
+      0% {
+        transform:
+          translate3d(-4vw,-3vh,0)
+          scale(1);
+      }
+
+      35% {
+        transform:
+          translate3d(10vw,6vh,0)
+          scale(1.15);
+      }
+
+      70% {
+        transform:
+          translate3d(-6vw,11vh,0)
+          scale(.95);
+      }
+
+      100% {
+        transform:
+          translate3d(10vw,-8vh,0)
+          scale(1.1);
+      }
+    }
+
+
+    /* =========================
+       CONTENT ABOVE BACKGROUND
+    ========================= */
+
+    .site-header,
+    main {
+      position: relative;
+
+      z-index: 5;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .site-header {
+      display: flex;
+
+      align-items: center;
+
+      justify-content:
+        space-between;
+
+      margin:
+        0 36px;
+
+      padding:
+        32px 60px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.15);
+    }
+
+    .logo {
+      font-family:
+        Caveat,
+        cursive;
+
+      font-size: 32px;
+
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+
+      gap: 28px;
+    }
+
+    nav a {
+      color:
+        rgba(255,255,255,.72);
+
+      font-size: 14px;
+
+      transition:
+        color .25s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .project-intro {
+      padding:
+        110px 96px 70px;
+    }
+
+    .eyebrow {
+      margin:
+        0 0 18px;
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+      letter-spacing: .16em;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.7);
+    }
+
+    .project-intro h1 {
+      margin:
+        0 0 24px;
+
+      font-size:
+        clamp(
+          70px,
+          11vw,
+          150px
+        );
+
+      line-height: .84;
+
+      letter-spacing:
+        -.075em;
+
+      font-weight: 600;
+    }
+
+    .project-category {
+      margin: 0;
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          22px
+        );
+
+      color:
+        rgba(255,255,255,.82);
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .project-hero {
+      padding:
+        0 48px;
+    }
+
+    .project-hero img {
+      border-radius: 24px;
+
+      aspect-ratio:
+        16 / 9;
+
+      object-fit: cover;
+
+      box-shadow:
+        0 30px 70px
+        rgba(0,0,0,.18);
+    }
+
+
+    /* =========================
+       OVERVIEW
+    ========================= */
+
+    .case-section {
+      display: grid;
+
+      grid-template-columns:
+        260px 1fr;
+
+      gap: 70px;
+
+      padding:
+        110px 96px;
+    }
+
+    .case-section h2 {
+      margin: 0;
+
+      font-size:
+        clamp(
+          34px,
+          4vw,
+          54px
+        );
+
+      line-height: 1;
+
+      letter-spacing:
+        -.045em;
+
+      font-weight: 500;
+    }
+
+    .case-copy {
+      max-width: 700px;
+    }
+
+    .case-copy p {
+      margin:
+        0 0 20px;
+
+      font-size:
+        18px;
+
+      line-height: 1.75;
+
+      color:
+        rgba(255,255,255,.84);
+    }
+
+
+    /* =========================
+       SECTION TITLE
+    ========================= */
+
+    .chapter {
+      padding:
+        20px 96px 42px;
+    }
+
+    .chapter-number {
+      margin:
+        0 0 12px;
+
+      font-size: 12px;
+
+      letter-spacing:
+        .14em;
+
+      color:
+        rgba(255,255,255,.55);
+    }
+
+    .chapter h2 {
+      margin: 0;
+
+      font-size:
+        clamp(
+          36px,
+          5vw,
+          64px
+        );
+
+      letter-spacing:
+        -.045em;
+
+      font-weight: 500;
+    }
+
+
+    /* =========================
+       PROJECT IMAGES
+    ========================= */
+
+    .gallery {
+      padding:
+        0 48px 40px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 24px;
+    }
+
+    .project-image {
+      overflow: hidden;
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,.08);
+
+      box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.1);
+
+      opacity: 0;
+
+      transform:
+        translateY(45px);
+
+      transition:
+        opacity .8s ease,
+        transform .8s
+        cubic-bezier(.2,.7,.2,1);
+    }
+
+    .project-image.visible {
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition:
+        transform .7s
+        cubic-bezier(.2,.75,.25,1);
+    }
+
+    .project-image:hover img {
+      transform:
+        scale(1.025);
+    }
+
+    .project-image.wide {
+      grid-column:
+        1 / -1;
+    }
+
+    .project-image.wide img {
+      aspect-ratio:
+        16 / 9;
+    }
+
+    .project-image.half img {
+      aspect-ratio:
+        4 / 3;
+    }
+
+
+    /* =========================
+       MOTION
+    ========================= */
+
+    .motion-section {
+      padding:
+        100px 48px;
+    }
+
+    .motion-card {
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 24px;
+
+      background:
+        rgba(0,0,0,.22);
+
+      min-height: 420px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.14);
+    }
+
+    .motion-placeholder {
+      text-align: center;
+
+      color:
+        rgba(255,255,255,.65);
+    }
+
+    .motion-placeholder strong {
+      display: block;
+
+      margin-bottom: 10px;
+
+      color: #fff;
+
+      font-size: 24px;
+    }
+
+
+    /* =========================
+       NEXT / BACK
+    ========================= */
+
+    .project-end {
+      padding:
+        120px 96px;
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items: center;
+    }
+
+    .back-link,
+    .next-link {
+      display: inline-flex;
+
+      align-items: center;
+
+      padding:
+        14px 20px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.24);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.12);
+
+      backdrop-filter:
+        blur(14px);
+
+      color: #fff;
+
+      font-size: 14px;
+
+      transition:
+        background .3s ease,
+        transform .3s ease;
+    }
+
+    .back-link:hover,
+    .next-link:hover {
+      background:
+        rgba(255,255,255,.22);
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 760px) {
+
+      .page-shell {
+        width:
+          calc(100% - 24px);
+
+        margin:
+          12px auto;
+
+        border-radius: 20px;
+      }
+
+      .site-header {
+        margin:
+          0 8px;
+
+        padding:
+          24px 18px;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+
+      nav {
+        gap: 14px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .project-intro {
+        padding:
+          85px 24px 45px;
+      }
+
+      .project-hero {
+        padding:
+          0 16px;
+      }
+
+      .case-section {
+        grid-template-columns:
+          1fr;
+
+        gap: 28px;
+
+        padding:
+          70px 24px;
+      }
+
+      .case-copy p {
+        font-size: 16px;
+      }
+
+      .chapter {
+        padding:
+          15px 24px 30px;
+      }
+
+      .gallery {
+        grid-template-columns:
+          1fr;
+
+        padding:
+          0 16px 24px;
+
+        gap: 16px;
+      }
+
+      .project-image.wide {
+        grid-column: auto;
+      }
+
+      .project-image.wide img,
+      .project-image.half img {
+        aspect-ratio:
+          4 / 3;
+      }
+
+      .motion-section {
+        padding:
+          60px 16px;
+      }
+
+      .motion-card {
+        min-height: 260px;
+      }
+
+      .project-end {
+        padding:
+          80px 24px;
+
+        gap: 12px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+      .back-link,
+      .next-link {
+        justify-content: center;
+      }
+    }
+
+  </style>
+
 </head>
+
+
 <body>
-<header class="site-header">
-  <a class="logo" href="index.html#top">Roya Jalili</a>
-  <nav>
-    <a href="index.html#work">Work</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
-</header>
-<main class="project-page">
-  <section class="project-intro">
-    <p class="eyebrow">Selected project</p>
-    <h1>CAR.IR</h1>
-    <p class="project-category">Brand Identity & Digital Experience</p>
-  </section>
-  <section class="project-hero">
-    <img src="assets/car-cover.jpg" alt="CAR.IR cover">
-  </section>
-  <section class="case-section">
-    <div><p class="eyebrow">Overview</p></div>
-    <div class="case-copy"><p>A complete visual identity redesign for an automotive media platform, including logo refinement, stationery, reporter apparel, social media applications, color and typography systems, and guidance for the digital brand experience.</p></div>
-  </section>
-  <section class="case-section">
-    <div><h2>Case study</h2></div>
-    <div><div class="case-placeholder">Add project images, process, motion and final outcomes here.</div></div>
-  </section>
-  <section class="contact">
-    <a class="button" href="index.html#work">← Back to projects</a>
-  </section>
-</main>
-<footer><span>© <span id="year"></span> Roya Jalili</span><a href="index.html">Home</a></footer>
-<script src="script.js"></script>
+
+  <div class="page-shell">
+
+    <div class="ink-wrapper">
+      <div class="ink-blob color-1"></div>
+      <div class="ink-blob color-2"></div>
+      <div class="ink-blob color-3"></div>
+      <div class="ink-blob color-4"></div>
+    </div>
+
+
+    <header class="site-header">
+
+      <a
+        class="logo"
+        href="index.html"
+      >
+        Roya Jalili
+      </a>
+
+      <nav>
+
+        <a href="projects.html">
+          Projects
+        </a>
+
+        <a href="index.html#about">
+          About
+        </a>
+
+        <a href="index.html#contact">
+          Contact
+        </a>
+
+      </nav>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- INTRO -->
+
+      <section class="project-intro">
+
+        <p class="eyebrow">
+          Selected Project
+        </p>
+
+        <h1>
+          CAR.IR
+        </h1>
+
+        <p class="project-category">
+          Visual Identity · Brand System · Digital Experience
+        </p>
+
+      </section>
+
+
+      <!-- HERO -->
+
+      <section class="project-hero">
+
+        <img
+          src="assets/car-cover.jpg"
+          alt="CAR.IR visual identity"
+        >
+
+      </section>
+
+
+      <!-- OVERVIEW -->
+
+      <section class="case-section">
+
+        <div>
+
+          <p class="eyebrow">
+            Overview
+          </p>
+
+          <h2>
+            A unified identity for an automotive media platform.
+          </h2>
+
+        </div>
+
+
+        <div class="case-copy">
+
+          <p>
+            CAR.IR is an automotive media platform focused on
+            delivering automotive news, reviews, tests and
+            digital content.
+          </p>
+
+          <p>
+            The project focused on developing and refining a
+            cohesive visual identity system across different
+            brand touchpoints — from logo and typography to
+            stationery, reporter apparel, social media and the
+            digital experience.
+          </p>
+
+          <p>
+            The goal was to create a recognizable and flexible
+            system that could remain consistent across both
+            editorial and commercial applications.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- 01 -->
+
+      <section class="chapter">
+
+        <p class="chapter-number">
+          01
+        </p>
+
+        <h2>
+          Identity System
+        </h2>
+
+      </section>
+
+
+      <section class="gallery">
+
+        <div class="project-image wide">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-21.jpg"
+            alt="CAR.IR identity presentation"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-22.jpg"
+            alt="CAR.IR logo system"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-23.jpg"
+            alt="CAR.IR visual identity"
+          >
+        </div>
+
+      </section>
+
+
+      <!-- 02 -->
+
+      <section class="chapter">
+
+        <p class="chapter-number">
+          02
+        </p>
+
+        <h2>
+          Brand Applications
+        </h2>
+
+      </section>
+
+
+      <section class="gallery">
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-24.jpg"
+            alt="CAR.IR brand application"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-25.jpg"
+            alt="CAR.IR brand application"
+          >
+        </div>
+
+
+        <div class="project-image wide">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-26.jpg"
+            alt="CAR.IR brand system"
+          >
+        </div>
+
+      </section>
+
+
+      <!-- 03 -->
+
+      <section class="chapter">
+
+        <p class="chapter-number">
+          03
+        </p>
+
+        <h2>
+          Editorial & Social
+        </h2>
+
+      </section>
+
+
+      <section class="gallery">
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-27.jpg"
+            alt="CAR.IR editorial design"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-28.jpg"
+            alt="CAR.IR social media"
+          >
+        </div>
+
+
+        <div class="project-image wide">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-33.jpg"
+            alt="CAR.IR social identity"
+          >
+        </div>
+
+      </section>
+
+
+      <!-- 04 -->
+
+      <section class="chapter">
+
+        <p class="chapter-number">
+          04
+        </p>
+
+        <h2>
+          Digital Experience
+        </h2>
+
+      </section>
+
+
+      <section class="gallery">
+
+        <div class="project-image wide">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-41.jpg"
+            alt="CAR.IR digital experience"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-42.jpg"
+            alt="CAR.IR website identity"
+          >
+        </div>
+
+
+        <div class="project-image half">
+          <img
+            src="assets/car-ir/Portfolio Imm copy2-43.jpg"
+            alt="CAR.IR website visual identity"
+          >
+        </div>
+
+      </section>
+
+
+      <!-- MOTION -->
+
+      <section class="chapter">
+
+        <p class="chapter-number">
+          05
+        </p>
+
+        <h2>
+          Motion
+        </h2>
+
+      </section>
+
+
+      <section class="motion-section">
+
+        <div class="motion-card">
+
+          <div class="motion-placeholder">
+
+            <strong>
+              Motion coming next
+            </strong>
+
+            Logo animation / brand motion
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- END -->
+
+      <section class="project-end">
+
+        <a
+          href="projects.html"
+          class="back-link"
+        >
+          ← All Projects
+        </a>
+
+
+        <a
+          href="chavosh.html"
+          class="next-link"
+        >
+          Next Project — CHAVOSH →
+        </a>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    const projectImages =
+      document.querySelectorAll(
+        '.project-image'
+      );
+
+
+    const observer =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target
+                  .classList
+                  .add('visible');
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold: 0.12
+        }
+
+      );
+
+
+    projectImages.forEach(
+      image => {
+
+        observer.observe(
+          image
+        );
+
+      }
+    );
+
+  </script>
+
 </body>
+
 </html>
