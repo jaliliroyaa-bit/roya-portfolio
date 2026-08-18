@@ -1210,3 +1210,41 @@ main a,
 main span {
   mix-blend-mode: normal;
 }
+/* =========================================================
+   DEBUG — FORCE CONTENT FULL OPACITY
+========================================================= */
+
+.hero,
+.hero *,
+.section,
+.section *,
+.about,
+.about *,
+.contact,
+.contact * {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+.carousel-card,
+.carousel-card.active,
+.project-carousel .carousel-card,
+.project-carousel:not(:hover) .carousel-card.active,
+.project-carousel .carousel-card:hover {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.project-info {
+  opacity: 1 !important;
+}
+
+main::before,
+main::after,
+.hero::before,
+.hero::after,
+.section::before,
+.section::after {
+  display: none !important;
+}
