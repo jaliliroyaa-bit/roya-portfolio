@@ -20,14 +20,13 @@
   >
 
   <link rel="stylesheet" href="styles.css">
-
 </head>
 
 
 <body>
 
 
-<main id="top">
+<main id="top" class="scene-1">
 
 
   <!-- =====================================================
@@ -114,36 +113,64 @@
 
 
 
-    <!-- RIGHT / ANIMATION -->
+    <!-- RIGHT -->
 
     <div
       class="hero-animation"
       aria-hidden="true"
     >
 
-      <img
-        src="assets/hero-animation/Frame-01.svg"
-        class="hero-frame active"
-        alt=""
-      >
 
-      <img
-        src="assets/hero-animation/Frame-02.svg"
-        class="hero-frame"
-        alt=""
-      >
+      <!-- FRAME 01 -->
 
-      <img
-        src="assets/hero-animation/Frame-03.svg"
-        class="hero-frame"
-        alt=""
-      >
+      <div class="hero-frame frame-1 active">
 
-      <img
-        src="assets/hero-animation/Frame-04.svg"
-        class="hero-frame"
-        alt=""
-      >
+        <img
+          src="assets/hero-animation/Frame-01.svg"
+          alt=""
+        >
+
+      </div>
+
+
+
+      <!-- FRAME 02 -->
+
+      <div class="hero-frame frame-2">
+
+        <img
+          src="assets/hero-animation/Frame-02.svg"
+          alt=""
+        >
+
+      </div>
+
+
+
+      <!-- FRAME 03 -->
+
+      <div class="hero-frame frame-3">
+
+        <img
+          src="assets/hero-animation/Frame-03.svg"
+          alt=""
+        >
+
+      </div>
+
+
+
+      <!-- FRAME 04 -->
+
+      <div class="hero-frame frame-4">
+
+        <img
+          src="assets/hero-animation/Frame-04.svg"
+          alt=""
+        >
+
+      </div>
+
 
     </div>
 
@@ -202,8 +229,6 @@
 
 
 
-    <!-- PROJECT CAROUSEL -->
-
     <div
       class="project-carousel"
       id="horizontal-scroll"
@@ -223,11 +248,7 @@
         >
 
         <div class="project-info">
-
-          <h3>
-            CAR.IR
-          </h3>
-
+          <h3>CAR.IR</h3>
         </div>
 
       </a>
@@ -247,11 +268,7 @@
         >
 
         <div class="project-info">
-
-          <h3>
-            Chavosh
-          </h3>
-
+          <h3>Chavosh</h3>
         </div>
 
       </a>
@@ -271,18 +288,12 @@
         >
 
         <div class="project-info">
-
-          <h3>
-            Topspin
-          </h3>
-
+          <h3>Topspin</h3>
         </div>
 
       </a>
 
 
-
-      <!-- PLACEHOLDER 04 -->
 
       <a
         href="projects.html"
@@ -291,22 +302,16 @@
 
         <img
           src="assets/project-01.svg"
-          alt="Selected Project"
+          alt="Visual Identity"
         >
 
         <div class="project-info">
-
-          <h3>
-            Visual Identity
-          </h3>
-
+          <h3>Visual Identity</h3>
         </div>
 
       </a>
 
 
-
-      <!-- PLACEHOLDER 05 -->
 
       <a
         href="projects.html"
@@ -315,22 +320,16 @@
 
         <img
           src="assets/project-02.svg"
-          alt="Selected Project"
+          alt="Art Direction"
         >
 
         <div class="project-info">
-
-          <h3>
-            Art Direction
-          </h3>
-
+          <h3>Art Direction</h3>
         </div>
 
       </a>
 
 
-
-      <!-- PLACEHOLDER 06 -->
 
       <a
         href="projects.html"
@@ -339,15 +338,11 @@
 
         <img
           src="assets/project-03.svg"
-          alt="Selected Project"
+          alt="AI Concepts"
         >
 
         <div class="project-info">
-
-          <h3>
-            AI Concepts
-          </h3>
-
+          <h3>AI Concepts</h3>
         </div>
 
       </a>
@@ -373,8 +368,6 @@
     <div class="about">
 
 
-      <!-- PHOTO -->
-
       <div class="about-photo">
 
         <img
@@ -386,8 +379,6 @@
       </div>
 
 
-
-      <!-- COPY -->
 
       <div class="about-content">
 
@@ -419,7 +410,6 @@
         <a
           href="resume.html"
           class="button"
-          target="_blank"
         >
           View Full Resume ↗
         </a>
@@ -457,8 +447,6 @@
     <div class="social-dock">
 
 
-      <!-- EMAIL -->
-
       <a
         href="mailto:jalili.royaa@gmail.com"
         class="social-item"
@@ -474,9 +462,6 @@
 
       </a>
 
-
-
-      <!-- LINKEDIN -->
 
       <a
         href="https://linkedin.com/in/royajalili"
@@ -531,8 +516,7 @@
 
 
 /* =========================================================
-   HERO ANIMATION
-   EACH FRAME = 3.5 SECONDS
+   HERO FRAME STORY
 ========================================================= */
 
 const heroFrames =
@@ -540,29 +524,70 @@ const heroFrames =
     document.querySelectorAll(".hero-frame")
   );
 
+const main =
+  document.querySelector("main");
 
 let currentHeroFrame = 0;
 
 
+/*
+  4 seconds per frame
+*/
+
+const heroFrameDuration = 4000;
+
+
+
+function showHeroFrame(index) {
+
+  heroFrames.forEach(
+    (frame, frameIndex) => {
+
+      frame.classList.toggle(
+        "active",
+        frameIndex === index
+      );
+
+    }
+  );
+
+
+  main.classList.remove(
+    "scene-1",
+    "scene-2",
+    "scene-3",
+    "scene-4"
+  );
+
+
+  main.classList.add(
+    `scene-${index + 1}`
+  );
+
+}
+
+
+
 if (heroFrames.length > 1) {
+
+  showHeroFrame(0);
+
 
   setInterval(() => {
 
-    heroFrames[currentHeroFrame]
-      .classList
-      .remove("active");
-
-
     currentHeroFrame =
-      (currentHeroFrame + 1)
-      % heroFrames.length;
+      (
+        currentHeroFrame + 1
+      )
+      %
+      heroFrames.length;
 
 
-    heroFrames[currentHeroFrame]
-      .classList
-      .add("active");
+    showHeroFrame(
+      currentHeroFrame
+    );
 
-  }, 3500);
+  }, heroFrameDuration);
 
 }
 
@@ -573,22 +598,32 @@ if (heroFrames.length > 1) {
 ========================================================= */
 
 const scrollContainer =
-  document.querySelector("#horizontal-scroll");
+  document.querySelector(
+    "#horizontal-scroll"
+  );
 
 const timeline =
-  document.querySelector(".timeline");
+  document.querySelector(
+    ".timeline"
+  );
 
 const timelineMarker =
-  document.querySelector("#timeline-marker");
+  document.querySelector(
+    "#timeline-marker"
+  );
 
 const cards =
   Array.from(
-    document.querySelectorAll(".carousel-card")
+    document.querySelectorAll(
+      ".carousel-card"
+    )
   );
 
 const ticks =
   Array.from(
-    document.querySelectorAll(".tick")
+    document.querySelectorAll(
+      ".tick"
+    )
   );
 
 
@@ -600,10 +635,17 @@ let startScrollLeft = 0;
 
 
 
-function clamp(value, min, max) {
+function clamp(
+  value,
+  min,
+  max
+) {
 
   return Math.min(
-    Math.max(value, min),
+    Math.max(
+      value,
+      min
+    ),
     max
   );
 
@@ -617,11 +659,15 @@ function getMaxScroll() {
     return 0;
   }
 
+
   return Math.max(
+
     0,
+
     scrollContainer.scrollWidth
     -
     scrollContainer.clientWidth
+
   );
 
 }
@@ -635,13 +681,15 @@ function getClosestCardIndex() {
     ||
     !cards.length
   ) {
+
     return 0;
+
   }
 
 
   const containerRect =
     scrollContainer
-      .getBoundingClientRect();
+    .getBoundingClientRect();
 
 
   const center =
@@ -650,7 +698,8 @@ function getClosestCardIndex() {
     containerRect.width / 2;
 
 
-  let closest = 0;
+  let closest =
+    0;
 
   let minimumDistance =
     Infinity;
@@ -660,7 +709,8 @@ function getClosestCardIndex() {
     (card, index) => {
 
       const rect =
-        card.getBoundingClientRect();
+        card
+        .getBoundingClientRect();
 
 
       const cardCenter =
@@ -671,7 +721,9 @@ function getClosestCardIndex() {
 
       const distance =
         Math.abs(
-          cardCenter - center
+          cardCenter
+          -
+          center
         );
 
 
@@ -713,7 +765,9 @@ function updateActiveCard() {
   cards.forEach(
     (card, index) => {
 
-      card.classList.toggle(
+      card
+      .classList
+      .toggle(
         "active",
         index === activeIndex
       );
@@ -734,7 +788,9 @@ function updateTimeline() {
     ||
     !timelineMarker
   ) {
+
     return;
+
   }
 
 
@@ -744,24 +800,32 @@ function updateTimeline() {
 
   const available =
     Math.max(
+
       0,
+
       timeline.clientWidth
       -
       timelineMarker.offsetWidth
+
     );
 
 
   const progress =
+
     maxScroll > 0
 
     ?
 
     clamp(
+
       scrollContainer.scrollLeft
       /
       maxScroll,
+
       0,
+
       1
+
     )
 
     :
@@ -783,7 +847,9 @@ function scrollToCard(index) {
     ||
     !cards[index]
   ) {
+
     return;
+
   }
 
 
@@ -792,33 +858,37 @@ function scrollToCard(index) {
 
 
   const target =
+
     card.offsetLeft
+
     -
+
     (
       scrollContainer.clientWidth
       -
       card.offsetWidth
     )
+
     / 2;
 
 
   scrollContainer.scrollTo({
 
-    left: clamp(
-      target,
-      0,
-      getMaxScroll()
-    ),
+    left:
+      clamp(
+        target,
+        0,
+        getMaxScroll()
+      ),
 
-    behavior: "smooth"
+    behavior:
+      "smooth"
 
   });
 
 }
 
 
-
-/* TIMELINE TICKS */
 
 ticks.forEach(
   (tick, index) => {
@@ -827,7 +897,9 @@ ticks.forEach(
       "click",
       () => {
 
-        scrollToCard(index);
+        scrollToCard(
+          index
+        );
 
       }
     );
@@ -837,8 +909,6 @@ ticks.forEach(
 
 
 
-/* DRAG CAROUSEL */
-
 if (scrollContainer) {
 
 
@@ -846,7 +916,8 @@ if (scrollContainer) {
     "pointerdown",
     event => {
 
-      isDragging = true;
+      isDragging =
+        true;
 
       startX =
         event.clientX;
@@ -854,9 +925,12 @@ if (scrollContainer) {
       startScrollLeft =
         scrollContainer.scrollLeft;
 
+
       scrollContainer
-        .classList
-        .add("dragging");
+      .classList
+      .add(
+        "dragging"
+      );
 
     }
   );
@@ -872,14 +946,20 @@ if (scrollContainer) {
 
 
       const distance =
+
         event.clientX
+
         -
+
         startX;
 
 
       scrollContainer.scrollLeft =
+
         startScrollLeft
+
         -
+
         distance;
 
     }
@@ -893,12 +973,15 @@ if (scrollContainer) {
     }
 
 
-    isDragging = false;
+    isDragging =
+      false;
 
 
     scrollContainer
-      .classList
-      .remove("dragging");
+    .classList
+    .remove(
+      "dragging"
+    );
 
 
     scrollToCard(
@@ -941,25 +1024,16 @@ if (scrollContainer) {
 
 
 
-/* INITIAL */
-
 window.addEventListener(
   "load",
   () => {
 
-    if (cards.length) {
+    updateActiveCard();
 
-      scrollToCard(0);
-
-      updateActiveCard();
-
-      updateTimeline();
-
-    }
+    updateTimeline();
 
   }
 );
-
 
 
 window.addEventListener(
