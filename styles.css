@@ -1248,3 +1248,158 @@ main::after,
 .section::after {
   display: none !important;
 }
+/* =========================================================
+   HERO — 4 FRAME MINIMAL ANIMATION
+========================================================= */
+
+.hero {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.95fr);
+  align-items: center;
+
+  gap: 70px;
+
+  min-height: 520px;
+}
+
+
+/* =========================================================
+   HERO TEXT
+========================================================= */
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+
+/* =========================================================
+   HERO ANIMATION AREA
+========================================================= */
+
+.hero-animation {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  max-width: 570px;
+
+  aspect-ratio: 4 / 3;
+
+  justify-self: end;
+  align-self: center;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   INDIVIDUAL FRAMES
+========================================================= */
+
+.hero-frame {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  opacity: 0;
+
+  transform: translateY(5px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  pointer-events: none;
+}
+
+
+/* visible frame */
+
+.hero-frame.active {
+  opacity: 1;
+
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   SVG / PNG stays above gradient
+========================================================= */
+
+.hero-animation,
+.hero-animation img {
+  background: transparent !important;
+  mix-blend-mode: normal !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
+
+    gap: 40px;
+  }
+
+
+  .hero-animation {
+    max-width: 460px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .hero {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    min-height: auto;
+  }
+
+
+  .hero-animation {
+    width: min(100%, 440px);
+
+    justify-self: center;
+
+    margin-top: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-frame {
+    transition: none;
+  }
+
+}
