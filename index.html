@@ -355,6 +355,8 @@
     }
 
     .hero-sketch-test {
+      position: relative;
+
       width: 340px;
       max-width: 100%;
 
@@ -365,55 +367,30 @@
       pointer-events: none;
     }
 
-    .hero-sketch-svg {
+    .sketch-frame {
+      position: absolute;
+      inset: 0;
+
+      opacity: 0;
+
+      transition:
+        opacity 2.2s ease-in-out;
+
+      pointer-events: none;
+    }
+
+    .sketch-frame.active {
+      opacity: 1;
+    }
+
+    .sketch-frame img {
       display: block;
 
       width: 100%;
       height: 100%;
-    }
 
-    .mask-stroke {
-      fill: none;
-
-      stroke: white;
-
-      stroke-width: 220;
-
-      stroke-linecap: round;
-      stroke-linejoin: round;
-
-      stroke-dasharray: 1800;
-      stroke-dashoffset: 1800;
-    }
-
-    .mask-stroke-1 {
-      animation:
-        sketch-draw 3s .1s ease forwards;
-    }
-
-    .mask-stroke-2 {
-      animation:
-        sketch-draw 3s .5s ease forwards;
-    }
-
-    .mask-stroke-3 {
-      animation:
-        sketch-draw 3s .9s ease forwards;
-    }
-
-    .mask-stroke-4 {
-      animation:
-        sketch-draw 2.8s 1.3s ease forwards;
-    }
-
-    @keyframes sketch-draw {
-      from {
-        stroke-dashoffset: 1800;
-      }
-
-      to {
-        stroke-dashoffset: 0;
-      }
+      object-fit: contain;
+      object-position: center;
     }
 
     .eyebrow {
@@ -1432,57 +1409,33 @@
 
       <div class="hero-sketch-test" aria-hidden="true">
 
-        <svg
-          class="hero-sketch-svg"
-          viewBox="0 0 1200 900"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <div class="sketch-frame active">
+          <img
+            src="assets/hero-animation/Frame-01.svg"
+            alt=""
+          >
+        </div>
 
-          <defs>
+        <div class="sketch-frame">
+          <img
+            src="assets/hero-animation/Frame-02.svg"
+            alt=""
+          >
+        </div>
 
-            <mask id="frame01-draw-mask">
+        <div class="sketch-frame">
+          <img
+            src="assets/hero-animation/Frame-03.svg"
+            alt=""
+          >
+        </div>
 
-              <rect
-                width="1200"
-                height="900"
-                fill="black"
-              />
-
-              <path
-                class="mask-stroke mask-stroke-1"
-                d="M120 210 C240 150 370 160 470 230 C560 295 645 325 760 280 C870 238 980 250 1090 340"
-              />
-
-              <path
-                class="mask-stroke mask-stroke-2"
-                d="M100 420 C240 350 355 365 470 445 C575 520 685 500 790 430 C900 360 1010 390 1110 480"
-              />
-
-              <path
-                class="mask-stroke mask-stroke-3"
-                d="M100 610 C245 540 365 565 485 640 C605 715 720 700 825 620 C925 545 1030 565 1120 655"
-              />
-
-              <path
-                class="mask-stroke mask-stroke-4"
-                d="M160 770 C310 710 455 725 590 770 C730 820 895 805 1050 750"
-              />
-
-            </mask>
-
-          </defs>
-
-          <image
-            href="assets/hero-animation/Frame-01.svg"
-            x="0"
-            y="0"
-            width="1200"
-            height="900"
-            preserveAspectRatio="xMidYMid meet"
-            mask="url(#frame01-draw-mask)"
-          />
-
-        </svg>
+        <div class="sketch-frame">
+          <img
+            src="assets/hero-animation/Frame-04.svg"
+            alt=""
+          >
+        </div>
 
       </div>
 
@@ -1754,6 +1707,38 @@
   </footer>
 
   <script>
+    /* =========================
+       HERO FRAME ANIMATION
+    ========================= */
+
+    const sketchFrames =
+      Array.from(
+        document.querySelectorAll('.sketch-frame')
+      );
+
+    let currentSketchFrame = 0;
+
+    if (sketchFrames.length > 1) {
+
+      setInterval(() => {
+
+        sketchFrames[currentSketchFrame]
+          .classList
+          .remove('active');
+
+        currentSketchFrame =
+          (currentSketchFrame + 1)
+          % sketchFrames.length;
+
+        sketchFrames[currentSketchFrame]
+          .classList
+          .add('active');
+
+      }, 4000);
+
+    }
+
+
     const scrollContainer =
       document.querySelector('#horizontal-scroll');
 
