@@ -9,26 +9,23 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Roya Jalili — Creative Designer & AI Artist</title>
-
-  <meta
-    name="description"
-    content="Portfolio of Roya Jalili — Creative Designer and AI Artist working across visual identity, creative direction, AI-assisted imagery and visual storytelling."
-  >
+  <title>Roya Jalili — Creative Designer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
   <link rel="stylesheet" href="styles.css">
+
 </head>
 
 
 <body>
+
 
 <main id="top">
 
@@ -37,12 +34,13 @@
        BACKGROUND
   ====================================================== -->
 
-  <div class="main-bg"></div>
-
   <div class="ink-wrapper">
+
     <div class="ink-blob color-1"></div>
     <div class="ink-blob color-2"></div>
     <div class="ink-blob color-3"></div>
+    <div class="ink-blob color-4"></div>
+
   </div>
 
 
@@ -56,7 +54,6 @@
     <a
       href="index.html"
       class="logo"
-      aria-label="Roya Jalili Home"
     >
       Roya Jalili
     </a>
@@ -92,12 +89,12 @@
   <section class="hero">
 
 
-    <!-- HERO TEXT -->
+    <!-- LEFT -->
 
     <div class="hero-content">
 
-      <p class="eyebrow">
-        Creative Designer · AI Artist
+      <p class="eyebrow hero-eyebrow">
+        CREATIVE DESIGNER · AI ARTIST
       </p>
 
 
@@ -110,7 +107,6 @@
 
       <p class="hero-copy">
         Exploring the space between traditional design and technology
-        <br>
         to create thoughtful visual stories.
       </p>
 
@@ -118,9 +114,7 @@
 
 
 
-    <!-- =================================================
-         HERO FRAME ANIMATION
-    ================================================== -->
+    <!-- RIGHT / ANIMATION -->
 
     <div
       class="hero-animation"
@@ -128,25 +122,25 @@
     >
 
       <img
-        src="assets/hero-animation/frame-01.svg"
+        src="assets/hero-animation/Frame-01.svg"
         class="hero-frame active"
         alt=""
       >
 
       <img
-        src="assets/hero-animation/frame-02.svg"
+        src="assets/hero-animation/Frame-02.svg"
         class="hero-frame"
         alt=""
       >
 
       <img
-        src="assets/hero-animation/frame-03.svg"
+        src="assets/hero-animation/Frame-03.svg"
         class="hero-frame"
         alt=""
       >
 
       <img
-        src="assets/hero-animation/frame-04.svg"
+        src="assets/hero-animation/Frame-04.svg"
         class="hero-frame"
         alt=""
       >
@@ -163,139 +157,201 @@
   ====================================================== -->
 
   <section
-    class="section work-section"
     id="work"
+    class="section"
   >
 
 
     <div class="section-header-wrapper">
 
-      <p class="eyebrow">
-        Selected Work
-      </p>
+      <div class="section-heading">
 
-      <h2>
-        Projects
-      </h2>
+        <h2>
+          Selected Work
+        </h2>
+
+      </div>
+
+
+      <div class="timeline-container">
+
+        <div class="timeline">
+
+          <div
+            class="timeline-marker"
+            id="timeline-marker"
+          ></div>
+
+
+          <div class="timeline-ticks">
+
+            <div class="tick"></div>
+            <div class="tick"></div>
+            <div class="tick"></div>
+            <div class="tick"></div>
+            <div class="tick"></div>
+            <div class="tick"></div>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
 
 
-    <div class="project-grid">
+    <!-- PROJECT CAROUSEL -->
+
+    <div
+      class="project-carousel"
+      id="horizontal-scroll"
+    >
 
 
       <!-- CAR.IR -->
 
-      <article class="project project-wide">
+      <a
+        href="car-ir.html"
+        class="carousel-card"
+      >
 
-        <a
-          href="car-ir.html"
-          class="project-card"
+        <img
+          src="assets/car-cover.jpg"
+          alt="CAR.IR"
         >
 
-          <img
-            src="assets/car-cover.jpg"
-            alt="CAR.IR Visual Identity"
-          >
+        <div class="project-info">
 
+          <h3>
+            CAR.IR
+          </h3>
 
-          <div class="project-overlay">
+        </div>
 
-            <h3>
-              CAR.IR
-            </h3>
-
-            <p>
-              Visual Identity & Brand System
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
+      </a>
 
 
 
-      <!-- PROJECT 02 -->
+      <!-- CHAVOSH -->
 
-      <article class="project">
+      <a
+        href="chavosh.html"
+        class="carousel-card"
+      >
 
-        <a
-          href="projects.html"
-          class="project-card"
+        <img
+          src="assets/chavosh-cover.jpg"
+          alt="Chavosh"
         >
 
-          <img
-            src="assets/project-02.jpg"
-            alt="Selected design project"
-            loading="lazy"
-          >
+        <div class="project-info">
 
+          <h3>
+            Chavosh
+          </h3>
 
-          <div class="project-overlay">
+        </div>
 
-            <h3>
-              Advertising Imagery
-            </h3>
-
-            <p>
-              Concept · Lighting · Color Grading
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
+      </a>
 
 
 
-      <!-- PROJECT 03 -->
+      <!-- TOPSPIN -->
 
-      <article class="project">
+      <a
+        href="topspin.html"
+        class="carousel-card"
+      >
 
-        <a
-          href="projects.html"
-          class="project-card"
+        <img
+          src="assets/TOPSPIN-cover.jpg"
+          alt="Topspin"
         >
 
-          <img
-            src="assets/project-03.jpg"
-            alt="AI visual project"
-            loading="lazy"
-          >
+        <div class="project-info">
+
+          <h3>
+            Topspin
+          </h3>
+
+        </div>
+
+      </a>
 
 
-          <div class="project-overlay">
 
-            <h3>
-              AI Concepts
-            </h3>
-
-            <p>
-              Prompt Design · Art Direction
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-    </div>
-
-
-    <div class="work-footer">
+      <!-- PLACEHOLDER 04 -->
 
       <a
         href="projects.html"
-        class="projects-btn"
+        class="carousel-card"
       >
-        View Project Archive ↗
+
+        <img
+          src="assets/project-01.svg"
+          alt="Selected Project"
+        >
+
+        <div class="project-info">
+
+          <h3>
+            Visual Identity
+          </h3>
+
+        </div>
+
       </a>
+
+
+
+      <!-- PLACEHOLDER 05 -->
+
+      <a
+        href="projects.html"
+        class="carousel-card"
+      >
+
+        <img
+          src="assets/project-02.svg"
+          alt="Selected Project"
+        >
+
+        <div class="project-info">
+
+          <h3>
+            Art Direction
+          </h3>
+
+        </div>
+
+      </a>
+
+
+
+      <!-- PLACEHOLDER 06 -->
+
+      <a
+        href="projects.html"
+        class="carousel-card"
+      >
+
+        <img
+          src="assets/project-03.svg"
+          alt="Selected Project"
+        >
+
+        <div class="project-info">
+
+          <h3>
+            AI Concepts
+          </h3>
+
+        </div>
+
+      </a>
+
 
     </div>
 
@@ -309,60 +365,67 @@
   ====================================================== -->
 
   <section
-    class="section about"
     id="about"
+    class="section"
   >
 
 
-    <!-- PHOTO -->
-
-    <div class="about-photo">
-
-      <img
-        src="assets/portrait.jpg"
-        alt="Portrait of Roya Jalili"
-        loading="lazy"
-      >
-
-    </div>
+    <div class="about">
 
 
+      <!-- PHOTO -->
 
-    <!-- ABOUT CONTENT -->
+      <div class="about-photo">
 
-    <div class="about-content">
+        <img
+          src="assets/portrait.jpg"
+          alt="Roya Jalili"
+          loading="lazy"
+        >
 
-      <p class="eyebrow">
-        About
-      </p>
-
-
-      <h2>
-        Technology supports the idea—not the other way around.
-      </h2>
+      </div>
 
 
-      <p>
-        I'm a creative designer and AI artist focused on building
-        thoughtful visual experiences through design, art direction,
-        compositing, lighting and color.
-      </p>
+
+      <!-- COPY -->
+
+      <div class="about-content">
+
+        <p class="eyebrow">
+          About
+        </p>
 
 
-      <p>
-        My work combines traditional design thinking with AI-assisted
-        workflows, using technology as a creative tool while keeping
-        visual decisions, storytelling and intention at the center
-        of the process.
-      </p>
+        <h2>
+          Technology supports the idea—not the other way around.
+        </h2>
 
 
-      <a
-        href="resume.html"
-        class="projects-btn"
-      >
-        View Resume ↗
-      </a>
+        <p class="about-copy">
+
+          I'm a multidisciplinary designer working across visual identity,
+          art direction, compositing, lighting, color grading and
+          AI-assisted visual creation.
+
+          <br><br>
+
+          My process combines traditional design principles with new
+          technologies to create thoughtful, polished and intentional
+          visual experiences.
+
+        </p>
+
+
+        <a
+          href="resume.html"
+          class="button"
+          target="_blank"
+        >
+          View Full Resume ↗
+        </a>
+
+      </div>
+
 
     </div>
 
@@ -376,9 +439,10 @@
   ====================================================== -->
 
   <section
-    class="section contact"
     id="contact"
+    class="contact"
   >
+
 
     <p class="eyebrow">
       Contact
@@ -386,26 +450,53 @@
 
 
     <h2>
-      Let's create something thoughtful.
+      Let's work together.
     </h2>
 
 
-    <p>
-      For collaborations, creative projects and opportunities,
-      feel free to get in touch.
-    </p>
+    <div class="social-dock">
 
 
-    <div class="contact-links">
+      <!-- EMAIL -->
 
       <a
-        href="mailto:hello@royajalili.ir"
-        class="projects-btn"
+        href="mailto:jalili.royaa@gmail.com"
+        class="social-item"
       >
-        Email Me ↗
+
+        <span class="social-icon">
+          ✉
+        </span>
+
+        <span class="social-text">
+          jalili.royaa@gmail.com
+        </span>
+
       </a>
 
+
+
+      <!-- LINKEDIN -->
+
+      <a
+        href="https://linkedin.com/in/royajalili"
+        target="_blank"
+        class="social-item"
+      >
+
+        <span class="social-icon">
+          in
+        </span>
+
+        <span class="social-text">
+          LinkedIn
+        </span>
+
+      </a>
+
+
     </div>
+
 
   </section>
 
@@ -424,11 +515,8 @@
     © 2026 Roya Jalili
   </div>
 
-
   <div>
-
     Creative Designer · AI Artist
-
   </div>
 
 </footer>
@@ -439,42 +527,452 @@
      JAVASCRIPT
 ====================================================== -->
 
-<script src="script.js"></script>
-
-
 <script>
 
-  /* =====================================================
-     HERO FRAME ANIMATION
-     Each frame = 3.5 seconds
-  ====================================================== */
 
-  const heroFrames =
-    document.querySelectorAll(".hero-frame");
+/* =========================================================
+   HERO ANIMATION
+   EACH FRAME = 3.5 SECONDS
+========================================================= */
 
-
-  if (heroFrames.length) {
-
-    let currentHeroFrame = 0;
+const heroFrames =
+  Array.from(
+    document.querySelectorAll(".hero-frame")
+  );
 
 
-    setInterval(() => {
-
-      heroFrames[currentHeroFrame]
-        .classList.remove("active");
+let currentHeroFrame = 0;
 
 
-      currentHeroFrame =
-        (currentHeroFrame + 1)
-        % heroFrames.length;
+if (heroFrames.length > 1) {
+
+  setInterval(() => {
+
+    heroFrames[currentHeroFrame]
+      .classList
+      .remove("active");
 
 
-      heroFrames[currentHeroFrame]
-        .classList.add("active");
+    currentHeroFrame =
+      (currentHeroFrame + 1)
+      % heroFrames.length;
 
-    }, 3500);
+
+    heroFrames[currentHeroFrame]
+      .classList
+      .add("active");
+
+  }, 3500);
+
+}
+
+
+
+/* =========================================================
+   PROJECT CAROUSEL
+========================================================= */
+
+const scrollContainer =
+  document.querySelector("#horizontal-scroll");
+
+const timeline =
+  document.querySelector(".timeline");
+
+const timelineMarker =
+  document.querySelector("#timeline-marker");
+
+const cards =
+  Array.from(
+    document.querySelectorAll(".carousel-card")
+  );
+
+const ticks =
+  Array.from(
+    document.querySelectorAll(".tick")
+  );
+
+
+let isDragging = false;
+
+let startX = 0;
+
+let startScrollLeft = 0;
+
+
+
+function clamp(value, min, max) {
+
+  return Math.min(
+    Math.max(value, min),
+    max
+  );
+
+}
+
+
+
+function getMaxScroll() {
+
+  if (!scrollContainer) {
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    scrollContainer.scrollWidth
+    -
+    scrollContainer.clientWidth
+  );
+
+}
+
+
+
+function getClosestCardIndex() {
+
+  if (
+    !scrollContainer
+    ||
+    !cards.length
+  ) {
+    return 0;
+  }
+
+
+  const containerRect =
+    scrollContainer
+      .getBoundingClientRect();
+
+
+  const center =
+    containerRect.left
+    +
+    containerRect.width / 2;
+
+
+  let closest = 0;
+
+  let minimumDistance =
+    Infinity;
+
+
+  cards.forEach(
+    (card, index) => {
+
+      const rect =
+        card.getBoundingClientRect();
+
+
+      const cardCenter =
+        rect.left
+        +
+        rect.width / 2;
+
+
+      const distance =
+        Math.abs(
+          cardCenter - center
+        );
+
+
+      if (
+        distance
+        <
+        minimumDistance
+      ) {
+
+        minimumDistance =
+          distance;
+
+        closest =
+          index;
+
+      }
+
+    }
+  );
+
+
+  return closest;
+
+}
+
+
+
+function updateActiveCard() {
+
+  if (!cards.length) {
+    return;
+  }
+
+
+  const activeIndex =
+    getClosestCardIndex();
+
+
+  cards.forEach(
+    (card, index) => {
+
+      card.classList.toggle(
+        "active",
+        index === activeIndex
+      );
+
+    }
+  );
+
+}
+
+
+
+function updateTimeline() {
+
+  if (
+    !scrollContainer
+    ||
+    !timeline
+    ||
+    !timelineMarker
+  ) {
+    return;
+  }
+
+
+  const maxScroll =
+    getMaxScroll();
+
+
+  const available =
+    Math.max(
+      0,
+      timeline.clientWidth
+      -
+      timelineMarker.offsetWidth
+    );
+
+
+  const progress =
+    maxScroll > 0
+
+    ?
+
+    clamp(
+      scrollContainer.scrollLeft
+      /
+      maxScroll,
+      0,
+      1
+    )
+
+    :
+
+    0;
+
+
+  timelineMarker.style.left =
+    `${progress * available}px`;
+
+}
+
+
+
+function scrollToCard(index) {
+
+  if (
+    !scrollContainer
+    ||
+    !cards[index]
+  ) {
+    return;
+  }
+
+
+  const card =
+    cards[index];
+
+
+  const target =
+    card.offsetLeft
+    -
+    (
+      scrollContainer.clientWidth
+      -
+      card.offsetWidth
+    )
+    / 2;
+
+
+  scrollContainer.scrollTo({
+
+    left: clamp(
+      target,
+      0,
+      getMaxScroll()
+    ),
+
+    behavior: "smooth"
+
+  });
+
+}
+
+
+
+/* TIMELINE TICKS */
+
+ticks.forEach(
+  (tick, index) => {
+
+    tick.addEventListener(
+      "click",
+      () => {
+
+        scrollToCard(index);
+
+      }
+    );
 
   }
+);
+
+
+
+/* DRAG CAROUSEL */
+
+if (scrollContainer) {
+
+
+  scrollContainer.addEventListener(
+    "pointerdown",
+    event => {
+
+      isDragging = true;
+
+      startX =
+        event.clientX;
+
+      startScrollLeft =
+        scrollContainer.scrollLeft;
+
+      scrollContainer
+        .classList
+        .add("dragging");
+
+    }
+  );
+
+
+  scrollContainer.addEventListener(
+    "pointermove",
+    event => {
+
+      if (!isDragging) {
+        return;
+      }
+
+
+      const distance =
+        event.clientX
+        -
+        startX;
+
+
+      scrollContainer.scrollLeft =
+        startScrollLeft
+        -
+        distance;
+
+    }
+  );
+
+
+  function stopDragging() {
+
+    if (!isDragging) {
+      return;
+    }
+
+
+    isDragging = false;
+
+
+    scrollContainer
+      .classList
+      .remove("dragging");
+
+
+    scrollToCard(
+      getClosestCardIndex()
+    );
+
+  }
+
+
+  scrollContainer.addEventListener(
+    "pointerup",
+    stopDragging
+  );
+
+
+  scrollContainer.addEventListener(
+    "pointercancel",
+    stopDragging
+  );
+
+
+  scrollContainer.addEventListener(
+    "pointerleave",
+    stopDragging
+  );
+
+
+  scrollContainer.addEventListener(
+    "scroll",
+    () => {
+
+      updateActiveCard();
+
+      updateTimeline();
+
+    }
+  );
+
+}
+
+
+
+/* INITIAL */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    if (cards.length) {
+
+      scrollToCard(0);
+
+      updateActiveCard();
+
+      updateTimeline();
+
+    }
+
+  }
+);
+
+
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    updateActiveCard();
+
+    updateTimeline();
+
+  }
+);
+
 
 </script>
 
