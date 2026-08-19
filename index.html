@@ -12,21 +12,30 @@
   <title>Roya Jalili — Creative Designer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
 </head>
 
 
 <body>
 
 
-<main id="top" class="scene-1">
+<main id="top">
 
 
   <!-- =====================================================
@@ -88,7 +97,7 @@
   <section class="hero">
 
 
-    <!-- LEFT -->
+    <!-- LEFT TEXT -->
 
     <div class="hero-content">
 
@@ -113,7 +122,7 @@
 
 
 
-    <!-- RIGHT -->
+    <!-- RIGHT MINIMAL ANIMATION -->
 
     <div
       class="hero-animation"
@@ -123,7 +132,7 @@
 
       <!-- FRAME 01 -->
 
-      <div class="hero-frame frame-1 active">
+      <div class="hero-frame active">
 
         <img
           src="assets/hero-animation/Frame-01.svg"
@@ -133,10 +142,9 @@
       </div>
 
 
-
       <!-- FRAME 02 -->
 
-      <div class="hero-frame frame-2">
+      <div class="hero-frame">
 
         <img
           src="assets/hero-animation/Frame-02.svg"
@@ -146,10 +154,9 @@
       </div>
 
 
-
       <!-- FRAME 03 -->
 
-      <div class="hero-frame frame-3">
+      <div class="hero-frame">
 
         <img
           src="assets/hero-animation/Frame-03.svg"
@@ -159,10 +166,9 @@
       </div>
 
 
-
       <!-- FRAME 04 -->
 
-      <div class="hero-frame frame-4">
+      <div class="hero-frame">
 
         <img
           src="assets/hero-animation/Frame-04.svg"
@@ -191,6 +197,7 @@
 
     <div class="section-header-wrapper">
 
+
       <div class="section-heading">
 
         <h2>
@@ -199,6 +206,9 @@
 
       </div>
 
+
+
+      <!-- TIMELINE -->
 
       <div class="timeline-container">
 
@@ -225,9 +235,14 @@
 
       </div>
 
+
     </div>
 
 
+
+    <!-- ===================================================
+         PROJECT CAROUSEL
+    ==================================================== -->
 
     <div
       class="project-carousel"
@@ -248,7 +263,11 @@
         >
 
         <div class="project-info">
-          <h3>CAR.IR</h3>
+
+          <h3>
+            CAR.IR
+          </h3>
+
         </div>
 
       </a>
@@ -268,7 +287,11 @@
         >
 
         <div class="project-info">
-          <h3>Chavosh</h3>
+
+          <h3>
+            Chavosh
+          </h3>
+
         </div>
 
       </a>
@@ -288,12 +311,18 @@
         >
 
         <div class="project-info">
-          <h3>Topspin</h3>
+
+          <h3>
+            Topspin
+          </h3>
+
         </div>
 
       </a>
 
 
+
+      <!-- PROJECT 04 -->
 
       <a
         href="projects.html"
@@ -306,12 +335,18 @@
         >
 
         <div class="project-info">
-          <h3>Visual Identity</h3>
+
+          <h3>
+            Visual Identity
+          </h3>
+
         </div>
 
       </a>
 
 
+
+      <!-- PROJECT 05 -->
 
       <a
         href="projects.html"
@@ -324,12 +359,18 @@
         >
 
         <div class="project-info">
-          <h3>Art Direction</h3>
+
+          <h3>
+            Art Direction
+          </h3>
+
         </div>
 
       </a>
 
 
+
+      <!-- PROJECT 06 -->
 
       <a
         href="projects.html"
@@ -342,7 +383,11 @@
         >
 
         <div class="project-info">
-          <h3>AI Concepts</h3>
+
+          <h3>
+            AI Concepts
+          </h3>
+
         </div>
 
       </a>
@@ -368,6 +413,8 @@
     <div class="about">
 
 
+      <!-- PHOTO -->
+
       <div class="about-photo">
 
         <img
@@ -379,6 +426,8 @@
       </div>
 
 
+
+      <!-- ABOUT TEXT -->
 
       <div class="about-content">
 
@@ -433,7 +482,6 @@
     class="contact"
   >
 
-
     <p class="eyebrow">
       Contact
     </p>
@@ -446,6 +494,8 @@
 
     <div class="social-dock">
 
+
+      <!-- EMAIL -->
 
       <a
         href="mailto:jalili.royaa@gmail.com"
@@ -463,9 +513,13 @@
       </a>
 
 
+
+      <!-- LINKEDIN -->
+
       <a
         href="https://linkedin.com/in/royajalili"
         target="_blank"
+        rel="noopener noreferrer"
         class="social-item"
       >
 
@@ -516,7 +570,8 @@
 
 
 /* =========================================================
-   HERO FRAME STORY
+   HERO ANIMATION
+   Minimal + Soft Crossfade
 ========================================================= */
 
 const heroFrames =
@@ -524,56 +579,30 @@ const heroFrames =
     document.querySelectorAll(".hero-frame")
   );
 
-const main =
-  document.querySelector("main");
 
 let currentHeroFrame = 0;
 
 
 /*
-  4 seconds per frame
+   Each frame remains on screen for 4 seconds.
 */
 
 const heroFrameDuration = 4000;
 
 
-
-function showHeroFrame(index) {
-
-  heroFrames.forEach(
-    (frame, frameIndex) => {
-
-      frame.classList.toggle(
-        "active",
-        frameIndex === index
-      );
-
-    }
-  );
-
-
-  main.classList.remove(
-    "scene-1",
-    "scene-2",
-    "scene-3",
-    "scene-4"
-  );
-
-
-  main.classList.add(
-    `scene-${index + 1}`
-  );
-
-}
-
-
-
 if (heroFrames.length > 1) {
 
-  showHeroFrame(0);
-
-
   setInterval(() => {
+
+
+    /* fade current frame out */
+
+    heroFrames[currentHeroFrame]
+      .classList
+      .remove("active");
+
+
+    /* select next frame */
 
     currentHeroFrame =
       (
@@ -583,9 +612,12 @@ if (heroFrames.length > 1) {
       heroFrames.length;
 
 
-    showHeroFrame(
-      currentHeroFrame
-    );
+    /* fade next frame in */
+
+    heroFrames[currentHeroFrame]
+      .classList
+      .add("active");
+
 
   }, heroFrameDuration);
 
@@ -602,15 +634,18 @@ const scrollContainer =
     "#horizontal-scroll"
   );
 
+
 const timeline =
   document.querySelector(
     ".timeline"
   );
 
+
 const timelineMarker =
   document.querySelector(
     "#timeline-marker"
   );
+
 
 const cards =
   Array.from(
@@ -618,6 +653,7 @@ const cards =
       ".carousel-card"
     )
   );
+
 
 const ticks =
   Array.from(
@@ -634,6 +670,10 @@ let startX = 0;
 let startScrollLeft = 0;
 
 
+
+/* =========================================================
+   HELPER
+========================================================= */
 
 function clamp(
   value,
@@ -652,6 +692,10 @@ function clamp(
 }
 
 
+
+/* =========================================================
+   MAX SCROLL
+========================================================= */
 
 function getMaxScroll() {
 
@@ -673,6 +717,10 @@ function getMaxScroll() {
 }
 
 
+
+/* =========================================================
+   FIND CLOSEST PROJECT
+========================================================= */
 
 function getClosestCardIndex() {
 
@@ -698,8 +746,7 @@ function getClosestCardIndex() {
     containerRect.width / 2;
 
 
-  let closest =
-    0;
+  let closest = 0;
 
   let minimumDistance =
     Infinity;
@@ -751,6 +798,10 @@ function getClosestCardIndex() {
 
 
 
+/* =========================================================
+   ACTIVE PROJECT
+========================================================= */
+
 function updateActiveCard() {
 
   if (!cards.length) {
@@ -766,11 +817,11 @@ function updateActiveCard() {
     (card, index) => {
 
       card
-      .classList
-      .toggle(
-        "active",
-        index === activeIndex
-      );
+        .classList
+        .toggle(
+          "active",
+          index === activeIndex
+        );
 
     }
   );
@@ -778,6 +829,10 @@ function updateActiveCard() {
 }
 
 
+
+/* =========================================================
+   TIMELINE
+========================================================= */
 
 function updateTimeline() {
 
@@ -840,6 +895,10 @@ function updateTimeline() {
 
 
 
+/* =========================================================
+   SCROLL TO PROJECT
+========================================================= */
+
 function scrollToCard(index) {
 
   if (
@@ -890,6 +949,10 @@ function scrollToCard(index) {
 
 
 
+/* =========================================================
+   TIMELINE CLICK
+========================================================= */
+
 ticks.forEach(
   (tick, index) => {
 
@@ -897,9 +960,7 @@ ticks.forEach(
       "click",
       () => {
 
-        scrollToCard(
-          index
-        );
+        scrollToCard(index);
 
       }
     );
@@ -909,6 +970,10 @@ ticks.forEach(
 
 
 
+/* =========================================================
+   DRAG CAROUSEL
+========================================================= */
+
 if (scrollContainer) {
 
 
@@ -916,8 +981,7 @@ if (scrollContainer) {
     "pointerdown",
     event => {
 
-      isDragging =
-        true;
+      isDragging = true;
 
       startX =
         event.clientX;
@@ -927,13 +991,12 @@ if (scrollContainer) {
 
 
       scrollContainer
-      .classList
-      .add(
-        "dragging"
-      );
+        .classList
+        .add("dragging");
 
     }
   );
+
 
 
   scrollContainer.addEventListener(
@@ -946,24 +1009,19 @@ if (scrollContainer) {
 
 
       const distance =
-
         event.clientX
-
         -
-
         startX;
 
 
       scrollContainer.scrollLeft =
-
         startScrollLeft
-
         -
-
         distance;
 
     }
   );
+
 
 
   function stopDragging() {
@@ -973,15 +1031,12 @@ if (scrollContainer) {
     }
 
 
-    isDragging =
-      false;
+    isDragging = false;
 
 
     scrollContainer
-    .classList
-    .remove(
-      "dragging"
-    );
+      .classList
+      .remove("dragging");
 
 
     scrollToCard(
@@ -989,6 +1044,7 @@ if (scrollContainer) {
     );
 
   }
+
 
 
   scrollContainer.addEventListener(
@@ -1020,9 +1076,14 @@ if (scrollContainer) {
     }
   );
 
+
 }
 
 
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
 
 window.addEventListener(
   "load",
