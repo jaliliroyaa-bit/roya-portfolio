@@ -354,7 +354,7 @@
       min-width: 0;
     }
 
-    .hero-sketch-test {
+    .hero-line-animation {
       position: relative;
 
       width: 340px;
@@ -367,30 +367,26 @@
       pointer-events: none;
     }
 
-    .sketch-frame {
-      position: absolute;
-      inset: 0;
-
-      opacity: 0;
-
-      transition:
-        opacity 2.2s ease-in-out;
-
-      pointer-events: none;
-    }
-
-    .sketch-frame.active {
-      opacity: 1;
-    }
-
-    .sketch-frame img {
+    .hero-line-animation svg {
       display: block;
 
       width: 100%;
       height: 100%;
 
-      object-fit: contain;
-      object-position: center;
+      overflow: visible;
+    }
+
+    .hero-line-animation path,
+    .hero-line-animation line,
+    .hero-line-animation polyline,
+    .hero-line-animation polygon,
+    .hero-line-animation circle,
+    .hero-line-animation ellipse,
+    .hero-line-animation rect {
+      fill: none;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .eyebrow {
@@ -1170,7 +1166,7 @@
         gap: 28px;
       }
 
-      .hero-sketch-test {
+      .hero-line-animation {
         width: 280px;
         max-width: 78vw;
 
@@ -1407,35 +1403,11 @@
       </div>
 
 
-      <div class="hero-sketch-test" aria-hidden="true">
-
-        <div class="sketch-frame active">
-          <img
-            src="assets/hero-animation/Frame-01.svg"
-            alt=""
-          >
-        </div>
-
-        <div class="sketch-frame">
-          <img
-            src="assets/hero-animation/Frame-02.svg"
-            alt=""
-          >
-        </div>
-
-        <div class="sketch-frame">
-          <img
-            src="assets/hero-animation/Frame-03.svg"
-            alt=""
-          >
-        </div>
-
-        <div class="sketch-frame">
-          <img
-            src="assets/hero-animation/Frame-04.svg"
-            alt=""
-          >
-        </div>
+      <div
+        class="hero-line-animation"
+        id="heroLineAnimation"
+        aria-hidden="true"
+      ></div>
 
       </div>
 
@@ -1707,36 +1679,485 @@
   </footer>
 
   <script>
-    /* =========================
-       HERO FRAME ANIMATION
-    ========================= */
+    /* =========================================================
+       HERO — REAL LINE DRAW / ERASE
+    ========================================================= */
 
-    const sketchFrames =
-      Array.from(
-        document.querySelectorAll('.sketch-frame')
+    const heroAnimation =
+      document.getElementById("heroLineAnimation");
+
+
+    const heroFrames = [
+      "assets/hero-animation/Frame-01.svg",
+      "assets/hero-animation/Frame-02.svg",
+      "assets/hero-animation/Frame-03.svg",
+      "assets/hero-animation/Frame-04.svg"
+    ];
+
+
+    const DRAW_DURATION = 2600;
+    const HOLD_DURATION = 2600;
+    const ERASE_DURATION = 1700;
+    const GAP_DURATION = 180;
+
+
+    function wait(ms) {
+
+      return new Promise(
+        resolve => setTimeout(resolve, ms)
       );
 
-    let currentSketchFrame = 0;
+    }
 
-    if (sketchFrames.length > 1) {
 
-      setInterval(() => {
+    async function loadHeroSVG(url) {
 
-        sketchFrames[currentSketchFrame]
-          .classList
-          .remove('active');
+      const response =
+        await fetch(url);
 
-        currentSketchFrame =
-          (currentSketchFrame + 1)
-          % sketchFrames.length;
 
-        sketchFrames[currentSketchFrame]
-          .classList
-          .add('active');
+      if (!response.ok) {
 
-      }, 4000);
+        throw new Error(
+          "SVG not found: " + url
+        );
+
+      }
+
+
+      const svgText =
+        await response.text();
+
+
+      heroAnimation.innerHTML =
+        svgText;
+
+
+      const svg =
+        heroAnimation.querySelector("svg");
+
+
+      if (!svg) {
+
+        throw new Error(
+          "SVG element missing in: " + url
+        );
+
+      }
+
+
+      svg.removeAttribute("width");
+      svg.removeAttribute("height");
+
+      svg.style.width =
+        "100%";
+
+      svg.style.height =
+        "100%";
+
+      svg.style.display =
+        "block";
+
+      svg.style.overflow =
+        "visible";
+
+
+      return svg;
 
     }
+
+
+    function getDrawableLines(svg) {
+
+      const elements =
+        Array.from(
+          svg.querySelectorAll(
+            "path, line, polyline, polygon, circle, ellipse, rect"
+          )
+        );
+
+
+      return elements.filter(element => {
+
+        if (
+          typeof element.getTotalLength
+          !==
+          "function"
+        ) {
+
+          return false;
+
+        }
+
+
+        const computed =
+          getComputedStyle(element);
+
+
+        const stroke =
+          computed.stroke;
+
+
+        const strokeWidth =
+          parseFloat(
+            computed.strokeWidth
+          );
+
+
+        if (
+          stroke === "none"
+          ||
+          !Number.isFinite(strokeWidth)
+          ||
+          strokeWidth <= 0
+        ) {
+
+          return false;
+
+        }
+
+
+        const length =
+          element.getTotalLength();
+
+
+        return (
+          Number.isFinite(length)
+          &&
+          length > 1
+        );
+
+      });
+
+    }
+
+
+    function prepareLines(lines) {
+
+      lines.forEach(line => {
+
+        const length =
+          line.getTotalLength();
+
+
+        line.dataset.lineLength =
+          String(length);
+
+
+        line.style.fill =
+          "none";
+
+
+        line.style.strokeDasharray =
+          `${length} ${length}`;
+
+
+        line.style.strokeDashoffset =
+          `${length}`;
+
+
+        line.style.strokeLinecap =
+          "round";
+
+
+        line.style.strokeLinejoin =
+          "round";
+
+      });
+
+    }
+
+
+    async function drawFrame(lines) {
+
+      const total =
+        Math.max(
+          lines.length,
+          1
+        );
+
+
+      const stagger =
+        Math.min(
+          35,
+          650 / total
+        );
+
+
+      const animations =
+        lines.map(
+          (line, index) => {
+
+            const length =
+              Number(
+                line.dataset.lineLength
+              );
+
+
+            return line.animate(
+
+              [
+                {
+                  strokeDashoffset:
+                    length
+                },
+
+                {
+                  strokeDashoffset:
+                    0
+                }
+              ],
+
+              {
+                duration:
+                  DRAW_DURATION,
+
+                delay:
+                  index * stagger,
+
+                easing:
+                  "cubic-bezier(.45,0,.2,1)",
+
+                fill:
+                  "forwards"
+              }
+
+            );
+
+          }
+        );
+
+
+      await Promise.all(
+        animations.map(
+          animation =>
+            animation.finished.catch(
+              () => {}
+            )
+        )
+      );
+
+
+      lines.forEach(line => {
+
+        line.style.strokeDashoffset =
+          "0";
+
+      });
+
+    }
+
+
+    async function eraseFrame(lines) {
+
+      const reversed =
+        [...lines].reverse();
+
+
+      const total =
+        Math.max(
+          reversed.length,
+          1
+        );
+
+
+      const stagger =
+        Math.min(
+          24,
+          420 / total
+        );
+
+
+      const animations =
+        reversed.map(
+          (line, index) => {
+
+            const length =
+              Number(
+                line.dataset.lineLength
+              );
+
+
+            return line.animate(
+
+              [
+                {
+                  strokeDashoffset:
+                    0
+                },
+
+                {
+                  strokeDashoffset:
+                    length
+                }
+              ],
+
+              {
+                duration:
+                  ERASE_DURATION,
+
+                delay:
+                  index * stagger,
+
+                easing:
+                  "cubic-bezier(.4,0,.6,1)",
+
+                fill:
+                  "forwards"
+              }
+
+            );
+
+          }
+        );
+
+
+      await Promise.all(
+        animations.map(
+          animation =>
+            animation.finished.catch(
+              () => {}
+            )
+        )
+      );
+
+
+      lines.forEach(line => {
+
+        line.style.strokeDashoffset =
+          line.dataset.lineLength;
+
+      });
+
+    }
+
+
+    async function startHeroDrawing() {
+
+      if (!heroAnimation) {
+
+        console.error(
+          "heroLineAnimation not found"
+        );
+
+        return;
+
+      }
+
+
+      let frameIndex = 0;
+
+
+      while (true) {
+
+        try {
+
+          const svg =
+            await loadHeroSVG(
+              heroFrames[
+                frameIndex
+              ]
+            );
+
+
+          const lines =
+            getDrawableLines(
+              svg
+            );
+
+
+          console.log(
+            `Frame ${frameIndex + 1}:`,
+            lines.length,
+            "drawable lines"
+          );
+
+
+          if (
+            lines.length === 0
+          ) {
+
+            console.error(
+              "No drawable strokes found in:",
+              heroFrames[
+                frameIndex
+              ]
+            );
+
+            return;
+
+          }
+
+
+          prepareLines(
+            lines
+          );
+
+
+          await new Promise(
+            resolve => {
+
+              requestAnimationFrame(
+                () => {
+
+                  requestAnimationFrame(
+                    resolve
+                  );
+
+                }
+              );
+
+            }
+          );
+
+
+          await drawFrame(
+            lines
+          );
+
+
+          await wait(
+            HOLD_DURATION
+          );
+
+
+          await eraseFrame(
+            lines
+          );
+
+
+          await wait(
+            GAP_DURATION
+          );
+
+
+          frameIndex =
+            (
+              frameIndex + 1
+            )
+            %
+            heroFrames.length;
+
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Hero animation failed:",
+            error
+          );
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    startHeroDrawing();
 
 
     const scrollContainer =
