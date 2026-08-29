@@ -1696,32 +1696,33 @@
 
 
     const DRAW_DURATION = 2600;
-    const HOLD_DURATION = 2600;
-    const ERASE_DURATION = 1700;
+    const HOLD_DURATION = 2200;
+    const ERASE_DURATION = 1500;
     const GAP_DURATION = 180;
 
 
     function wait(ms) {
-
       return new Promise(
         resolve => setTimeout(resolve, ms)
       );
-
     }
 
 
     async function loadHeroSVG(url) {
 
       const response =
-        await fetch(url);
+        await fetch(
+          url + "?v=" + Date.now(),
+          {
+            cache: "no-store"
+          }
+        );
 
 
       if (!response.ok) {
-
         throw new Error(
           "SVG not found: " + url
         );
-
       }
 
 
@@ -1738,32 +1739,22 @@
 
 
       if (!svg) {
-
         throw new Error(
           "SVG element missing in: " + url
         );
-
       }
 
 
       svg.removeAttribute("width");
       svg.removeAttribute("height");
 
-      svg.style.width =
-        "100%";
-
-      svg.style.height =
-        "100%";
-
-      svg.style.display =
-        "block";
-
-      svg.style.overflow =
-        "visible";
+      svg.style.width = "100%";
+      svg.style.height = "100%";
+      svg.style.display = "block";
+      svg.style.overflow = "visible";
 
 
       return svg;
-
     }
 
 
@@ -1784,41 +1775,18 @@
           !==
           "function"
         ) {
-
           return false;
-
         }
 
 
-        const computed =
-          getComputedStyle(element);
+        let length = 0;
 
-
-        const stroke =
-          computed.stroke;
-
-
-        const strokeWidth =
-          parseFloat(
-            computed.strokeWidth
-          );
-
-
-        if (
-          stroke === "none"
-          ||
-          !Number.isFinite(strokeWidth)
-          ||
-          strokeWidth <= 0
-        ) {
-
+        try {
+          length =
+            element.getTotalLength();
+        } catch (error) {
           return false;
-
         }
-
-
-        const length =
-          element.getTotalLength();
 
 
         return (
@@ -1828,7 +1796,6 @@
         );
 
       });
-
     }
 
 
@@ -1846,6 +1813,16 @@
 
         line.style.fill =
           "none";
+
+
+        /*
+          Force visible white strokes for the
+          Illustrator exports while keeping
+          their original stroke widths.
+        */
+
+        line.style.stroke =
+          "#ffffff";
 
 
         line.style.strokeDasharray =
@@ -1879,8 +1856,8 @@
 
       const stagger =
         Math.min(
-          35,
-          650 / total
+          30,
+          600 / total
         );
 
 
@@ -1895,33 +1872,26 @@
 
 
             return line.animate(
-
               [
                 {
                   strokeDashoffset:
                     length
                 },
-
                 {
                   strokeDashoffset:
                     0
                 }
               ],
-
               {
                 duration:
                   DRAW_DURATION,
-
                 delay:
                   index * stagger,
-
                 easing:
                   "cubic-bezier(.45,0,.2,1)",
-
                 fill:
                   "forwards"
               }
-
             );
 
           }
@@ -1939,10 +1909,8 @@
 
 
       lines.forEach(line => {
-
         line.style.strokeDashoffset =
           "0";
-
       });
 
     }
@@ -1963,8 +1931,8 @@
 
       const stagger =
         Math.min(
-          24,
-          420 / total
+          20,
+          350 / total
         );
 
 
@@ -1979,33 +1947,26 @@
 
 
             return line.animate(
-
               [
                 {
                   strokeDashoffset:
                     0
                 },
-
                 {
                   strokeDashoffset:
                     length
                 }
               ],
-
               {
                 duration:
                   ERASE_DURATION,
-
                 delay:
                   index * stagger,
-
                 easing:
                   "cubic-bezier(.4,0,.6,1)",
-
                 fill:
                   "forwards"
               }
-
             );
 
           }
@@ -2023,11 +1984,129 @@
 
 
       lines.forEach(line => {
-
         line.style.strokeDashoffset =
           line.dataset.lineLength;
-
       });
+
+    }
+
+
+    async function runOneFrame(url, frameNumber) {
+
+      try {
+
+        const svg =
+          await loadHeroSVG(
+            url
+          );
+
+
+        const lines =
+          getDrawableLines(
+            svg
+          );
+
+
+        console.log(
+          `Frame ${frameNumber}:`,
+          lines.length,
+          "drawable lines"
+        );
+
+
+        /*
+          If a frame contains no usable
+          paths, do NOT stop the loop.
+          Show it briefly and continue.
+        */
+
+        if (
+          lines.length === 0
+        ) {
+
+          console.warn(
+            "No drawable lines found in:",
+            url
+          );
+
+
+          await wait(
+            1000
+          );
+
+
+          heroAnimation.innerHTML =
+            "";
+
+
+          return;
+        }
+
+
+        prepareLines(
+          lines
+        );
+
+
+        await new Promise(
+          resolve => {
+
+            requestAnimationFrame(
+              () => {
+
+                requestAnimationFrame(
+                  resolve
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+        await drawFrame(
+          lines
+        );
+
+
+        await wait(
+          HOLD_DURATION
+        );
+
+
+        await eraseFrame(
+          lines
+        );
+
+
+        await wait(
+          GAP_DURATION
+        );
+
+
+        heroAnimation.innerHTML =
+          "";
+
+      }
+
+      catch (error) {
+
+        console.error(
+          `Frame ${frameNumber} failed:`,
+          error
+        );
+
+
+        heroAnimation.innerHTML =
+          "";
+
+
+        await wait(
+          500
+        );
+
+      }
 
     }
 
@@ -2041,7 +2120,6 @@
         );
 
         return;
-
       }
 
 
@@ -2050,107 +2128,20 @@
 
       while (true) {
 
-        try {
-
-          const svg =
-            await loadHeroSVG(
-              heroFrames[
-                frameIndex
-              ]
-            );
+        await runOneFrame(
+          heroFrames[
+            frameIndex
+          ],
+          frameIndex + 1
+        );
 
 
-          const lines =
-            getDrawableLines(
-              svg
-            );
-
-
-          console.log(
-            `Frame ${frameIndex + 1}:`,
-            lines.length,
-            "drawable lines"
-          );
-
-
-          if (
-            lines.length === 0
-          ) {
-
-            console.error(
-              "No drawable strokes found in:",
-              heroFrames[
-                frameIndex
-              ]
-            );
-
-            return;
-
-          }
-
-
-          prepareLines(
-            lines
-          );
-
-
-          await new Promise(
-            resolve => {
-
-              requestAnimationFrame(
-                () => {
-
-                  requestAnimationFrame(
-                    resolve
-                  );
-
-                }
-              );
-
-            }
-          );
-
-
-          await drawFrame(
-            lines
-          );
-
-
-          await wait(
-            HOLD_DURATION
-          );
-
-
-          await eraseFrame(
-            lines
-          );
-
-
-          await wait(
-            GAP_DURATION
-          );
-
-
-          frameIndex =
-            (
-              frameIndex + 1
-            )
-            %
-            heroFrames.length;
-
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "Hero animation failed:",
-            error
-          );
-
-          break;
-
-        }
+        frameIndex =
+          (
+            frameIndex + 1
+          )
+          %
+          heroFrames.length;
 
       }
 
