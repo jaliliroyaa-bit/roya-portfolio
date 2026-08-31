@@ -1694,14 +1694,19 @@
 
   <script>
     /* =========================================================
-       HERO — LOCAL ERASE / REDRAW TRANSFORM
-       Static-looking lines stay. Changed lines are replaced
-       region-by-region in a controlled spatial order.
-       No crossfade, no wipe, no old/new line overlap.
+       HERO — STATIC BASE + FADE BETWEEN DYNAMIC FRAMES
+
+       Static.svg always stays visible.
+       Only one dynamic frame is visible at a time:
+       Frame 01 -> hold -> fade out -> Frame 02 fade in -> ...
+       No overlap between two dynamic drawings.
     ========================================================= */
 
     const heroAnimation =
       document.getElementById("heroLineAnimation");
+
+    const STATIC_SVG =
+      "assets/hero-animation/Static.svg";
 
     const heroFrames = [
       "assets/hero-animation/Frame-01.svg",
@@ -1710,12 +1715,11 @@
       "assets/hero-animation/Frame-04.svg"
     ];
 
-    const FIRST_DRAW_DURATION = 2200;
-    const HOLD_DURATION = 1400;
-    const ERASE_ONE = 190;
-    const DRAW_ONE = 260;
-    const BETWEEN_GROUPS = 20;
-    const STATIC_THRESHOLD = 0.24;
+    const FIRST_DRAW_DURATION = 1200;
+    const HOLD_DURATION = 1500;
+    const FADE_OUT_DURATION = 420;
+    const FADE_IN_DURATION = 420;
+    const GAP_DURATION = 120;
 
     function wait(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -1736,10 +1740,14 @@
 
     function createLayer(svgText, className = "") {
       const layer = document.createElement("div");
-      layer.className = "hero-svg-layer " + className;
+
+      layer.className =
+        "hero-svg-layer " + className;
+
       layer.innerHTML = svgText;
 
-      const svg = layer.querySelector("svg");
+      const svg =
+        layer.querySelector("svg");
 
       if (!svg) {
         throw new Error("SVG element missing.");
@@ -1747,6 +1755,7 @@
 
       svg.removeAttribute("width");
       svg.removeAttribute("height");
+
       svg.style.width = "100%";
       svg.style.height = "100%";
       svg.style.display = "block";
@@ -1761,378 +1770,214 @@
           "path, line, polyline, polygon, circle, ellipse, rect"
         )
       ).filter(element => {
-        if (typeof element.getTotalLength !== "function") return false;
+        if (
+          typeof element.getTotalLength
+          !==
+          "function"
+        ) {
+          return false;
+        }
 
         try {
-          const length = element.getTotalLength();
-          return Number.isFinite(length) && length > 1;
-        } catch {
+          const length =
+            element.getTotalLength();
+
+          return (
+            Number.isFinite(length)
+            &&
+            length > 1
+          );
+        }
+        catch {
           return false;
         }
       });
     }
 
-    function styleLine(line) {
-      const length = line.getTotalLength();
+    function setupLine(line) {
+      const length =
+        line.getTotalLength();
 
-      line.dataset.lineLength = String(length);
-      line.style.fill = "none";
-      line.style.stroke = "#ffffff";
-      line.style.strokeLinecap = "round";
-      line.style.strokeLinejoin = "round";
-      line.style.strokeDasharray = `${length} ${length}`;
+      line.dataset.lineLength =
+        String(length);
+
+      line.style.fill =
+        "none";
+
+      line.style.stroke =
+        "#ffffff";
+
+      line.style.strokeLinecap =
+        "round";
+
+      line.style.strokeLinejoin =
+        "round";
+
+      line.style.strokeDasharray =
+        `${length} ${length}`;
 
       return length;
     }
 
-    function prepareVisible(lines) {
-      lines.forEach(line => {
-        styleLine(line);
-        line.style.strokeDashoffset = "0";
-        line.style.opacity = "1";
-      });
-    }
-
     function prepareHidden(lines) {
       lines.forEach(line => {
-        const length = styleLine(line);
-        line.style.strokeDashoffset = String(length);
-        line.style.opacity = "1";
+        const length =
+          setupLine(line);
+
+        line.style.strokeDashoffset =
+          String(length);
       });
     }
 
-    function geometry(line) {
-      const b = line.getBBox();
-      const length = line.getTotalLength();
-
-      return {
-        x: b.x,
-        y: b.y,
-        w: b.width,
-        h: b.height,
-        cx: b.x + b.width / 2,
-        cy: b.y + b.height / 2,
-        length
-      };
+    function prepareVisible(lines) {
+      lines.forEach(line => {
+        setupLine(line);
+        line.style.strokeDashoffset = "0";
+      });
     }
 
-    function score(a, b) {
-      const center = Math.hypot(a.cx - b.cx, a.cy - b.cy) / 34;
-      const size =
-        (Math.abs(a.w - b.w) + Math.abs(a.h - b.h)) /
-        Math.max(12, a.w + a.h + b.w + b.h);
-      const len =
-        Math.abs(a.length - b.length) /
-        Math.max(18, a.length, b.length);
+    async function drawFirstFrame(lines) {
+      if (!lines.length) return;
 
-      return center + size + len;
-    }
+      const animations =
+        lines.map((line, index) => {
+          const length =
+            Number(
+              line.dataset.lineLength
+            );
 
-    function findStaticMatches(oldLines, newLines) {
-      const oldGeo = oldLines.map(geometry);
-      const newGeo = newLines.map(geometry);
-
-      const usedNew = new Set();
-      const matches = [];
-
-      oldLines.forEach((oldLine, oi) => {
-        let best = -1;
-        let bestScore = Infinity;
-
-        newLines.forEach((newLine, ni) => {
-          if (usedNew.has(ni)) return;
-
-          const s = score(oldGeo[oi], newGeo[ni]);
-
-          if (s < bestScore) {
-            bestScore = s;
-            best = ni;
-          }
+          return line.animate(
+            [
+              { strokeDashoffset: length },
+              { strokeDashoffset: 0 }
+            ],
+            {
+              duration: FIRST_DRAW_DURATION,
+              delay: index * 10,
+              easing: "cubic-bezier(.45,0,.2,1)",
+              fill: "forwards"
+            }
+          );
         });
 
-        if (best !== -1 && bestScore < STATIC_THRESHOLD) {
-          matches.push({
-            oldLine,
-            newLine: newLines[best],
-            score: bestScore
-          });
-          usedNew.add(best);
-        }
-      });
-
-      return matches;
-    }
-
-    function nearestPairing(oldChanged, newChanged) {
-      const oldGeo = oldChanged.map(geometry);
-      const newGeo = newChanged.map(geometry);
-
-      const usedNew = new Set();
-      const pairs = [];
-
-      oldChanged.forEach((oldLine, oi) => {
-        let best = -1;
-        let bestScore = Infinity;
-
-        newChanged.forEach((newLine, ni) => {
-          if (usedNew.has(ni)) return;
-
-          const s = score(oldGeo[oi], newGeo[ni]);
-
-          if (s < bestScore) {
-            bestScore = s;
-            best = ni;
-          }
-        });
-
-        if (best !== -1) {
-          pairs.push({
-            oldLine,
-            newLine: newChanged[best],
-            x: (oldGeo[oi].cx + newGeo[best].cx) / 2,
-            y: (oldGeo[oi].cy + newGeo[best].cy) / 2
-          });
-
-          usedNew.add(best);
-        } else {
-          pairs.push({
-            oldLine,
-            newLine: null,
-            x: oldGeo[oi].cx,
-            y: oldGeo[oi].cy
-          });
-        }
-      });
-
-      newChanged.forEach((newLine, ni) => {
-        if (!usedNew.has(ni)) {
-          pairs.push({
-            oldLine: null,
-            newLine,
-            x: newGeo[ni].cx,
-            y: newGeo[ni].cy
-          });
-        }
-      });
-
-      /*
-        Controlled visual order:
-        top-to-bottom, and within each band left-to-right.
-        This removes the random Illustrator path-order feeling.
-      */
-      pairs.sort((a, b) => {
-        const bandA = Math.floor(a.y / 28);
-        const bandB = Math.floor(b.y / 28);
-
-        if (bandA !== bandB) return bandA - bandB;
-        return a.x - b.x;
-      });
-
-      return pairs;
-    }
-
-    async function eraseOne(line) {
-      if (!line) return;
-
-      const length = Number(line.dataset.lineLength);
-
-      const animation = line.animate(
-        [
-          { strokeDashoffset: 0 },
-          { strokeDashoffset: length }
-        ],
-        {
-          duration: ERASE_ONE,
-          easing: "cubic-bezier(.55,0,.75,.35)",
-          fill: "forwards"
-        }
+      await Promise.all(
+        animations.map(
+          animation =>
+            animation.finished.catch(() => {})
+        )
       );
 
-      await animation.finished.catch(() => {});
-      line.style.strokeDashoffset = String(length);
-    }
-
-    async function drawOne(line) {
-      if (!line) return;
-
-      const length = Number(line.dataset.lineLength);
-
-      const animation = line.animate(
-        [
-          { strokeDashoffset: length },
-          { strokeDashoffset: 0 }
-        ],
-        {
-          duration: DRAW_ONE,
-          easing: "cubic-bezier(.25,.1,.25,1)",
-          fill: "forwards"
-        }
-      );
-
-      await animation.finished.catch(() => {});
-      line.style.strokeDashoffset = "0";
-    }
-
-    async function drawInitial(lines) {
-      const ordered = [...lines].sort((a, b) => {
-        const ga = geometry(a);
-        const gb = geometry(b);
-
-        const bandA = Math.floor(ga.cy / 28);
-        const bandB = Math.floor(gb.cy / 28);
-
-        if (bandA !== bandB) return bandA - bandB;
-        return ga.cx - gb.cx;
+      lines.forEach(line => {
+        line.style.strokeDashoffset = "0";
       });
+    }
 
-      const total = Math.max(ordered.length, 1);
-      const stagger = Math.min(16, 260 / total);
-
-      const animations = ordered.map((line, index) => {
-        const length = Number(line.dataset.lineLength);
-
-        return line.animate(
+    async function fadeOutLayer(layer) {
+      const animation =
+        layer.animate(
           [
-            { strokeDashoffset: length },
-            { strokeDashoffset: 0 }
+            { opacity: 1 },
+            { opacity: 0 }
           ],
           {
-            duration: FIRST_DRAW_DURATION,
-            delay: index * stagger,
-            easing: "cubic-bezier(.45,0,.2,1)",
+            duration: FADE_OUT_DURATION,
+            easing: "ease-in-out",
             fill: "forwards"
           }
         );
-      });
 
-      await Promise.all(
-        animations.map(a => a.finished.catch(() => {}))
-      );
-
-      ordered.forEach(line => {
-        line.style.strokeDashoffset = "0";
-      });
+      await animation.finished.catch(() => {});
     }
 
-    async function transformFrame(oldLayer, newLayer) {
-      const oldLines = getDrawableLines(oldLayer);
-      const newLines = getDrawableLines(newLayer);
+    async function fadeInLayer(layer) {
+      layer.style.opacity = "0";
 
-      prepareVisible(oldLines);
-      prepareVisible(newLines);
-
-      heroAnimation.appendChild(newLayer);
-
-      const staticMatches = findStaticMatches(oldLines, newLines);
-
-      const staticOld = new Set(
-        staticMatches.map(m => m.oldLine)
-      );
-
-      const staticNew = new Set(
-        staticMatches.map(m => m.newLine)
-      );
-
-      const oldChanged = oldLines.filter(
-        line => !staticOld.has(line)
-      );
-
-      const newChanged = newLines.filter(
-        line => !staticNew.has(line)
-      );
-
-      /*
-        New static duplicates stay hidden until the very end.
-        Old static lines remain visible and stable throughout.
-      */
-      staticMatches.forEach(({ newLine }) => {
-        newLine.style.opacity = "0";
+      await new Promise(resolve => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(resolve);
+        });
       });
 
-      /*
-        All incoming changed lines start hidden.
-      */
-      prepareHidden(newChanged);
+      const animation =
+        layer.animate(
+          [
+            { opacity: 0 },
+            { opacity: 1 }
+          ],
+          {
+            duration: FADE_IN_DURATION,
+            easing: "ease-in-out",
+            fill: "forwards"
+          }
+        );
 
-      const pairs = nearestPairing(
-        oldChanged,
-        newChanged
-      );
+      await animation.finished.catch(() => {});
 
-      console.log(
-        "Static:",
-        staticMatches.length,
-        "Changing pairs:",
-        pairs.length
-      );
-
-      /*
-        Replace one local line at a time:
-        erase old first, then draw new.
-        Therefore old/new changed lines never overlap.
-      */
-      for (const pair of pairs) {
-        if (pair.oldLine) {
-          await eraseOne(pair.oldLine);
-        }
-
-        if (pair.newLine) {
-          await drawOne(pair.newLine);
-        }
-
-        if (BETWEEN_GROUPS) {
-          await wait(BETWEEN_GROUPS);
-        }
-      }
-
-      /*
-        Swap the static copies instantly after the changing
-        animation is done. There is no visible transition
-        because both versions occupy the same visual place.
-      */
-      staticMatches.forEach(({ oldLine, newLine }) => {
-        oldLine.style.opacity = "0";
-        newLine.style.opacity = "1";
-      });
-
-      newLines.forEach(line => {
-        line.style.opacity = "1";
-        line.style.strokeDashoffset = "0";
-      });
-
-      oldLayer.remove();
-
-      return newLayer;
+      layer.style.opacity = "1";
     }
 
     async function startHeroDrawing() {
       if (!heroAnimation) {
-        console.error("heroLineAnimation not found");
+        console.error(
+          "heroLineAnimation not found"
+        );
         return;
       }
 
       try {
-        const svgTexts = await Promise.all(
-          heroFrames.map(url => fetchSVG(url))
-        );
+        const [
+          staticText,
+          ...frameTexts
+        ] =
+          await Promise.all([
+            fetchSVG(STATIC_SVG),
+            ...heroFrames.map(
+              url => fetchSVG(url)
+            )
+          ]);
 
         heroAnimation.innerHTML = "";
 
-        let currentIndex = 0;
-        let currentLayer = createLayer(
-          svgTexts[0],
-          "is-current"
+        /* Static layer stays forever */
+        const staticLayer =
+          createLayer(
+            staticText,
+            "hero-static-layer"
+          );
+
+        staticLayer.style.zIndex = "1";
+
+        heroAnimation.appendChild(
+          staticLayer
         );
 
-        heroAnimation.appendChild(currentLayer);
+        prepareVisible(
+          getDrawableLines(staticLayer)
+        );
 
-        const firstLines = getDrawableLines(currentLayer);
+        /* First dynamic frame */
+        let frameIndex = 0;
 
-        if (!firstLines.length) {
-          throw new Error("Frame 1 has no drawable paths.");
-        }
+        let dynamicLayer =
+          createLayer(
+            frameTexts[0],
+            "hero-dynamic-layer"
+          );
 
-        prepareHidden(firstLines);
+        dynamicLayer.style.zIndex = "2";
+
+        heroAnimation.appendChild(
+          dynamicLayer
+        );
+
+        const firstLines =
+          getDrawableLines(
+            dynamicLayer
+          );
+
+        prepareHidden(
+          firstLines
+        );
 
         await new Promise(resolve => {
           requestAnimationFrame(() => {
@@ -2140,30 +1985,71 @@
           });
         });
 
-        await drawInitial(firstLines);
-        await wait(HOLD_DURATION);
+        await drawFirstFrame(
+          firstLines
+        );
+
+        await wait(
+          HOLD_DURATION
+        );
 
         while (true) {
-          const nextIndex =
-            (currentIndex + 1) % svgTexts.length;
-
-          const nextLayer = createLayer(
-            svgTexts[nextIndex],
-            "is-next"
+          /*
+            Fade the current dynamic frame completely out.
+          */
+          await fadeOutLayer(
+            dynamicLayer
           );
 
-          currentLayer = await transformFrame(
-            currentLayer,
-            nextLayer
+          dynamicLayer.remove();
+
+          await wait(
+            GAP_DURATION
           );
 
-          currentIndex = nextIndex;
-          await wait(HOLD_DURATION);
+          /*
+            Only after the old one is gone,
+            insert the next frame.
+          */
+          frameIndex =
+            (
+              frameIndex + 1
+            )
+            %
+            frameTexts.length;
+
+          dynamicLayer =
+            createLayer(
+              frameTexts[
+                frameIndex
+              ],
+              "hero-dynamic-layer"
+            );
+
+          dynamicLayer.style.zIndex = "2";
+
+          heroAnimation.appendChild(
+            dynamicLayer
+          );
+
+          prepareVisible(
+            getDrawableLines(
+              dynamicLayer
+            )
+          );
+
+          await fadeInLayer(
+            dynamicLayer
+          );
+
+          await wait(
+            HOLD_DURATION
+          );
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.error(
-          "Hero local transform failed:",
+          "Hero fade animation failed:",
           error
         );
       }
