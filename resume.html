@@ -1,136 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume - Roya Jalili</title>
-    <style>
-        :root {
-            --text-main: #ffffff;
-            --muted: rgba(255, 255, 255, 0.75);
-            --line: rgba(255, 255, 255, 0.15);
-        }
-        body {
-            margin: 0;
-            padding: 40px;
-            /* پس‌زمینه گرادیان مشابه صفحه اصلی سایت */
-            background:
-                radial-gradient(circle at top left,#9CC7D8 0%,transparent 40%),
-                radial-gradient(circle at bottom right,#C9C4BC 0%,transparent 35%),
-                linear-gradient(120deg,#EAF3F7 0%,#D9EAF2 45%,#C9C4BC 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-main);
-            min-height: 100vh;
-        }
-        .resume-container {
-            max-width: 900px;
-            margin: 0 auto;
-            /* گرادیان و شیشه‌ای بودن کادر اصلی مشابه صفحه اصلی سایت */
-            background: linear-gradient(135deg, #7A9EAF 0%, #9EB8C5 30%, #8C8176 75%, #D4CEC7 100%);
-            border: 1px solid var(--line);
-            backdrop-filter: blur(16px);
-            padding: 50px;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-        .resume-header {
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 30px;
-            margin-bottom: 40px;
-        }
-        h1 { font-size: 38px; margin: 0 0 10px 0; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
-        .title-sub { font-size: 15px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin: 0; font-weight: 600; }
-        
-        .resume-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        h2 { font-size: 20px; margin-top: 0; margin-bottom: 20px; color: #fff; border-bottom: 1px solid var(--line); padding-bottom: 8px; font-weight: 650; }
-        .resume-section { margin-bottom: 35px; }
-        .resume-item { margin-bottom: 22px; }
-        .resume-item h3 { font-size: 16px; margin: 0 0 4px 0; font-weight: 650; color: #fff; }
-        .resume-item span { font-size: 13px; color: var(--muted); display: block; font-weight: 500; }
-        p { font-size: 14.5px; line-height: 1.7; margin: 0; color: rgba(255, 255, 255, 0.92); font-weight: 400; }
-        
-        .back-link {
-            display: inline-block;
-            margin-bottom: 25px;
-            color: var(--muted);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .back-link:hover { color: #fff; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        @media(max-width: 768px) {
-            .resume-grid { grid-template-columns: 1fr; gap: 30px; }
-            .resume-container { padding: 25px; }
-            body { padding: 15px; }
-        }
-    </style>
+  <title>Resume — Roya Jalili</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family: "Inter", Arial, sans-serif;
+      color: #fff;
+
+      background:
+        linear-gradient(
+          120deg,
+          #9cc7d8 0%,
+          #a9bec4 42%,
+          #b9b3aa 72%,
+          #c9c4bc 100%
+        );
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .resume-page {
+      width: min(1180px, calc(100% - 64px));
+      margin: 0 auto;
+
+      padding:
+        68px
+        0
+        110px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .resume-header {
+      padding-bottom: 34px;
+
+      border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+    }
+
+    .resume-name {
+      margin: 0;
+
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .resume-role {
+      margin: 18px 0 0;
+
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .resume-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+      gap: 54px;
+
+      margin-top: 46px;
+    }
+
+    .resume-column {
+      min-width: 0;
+    }
+
+    .resume-section {
+      margin-bottom: 40px;
+    }
+
+    .resume-section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* =========================
+       TYPOGRAPHY
+    ========================= */
+
+    .resume-section h2 {
+      margin:
+        0
+        0
+        24px;
+
+      padding-bottom: 12px;
+
+      border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+      font-size: 21px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .resume-section h3 {
+      margin: 0;
+
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .resume-section p,
+    .resume-section li,
+    .course-item,
+    .resume-meta {
+      font-size: 14px;
+      line-height: 1.72;
+      font-weight: 400;
+    }
+
+    .about-copy {
+      margin: 0;
+
+      max-width: 52ch;
+
+      color:
+        rgba(255, 255, 255, 0.93);
+    }
+
+    .resume-entry {
+      margin-bottom: 24px;
+    }
+
+    .resume-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .resume-meta {
+      margin-top: 2px;
+
+      color:
+        rgba(255, 255, 255, 0.72);
+
+      font-size: 12.5px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    /* =========================
+       COURSES
+    ========================= */
+
+    .courses-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .course-item {
+      margin: 0;
+
+      color:
+        rgba(255, 255, 255, 0.93);
+    }
+
+    /* =========================
+       BACK BUTTON
+    ========================= */
+
+    .back-home {
+      position: fixed;
+
+      left: 30px;
+      bottom: 26px;
+
+      z-index: 1000;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding:
+        10px
+        13px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.09);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      color:
+        rgba(255, 255, 255, 0.88);
+
+      text-decoration: none;
+
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .back-home:hover {
+      background:
+        rgba(255, 255, 255, 0.16);
+
+      color: #fff;
+
+      transform:
+        translateY(-1px);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 760px) {
+      .resume-page {
+        width:
+          min(
+            100% - 38px,
+            680px
+          );
+
+        padding:
+          44px
+          0
+          96px;
+      }
+
+      .resume-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+
+        margin-top: 36px;
+      }
+
+      .resume-section {
+        margin-bottom: 34px;
+      }
+
+      .resume-name {
+        font-size: 36px;
+      }
+
+      .resume-role {
+        font-size: 12.5px;
+        letter-spacing: 0.12em;
+      }
+
+      .resume-section h2 {
+        font-size: 19px;
+      }
+
+      .resume-section h3 {
+        font-size: 14.5px;
+      }
+
+      .resume-section p,
+      .resume-section li,
+      .course-item {
+        font-size: 13.5px;
+      }
+
+      .resume-meta {
+        font-size: 12px;
+      }
+
+      .back-home {
+        left: 18px;
+        bottom: 18px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="resume-container">
-    <a href="index.html" class="back-link">← Back to Home</a>
-    
-    <div class="resume-header">
-        <h1>Roya Jalili</h1>
-        <p class="title-sub">Graphic Designer & AI Artist</p>
-    </div>
+  <main class="resume-page">
+
+    <header class="resume-header">
+      <h1 class="resume-name">
+        Roya Jalili
+      </h1>
+
+      <p class="resume-role">
+        Graphic Designer &amp; AI Artist
+      </p>
+    </header>
+
 
     <div class="resume-grid">
-        <!-- ستون سمت چپ: درباره من و تحصیلات -->
-        <div>
-            <div class="resume-section">
-                <h2>About Me</h2>
-                <p>I am a creative and detail-oriented graphic designer with over 6 years of experience. I specialize in developing brand visual identities, social media content, and digital designs that are both visually appealing and effective in communication. I enjoy collaborating with clients and teams to bring ideas to life and am always eager to take on new challenges and opportunities to grow as a designer.</p>
+
+      <!-- LEFT COLUMN -->
+      <div class="resume-column">
+
+        <section class="resume-section">
+          <h2>
+            About Me
+          </h2>
+
+          <p class="about-copy">
+            I am a creative and detail-oriented graphic designer
+            with over 6 years of experience. I specialize in
+            developing brand visual identities, social media
+            content, and digital designs that are both visually
+            appealing and effective in communication. I enjoy
+            collaborating with clients and teams to bring ideas
+            to life and am always eager to take on new challenges
+            and opportunities to grow as a designer.
+          </p>
+        </section>
+
+
+        <section class="resume-section">
+          <h2>
+            Education
+          </h2>
+
+          <div class="resume-entry">
+            <h3>
+              Bachelor's Degree in Graphic Design
+            </h3>
+
+            <div class="resume-meta">
+              University of Technical and Vocational | 2016–2019
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+
+      <!-- RIGHT COLUMN -->
+      <div class="resume-column">
+
+        <section class="resume-section">
+          <h2>
+            Experience
+          </h2>
+
+          <div class="resume-entry">
+            <h3>
+              Graphic Designer
+            </h3>
+
+            <div class="resume-meta">
+              (Full-Time)
             </div>
 
-            <div class="resume-section">
-                <h2>Education</h2>
-                <div class="resume-item">
-                    <h3>Bachelor's degree in Graphic Design</h3>
-                    <span>University of Technical and Vocational | 2016–2019</span>
-                </div>
+            <div class="resume-meta">
+              Yektanet digital marketing company | Feb 2022–Present
             </div>
-        </div>
+          </div>
 
-        <!-- ستون سمت راست: تجربیات و دوره‌ها -->
-        <div>
-            <div class="resume-section">
-                <h2>Experience</h2>
-                <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
-                    <span>Yektanet digital marketing company | Feb 2022–Present</span>
-                </div>
-                <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Remote)</span></h3>
-                    <span>ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017 – Present</span>
-                </div>
-                <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
-                    <span>Zirofam Digital marketing agency | Jan 2021 – Dec 2021</span>
-                </div>
-                <div class="resume-item">
-                    <h3>Graphic Designer <span style="font-weight:normal; font-size:13px; color:rgba(255,255,255,0.7);">(Full-Time)</span></h3>
-                    <span>Narsis printing house | Mar 2019 – Dec 2020</span>
-                </div>
-            </div>
-<h3>Courses</h3>
 
-<p>Logo Design Course — Abuzar Mohammadi | 2023</p>
-<p>Visual Identity Course — Inverse School | 2023</p>
-<p>Visual Identity Course — Camp Graphic | 2022</p>
-<p>Photomontage Course — SaatSheni School | 2021</p>
-<p>Logo Design Course — Inverse School | 2020</p>
+          <div class="resume-entry">
+            <h3>
+              Graphic Designer
+            </h3>
+
+            <div class="resume-meta">
+              (Remote)
             </div>
-        </div>
+
+            <div class="resume-meta">
+              ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017–Present
+            </div>
+          </div>
+
+
+          <div class="resume-entry">
+            <h3>
+              Graphic Designer
+            </h3>
+
+            <div class="resume-meta">
+              (Full-Time)
+            </div>
+
+            <div class="resume-meta">
+              Zirofam Digital marketing agency | Jan 2021–Dec 2021
+            </div>
+          </div>
+
+
+          <div class="resume-entry">
+            <h3>
+              Graphic Designer
+            </h3>
+
+            <div class="resume-meta">
+              (Full-Time)
+            </div>
+
+            <div class="resume-meta">
+              Narsis printing house | Mar 2019–Dec 2020
+            </div>
+          </div>
+        </section>
+
+
+        <section class="resume-section">
+          <h2>
+            Courses
+          </h2>
+
+          <div class="courses-list">
+
+            <p class="course-item">
+              Logo Design Course — Abuzar Mohammadi | 2023
+            </p>
+
+            <p class="course-item">
+              Visual Identity Course — Inverse School | 2023
+            </p>
+
+            <p class="course-item">
+              Visual Identity Course — Camp Graphic | 2022
+            </p>
+
+            <p class="course-item">
+              Photomontage Course — SaatSheni School | 2021
+            </p>
+
+            <p class="course-item">
+              Logo Design Course — Inverse School | 2020
+            </p>
+
+          </div>
+        </section>
+
+      </div>
+
     </div>
-</div>
+
+  </main>
+
+
+  <a
+    class="back-home"
+    href="index.html"
+    aria-label="Back to Home"
+  >
+    ← Back to Home
+  </a>
 
 </body>
 </html>
