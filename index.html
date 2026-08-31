@@ -1694,10 +1694,9 @@
 
   <script>
     /* =========================================================
-       HERO — CONTINUOUS DRAW / TRANSFORM LOOP
-       Frame 1 draws once. Each next frame is drawn over the
-       current frame while the old lines erase at the same time.
-       This avoids the "PowerPoint slide" feeling.
+       HERO — CONTINUOUS SHARED-LINE TRANSITION
+       Shared-looking paths are geometrically matched and kept
+       visually stable. Only changed/unmatched paths draw/erase.
     ========================================================= */
 
     const heroAnimation =
@@ -1710,10 +1709,10 @@
       "assets/hero-animation/Frame-04.svg"
     ];
 
-    const FIRST_DRAW_DURATION = 2600;
-    const HOLD_DURATION = 1500;
-    const TRANSITION_DURATION = 2100;
-    const LOOP_GAP = 120;
+    const FIRST_DRAW_DURATION = 2500;
+    const HOLD_DURATION = 1300;
+    const CHANGE_DURATION = 1400;
+    const MATCH_FADE_DURATION = 220;
 
     function wait(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -1774,37 +1773,141 @@
       });
     }
 
+    function styleLine(line) {
+      const length = line.getTotalLength();
+
+      line.dataset.lineLength = String(length);
+      line.style.fill = "none";
+      line.style.stroke = "#ffffff";
+      line.style.strokeLinecap = "round";
+      line.style.strokeLinejoin = "round";
+
+      return length;
+    }
+
     function prepareHidden(lines) {
       lines.forEach(line => {
-        const length = line.getTotalLength();
-
-        line.dataset.lineLength = String(length);
-        line.style.fill = "none";
-        line.style.stroke = "#ffffff";
+        const length = styleLine(line);
         line.style.strokeDasharray = `${length} ${length}`;
         line.style.strokeDashoffset = `${length}`;
-        line.style.strokeLinecap = "round";
-        line.style.strokeLinejoin = "round";
+        line.style.opacity = "1";
       });
     }
 
     function prepareVisible(lines) {
       lines.forEach(line => {
-        const length = line.getTotalLength();
-
-        line.dataset.lineLength = String(length);
-        line.style.fill = "none";
-        line.style.stroke = "#ffffff";
+        const length = styleLine(line);
         line.style.strokeDasharray = `${length} ${length}`;
         line.style.strokeDashoffset = "0";
-        line.style.strokeLinecap = "round";
-        line.style.strokeLinejoin = "round";
+        line.style.opacity = "1";
       });
     }
 
+    function getGeometry(line) {
+      const box = line.getBBox();
+      const length = line.getTotalLength();
+
+      return {
+        x: box.x,
+        y: box.y,
+        w: box.width,
+        h: box.height,
+        cx: box.x + box.width / 2,
+        cy: box.y + box.height / 2,
+        length
+      };
+    }
+
+    function normalizedDifference(a, b) {
+      const centerDistance =
+        Math.hypot(a.cx - b.cx, a.cy - b.cy);
+
+      const sizeDistance =
+        Math.abs(a.w - b.w) +
+        Math.abs(a.h - b.h);
+
+      const lengthDistance =
+        Math.abs(a.length - b.length);
+
+      const scale =
+        Math.max(
+          8,
+          a.w + a.h + b.w + b.h
+        );
+
+      return (
+        centerDistance / 35 +
+        sizeDistance / scale +
+        lengthDistance / Math.max(20, a.length, b.length)
+      );
+    }
+
+    function matchSharedLines(oldLines, newLines) {
+      const oldGeo = oldLines.map(getGeometry);
+      const newGeo = newLines.map(getGeometry);
+
+      const usedNew = new Set();
+      const matches = [];
+
+      oldLines.forEach((oldLine, oldIndex) => {
+        let bestIndex = -1;
+        let bestScore = Infinity;
+
+        newLines.forEach((newLine, newIndex) => {
+          if (usedNew.has(newIndex)) return;
+
+          const score = normalizedDifference(
+            oldGeo[oldIndex],
+            newGeo[newIndex]
+          );
+
+          if (score < bestScore) {
+            bestScore = score;
+            bestIndex = newIndex;
+          }
+        });
+
+        /*
+          Lower threshold = stricter matching.
+          0.42 works well for exported Illustrator
+          paths that are visually the same but whose
+          raw path data is slightly different.
+        */
+        if (bestIndex !== -1 && bestScore < 0.42) {
+          matches.push({
+            oldLine,
+            newLine: newLines[bestIndex],
+            score: bestScore
+          });
+
+          usedNew.add(bestIndex);
+        }
+      });
+
+      const matchedOld = new Set(
+        matches.map(item => item.oldLine)
+      );
+
+      const matchedNew = new Set(
+        matches.map(item => item.newLine)
+      );
+
+      return {
+        matches,
+        oldChanged: oldLines.filter(
+          line => !matchedOld.has(line)
+        ),
+        newChanged: newLines.filter(
+          line => !matchedNew.has(line)
+        )
+      };
+    }
+
     async function drawLines(lines, duration) {
+      if (!lines.length) return;
+
       const total = Math.max(lines.length, 1);
-      const stagger = Math.min(22, 450 / total);
+      const stagger = Math.min(18, 300 / total);
 
       const animations = lines.map((line, index) => {
         const length = Number(line.dataset.lineLength);
@@ -1834,12 +1937,49 @@
       });
     }
 
-    async function transitionBetween(oldLayer, newLayer) {
+    async function eraseLines(lines, duration) {
+      if (!lines.length) return;
+
+      const reversed = [...lines].reverse();
+      const total = Math.max(reversed.length, 1);
+      const stagger = Math.min(14, 240 / total);
+
+      const animations = reversed.map((line, index) => {
+        const length = Number(line.dataset.lineLength);
+
+        return line.animate(
+          [
+            {
+              strokeDashoffset: 0,
+              opacity: 1
+            },
+            {
+              strokeDashoffset: length,
+              opacity: 0
+            }
+          ],
+          {
+            duration,
+            delay: index * stagger,
+            easing: "cubic-bezier(.4,0,.6,1)",
+            fill: "forwards"
+          }
+        );
+      });
+
+      await Promise.all(
+        animations.map(animation =>
+          animation.finished.catch(() => {})
+        )
+      );
+    }
+
+    async function transitionSmart(oldLayer, newLayer) {
       const oldLines = getDrawableLines(oldLayer);
       const newLines = getDrawableLines(newLayer);
 
       prepareVisible(oldLines);
-      prepareHidden(newLines);
+      prepareVisible(newLines);
 
       heroAnimation.appendChild(newLayer);
 
@@ -1849,70 +1989,85 @@
         });
       });
 
-      const oldTotal = Math.max(oldLines.length, 1);
-      const newTotal = Math.max(newLines.length, 1);
+      const {
+        matches,
+        oldChanged,
+        newChanged
+      } = matchSharedLines(oldLines, newLines);
 
-      const oldStagger = Math.min(14, 300 / oldTotal);
-      const newStagger = Math.min(14, 300 / newTotal);
-
-      const oldAnimations = oldLines.map((line, index) => {
-        const length = Number(line.dataset.lineLength);
-
-        return line.animate(
-          [
-            {
-              strokeDashoffset: 0,
-              opacity: 1
-            },
-            {
-              strokeDashoffset: length,
-              opacity: 0.08
-            }
-          ],
-          {
-            duration: TRANSITION_DURATION,
-            delay: index * oldStagger,
-            easing: "cubic-bezier(.4,0,.6,1)",
-            fill: "forwards"
-          }
-        );
+      /*
+        Keep shared geometry visually fixed:
+        old copy stays visible while new copy is hidden.
+      */
+      matches.forEach(({ newLine }) => {
+        newLine.style.opacity = "0";
       });
 
-      const newAnimations = newLines.map((line, index) => {
-        const length = Number(line.dataset.lineLength);
+      /*
+        Changed incoming paths start hidden so they
+        can be drawn naturally.
+      */
+      prepareHidden(newChanged);
 
-        return line.animate(
-          [
-            {
-              strokeDashoffset: length,
-              opacity: 0.12
-            },
-            {
-              strokeDashoffset: 0,
-              opacity: 1
-            }
-          ],
-          {
-            duration: TRANSITION_DURATION,
-            delay: 160 + index * newStagger,
-            easing: "cubic-bezier(.45,0,.2,1)",
-            fill: "forwards"
-          }
-        );
-      });
+      console.log(
+        "Shared:",
+        matches.length,
+        "Old changed:",
+        oldChanged.length,
+        "New changed:",
+        newChanged.length
+      );
 
+      /*
+        Erase outgoing changes and draw incoming
+        changes at the same time.
+      */
       await Promise.all([
-        ...oldAnimations.map(animation =>
-          animation.finished.catch(() => {})
-        ),
-        ...newAnimations.map(animation =>
-          animation.finished.catch(() => {})
-        )
+        eraseLines(oldChanged, CHANGE_DURATION),
+        drawLines(newChanged, CHANGE_DURATION)
       ]);
 
+      /*
+        Swap shared old paths to shared new paths
+        with a tiny fade, so the eye never sees
+        the common structure disappear.
+      */
+      const matchAnimations = matches.flatMap(
+        ({ oldLine, newLine }) => [
+          oldLine.animate(
+            [
+              { opacity: 1 },
+              { opacity: 0 }
+            ],
+            {
+              duration: MATCH_FADE_DURATION,
+              easing: "linear",
+              fill: "forwards"
+            }
+          ),
+          newLine.animate(
+            [
+              { opacity: 0 },
+              { opacity: 1 }
+            ],
+            {
+              duration: MATCH_FADE_DURATION,
+              easing: "linear",
+              fill: "forwards"
+            }
+          )
+        ]
+      );
+
+      await Promise.all(
+        matchAnimations.map(animation =>
+          animation.finished.catch(() => {})
+        )
+      );
+
       newLines.forEach(line => {
-        line.style.strokeDashoffset = "0";
         line.style.opacity = "1";
+        line.style.strokeDashoffset = "0";
       });
 
       oldLayer.remove();
@@ -1934,14 +2089,20 @@
         heroAnimation.innerHTML = "";
 
         let currentIndex = 0;
-        let currentLayer = createLayer(svgTexts[0], "is-current");
+        let currentLayer = createLayer(
+          svgTexts[0],
+          "is-current"
+        );
 
         heroAnimation.appendChild(currentLayer);
 
-        const firstLines = getDrawableLines(currentLayer);
+        const firstLines =
+          getDrawableLines(currentLayer);
 
         if (!firstLines.length) {
-          throw new Error("Frame 1 has no drawable paths.");
+          throw new Error(
+            "Frame 1 has no drawable paths."
+          );
         }
 
         prepareHidden(firstLines);
@@ -1952,32 +2113,44 @@
           });
         });
 
-        await drawLines(firstLines, FIRST_DRAW_DURATION);
+        /*
+          Only the very first frame is fully drawn.
+        */
+        await drawLines(
+          firstLines,
+          FIRST_DRAW_DURATION
+        );
+
         await wait(HOLD_DURATION);
 
         while (true) {
-          const nextIndex = (currentIndex + 1) % svgTexts.length;
-          const nextLayer = createLayer(
-            svgTexts[nextIndex],
-            "is-next"
-          );
+          const nextIndex =
+            (currentIndex + 1) %
+            svgTexts.length;
 
-          currentLayer = await transitionBetween(
-            currentLayer,
-            nextLayer
-          );
+          const nextLayer =
+            createLayer(
+              svgTexts[nextIndex],
+              "is-next"
+            );
 
-          currentIndex = nextIndex;
+          currentLayer =
+            await transitionSmart(
+              currentLayer,
+              nextLayer
+            );
 
-          await wait(
-            currentIndex === 0
-              ? LOOP_GAP
-              : HOLD_DURATION
-          );
+          currentIndex =
+            nextIndex;
+
+          await wait(HOLD_DURATION);
         }
 
       } catch (error) {
-        console.error("Hero continuous animation failed:", error);
+        console.error(
+          "Hero shared-line animation failed:",
+          error
+        );
       }
     }
 
