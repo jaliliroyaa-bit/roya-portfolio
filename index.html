@@ -1694,11 +1694,10 @@
 
   <script>
     /* =========================================================
-       HERO — STATIC BASE + SIMPLE FRAME SWAP
-
-       Static.svg stays visible all the time.
-       Dynamic frames simply replace each other.
-       No draw/erase, no fade, no wipe, no morph.
+       HERO — STATIC SVG + SIMPLE IMAGE FRAME SWAP
+       Static.svg always stays visible.
+       Frame-01 ... Frame-04 are plain SVG images and only
+       their src is changed. No fetch/injected SVG animation.
     ========================================================= */
 
     const heroAnimation =
@@ -1716,129 +1715,60 @@
 
     const FRAME_HOLD = 1500;
 
-    function wait(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    function startHeroAnimation() {
+      if (!heroAnimation) return;
 
-    async function fetchSVG(url) {
-      const response = await fetch(
-        url + "?v=" + Date.now(),
-        { cache: "no-store" }
-      );
+      heroAnimation.innerHTML = "";
 
-      if (!response.ok) {
-        throw new Error("SVG not found: " + url);
-      }
+      /* Fixed layer */
+      const staticImg = document.createElement("img");
+      staticImg.src = STATIC_SVG;
+      staticImg.alt = "";
+      staticImg.setAttribute("aria-hidden", "true");
 
-      return response.text();
-    }
+      Object.assign(staticImg.style, {
+        position: "absolute",
+        inset: "0",
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "contain",
+        zIndex: "1",
+        pointerEvents: "none"
+      });
 
-    function createLayer(svgText, className = "") {
-      const layer = document.createElement("div");
+      /* Changing layer */
+      const dynamicImg = document.createElement("img");
+      dynamicImg.src = heroFrames[0];
+      dynamicImg.alt = "";
+      dynamicImg.setAttribute("aria-hidden", "true");
 
-      layer.className =
-        "hero-svg-layer " + className;
+      Object.assign(dynamicImg.style, {
+        position: "absolute",
+        inset: "0",
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "contain",
+        zIndex: "2",
+        pointerEvents: "none"
+      });
 
-      layer.innerHTML = svgText;
+      heroAnimation.appendChild(staticImg);
+      heroAnimation.appendChild(dynamicImg);
 
-      const svg =
-        layer.querySelector("svg");
+      /* Preload all frames before starting the loop */
+      heroFrames.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
 
-      if (!svg) {
-        throw new Error("SVG element missing.");
-      }
+      let frameIndex = 0;
 
-      svg.removeAttribute("width");
-      svg.removeAttribute("height");
-
-      svg.style.width = "100%";
-      svg.style.height = "100%";
-      svg.style.display = "block";
-      svg.style.overflow = "visible";
-
-      return layer;
-    }
-
-    async function startHeroAnimation() {
-      if (!heroAnimation) {
-        console.error("heroLineAnimation not found");
-        return;
-      }
-
-      try {
-        const [
-          staticText,
-          ...frameTexts
-        ] = await Promise.all([
-          fetchSVG(STATIC_SVG),
-          ...heroFrames.map(url => fetchSVG(url))
-        ]);
-
-        heroAnimation.innerHTML = "";
-
-        /* STATIC — always visible */
-        const staticLayer =
-          createLayer(
-            staticText,
-            "hero-static-layer"
-          );
-
-        staticLayer.style.zIndex = "1";
-
-        heroAnimation.appendChild(
-          staticLayer
-        );
-
-        /* DYNAMIC — only one frame at a time */
-        let frameIndex = 0;
-
-        let dynamicLayer =
-          createLayer(
-            frameTexts[frameIndex],
-            "hero-dynamic-layer"
-          );
-
-        dynamicLayer.style.zIndex = "2";
-
-        heroAnimation.appendChild(
-          dynamicLayer
-        );
-
-        while (true) {
-          await wait(FRAME_HOLD);
-
-          frameIndex =
-            (frameIndex + 1) %
-            frameTexts.length;
-
-          const nextLayer =
-            createLayer(
-              frameTexts[frameIndex],
-              "hero-dynamic-layer"
-            );
-
-          nextLayer.style.zIndex = "2";
-
-          /*
-            Remove current frame BEFORE adding next frame.
-            This guarantees there is never any overlap.
-          */
-          dynamicLayer.remove();
-
-          heroAnimation.appendChild(
-            nextLayer
-          );
-
-          dynamicLayer =
-            nextLayer;
-        }
-
-      } catch (error) {
-        console.error(
-          "Hero simple frame animation failed:",
-          error
-        );
-      }
+      setInterval(() => {
+        frameIndex = (frameIndex + 1) % heroFrames.length;
+        dynamicImg.src = heroFrames[frameIndex];
+      }, FRAME_HOLD);
     }
 
     startHeroAnimation();
