@@ -376,6 +376,20 @@
       overflow: visible;
     }
 
+    .hero-line-animation .hero-svg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-line-animation .hero-svg-layer svg {
+      width: 100%;
+      height: 100%;
+    }
+
+
     .hero-line-animation path,
     .hero-line-animation line,
     .hero-line-animation polyline,
@@ -1680,12 +1694,14 @@
 
   <script>
     /* =========================================================
-       HERO — REAL LINE DRAW / ERASE
+       HERO — CONTINUOUS DRAW / TRANSFORM LOOP
+       Frame 1 draws once. Each next frame is drawn over the
+       current frame while the old lines erase at the same time.
+       This avoids the "PowerPoint slide" feeling.
     ========================================================= */
 
     const heroAnimation =
       document.getElementById("heroLineAnimation");
-
 
     const heroFrames = [
       "assets/hero-animation/Frame-01.svg",
@@ -1694,459 +1710,276 @@
       "assets/hero-animation/Frame-04.svg"
     ];
 
-
-    const DRAW_DURATION = 2600;
-    const HOLD_DURATION = 2200;
-    const ERASE_DURATION = 1500;
-    const GAP_DURATION = 180;
-
+    const FIRST_DRAW_DURATION = 2600;
+    const HOLD_DURATION = 1500;
+    const TRANSITION_DURATION = 2100;
+    const LOOP_GAP = 120;
 
     function wait(ms) {
-      return new Promise(
-        resolve => setTimeout(resolve, ms)
-      );
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-
-    async function loadHeroSVG(url) {
-
-      const response =
-        await fetch(
-          url + "?v=" + Date.now(),
-          {
-            cache: "no-store"
-          }
-        );
-
+    async function fetchSVG(url) {
+      const response = await fetch(
+        url + "?v=" + Date.now(),
+        { cache: "no-store" }
+      );
 
       if (!response.ok) {
-        throw new Error(
-          "SVG not found: " + url
-        );
+        throw new Error("SVG not found: " + url);
       }
 
+      return response.text();
+    }
 
-      const svgText =
-        await response.text();
+    function createLayer(svgText, className = "") {
+      const layer = document.createElement("div");
+      layer.className = "hero-svg-layer " + className;
+      layer.innerHTML = svgText;
 
-
-      heroAnimation.innerHTML =
-        svgText;
-
-
-      const svg =
-        heroAnimation.querySelector("svg");
-
+      const svg = layer.querySelector("svg");
 
       if (!svg) {
-        throw new Error(
-          "SVG element missing in: " + url
-        );
+        throw new Error("SVG element missing.");
       }
-
 
       svg.removeAttribute("width");
       svg.removeAttribute("height");
-
       svg.style.width = "100%";
       svg.style.height = "100%";
       svg.style.display = "block";
       svg.style.overflow = "visible";
 
-
-      return svg;
+      return layer;
     }
 
-
-    function getDrawableLines(svg) {
-
-      const elements =
-        Array.from(
-          svg.querySelectorAll(
-            "path, line, polyline, polygon, circle, ellipse, rect"
-          )
-        );
-
+    function getDrawableLines(layer) {
+      const elements = Array.from(
+        layer.querySelectorAll(
+          "path, line, polyline, polygon, circle, ellipse, rect"
+        )
+      );
 
       return elements.filter(element => {
-
-        if (
-          typeof element.getTotalLength
-          !==
-          "function"
-        ) {
+        if (typeof element.getTotalLength !== "function") {
           return false;
         }
 
-
-        let length = 0;
-
         try {
-          length =
-            element.getTotalLength();
+          const length = element.getTotalLength();
+          return Number.isFinite(length) && length > 1;
         } catch (error) {
           return false;
         }
-
-
-        return (
-          Number.isFinite(length)
-          &&
-          length > 1
-        );
-
       });
     }
 
-
-    function prepareLines(lines) {
-
+    function prepareHidden(lines) {
       lines.forEach(line => {
+        const length = line.getTotalLength();
 
-        const length =
-          line.getTotalLength();
-
-
-        line.dataset.lineLength =
-          String(length);
-
-
-        line.style.fill =
-          "none";
-
-
-        /*
-          Force visible white strokes for the
-          Illustrator exports while keeping
-          their original stroke widths.
-        */
-
-        line.style.stroke =
-          "#ffffff";
-
-
-        line.style.strokeDasharray =
-          `${length} ${length}`;
-
-
-        line.style.strokeDashoffset =
-          `${length}`;
-
-
-        line.style.strokeLinecap =
-          "round";
-
-
-        line.style.strokeLinejoin =
-          "round";
-
+        line.dataset.lineLength = String(length);
+        line.style.fill = "none";
+        line.style.stroke = "#ffffff";
+        line.style.strokeDasharray = `${length} ${length}`;
+        line.style.strokeDashoffset = `${length}`;
+        line.style.strokeLinecap = "round";
+        line.style.strokeLinejoin = "round";
       });
-
     }
 
+    function prepareVisible(lines) {
+      lines.forEach(line => {
+        const length = line.getTotalLength();
 
-    async function drawFrame(lines) {
+        line.dataset.lineLength = String(length);
+        line.style.fill = "none";
+        line.style.stroke = "#ffffff";
+        line.style.strokeDasharray = `${length} ${length}`;
+        line.style.strokeDashoffset = "0";
+        line.style.strokeLinecap = "round";
+        line.style.strokeLinejoin = "round";
+      });
+    }
 
-      const total =
-        Math.max(
-          lines.length,
-          1
-        );
+    async function drawLines(lines, duration) {
+      const total = Math.max(lines.length, 1);
+      const stagger = Math.min(22, 450 / total);
 
+      const animations = lines.map((line, index) => {
+        const length = Number(line.dataset.lineLength);
 
-      const stagger =
-        Math.min(
-          30,
-          600 / total
-        );
-
-
-      const animations =
-        lines.map(
-          (line, index) => {
-
-            const length =
-              Number(
-                line.dataset.lineLength
-              );
-
-
-            return line.animate(
-              [
-                {
-                  strokeDashoffset:
-                    length
-                },
-                {
-                  strokeDashoffset:
-                    0
-                }
-              ],
-              {
-                duration:
-                  DRAW_DURATION,
-                delay:
-                  index * stagger,
-                easing:
-                  "cubic-bezier(.45,0,.2,1)",
-                fill:
-                  "forwards"
-              }
-            );
-
+        return line.animate(
+          [
+            { strokeDashoffset: length },
+            { strokeDashoffset: 0 }
+          ],
+          {
+            duration,
+            delay: index * stagger,
+            easing: "cubic-bezier(.45,0,.2,1)",
+            fill: "forwards"
           }
         );
-
+      });
 
       await Promise.all(
-        animations.map(
-          animation =>
-            animation.finished.catch(
-              () => {}
-            )
+        animations.map(animation =>
+          animation.finished.catch(() => {})
         )
       );
 
-
       lines.forEach(line => {
-        line.style.strokeDashoffset =
-          "0";
+        line.style.strokeDashoffset = "0";
       });
-
     }
 
+    async function transitionBetween(oldLayer, newLayer) {
+      const oldLines = getDrawableLines(oldLayer);
+      const newLines = getDrawableLines(newLayer);
 
-    async function eraseFrame(lines) {
+      prepareVisible(oldLines);
+      prepareHidden(newLines);
 
-      const reversed =
-        [...lines].reverse();
+      heroAnimation.appendChild(newLayer);
 
+      await new Promise(resolve => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(resolve);
+        });
+      });
 
-      const total =
-        Math.max(
-          reversed.length,
-          1
-        );
+      const oldTotal = Math.max(oldLines.length, 1);
+      const newTotal = Math.max(newLines.length, 1);
 
+      const oldStagger = Math.min(14, 300 / oldTotal);
+      const newStagger = Math.min(14, 300 / newTotal);
 
-      const stagger =
-        Math.min(
-          20,
-          350 / total
-        );
+      const oldAnimations = oldLines.map((line, index) => {
+        const length = Number(line.dataset.lineLength);
 
-
-      const animations =
-        reversed.map(
-          (line, index) => {
-
-            const length =
-              Number(
-                line.dataset.lineLength
-              );
-
-
-            return line.animate(
-              [
-                {
-                  strokeDashoffset:
-                    0
-                },
-                {
-                  strokeDashoffset:
-                    length
-                }
-              ],
-              {
-                duration:
-                  ERASE_DURATION,
-                delay:
-                  index * stagger,
-                easing:
-                  "cubic-bezier(.4,0,.6,1)",
-                fill:
-                  "forwards"
-              }
-            );
-
+        return line.animate(
+          [
+            {
+              strokeDashoffset: 0,
+              opacity: 1
+            },
+            {
+              strokeDashoffset: length,
+              opacity: 0.08
+            }
+          ],
+          {
+            duration: TRANSITION_DURATION,
+            delay: index * oldStagger,
+            easing: "cubic-bezier(.4,0,.6,1)",
+            fill: "forwards"
           }
         );
+      });
 
+      const newAnimations = newLines.map((line, index) => {
+        const length = Number(line.dataset.lineLength);
 
-      await Promise.all(
-        animations.map(
-          animation =>
-            animation.finished.catch(
-              () => {}
-            )
+        return line.animate(
+          [
+            {
+              strokeDashoffset: length,
+              opacity: 0.12
+            },
+            {
+              strokeDashoffset: 0,
+              opacity: 1
+            }
+          ],
+          {
+            duration: TRANSITION_DURATION,
+            delay: 160 + index * newStagger,
+            easing: "cubic-bezier(.45,0,.2,1)",
+            fill: "forwards"
+          }
+        );
+      });
+
+      await Promise.all([
+        ...oldAnimations.map(animation =>
+          animation.finished.catch(() => {})
+        ),
+        ...newAnimations.map(animation =>
+          animation.finished.catch(() => {})
         )
-      );
+      ]);
 
-
-      lines.forEach(line => {
-        line.style.strokeDashoffset =
-          line.dataset.lineLength;
+      newLines.forEach(line => {
+        line.style.strokeDashoffset = "0";
+        line.style.opacity = "1";
       });
 
+      oldLayer.remove();
+
+      return newLayer;
     }
-
-
-    async function runOneFrame(url, frameNumber) {
-
-      try {
-
-        const svg =
-          await loadHeroSVG(
-            url
-          );
-
-
-        const lines =
-          getDrawableLines(
-            svg
-          );
-
-
-        console.log(
-          `Frame ${frameNumber}:`,
-          lines.length,
-          "drawable lines"
-        );
-
-
-        /*
-          If a frame contains no usable
-          paths, do NOT stop the loop.
-          Show it briefly and continue.
-        */
-
-        if (
-          lines.length === 0
-        ) {
-
-          console.warn(
-            "No drawable lines found in:",
-            url
-          );
-
-
-          await wait(
-            1000
-          );
-
-
-          heroAnimation.innerHTML =
-            "";
-
-
-          return;
-        }
-
-
-        prepareLines(
-          lines
-        );
-
-
-        await new Promise(
-          resolve => {
-
-            requestAnimationFrame(
-              () => {
-
-                requestAnimationFrame(
-                  resolve
-                );
-
-              }
-            );
-
-          }
-        );
-
-
-        await drawFrame(
-          lines
-        );
-
-
-        await wait(
-          HOLD_DURATION
-        );
-
-
-        await eraseFrame(
-          lines
-        );
-
-
-        await wait(
-          GAP_DURATION
-        );
-
-
-        heroAnimation.innerHTML =
-          "";
-
-      }
-
-      catch (error) {
-
-        console.error(
-          `Frame ${frameNumber} failed:`,
-          error
-        );
-
-
-        heroAnimation.innerHTML =
-          "";
-
-
-        await wait(
-          500
-        );
-
-      }
-
-    }
-
 
     async function startHeroDrawing() {
-
       if (!heroAnimation) {
-
-        console.error(
-          "heroLineAnimation not found"
-        );
-
+        console.error("heroLineAnimation not found");
         return;
       }
 
-
-      let frameIndex = 0;
-
-
-      while (true) {
-
-        await runOneFrame(
-          heroFrames[
-            frameIndex
-          ],
-          frameIndex + 1
+      try {
+        const svgTexts = await Promise.all(
+          heroFrames.map(url => fetchSVG(url))
         );
 
+        heroAnimation.innerHTML = "";
 
-        frameIndex =
-          (
-            frameIndex + 1
-          )
-          %
-          heroFrames.length;
+        let currentIndex = 0;
+        let currentLayer = createLayer(svgTexts[0], "is-current");
 
+        heroAnimation.appendChild(currentLayer);
+
+        const firstLines = getDrawableLines(currentLayer);
+
+        if (!firstLines.length) {
+          throw new Error("Frame 1 has no drawable paths.");
+        }
+
+        prepareHidden(firstLines);
+
+        await new Promise(resolve => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(resolve);
+          });
+        });
+
+        await drawLines(firstLines, FIRST_DRAW_DURATION);
+        await wait(HOLD_DURATION);
+
+        while (true) {
+          const nextIndex = (currentIndex + 1) % svgTexts.length;
+          const nextLayer = createLayer(
+            svgTexts[nextIndex],
+            "is-next"
+          );
+
+          currentLayer = await transitionBetween(
+            currentLayer,
+            nextLayer
+          );
+
+          currentIndex = nextIndex;
+
+          await wait(
+            currentIndex === 0
+              ? LOOP_GAP
+              : HOLD_DURATION
+          );
+        }
+
+      } catch (error) {
+        console.error("Hero continuous animation failed:", error);
       }
-
     }
-
 
     startHeroDrawing();
 
