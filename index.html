@@ -49,21 +49,11 @@
       color: var(--body-text);
 
       background:
-        radial-gradient(
-          circle at top left,
-          rgba(127,178,201,.58) 0%,
-          transparent 42%
-        ),
-        radial-gradient(
-          circle at bottom right,
-          rgba(201,196,188,.72) 0%,
-          transparent 38%
-        ),
         linear-gradient(
           120deg,
-          #DDEEF5 0%,
-          #E8F1F3 46%,
-          #DDD8D1 100%
+          #DDECF2 0%,
+          #E7EEF0 48%,
+          #DEDAD4 100%
         );
 
       font-family:
@@ -104,7 +94,7 @@
       margin: 3vh 0 2vh;
 
       border-radius: 24px;
-      overflow: visible;
+      overflow: hidden;
 
       box-shadow:
         0 20px 60px rgba(0,0,0,0.1);
@@ -113,10 +103,18 @@
         linear-gradient(
           135deg,
           #7FB2C9 0%,
-          #8EB9CB 32%,
-          #A9A8A2 72%,
-          #C9C4BC 100%
+          #82AFC2 34%,
+          #969E9D 68%,
+          #AAA49C 100%
         );
+
+      border:
+        1px solid rgba(255,255,255,.20);
+
+      backdrop-filter:
+        blur(22px);
+      -webkit-backdrop-filter:
+        blur(22px);
 
       --text: var(--text-main);
       --muted: var(--text-soft);
@@ -146,7 +144,7 @@
     .ink-blob {
       position: absolute;
       border-radius: 50%;
-      opacity: 0.58;
+      opacity: 0.38;
       filter: blur(80px);
       will-change: transform;
       animation: mix-ink 8s infinite alternate ease-in-out;
@@ -155,7 +153,7 @@
     .color-1 {
       width: 55vw;
       height: 55vw;
-      background-color: #6A9FB7;
+      background-color: #7FB2C9;
       top: -15%;
       left: -10%;
     }
@@ -163,7 +161,7 @@
     .color-2 {
       width: 60vw;
       height: 60vw;
-      background-color: #C9C4BC;
+      background-color: #AFA9A1;
       top: 30%;
       right: -10%;
       animation-delay: -3s;
@@ -172,7 +170,7 @@
     .color-3 {
       width: 50vw;
       height: 50vw;
-      background-color: #A9CEDD;
+      background-color: #91BED1;
       bottom: -10%;
       left: 20%;
       animation-delay: -6s;
@@ -181,7 +179,7 @@
     .color-4 {
       width: 50vw;
       height: 50vw;
-      background-color: #A9A39B;
+      background-color: #9D9892;
       top: 10%;
       left: 30%;
       animation-delay: -9s;
@@ -346,10 +344,11 @@
         hero animation cannot show through the menu at all.
         The border/shadow keep the soft glass-card feeling.
       */
-      background: var(--blue-main);
+      background:
+        rgba(255,255,255,.16);
 
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
 
       border: 1px solid rgba(255,255,255,.20);
       border-radius: 13px;
@@ -990,41 +989,16 @@
       font-weight: 500;
     }
 
-    /*
-      Readability veil for the About text area.
-      It does not change the overall palette; it only prevents
-      white text from disappearing on the light beige area.
-    */
     .about-content {
       position: relative;
       z-index: 1;
-      isolation: isolate;
-    }
-
-    .about-content::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-
-      inset: -28px -34px;
-
-      border-radius: 28px;
-
-      background:
-        linear-gradient(
-          100deg,
-          rgba(74,112,128,.18),
-          rgba(89,105,108,.14)
-        );
-
-      pointer-events: none;
     }
 
     .about-copy {
       max-width: 600px;
 
       color:
-        rgba(255,255,255,.96);
+        rgba(255,255,255,.92);
 
       font-size: 16px;
 
@@ -1045,11 +1019,17 @@
         999px;
 
       background:
-        rgba(255,255,255,.14);
+        rgba(255,255,255,.08);
 
       border:
         1px solid
-        rgba(255,255,255,.34);
+        rgba(255,255,255,.24);
+
+      backdrop-filter:
+        blur(14px);
+
+      -webkit-backdrop-filter:
+        blur(14px);
 
       color: #fff;
 
@@ -1067,6 +1047,35 @@
 
       transform:
         translateY(-2px);
+    }
+
+    /* =========================
+       GLOBAL GLASS UI
+       Every interface element lives inside the main glass page.
+    ========================= */
+
+    .button,
+    .social-dock,
+    .social-item,
+    .dropdown-menu {
+      background-color: transparent;
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .button,
+    .social-dock,
+    .dropdown-menu {
+      background:
+        rgba(255,255,255,.08);
+      backdrop-filter:
+        blur(16px);
+      -webkit-backdrop-filter:
+        blur(16px);
+    }
+
+    .social-item {
+      background:
+        rgba(255,255,255,.05);
     }
 
     /* =========================
@@ -1107,7 +1116,7 @@
       gap: 12px;
 
       background:
-        rgba(255,255,255,.15);
+        rgba(255,255,255,.08);
 
       padding: 10px;
 
