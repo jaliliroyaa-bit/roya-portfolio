@@ -1,725 +1,840 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Archive — Roya Jalili</title>
 
-  <title>All Projects - Roya Jalili</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap"
     rel="stylesheet"
   >
 
   <style>
+    :root {
+      --blue-main: #7FB2C9;
+      --beige-main: #C9C4BC;
+
+      --text-main: #FFFFFF;
+      --text-soft: rgba(255,255,255,.82);
+      --text-muted: rgba(255,255,255,.64);
+
+      --glass-bg: rgba(255,255,255,.075);
+      --glass-bg-hover: rgba(255,255,255,.12);
+      --glass-bg-active: rgba(255,255,255,.20);
+      --glass-border: rgba(255,255,255,.22);
+
+      --radius-main: 28px;
+      --radius-card: 18px;
+
+      --max: 1240px;
+    }
 
     * {
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-
-      background:
-        linear-gradient(
-          120deg,
-          #EAF3F7 0%,
-          #D9EAF2 45%,
-          #C9C4BC 100%
-        );
-
-      font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+    html {
+      scroll-behavior: smooth;
     }
 
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--text-main);
+
+      background:
+        radial-gradient(
+          circle at 5% 5%,
+          rgba(127,178,201,.55),
+          transparent 38%
+        ),
+        radial-gradient(
+          circle at 95% 95%,
+          rgba(201,196,188,.70),
+          transparent 40%
+        ),
+        linear-gradient(
+          120deg,
+          #dcecf3 0%,
+          #e6eef0 48%,
+          #ddd9d2 100%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
 
     /* =========================
-       MAIN
+       OUTER PAGE
     ========================= */
 
-    main {
-      max-width: 1280px;
+    .page-shell {
+      width: min(var(--max), calc(100% - 96px));
+      margin: 0 auto;
+      padding: 22px 0 64px;
+    }
 
-      margin: 3vh auto;
+    /* =========================
+       MAIN GLASS PAGE
+    ========================= */
 
-      padding: 40px 96px 80px;
+    .page-glass {
+      position: relative;
+      overflow: hidden;
 
-      border-radius: 24px;
+      width: 100%;
+      min-height: calc(100vh - 44px);
 
-      box-shadow:
-        0 20px 60px rgba(0,0,0,0.1);
+      padding: 36px 38px 34px;
+
+      border-radius: var(--radius-main);
 
       background:
         linear-gradient(
           135deg,
-          #7A9EAF 0%,
-          #9EB8C5 30%,
-          #8C8176 75%,
-          #D4CEC7 100%
+          rgba(127,178,201,.78) 0%,
+          rgba(142,179,195,.73) 35%,
+          rgba(171,168,161,.74) 74%,
+          rgba(201,196,188,.78) 100%
         );
 
-      color: #fff;
+      border: 1px solid rgba(255,255,255,.18);
+
+      box-shadow:
+        0 18px 48px rgba(42,60,69,.11);
     }
 
+    .page-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,0)
+        );
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+    }
 
     /* =========================
        HEADER
     ========================= */
 
-    .archive-header {
+    .site-header {
       display: flex;
-
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
 
-      padding-bottom: 24px;
-      margin-bottom: 40px;
+      padding: 2px 2px 30px;
 
       border-bottom:
-        1px solid rgba(255,255,255,0.15);
+        1px solid rgba(255,255,255,.17);
     }
 
     .logo {
-      font-family: 'Caveat', cursive;
-
-      font-size: 32px;
-      font-weight: 700;
+      font-family: "Caveat", cursive;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: .01em;
     }
 
-    .back-link {
-      color: #fff;
-
-      text-decoration: none;
-
-      font-size: 14px;
-
-      opacity: .85;
-
-      transition: opacity .3s ease;
+    .home-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.78);
     }
-
-    .back-link:hover {
-      opacity: 1;
-    }
-
 
     /* =========================
        TITLE
     ========================= */
 
-    h1 {
-      margin: 0 0 24px;
-
-      font-size: 34px;
-      font-weight: 600;
-
-      letter-spacing: -0.03em;
+    .archive-head {
+      padding: 48px 0 24px;
     }
 
+    .archive-head h1 {
+      margin: 0;
+
+      font-size: clamp(34px, 4vw, 46px);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -.035em;
+    }
 
     /* =========================
-       FILTERS
+       FILTERS — COLORLESS GLASS
     ========================= */
 
-    .filter-bar {
+    .project-filters {
       display: flex;
-
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
 
-      justify-content: center;
-      flex-wrap: wrap;
-
-      margin-bottom: 50px;
+      margin: 0 auto 48px;
     }
 
     .filter-btn {
-      background:
-        rgba(255,255,255,0.1);
+      appearance: none;
 
-      border:
-        1px solid rgba(255,255,255,0.2);
+      padding: 9px 17px;
 
-      color: #fff;
-
-      padding: 8px 18px;
-
+      border: 1px solid var(--glass-border);
       border-radius: 999px;
+
+      background: var(--glass-bg);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      color: rgba(255,255,255,.92);
+
+      font-size: 12.5px;
+      line-height: 1;
+      font-weight: 500;
 
       cursor: pointer;
 
       transition:
-        background .3s ease,
-        transform .3s ease;
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease;
     }
 
     .filter-btn:hover {
-      background:
-        rgba(255,255,255,0.2);
+      background: var(--glass-bg-hover);
+      border-color: rgba(255,255,255,.32);
+      transform: translateY(-1px);
     }
 
     .filter-btn.active {
-      background:
-        rgba(255,255,255,0.3);
+      background: var(--glass-bg-active);
+      border-color: rgba(255,255,255,.42);
     }
-
 
     /* =========================
        PROJECT GRID
     ========================= */
 
-    .grid {
+    .project-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(auto-fill, minmax(280px, 1fr));
-
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 30px;
     }
 
-
-    /* =========================
-       PROJECT CARD
-    ========================= */
-
-    .card {
+    .project-card {
       display: block;
 
+      padding: 11px;
+
+      border-radius: var(--radius-card);
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
       background:
-        rgba(255,255,255,0.05);
+        rgba(255,255,255,.055);
 
-      padding: 12px;
-
-      border-radius: 16px;
-
-      color: #fff;
-
-      text-decoration: none;
-
-      overflow: hidden;
+      backdrop-filter: blur(13px);
+      -webkit-backdrop-filter: blur(13px);
 
       transition:
-        transform .35s ease,
-        background .35s ease,
-        box-shadow .35s ease;
+        transform .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
+    .project-card:hover {
+      transform: translateY(-4px);
 
       background:
-        rgba(255,255,255,0.15);
+        rgba(255,255,255,.095);
+
+      border-color:
+        rgba(255,255,255,.23);
 
       box-shadow:
-        0 18px 35px rgba(0,0,0,.12);
+        0 12px 28px rgba(38,52,59,.09);
     }
 
+    .project-card[hidden] {
+      display: none;
+    }
 
-    /* =========================
-       PROJECT IMAGE
-    ========================= */
-
-    .card-image {
+    .project-media {
       overflow: hidden;
 
-      border-radius: 10px;
+      width: 100%;
+      aspect-ratio: 1.46 / 1;
 
-      aspect-ratio: 16 / 11;
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.10);
     }
 
-    .card img {
+    .project-media img {
+      display: block;
+
       width: 100%;
       height: 100%;
 
       object-fit: cover;
 
-      display: block;
-
       transition:
-        transform .6s cubic-bezier(.2,.8,.2,1);
+        transform .35s ease;
     }
 
-    .card:hover img {
-      transform: scale(1.04);
+    .project-card:hover .project-media img {
+      transform: scale(1.025);
     }
 
-
-    /* =========================
-       PROJECT TEXT
-    ========================= */
-
-    .card h3 {
-      margin: 14px 2px 5px;
-
-      font-size: 17px;
-      font-weight: 600;
-
-      letter-spacing: -0.01em;
+    .project-body {
+      padding: 14px 2px 4px;
     }
 
-    .card p {
-      margin: 0 2px 4px;
+    .project-body h2 {
+      margin: 0 0 6px;
 
-      font-size: 11px;
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
 
+    .project-body p {
+      margin: 0;
+
+      font-size: 10.5px;
+      line-height: 1.4;
+      font-weight: 500;
+
+      letter-spacing: .065em;
       text-transform: uppercase;
 
-      letter-spacing: .08em;
+      color: var(--text-muted);
+    }
+
+    /* neutral placeholder tiles */
+    .placeholder {
+      display: grid;
+      place-items: center;
+
+      width: 100%;
+      height: 100%;
+
+      color: #121212;
+
+      background:
+        radial-gradient(
+          circle at 82% 20%,
+          #cecdc8 0 12%,
+          transparent 12.5%
+        ),
+        linear-gradient(
+          135deg,
+          #ecebe7,
+          #f7f6f2
+        );
+    }
+
+    .placeholder-box {
+      width: 56%;
+      padding: 26px 16px;
+
+      border-radius: 8px;
+
+      background:
+        rgba(255,255,255,.72);
+    }
+
+    .placeholder-box strong {
+      display: block;
+      margin-bottom: 8px;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .placeholder-box span {
+      font-size: 8px;
+      color: rgba(0,0,0,.55);
+    }
+
+    /* =========================
+       BACK — BOTTOM LEFT INSIDE GLASS
+    ========================= */
+
+    .page-footer {
+      margin-top: 52px;
+      padding-top: 22px;
+
+      border-top:
+        1px solid rgba(255,255,255,.14);
+
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 10px 14px;
+
+      border:
+        1px solid rgba(255,255,255,.24);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.075);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
 
       color:
-        rgba(255,255,255,0.65);
+        rgba(255,255,255,.92);
+
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
     }
 
+    .page-back:hover {
+      background:
+        rgba(255,255,255,.13);
 
-    /* =========================
-       FILTER ANIMATION
-    ========================= */
-
-    .card.hidden {
-      display: none;
+      transform:
+        translateX(-2px);
     }
 
-
     /* =========================
-       MOBILE
+       RESPONSIVE
     ========================= */
+
+    @media (max-width: 980px) {
+      .project-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+    }
 
     @media (max-width: 760px) {
-
-      main {
-        margin: 16px;
-
-        padding:
-          28px 20px 50px;
+      .page-shell {
+        width: calc(100% - 28px);
+        padding: 14px 0 48px;
       }
 
-      .archive-header {
-        margin-bottom: 32px;
+      .page-glass {
+        padding: 25px 18px 26px;
+        border-radius: 22px;
+      }
+
+      .site-header {
+        padding-bottom: 22px;
       }
 
       .logo {
-        font-size: 28px;
+        font-size: 26px;
       }
 
-      h1 {
-        font-size: 28px;
+      .archive-head {
+        padding-top: 34px;
       }
 
-      .filter-bar {
+      .archive-head h1 {
+        font-size: 34px;
+      }
+
+      .project-filters {
         justify-content: flex-start;
-
-        margin-bottom: 36px;
+        margin-bottom: 34px;
       }
 
-      .grid {
-        grid-template-columns: 1fr;
+      .filter-btn {
+        padding: 8px 13px;
+        font-size: 11.5px;
+      }
 
+      .project-grid {
+        grid-template-columns: 1fr;
         gap: 22px;
       }
-    }
 
+      .page-footer {
+        margin-top: 38px;
+      }
+    }
   </style>
 </head>
 
-
 <body>
 
-<main>
+  <div class="page-shell">
+
+    <main class="page-glass">
+
+      <div class="page-content">
+
+        <header class="site-header">
+          <a class="logo" href="index.html">
+            Roya Jalili
+          </a>
+        </header>
 
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+        <section class="archive-head">
+          <h1>Project Archive</h1>
+        </section>
 
-  <div class="archive-header">
 
-    <div class="logo">
-      Roya Jalili
-    </div>
+        <div class="project-filters" aria-label="Project filters">
 
-    <a
-      href="index.html"
-      class="back-link"
-    >
-      ← Back to Home
-    </a>
+          <button
+            class="filter-btn active"
+            type="button"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="brand"
+          >
+            Brand &amp; Identity
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="visual"
+          >
+            Visual Arts
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="editorial"
+          >
+            Editorial
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="digital"
+          >
+            Digital &amp; Social
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="photo"
+          >
+            Photography
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="concept"
+          >
+            Concepts
+          </button>
+
+        </div>
+
+
+        <section class="project-grid">
+
+          <!-- CAR.IR -->
+          <a
+            href="car-ir.html"
+            class="project-card"
+            data-category="brand digital"
+          >
+            <div class="project-media">
+              <img
+                src="assets/car-cover.jpg"
+                alt="CAR.IR"
+              >
+            </div>
+
+            <div class="project-body">
+              <h2>CAR.IR</h2>
+
+              <p>
+                Brand Identity &amp; Digital Experience
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Topspin -->
+          <a
+            href="topspin.html"
+            class="project-card"
+            data-category="brand"
+          >
+            <div class="project-media">
+              <img
+                src="assets/TOPSPIN-cover.jpg"
+                alt="Topspin"
+              >
+            </div>
+
+            <div class="project-body">
+              <h2>Topspin</h2>
+
+              <p>
+                Brand &amp; Identity
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Chavosh -->
+          <a
+            href="chavosh.html"
+            class="project-card"
+            data-category="brand"
+          >
+            <div class="project-media">
+              <img
+                src="assets/chavosh-cover.jpg"
+                alt="Chavosh"
+              >
+            </div>
+
+            <div class="project-body">
+              <h2>Chavosh</h2>
+
+              <p>
+                Brand &amp; Identity
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Visual Arts -->
+          <a
+            href="#"
+            class="project-card"
+            data-category="visual"
+          >
+            <div class="project-media">
+              <div class="placeholder">
+                <div class="placeholder-box">
+                  <strong>PROJECT 01</strong>
+                  <span>Automotive Visuals</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h2>Visual Arts</h2>
+
+              <p>
+                Art Direction &amp; Visual Exploration
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Editorial -->
+          <a
+            href="#"
+            class="project-card"
+            data-category="editorial"
+          >
+            <div class="project-media">
+              <div class="placeholder">
+                <div class="placeholder-box">
+                  <strong>PROJECT 02</strong>
+                  <span>Advertising Imagery</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h2>Editorial Design</h2>
+
+              <p>
+                Editorial &amp; Layout
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Digital -->
+          <a
+            href="#"
+            class="project-card"
+            data-category="digital concept"
+          >
+            <div class="project-media">
+              <div class="placeholder">
+                <div class="placeholder-box">
+                  <strong>PROJECT 03</strong>
+                  <span>AI Concepts</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h2>Digital &amp; Social</h2>
+
+              <p>
+                Digital Content &amp; Concepts
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Photography -->
+          <a
+            href="#"
+            class="project-card"
+            data-category="photo"
+          >
+            <div class="project-media">
+              <div class="placeholder">
+                <div class="placeholder-box">
+                  <strong>PROJECT 04</strong>
+                  <span>Photography &amp; Grading</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h2>Photography &amp; Grading</h2>
+
+              <p>
+                Photography &amp; Color Grading
+              </p>
+            </div>
+          </a>
+
+
+          <!-- Concepts -->
+          <a
+            href="#"
+            class="project-card"
+            data-category="concept"
+          >
+            <div class="project-media">
+              <div class="placeholder">
+                <div class="placeholder-box">
+                  <strong>PROJECT 05</strong>
+                  <span>Concepts &amp; Sketches</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h2>Concepts &amp; Sketches</h2>
+
+              <p>
+                Ideas &amp; Explorations
+              </p>
+            </div>
+          </a>
+
+        </section>
+
+
+        <footer class="page-footer">
+          <a
+            class="page-back"
+            href="index.html"
+          >
+            ← Back to Home
+          </a>
+        </footer>
+
+      </div>
+
+    </main>
 
   </div>
 
 
-  <!-- =========================
-       PROJECT ARCHIVE
-  ========================== -->
+  <script>
+    const filterButtons =
+      document.querySelectorAll(".filter-btn");
 
-  <h1>Project Archive</h1>
+    const projectCards =
+      document.querySelectorAll(".project-card");
 
 
-  <!-- FILTERS -->
+    filterButtons.forEach(button => {
 
-  <div class="filter-bar">
+      button.addEventListener("click", () => {
 
-    <button
-      class="filter-btn active"
-      data-filter="all"
-    >
-      All
-    </button>
+        const filter =
+          button.dataset.filter;
 
-    <button
-      class="filter-btn"
-      data-filter="brand"
-    >
-      Brand & Identity
-    </button>
 
-    <button
-      class="filter-btn"
-      data-filter="visual"
-    >
-      Visual Arts
-    </button>
+        filterButtons.forEach(item => {
+          item.classList.remove("active");
+        });
 
-    <button
-      class="filter-btn"
-      data-filter="editorial"
-    >
-      Editorial
-    </button>
 
-    <button
-      class="filter-btn"
-      data-filter="digital"
-    >
-      Digital & Social
-    </button>
+        button.classList.add("active");
 
-    <button
-      class="filter-btn"
-      data-filter="photography"
-    >
-      Photography
-    </button>
 
-    <button
-      class="filter-btn"
-      data-filter="concepts"
-    >
-      Concepts
-    </button>
+        projectCards.forEach(card => {
 
-  </div>
+          const categories =
+            (
+              card.dataset.category || ""
+            )
+            .split(" ");
 
 
+          const show =
+            filter === "all" ||
+            categories.includes(filter);
 
-  <!-- =========================
-       PROJECT CARDS
-  ========================== -->
 
-  <div
-    class="grid"
-    id="project-grid"
-  >
+          card.hidden =
+            !show;
 
-
-    <!-- =====================
-         BRAND & IDENTITY
-    ====================== -->
-
-
-    <!-- CAR.IR -->
-
-    <a
-      href="car-ir.html"
-      class="card"
-      data-category="brand digital"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/car-cover.jpg"
-          alt="CAR.IR Visual Identity"
-        >
-
-      </div>
-
-      <h3>CAR.IR</h3>
-
-      <p>
-        Brand Identity & Digital Experience
-      </p>
-
-    </a>
-
-
-
-    <!-- TOPSPIN -->
-
-    <a
-      href="topspin.html"
-      class="card"
-      data-category="brand"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/TOPSPIN-cover.jpg"
-          alt="Topspin"
-        >
-
-      </div>
-
-      <h3>Topspin</h3>
-
-      <p>
-        Brand & Identity
-      </p>
-
-    </a>
-
-
-
-    <!-- CHAVOSH -->
-
-    <a
-      href="chavosh.html"
-      class="card"
-      data-category="brand"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/chavosh-cover.jpg"
-          alt="Chavosh"
-        >
-
-      </div>
-
-      <h3>Chavosh</h3>
-
-      <p>
-        Brand & Identity
-      </p>
-
-    </a>
-
-
-
-    <!-- =====================
-         VISUAL ARTS
-    ====================== -->
-
-    <div
-      class="card"
-      data-category="visual"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/project-01.svg"
-          alt="Visual Arts Project"
-        >
-
-      </div>
-
-      <h3>Visual Arts</h3>
-
-      <p>
-        Art Direction
-      </p>
-
-    </div>
-
-
-
-    <!-- =====================
-         EDITORIAL
-    ====================== -->
-
-    <div
-      class="card"
-      data-category="editorial"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/project-02.svg"
-          alt="Editorial Project"
-        >
-
-      </div>
-
-      <h3>Editorial Design</h3>
-
-      <p>
-        Editorial
-      </p>
-
-    </div>
-
-
-
-    <!-- =====================
-         DIGITAL & SOCIAL
-    ====================== -->
-
-    <div
-      class="card"
-      data-category="digital"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/project-03.svg"
-          alt="Digital Project"
-        >
-
-      </div>
-
-      <h3>Digital & Social</h3>
-
-      <p>
-        Digital Design
-      </p>
-
-    </div>
-
-
-
-    <!-- =====================
-         PHOTOGRAPHY
-    ====================== -->
-
-    <div
-      class="card"
-      data-category="photography"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/project-01.svg"
-          alt="Photography Project"
-        >
-
-      </div>
-
-      <h3>Photography</h3>
-
-      <p>
-        Photography & Color Grading
-      </p>
-
-    </div>
-
-
-
-    <!-- =====================
-         CONCEPTS
-    ====================== -->
-
-    <div
-      class="card"
-      data-category="concepts"
-    >
-
-      <div class="card-image">
-
-        <img
-          src="assets/project-02.svg"
-          alt="Concept Project"
-        >
-
-      </div>
-
-      <h3>Concepts & Experiments</h3>
-
-      <p>
-        Concepts
-      </p>
-
-    </div>
-
-
-  </div>
-
-</main>
-
-
-
-<script>
-
-  /* =========================
-     PROJECT FILTER
-  ========================= */
-
-  const filterButtons =
-    document.querySelectorAll('.filter-btn');
-
-  const projectCards =
-    document.querySelectorAll('.card');
-
-
-  filterButtons.forEach(button => {
-
-    button.addEventListener('click', () => {
-
-
-      /* Active button */
-
-      filterButtons.forEach(btn =>
-        btn.classList.remove('active')
-      );
-
-      button.classList.add('active');
-
-
-      /* Selected category */
-
-      const selected =
-        button.dataset.filter;
-
-
-      /* Filter cards */
-
-      projectCards.forEach(card => {
-
-        const categories =
-          card.dataset.category.split(' ');
-
-
-        if (
-          selected === 'all' ||
-          categories.includes(selected)
-        ) {
-
-          card.classList.remove('hidden');
-
-        }
-
-        else {
-
-          card.classList.add('hidden');
-
-        }
+        });
 
       });
 
     });
-
-  });
-
-</script>
-
+  </script>
 
 </body>
 </html>
