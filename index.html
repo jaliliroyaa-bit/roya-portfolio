@@ -16,6 +16,25 @@
     }
 
     :root {
+      /* =========================
+         SITE COLOR SYSTEM
+         Main blue supplied by Roya
+      ========================= */
+      --blue-main: #7FB2C9;
+      --blue-deep: #6A9FB7;
+      --blue-soft: #A9CEDD;
+
+      --beige-main: #C9C4BC;
+      --beige-soft: #DDD8D1;
+
+      --white: #FFFFFF;
+      --text-main: #FFFFFF;
+      --text-soft: rgba(255,255,255,.90);
+      --text-muted: rgba(255,255,255,.76);
+
+      --glass-border: rgba(255,255,255,.20);
+      --glass-soft: rgba(255,255,255,.12);
+
       --body-text: #2F3133;
       --body-muted: #6B7377;
       --max: 1280px;
@@ -30,9 +49,22 @@
       color: var(--body-text);
 
       background:
-        radial-gradient(circle at top left, #9CC7D8 0%, transparent 40%),
-        radial-gradient(circle at bottom right, #C9C4BC 0%, transparent 35%),
-        linear-gradient(120deg, #EAF3F7 0%, #D9EAF2 45%, #C9C4BC 100%);
+        radial-gradient(
+          circle at top left,
+          rgba(127,178,201,.58) 0%,
+          transparent 42%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(201,196,188,.72) 0%,
+          transparent 38%
+        ),
+        linear-gradient(
+          120deg,
+          #DDEEF5 0%,
+          #E8F1F3 46%,
+          #DDD8D1 100%
+        );
 
       font-family:
         system-ui,
@@ -80,15 +112,15 @@
       background:
         linear-gradient(
           135deg,
-          #7A9EAF 0%,
-          #9EB8C5 30%,
-          #8C8176 75%,
-          #D4CEC7 100%
+          #7FB2C9 0%,
+          #8EB9CB 32%,
+          #A9A8A2 72%,
+          #C9C4BC 100%
         );
 
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.75);
-      --line: rgba(255,255,255,.15);
+      --text: var(--text-main);
+      --muted: var(--text-soft);
+      --line: rgba(255,255,255,.18);
 
       color: var(--text);
     }
@@ -114,7 +146,7 @@
     .ink-blob {
       position: absolute;
       border-radius: 50%;
-      opacity: 0.72;
+      opacity: 0.58;
       filter: blur(80px);
       will-change: transform;
       animation: mix-ink 8s infinite alternate ease-in-out;
@@ -123,7 +155,7 @@
     .color-1 {
       width: 55vw;
       height: 55vw;
-      background-color: #5B8FA8;
+      background-color: #6A9FB7;
       top: -15%;
       left: -10%;
     }
@@ -131,7 +163,7 @@
     .color-2 {
       width: 60vw;
       height: 60vw;
-      background-color: #EFECE6;
+      background-color: #C9C4BC;
       top: 30%;
       right: -10%;
       animation-delay: -3s;
@@ -140,7 +172,7 @@
     .color-3 {
       width: 50vw;
       height: 50vw;
-      background-color: #FFFFFF;
+      background-color: #A9CEDD;
       bottom: -10%;
       left: 20%;
       animation-delay: -6s;
@@ -149,7 +181,7 @@
     .color-4 {
       width: 50vw;
       height: 50vw;
-      background-color: #A39B93;
+      background-color: #A9A39B;
       top: 10%;
       left: 30%;
       animation-delay: -9s;
@@ -254,7 +286,7 @@
 
     .site-header nav a {
       color:
-        rgba(255,255,255,.75);
+        rgba(255,255,255,.90);
 
       font-size: 14px;
       font-weight: 500;
@@ -314,7 +346,7 @@
         hero animation cannot show through the menu at all.
         The border/shadow keep the soft glass-card feeling.
       */
-      background: rgb(104, 137, 151);
+      background: var(--blue-main);
 
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
@@ -958,11 +990,41 @@
       font-weight: 500;
     }
 
+    /*
+      Readability veil for the About text area.
+      It does not change the overall palette; it only prevents
+      white text from disappearing on the light beige area.
+    */
+    .about-content {
+      position: relative;
+      z-index: 1;
+      isolation: isolate;
+    }
+
+    .about-content::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+
+      inset: -28px -34px;
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          100deg,
+          rgba(74,112,128,.18),
+          rgba(89,105,108,.14)
+        );
+
+      pointer-events: none;
+    }
+
     .about-copy {
       max-width: 600px;
 
       color:
-        rgba(255,255,255,.85);
+        rgba(255,255,255,.96);
 
       font-size: 16px;
 
@@ -983,11 +1045,11 @@
         999px;
 
       background:
-        rgba(255,255,255,.16);
+        rgba(255,255,255,.14);
 
       border:
         1px solid
-        rgba(255,255,255,.24);
+        rgba(255,255,255,.34);
 
       color: #fff;
 
