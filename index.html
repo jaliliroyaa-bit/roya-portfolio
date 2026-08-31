@@ -161,6 +161,21 @@
     #about,
     #contact {
       position: relative;
+    }
+
+    /*
+      STACKING FIX:
+      Keep the entire header/dropdown above the hero animation.
+    */
+    .site-header {
+      z-index: 1000;
+      isolation: isolate;
+    }
+
+    .hero,
+    #work,
+    #about,
+    #contact {
       z-index: 2;
     }
 
@@ -229,6 +244,9 @@
     }
 
     .site-header nav {
+      position: relative;
+      z-index: 1001;
+
       display: flex;
       gap: 32px;
       align-items: center;
@@ -383,6 +401,7 @@
 
     .hero-line-animation {
       position: relative;
+      z-index: 1;
 
       width: 340px;
       max-width: 100%;
