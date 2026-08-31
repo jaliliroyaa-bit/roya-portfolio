@@ -291,12 +291,17 @@
         More opaque than before so the hero illustration
         does not visually show through the dropdown.
       */
-      background: rgba(104, 137, 151, .985);
+      /*
+        Fully opaque base:
+        hero animation cannot show through the menu at all.
+        The border/shadow keep the soft glass-card feeling.
+      */
+      background: rgb(104, 137, 151);
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
 
-      border: 1px solid rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.20);
       border-radius: 13px;
 
       box-shadow:
@@ -311,10 +316,13 @@
         visibility .15s ease;
 
       z-index: 99999;
+      isolation: isolate;
+      overflow: hidden;
     }
 
     .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu {
+    .dropdown:focus-within .dropdown-menu,
+    .dropdown.is-open .dropdown-menu {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
@@ -1909,6 +1917,79 @@
     }
 
     startHeroAnimation();
+
+
+    /* =========================================================
+       PROJECTS DROPDOWN — ROBUST HOVER
+       Keeps the menu open while the pointer is inside the
+       trigger OR the dropdown panel, with a small close delay.
+    ========================================================= */
+
+    const projectsDropdown =
+      document.querySelector(".dropdown");
+
+    const projectsDropdownMenu =
+      projectsDropdown
+        ? projectsDropdown.querySelector(".dropdown-menu")
+        : null;
+
+    if (
+      projectsDropdown &&
+      projectsDropdownMenu
+    ) {
+      let closeTimer = null;
+
+      const openDropdown = () => {
+        clearTimeout(closeTimer);
+        projectsDropdown.classList.add("is-open");
+      };
+
+      const scheduleCloseDropdown = () => {
+        clearTimeout(closeTimer);
+
+        closeTimer = setTimeout(() => {
+          projectsDropdown.classList.remove("is-open");
+        }, 450);
+      };
+
+      projectsDropdown.addEventListener(
+        "mouseenter",
+        openDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "mouseleave",
+        scheduleCloseDropdown
+      );
+
+      projectsDropdownMenu.addEventListener(
+        "mouseenter",
+        openDropdown
+      );
+
+      projectsDropdownMenu.addEventListener(
+        "mouseleave",
+        scheduleCloseDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "focusin",
+        openDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "focusout",
+        event => {
+          if (
+            !projectsDropdown.contains(
+              event.relatedTarget
+            )
+          ) {
+            scheduleCloseDropdown();
+          }
+        }
+      );
+    }
 
 
     const scrollContainer =
