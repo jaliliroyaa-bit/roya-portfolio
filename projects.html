@@ -157,10 +157,36 @@
       letter-spacing: .01em;
     }
 
-    .home-link {
-      font-size: 13px;
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      padding: 9px 14px;
+
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.075);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      color: rgba(255,255,255,.92);
+
+      font-size: 12px;
+      line-height: 1;
       font-weight: 600;
-      color: rgba(255,255,255,.78);
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
+    }
+
+    .page-back:hover {
+      background: rgba(255,255,255,.13);
+      transform: translateX(-2px);
     }
 
     /* =========================
@@ -381,59 +407,6 @@
     }
 
     /* =========================
-       BACK — BOTTOM LEFT INSIDE GLASS
-    ========================= */
-
-    .page-footer {
-      margin-top: 52px;
-      padding-top: 22px;
-
-      border-top:
-        1px solid rgba(255,255,255,.14);
-
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .page-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-
-      padding: 10px 14px;
-
-      border:
-        1px solid rgba(255,255,255,.24);
-
-      border-radius: 999px;
-
-      background:
-        rgba(255,255,255,.075);
-
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-
-      color:
-        rgba(255,255,255,.92);
-
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 600;
-
-      transition:
-        background .18s ease,
-        transform .18s ease;
-    }
-
-    .page-back:hover {
-      background:
-        rgba(255,255,255,.13);
-
-      transform:
-        translateX(-2px);
-    }
-
-    /* =========================
        RESPONSIVE
     ========================= */
 
@@ -486,9 +459,6 @@
         gap: 22px;
       }
 
-      .page-footer {
-        margin-top: 38px;
-      }
     }
   </style>
 </head>
@@ -504,6 +474,14 @@
         <header class="site-header">
           <a class="logo" href="index.html">
             Roya Jalili
+          </a>
+
+          <a
+            class="page-back"
+            href="index.html"
+            aria-label="Back to Home"
+          >
+            ← Back to Home
           </a>
         </header>
 
@@ -770,16 +748,6 @@
           </a>
 
         </section>
-
-
-        <footer class="page-footer">
-          <a
-            class="page-back"
-            href="index.html"
-          >
-            ← Back to Home
-          </a>
-        </footer>
 
       </div>
 
