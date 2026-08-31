@@ -250,83 +250,105 @@
     }
 
     /* =========================
-       DROPDOWN
+       DROPDOWN — STABLE / COMPACT
     ========================= */
 
     .dropdown {
       position: relative;
+      display: flex;
+      align-items: center;
       padding: 10px 0;
     }
 
     .dropdown-menu {
       position: absolute;
 
-      top: 100%;
-      left: 50%;
+      /* No physical gap between trigger and menu */
+      top: calc(100% - 2px);
+      left: -18px;
 
-      transform:
-        translateX(-50%)
-        translateY(10px);
+      width: 238px;
+      min-width: 238px;
 
-      background:
-        rgba(255,255,255,.15);
-
-      backdrop-filter:
-        blur(16px);
-
-      -webkit-backdrop-filter:
-        blur(16px);
-
-      border:
-        1px solid rgba(255,255,255,.2);
-
-      border-radius: 12px;
-
-      padding: 8px;
+      padding: 6px;
 
       display: flex;
       flex-direction: column;
+      gap: 2px;
 
-      min-width: 220px;
+      background: rgba(116, 148, 162, .94);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 14px;
+
+      box-shadow:
+        0 14px 36px rgba(0,0,0,.14);
 
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
+
+      /* IMPORTANT: no translate animation = no visual jumping */
+      transform: none;
 
       transition:
-        all .3s ease;
+        opacity .16s ease,
+        visibility .16s ease;
 
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.1);
+      z-index: 99999;
     }
 
-    .dropdown:hover .dropdown-menu {
+    /*
+      Extra invisible hover area above the menu.
+      This closes the tiny mouse gap completely.
+    */
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -12px;
+      height: 12px;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu,
+    .dropdown.is-open .dropdown-menu {
       opacity: 1;
       visibility: visible;
-
-      transform:
-        translateX(-50%)
-        translateY(0);
+      pointer-events: auto;
     }
 
     .dropdown-menu a {
-      padding: 10px 12px;
+      display: flex;
+      align-items: center;
 
-      border-radius: 8px;
+      min-height: 34px;
+      padding: 7px 11px;
 
-      color: #fff !important;
+      border-radius: 9px;
 
-      font-size:
-        13px !important;
+      color: rgba(255,255,255,.92) !important;
 
-      font-weight:
-        400 !important;
+      font-size: 12.5px !important;
+      line-height: 1.25 !important;
+      font-weight: 450 !important;
 
-      text-align: center;
+      text-align: left;
+      white-space: nowrap;
+
+      transition:
+        background .15s ease,
+        color .15s ease;
     }
 
-    .dropdown-menu a:hover {
-      background:
-        rgba(255,255,255,.2);
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus-visible {
+      background: rgba(255,255,255,.14);
+      color: #fff !important;
     }
 
     /* =========================
@@ -1890,6 +1912,61 @@
     }
 
     startHeroAnimation();
+
+
+    /* =========================================================
+       PROJECTS DROPDOWN — HOVER STABILITY
+       A short close delay prevents the menu from collapsing
+       while the pointer travels from Projects into the menu.
+    ========================================================= */
+
+    const projectsDropdown =
+      document.querySelector(".dropdown");
+
+    if (projectsDropdown) {
+      let dropdownCloseTimer = null;
+
+      const openProjectsDropdown = () => {
+        clearTimeout(dropdownCloseTimer);
+        projectsDropdown.classList.add("is-open");
+      };
+
+      const closeProjectsDropdown = () => {
+        clearTimeout(dropdownCloseTimer);
+
+        dropdownCloseTimer = setTimeout(() => {
+          projectsDropdown.classList.remove("is-open");
+        }, 220);
+      };
+
+      projectsDropdown.addEventListener(
+        "mouseenter",
+        openProjectsDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "mouseleave",
+        closeProjectsDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "focusin",
+        openProjectsDropdown
+      );
+
+      projectsDropdown.addEventListener(
+        "focusout",
+        event => {
+          if (
+            !projectsDropdown.contains(
+              event.relatedTarget
+            )
+          ) {
+            closeProjectsDropdown();
+          }
+        }
+      );
+    }
 
 
     const scrollContainer =
