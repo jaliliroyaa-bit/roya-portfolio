@@ -32,10 +32,9 @@
       background:
         linear-gradient(
           120deg,
-          #9cc7d8 0%,
-          #a9bec4 42%,
-          #b9b3aa 72%,
-          #c9c4bc 100%
+          #b9d9e6 0%,
+          #d9e8ed 45%,
+          #e6e3dd 100%
         );
     }
 
@@ -44,97 +43,65 @@
     }
 
     /* =========================
-       OUTER PAGE SPACING
-       Keeps empty margins left/right
+       OUTER PAGE / EMPTY MARGINS
     ========================= */
 
     .page-shell {
-      width: min(1180px, calc(100% - 96px));
+      width: min(1240px, calc(100% - 96px));
       margin: 0 auto;
-
-      padding:
-        42px
-        0
-        96px;
+      padding: 22px 0 70px;
     }
 
     /* =========================
-       BACK — SEPARATE FROM CARD
-    ========================= */
-
-    .back-row {
-      margin-bottom: 18px;
-    }
-
-    .back-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-
-      padding: 9px 12px;
-
-      border-radius: 999px;
-
-      color:
-        rgba(255,255,255,.88);
-
-      text-decoration: none;
-
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 600;
-
-      background:
-        rgba(255,255,255,.08);
-
-      border:
-        1px solid rgba(255,255,255,.16);
-
-      backdrop-filter:
-        blur(10px);
-      -webkit-backdrop-filter:
-        blur(10px);
-
-      transition:
-        background .2s ease,
-        transform .2s ease;
-    }
-
-    .back-home:hover {
-      background:
-        rgba(255,255,255,.14);
-
-      transform:
-        translateY(-1px);
-    }
-
-    /* =========================
-       MAIN GLASS CARD
+       MAIN INNER LAYER
+       Same visual logic as homepage
     ========================= */
 
     .resume-card {
-      width: 100%;
+      position: relative;
 
-      padding:
-        42px
-        42px
-        46px;
+      width: 100%;
+      min-height: calc(100vh - 44px);
+
+      padding: 42px 48px 54px;
 
       border-radius: 28px;
 
       background:
-        rgba(255,255,255,.10);
+        linear-gradient(
+          120deg,
+          rgba(108, 154, 174, .82) 0%,
+          rgba(127, 157, 169, .80) 43%,
+          rgba(167, 160, 151, .82) 100%
+        );
 
       border:
         1px solid rgba(255,255,255,.18);
 
-      backdrop-filter:
-        blur(22px);
-      -webkit-backdrop-filter:
-        blur(22px);
-
       box-shadow:
-        0 18px 50px rgba(31, 46, 55, .10);
+        0 18px 46px rgba(46, 65, 74, .10);
+
+      overflow: hidden;
+    }
+
+    /* subtle inner light */
+    .resume-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,0)
+        );
+    }
+
+    .resume-content {
+      position: relative;
+      z-index: 1;
     }
 
     /* =========================
@@ -142,49 +109,53 @@
     ========================= */
 
     .resume-header {
-      padding-bottom: 30px;
+      padding:
+        6px
+        8px
+        30px;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.18);
+        1px solid rgba(255,255,255,.16);
     }
 
     .resume-name {
       margin: 0;
 
-      font-size: clamp(34px, 4vw, 46px);
+      font-size: clamp(36px, 4vw, 48px);
       line-height: 1;
       font-weight: 800;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.045em;
     }
 
     .resume-role {
-      margin: 16px 0 0;
+      margin: 17px 0 0;
 
       font-size: 14px;
       line-height: 1.4;
       font-weight: 700;
-      letter-spacing: .15em;
+      letter-spacing: .14em;
       text-transform: uppercase;
 
       color:
-        rgba(255,255,255,.78);
+        rgba(255,255,255,.80);
     }
 
     /* =========================
-       TWO COLUMNS
+       CONTENT
     ========================= */
 
     .resume-grid {
       display: grid;
-
       grid-template-columns:
         minmax(0, 1fr)
         minmax(0, 1fr);
 
-      gap: 48px;
+      gap: 56px;
 
-      margin-top: 38px;
+      padding:
+        38px
+        8px
+        0;
     }
 
     .resume-column {
@@ -192,16 +163,12 @@
     }
 
     .resume-section {
-      margin-bottom: 34px;
+      margin-bottom: 38px;
     }
 
     .resume-section:last-child {
       margin-bottom: 0;
     }
-
-    /* =========================
-       TYPOGRAPHY — CONSISTENT
-    ========================= */
 
     .resume-section h2 {
       margin:
@@ -209,11 +176,10 @@
         0
         20px;
 
-      padding-bottom: 10px;
+      padding-bottom: 11px;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.16);
+        1px solid rgba(255,255,255,.16);
 
       font-size: 20px;
       line-height: 1.3;
@@ -224,7 +190,7 @@
     .resume-section h3 {
       margin: 0;
 
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.45;
       font-weight: 700;
     }
@@ -234,15 +200,15 @@
       margin: 0;
 
       font-size: 14px;
-      line-height: 1.72;
+      line-height: 1.75;
       font-weight: 400;
 
       color:
-        rgba(255,255,255,.93);
+        rgba(255,255,255,.94);
     }
 
     .about-copy {
-      max-width: 52ch;
+      max-width: 54ch;
     }
 
     .resume-entry {
@@ -264,10 +230,6 @@
         rgba(255,255,255,.72);
     }
 
-    /* =========================
-       COURSES
-    ========================= */
-
     .courses-list {
       display: flex;
       flex-direction: column;
@@ -275,33 +237,99 @@
     }
 
     /* =========================
-       MOBILE
+       BACK BUTTON
+       Separate from the inner page layer
     ========================= */
 
-    @media (max-width: 760px) {
-      .page-shell {
-        width: min(100% - 32px, 680px);
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
 
-        padding:
-          24px
-          0
-          72px;
+      margin-top: 18px;
+
+      padding: 10px 13px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid rgba(255,255,255,.22);
+
+      background:
+        rgba(104, 137, 151, .88);
+
+      box-shadow:
+        0 8px 22px rgba(46,65,74,.10);
+
+      color:
+        rgba(255,255,255,.94);
+
+      text-decoration: none;
+
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
+    }
+
+    .back-home:hover {
+      transform: translateY(-1px);
+      background: rgba(96,130,145,.96);
+    }
+
+    /* =========================
+       TABLET / MOBILE
+    ========================= */
+
+    @media (max-width: 900px) {
+      .page-shell {
+        width: min(100% - 44px, 860px);
       }
 
       .resume-card {
+        padding: 36px 34px 44px;
+      }
+
+      .resume-grid {
+        gap: 38px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: calc(100% - 28px);
+        padding: 14px 0 76px;
+      }
+
+      .resume-card {
+        min-height: auto;
+
         padding:
           28px
           22px
-          32px;
+          34px;
 
         border-radius: 22px;
+      }
+
+      .resume-header {
+        padding:
+          2px
+          2px
+          24px;
       }
 
       .resume-grid {
         grid-template-columns: 1fr;
         gap: 8px;
 
-        margin-top: 30px;
+        padding:
+          28px
+          2px
+          0;
       }
 
       .resume-name {
@@ -318,7 +346,7 @@
       }
 
       .resume-section h3 {
-        font-size: 14.5px;
+        font-size: 14px;
       }
 
       .resume-section p,
@@ -329,6 +357,7 @@
       .resume-meta {
         font-size: 12px;
       }
+
     }
   </style>
 </head>
@@ -337,177 +366,172 @@
 
   <div class="page-shell">
 
-    <!-- Back is intentionally OUTSIDE the glass card -->
-    <div class="back-row">
-      <a
-        class="back-home"
-        href="index.html"
-        aria-label="Back to Home"
-      >
-        ← Back to Home
-      </a>
-    </div>
-
-    <!-- Everything inside the page sits on ONE glass layer -->
     <main class="resume-card">
+      <div class="resume-content">
 
-      <header class="resume-header">
-        <h1 class="resume-name">
-          Roya Jalili
-        </h1>
+        <header class="resume-header">
+          <h1 class="resume-name">
+            Roya Jalili
+          </h1>
 
-        <p class="resume-role">
-          Graphic Designer &amp; AI Artist
-        </p>
-      </header>
-
-
-      <div class="resume-grid">
-
-        <!-- LEFT COLUMN -->
-        <div class="resume-column">
-
-          <section class="resume-section">
-            <h2>
-              About Me
-            </h2>
-
-            <p class="about-copy">
-              I am a creative and detail-oriented graphic designer
-              with over 6 years of experience. I specialize in
-              developing brand visual identities, social media
-              content, and digital designs that are both visually
-              appealing and effective in communication. I enjoy
-              collaborating with clients and teams to bring ideas
-              to life and am always eager to take on new challenges
-              and opportunities to grow as a designer.
-            </p>
-          </section>
+          <p class="resume-role">
+            Graphic Designer &amp; AI Artist
+          </p>
+        </header>
 
 
-          <section class="resume-section">
-            <h2>
-              Education
-            </h2>
+        <div class="resume-grid">
 
-            <div class="resume-entry">
-              <h3>
-                Bachelor's Degree in Graphic Design
-              </h3>
+          <!-- LEFT COLUMN -->
+          <div class="resume-column">
 
-              <div class="resume-meta">
-                University of Technical and Vocational | 2016–2019
+            <section class="resume-section">
+              <h2>
+                About Me
+              </h2>
+
+              <p class="about-copy">
+                I am a creative and detail-oriented graphic designer
+                with over 6 years of experience. I specialize in
+                developing brand visual identities, social media
+                content, and digital designs that are both visually
+                appealing and effective in communication. I enjoy
+                collaborating with clients and teams to bring ideas
+                to life and am always eager to take on new challenges
+                and opportunities to grow as a designer.
+              </p>
+            </section>
+
+
+            <section class="resume-section">
+              <h2>
+                Education
+              </h2>
+
+              <div class="resume-entry">
+                <h3>
+                  Bachelor's Degree in Graphic Design
+                </h3>
+
+                <div class="resume-meta">
+                  University of Technical and Vocational | 2016–2019
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+
+          </div>
+
+
+          <!-- RIGHT COLUMN -->
+          <div class="resume-column">
+
+            <section class="resume-section">
+              <h2>
+                Experience
+              </h2>
+
+              <div class="resume-entry">
+                <h3>
+                  Graphic Designer
+                </h3>
+
+                <div class="resume-meta">
+                  (Full-Time)
+                </div>
+
+                <div class="resume-meta">
+                  Yektanet digital marketing company | Feb 2022–Present
+                </div>
+              </div>
+
+
+              <div class="resume-entry">
+                <h3>
+                  Graphic Designer
+                </h3>
+
+                <div class="resume-meta">
+                  (Remote)
+                </div>
+
+                <div class="resume-meta">
+                  ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017–Present
+                </div>
+              </div>
+
+
+              <div class="resume-entry">
+                <h3>
+                  Graphic Designer
+                </h3>
+
+                <div class="resume-meta">
+                  (Full-Time)
+                </div>
+
+                <div class="resume-meta">
+                  Zirofam Digital marketing agency | Jan 2021–Dec 2021
+                </div>
+              </div>
+
+
+              <div class="resume-entry">
+                <h3>
+                  Graphic Designer
+                </h3>
+
+                <div class="resume-meta">
+                  (Full-Time)
+                </div>
+
+                <div class="resume-meta">
+                  Narsis printing house | Mar 2019–Dec 2020
+                </div>
+              </div>
+            </section>
+
+
+            <section class="resume-section">
+              <h2>
+                Courses
+              </h2>
+
+              <div class="courses-list">
+                <p class="course-item">
+                  Logo Design Course — Abuzar Mohammadi | 2023
+                </p>
+
+                <p class="course-item">
+                  Visual Identity Course — Inverse School | 2023
+                </p>
+
+                <p class="course-item">
+                  Visual Identity Course — Camp Graphic | 2022
+                </p>
+
+                <p class="course-item">
+                  Photomontage Course — SaatSheni School | 2021
+                </p>
+
+                <p class="course-item">
+                  Logo Design Course — Inverse School | 2020
+                </p>
+              </div>
+            </section>
+
+          </div>
 
         </div>
-
-
-        <!-- RIGHT COLUMN -->
-        <div class="resume-column">
-
-          <section class="resume-section">
-            <h2>
-              Experience
-            </h2>
-
-            <div class="resume-entry">
-              <h3>
-                Graphic Designer
-              </h3>
-
-              <div class="resume-meta">
-                (Full-Time)
-              </div>
-
-              <div class="resume-meta">
-                Yektanet digital marketing company | Feb 2022–Present
-              </div>
-            </div>
-
-
-            <div class="resume-entry">
-              <h3>
-                Graphic Designer
-              </h3>
-
-              <div class="resume-meta">
-                (Remote)
-              </div>
-
-              <div class="resume-meta">
-                ArvinSpid, Darisazma, Emarat, Chavosh, Arefian | Jan 2017–Present
-              </div>
-            </div>
-
-
-            <div class="resume-entry">
-              <h3>
-                Graphic Designer
-              </h3>
-
-              <div class="resume-meta">
-                (Full-Time)
-              </div>
-
-              <div class="resume-meta">
-                Zirofam Digital marketing agency | Jan 2021–Dec 2021
-              </div>
-            </div>
-
-
-            <div class="resume-entry">
-              <h3>
-                Graphic Designer
-              </h3>
-
-              <div class="resume-meta">
-                (Full-Time)
-              </div>
-
-              <div class="resume-meta">
-                Narsis printing house | Mar 2019–Dec 2020
-              </div>
-            </div>
-          </section>
-
-
-          <section class="resume-section">
-            <h2>
-              Courses
-            </h2>
-
-            <div class="courses-list">
-
-              <p class="course-item">
-                Logo Design Course — Abuzar Mohammadi | 2023
-              </p>
-
-              <p class="course-item">
-                Visual Identity Course — Inverse School | 2023
-              </p>
-
-              <p class="course-item">
-                Visual Identity Course — Camp Graphic | 2022
-              </p>
-
-              <p class="course-item">
-                Photomontage Course — SaatSheni School | 2021
-              </p>
-
-              <p class="course-item">
-                Logo Design Course — Inverse School | 2020
-              </p>
-
-            </div>
-          </section>
-
-        </div>
-
       </div>
-
     </main>
+
+    <a
+      class="back-home"
+      href="index.html"
+      aria-label="Back to Home"
+    >
+      ← Back to Home
+    </a>
 
   </div>
 
