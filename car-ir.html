@@ -138,7 +138,7 @@
     </section>
 
 
-   /* =========================================
+  /* =========================================
    BRAINSTORMING — SCROLL REVEAL
 ========================================= */
 
@@ -146,12 +146,10 @@
   opacity: 0;
   transform: translateY(45px) scale(0.97);
   filter: blur(3px);
-
   transition:
     opacity 1s cubic-bezier(.22, 1, .36, 1),
     transform 1.2s cubic-bezier(.22, 1, .36, 1),
     filter 1s ease;
-
   will-change: transform, opacity, filter;
 }
 
@@ -161,7 +159,6 @@
   filter: blur(0);
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .brainstorm-image {
     opacity: 1;
