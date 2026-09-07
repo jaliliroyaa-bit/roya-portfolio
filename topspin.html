@@ -17,6 +17,41 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="car-ir.css">
+
+  <style>
+    /* =========================================
+       BRAINSTORMING — SCROLL REVEAL
+    ========================================= */
+
+    .brainstorm-image {
+      opacity: 0;
+      transform: translateY(90px) scale(0.9);
+      filter: blur(10px);
+
+      transition:
+        opacity 1.2s cubic-bezier(.22, 1, .36, 1),
+        transform 1.5s cubic-bezier(.22, 1, .36, 1),
+        filter 2.4s cubic-bezier(.22, 1, .36, 1);
+
+      will-change: transform, opacity, filter;
+    }
+
+    .brainstorm-image.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brainstorm-image {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
@@ -76,6 +111,29 @@
         <p>
           The project includes logo development, color palette, illustration, stationery, packaging, stickers and digital applications, with a consistent visual language designed to keep the brand recognizable across both print and digital media.
         </p>
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BRAINSTORMING
+    ==================================================== -->
+
+    <section class="case-row">
+
+      <div class="case-label">
+        <p class="case-eyebrow">Brand Exploration</p>
+        <h2>Brainstorming</h2>
+      </div>
+
+      <div class="case-content">
+        <img
+          class="brainstorm-image"
+          src="assets/topspin/brainstorming.png"
+          alt="TOPSPIN Brand Brainstorming"
+          loading="lazy"
+        >
       </div>
 
     </section>
@@ -320,6 +378,31 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     { passive: true }
   );
+
+
+  /* -----------------------------------------
+     BRAINSTORMING SCROLL REVEAL
+  ----------------------------------------- */
+
+  const brainstormImage = document.querySelector(".brainstorm-image");
+
+  if (brainstormImage) {
+    const brainstormObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2
+      }
+    );
+
+    brainstormObserver.observe(brainstormImage);
+  }
 
 });
 
