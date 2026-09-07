@@ -138,38 +138,38 @@
     </section>
 
 
-    <!-- ===================================================
-         BRAINSTORMING
-    ==================================================== -->
+   /* =========================================
+   BRAINSTORMING — SCROLL REVEAL
+========================================= */
 
-    <section class="case-row">
+.brainstorm-image {
+  opacity: 0;
+  transform: translateY(45px) scale(0.97);
+  filter: blur(3px);
 
-      <div class="case-label">
+  transition:
+    opacity 1s cubic-bezier(.22, 1, .36, 1),
+    transform 1.2s cubic-bezier(.22, 1, .36, 1),
+    filter 1s ease;
 
-        <p class="case-eyebrow">
-          Brand Exploration
-        </p>
+  will-change: transform, opacity, filter;
+}
 
-        <h2>
-          Brainstorming
-        </h2>
+.brainstorm-image.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
 
-      </div>
-
-
-      <div class="case-content">
-
-        <img
-          class="brainstorm-image"
-          src="assets/car-ir/brainstorming.png"
-          alt="CAR.IR Brand Brainstorming"
-          loading="lazy"
-        >
-
-      </div>
-
-    </section>
-
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .brainstorm-image {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
 
     <!-- ===================================================
          IDENTITY SYSTEM
