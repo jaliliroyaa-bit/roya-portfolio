@@ -157,36 +157,10 @@
       letter-spacing: .01em;
     }
 
-    .page-back {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-
-      padding: 9px 14px;
-
-      border: 1px solid rgba(255,255,255,.24);
-      border-radius: 999px;
-
-      background: rgba(255,255,255,.075);
-
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-
-      color: rgba(255,255,255,.92);
-
-      font-size: 12px;
-      line-height: 1;
+    .home-link {
+      font-size: 13px;
       font-weight: 600;
-
-      transition:
-        background .18s ease,
-        transform .18s ease;
-    }
-
-    .page-back:hover {
-      background: rgba(255,255,255,.13);
-      transform: translateX(-2px);
+      color: rgba(255,255,255,.78);
     }
 
     /* =========================
@@ -407,6 +381,59 @@
     }
 
     /* =========================
+       BACK — BOTTOM LEFT INSIDE GLASS
+    ========================= */
+
+    .page-footer {
+      margin-top: 52px;
+      padding-top: 22px;
+
+      border-top:
+        1px solid rgba(255,255,255,.14);
+
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 10px 14px;
+
+      border:
+        1px solid rgba(255,255,255,.24);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.075);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      color:
+        rgba(255,255,255,.92);
+
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
+    }
+
+    .page-back:hover {
+      background:
+        rgba(255,255,255,.13);
+
+      transform:
+        translateX(-2px);
+    }
+
+    /* =========================
        RESPONSIVE
     ========================= */
 
@@ -459,6 +486,9 @@
         gap: 22px;
       }
 
+      .page-footer {
+        margin-top: 38px;
+      }
     }
   </style>
 </head>
@@ -474,14 +504,6 @@
         <header class="site-header">
           <a class="logo" href="index.html">
             Roya Jalili
-          </a>
-
-          <a
-            class="page-back"
-            href="index.html"
-            aria-label="Back to Home"
-          >
-            ← Back to Home
           </a>
         </header>
 
@@ -698,26 +720,24 @@
           </a>
 
 
-          <!-- Photography -->
+          <!-- Mobile Graphy -->
           <a
-            href="#"
+            href="mobile-graphy.html"
             class="project-card"
             data-category="photo"
           >
             <div class="project-media">
-              <div class="placeholder">
-                <div class="placeholder-box">
-                  <strong>PROJECT 04</strong>
-                  <span>Photography &amp; Grading</span>
-                </div>
-              </div>
+              <img
+                src="assets/mobile-graphy/wandering-01.jpg"
+                alt="Mobile Graphy — Photography by Roya Jalili"
+              >
             </div>
 
             <div class="project-body">
-              <h2>Photography &amp; Grading</h2>
+              <h2>Mobile Graphy</h2>
 
               <p>
-                Photography &amp; Color Grading
+                Photography · Personal Archive
               </p>
             </div>
           </a>
@@ -748,6 +768,16 @@
           </a>
 
         </section>
+
+
+        <footer class="page-footer">
+          <a
+            class="page-back"
+            href="index.html"
+          >
+            ← Back to Home
+          </a>
+        </footer>
 
       </div>
 
