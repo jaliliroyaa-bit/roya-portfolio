@@ -230,14 +230,14 @@
     }
 
     .gallery-section {
-      padding: 34px 96px 92px;
+      padding: 20px 96px 92px;
     }
 
     .story-stage {
       position: relative;
       width: min(100%, 900px);
       margin: 0 auto;
-      min-height: 780px;
+      min-height: 700px;
       display: grid;
       place-items: center;
     }
@@ -332,7 +332,7 @@
 
     .story-progress {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(var(--story-count, 1), 1fr);
       gap: 4px;
     }
 
@@ -360,17 +360,14 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.7);
-      background: rgba(255,255,255,.18);
-      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.72);
+      background:
+        radial-gradient(circle at 32% 28%, rgba(255,255,255,.20), transparent 34%),
+        linear-gradient(145deg, #2F5367 0%, #496F83 52%, #7FB2C9 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 2px 8px rgba(24,48,61,.16);
       flex: 0 0 auto;
-    }
-
-    .story-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
     .story-time {
@@ -544,227 +541,122 @@
     }
 
 
-    .collections-view {
-      width: min(100%, 920px);
-      margin: 0 auto;
-      transition: opacity .35s ease, transform .35s ease;
+    .collection-tabs {
+      width: min(100%, 720px);
+      margin: 0 auto 22px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
     }
 
-    .collections-label {
-      margin: 0 0 20px;
-      text-align: center;
-      color: rgba(255,255,255,.74);
-      font-size: 11px;
-      font-weight: 650;
-      letter-spacing: .16em;
+    .collection-tab {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.70);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font: inherit;
+      font-size: 10px;
+      letter-spacing: .11em;
       text-transform: uppercase;
-    }
-
-    .collection-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .collection-card {
-      position: relative;
-      min-height: 480px;
-      padding: 0;
-      border: 1px solid rgba(255,255,255,.24);
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255,255,255,.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      color: #fff;
       cursor: pointer;
-      text-align: left;
-      box-shadow: 0 20px 50px rgba(36,54,65,.08);
-      transition: transform .32s cubic-bezier(.22,1,.36,1), background .3s ease, border-color .3s ease;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease;
     }
 
-    .collection-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,.12);
-      border-color: rgba(255,255,255,.38);
+    .collection-tab:hover {
+      transform: translateY(-1px);
+      color: #fff;
+      background: rgba(255,255,255,.11);
     }
 
-    .collection-cover {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(.86) contrast(.96);
-      transform: scale(1.01);
-      transition: transform .6s cubic-bezier(.22,1,.36,1);
+    .collection-tab.active {
+      color: #fff;
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.36);
     }
 
-    .collection-card:hover .collection-cover {
-      transform: scale(1.035);
-    }
-
-    .collection-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(17,25,29,.03) 20%, rgba(25,31,34,.16) 52%, rgba(25,31,34,.70) 100%);
-    }
-
-    .collection-card-copy {
+    .series-panel {
       position: absolute;
       left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      padding: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 210px;
+      color: #fff;
+      z-index: 4;
     }
 
-    .collection-index {
+    .series-panel .series-kicker {
       display: block;
-      margin-bottom: 10px;
-      color: rgba(255,255,255,.74);
-      font-size: 11px;
-      font-weight: 650;
+      margin-bottom: 8px;
+      font-size: 10px;
       letter-spacing: .16em;
       text-transform: uppercase;
+      color: rgba(255,255,255,.62);
     }
 
-    .collection-card h2 {
-      margin: 0;
-      font-size: clamp(28px, 3vw, 40px);
-      line-height: 1;
+    .series-panel h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.1;
       font-weight: 500;
-      letter-spacing: -.035em;
+      letter-spacing: -.025em;
     }
 
-    .collection-card p {
-      max-width: 350px;
-      margin: 13px 0 0;
-      color: rgba(255,255,255,.84);
-      font-size: 13px;
-      line-height: 1.55;
+    .series-panel p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.72);
     }
 
-    .collection-open {
+    .series-panel::before {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 1px;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,.42);
+    }
+
+    .story-series-badge {
+      position: absolute;
+      left: 16px;
+      top: 66px;
+      z-index: 4;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      margin-top: 20px;
-      color: rgba(255,255,255,.92);
-      font-size: 11px;
-      font-weight: 650;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .viewer-view {
-      display: none;
-      width: 100%;
-    }
-
-    .viewer-view.is-active {
-      display: block;
-      animation: viewerIn .45s cubic-bezier(.22,1,.36,1) both;
-    }
-
-    @keyframes viewerIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .viewer-head {
-      width: min(100%, 720px);
-      margin: 0 auto 8px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .viewer-kicker {
-      margin: 0 0 8px;
-      color: rgba(255,255,255,.68);
-      font-size: 11px;
-      font-weight: 650;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .viewer-title {
-      margin: 0;
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1;
-      font-weight: 500;
-      letter-spacing: -.04em;
-    }
-
-    .back-collections {
-      flex: 0 0 auto;
-      padding: 9px 14px;
-      border: 1px solid rgba(255,255,255,.24);
+      max-width: calc(100% - 32px);
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.20);
       border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.9);
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 600;
-      transition: background .25s ease, transform .25s ease;
+      background: rgba(20,25,29,.16);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      pointer-events: none;
     }
 
-    .back-collections:hover {
-      background: rgba(255,255,255,.17);
-      transform: translateY(-1px);
-    }
-
-    /* Compact collection viewer: the phone is the focal point */
-    body.viewer-open .project-hero {
-      display: none;
-    }
-
-    body.viewer-open .gallery-section {
-      padding-top: 34px;
-    }
-
-    .viewer-head {
-      width: min(100%, 520px);
-      margin: 0 auto 22px;
-      display: block;
-      text-align: center;
-    }
-
-    .viewer-kicker {
-      margin: 0 0 9px;
-      font-size: 10px;
-      letter-spacing: .18em;
-      opacity: .82;
-    }
-
-    .viewer-title {
-      font-size: clamp(34px, 4.2vw, 50px);
-      line-height: 1.02;
-      font-weight: 500;
-      letter-spacing: -.045em;
-    }
-
-    .viewer-description {
-      max-width: 430px;
-      margin: 11px auto 0;
-      color: rgba(255,255,255,.72);
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    body.viewer-open .story-stage {
-      margin-top: 0;
-    }
-
-    body.viewer-open .note {
-      display: none;
+    .story-series-badge span:first-child {
+      opacity: .62;
     }
 
     @media (max-width: 760px) {
+      .collection-tabs {
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+
+      .series-panel {
+        display: none;
+      }
+
       main {
         left: 0;
         transform: none;
@@ -798,18 +690,6 @@
 
       .gallery-section {
         padding: 24px 20px 72px;
-      }
-
-      .collection-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .collection-card {
-        min-height: 420px;
-      }
-
-      .viewer-head {
-        align-items: flex-start;
       }
 
       .story-stage {
@@ -903,7 +783,7 @@
 
     <header class="site-header">
       <a class="logo" href="index.html">Roya Jalili</a>
-      <a class="back" id="navBack" href="projects.html">← Back to Project Archive</a>
+      <a class="back" href="projects.html">← Back to Project Archive</a>
     </header>
 
     <section class="project-hero">
@@ -918,95 +798,95 @@
     </section>
 
     <section class="gallery-section">
-      <div class="collections-view" id="collectionsView">
-        <p class="collections-label">Select a mini-series</p>
-
-        <div class="collection-grid">
-          <button class="collection-card" type="button" data-collection="market" aria-label="Open Market Stories">
-            <img class="collection-cover" src="assets/mobile-graphy/market-01.jpg" alt="Market Stories cover">
-            <span class="collection-card-copy">
-              <span class="collection-index">01 / Mini-series</span>
-              <h2>Market Stories</h2>
-              <p>Traditional markets, old shopkeepers, craftsmen, and quiet moments of everyday work.</p>
-              <span class="collection-open">View stories →</span>
-            </span>
-          </button>
-
-          <button class="collection-card" type="button" data-collection="wandering" aria-label="Open Wandering">
-            <img class="collection-cover" src="assets/mobile-graphy/wandering-01.jpg" alt="Wandering cover">
-            <span class="collection-card-copy">
-              <span class="collection-index">02 / Mini-series</span>
-              <h2>Wandering</h2>
-              <p>Unplanned walks through the city — streets, people, light, details, and moments noticed along the way.</p>
-              <span class="collection-open">View stories →</span>
-            </span>
-          </button>
-        </div>
+      <div class="collection-tabs" aria-label="Mobile Graphy collections">
+        <button class="collection-tab active" type="button" data-series="0">01 · Market Stories</button>
+        <button class="collection-tab" type="button" data-series="1">02 · Wandering</button>
       </div>
 
-      <div class="viewer-view" id="viewerView">
-        <div class="viewer-head">
-          <div>
-            <p class="viewer-kicker" id="viewerKicker">01 / MOBILE GRAPHY</p>
-            <h2 class="viewer-title" id="viewerTitle">Market Stories</h2>
-            <p class="viewer-description" id="viewerDescription">Traditional markets, old shopkeepers, craftsmen, and quiet moments of everyday work.</p>
-          </div>
-        </div>
+      <div class="story-stage">
+        <aside class="series-panel" aria-live="polite">
+          <span class="series-kicker" id="seriesNumber">01 / MINI-SERIES</span>
+          <h2 id="seriesTitle">Market Stories</h2>
+          <p id="seriesDescription">Traditional markets, old shopkeepers, craftsmen, and quiet moments of everyday work.</p>
+        </aside>
 
-        <div class="story-stage">
-          <button class="story-nav prev" id="prevSlide" type="button" aria-label="Previous photo">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
+        <button class="story-nav prev" id="prevSlide" type="button" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
 
-          <div class="story-frame">
-            <div class="story-screen" id="storyScreen">
-              <img class="story-image" id="storyImage" src="assets/mobile-graphy/market-01.jpg" alt="Market Stories — slide 1">
+        <div class="story-frame">
+          <div class="story-screen" id="storyScreen">
+            <img
+              class="story-image"
+              id="storyImage"
+              src="assets/mobile-graphy/market-01.jpg"
+              alt="Market Stories — photo 1"
+            >
 
-              <div class="story-ui" aria-hidden="true">
-                <div class="story-top">
-                  <div class="story-progress" id="storyProgress"></div>
+            <div class="story-series-badge" aria-hidden="true">
+              <span id="storySeriesNumber">01 / 02</span>
+              <span id="storySeriesTitle">Market Stories</span>
+            </div>
 
-                  <div class="story-user">
-                    <div class="story-avatar"><img src="assets/portrait.jpg" alt=""></div>
-                    <span>roya.jpg</span>
-                    <span class="story-time">now</span>
-                    <span class="story-more">•••</span>
-                  </div>
+            <div class="story-ui" aria-hidden="true">
+              <div class="story-top">
+                <div class="story-progress" id="storyProgress"></div>
+
+                <div class="story-user">
+                  <div class="story-avatar"></div>
+                  <span>Dream</span>
+                  <span class="story-time">now</span>
+                  <span class="story-more">•••</span>
                 </div>
+              </div>
 
-                <div class="story-bottom">
-                  <div class="reply">Send message...</div>
-                  <span class="story-icon">
-                    <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-                  </span>
-                  <span class="story-icon">
-                    <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
-                  </span>
-                </div>
+              <div class="story-bottom">
+                <div class="reply">Send message...</div>
+
+                <span class="story-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+                  </svg>
+                </span>
+
+                <span class="story-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M22 2L11 13"/>
+                    <path d="M22 2l-7 20-4-9-9-4z"/>
+                  </svg>
+                </span>
               </div>
             </div>
           </div>
-
-          <button class="story-nav next" id="nextSlide" type="button" aria-label="Next photo">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
         </div>
 
-        <div class="slide-meta">
-          <div class="slide-count">
-            <span id="currentSlide">01</span>
-            <span class="line"></span>
-            <span id="totalSlides">06</span>
-          </div>
-          <div class="slide-dots" id="slideDots" aria-hidden="true"></div>
+        <button class="story-nav next" id="nextSlide" type="button" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+
+      </div>
+
+      <div class="slide-meta">
+        <div class="slide-count">
+          <span id="currentSlide">01</span>
+          <span class="line"></span>
+          <span id="totalSlides">06</span>
         </div>
+
+        <div class="slide-dots" id="slideDots" aria-hidden="true"></div>
       </div>
 
       <div class="note">
         <div class="note-copy">
-          <strong>Everyday perspectives</strong>
-          Small visual notes from ordinary days, grouped into loose mini-series rather than separate photography projects.
+          <strong>Two small observations</strong>
+          Mobile Graphy brings together small groups of photographs rather than separate projects —
+          everyday scenes collected while moving through markets and the city.
         </div>
+
         <div class="note-side">
           Shot on phone<br>
           Personal archive
@@ -1016,9 +896,8 @@
   </main>
 
   <script>
-    const collections = {
-      market: {
-        kicker: "01 / MOBILE GRAPHY",
+    const series = [
+      {
         title: "Market Stories",
         description: "Traditional markets, old shopkeepers, craftsmen, and quiet moments of everyday work.",
         slides: [
@@ -1030,8 +909,7 @@
           "assets/mobile-graphy/market-06.jpg"
         ]
       },
-      wandering: {
-        kicker: "02 / MOBILE GRAPHY",
+      {
         title: "Wandering",
         description: "Unplanned walks through the city — streets, people, light, details, and moments noticed along the way.",
         slides: [
@@ -1047,14 +925,8 @@
           "assets/mobile-graphy/wandering-10.jpg"
         ]
       }
-    };
+    ];
 
-    const collectionsView = document.getElementById("collectionsView");
-    const viewerView = document.getElementById("viewerView");
-    const viewerKicker = document.getElementById("viewerKicker");
-    const viewerTitle = document.getElementById("viewerTitle");
-    const viewerDescription = document.getElementById("viewerDescription");
-    const navBack = document.getElementById("navBack");
     const storyScreen = document.getElementById("storyScreen");
     const storyImage = document.getElementById("storyImage");
     const storyProgress = document.getElementById("storyProgress");
@@ -1063,129 +935,97 @@
     const prevSlide = document.getElementById("prevSlide");
     const nextSlide = document.getElementById("nextSlide");
     const slideDots = document.getElementById("slideDots");
+    const seriesNumber = document.getElementById("seriesNumber");
+    const seriesTitle = document.getElementById("seriesTitle");
+    const seriesDescription = document.getElementById("seriesDescription");
+    const storySeriesNumber = document.getElementById("storySeriesNumber");
+    const storySeriesTitle = document.getElementById("storySeriesTitle");
+    const collectionTabs = [...document.querySelectorAll(".collection-tab")];
 
-    let activeCollection = null;
-    let slides = [];
+    let seriesIndex = 0;
     let index = 0;
     let touchStartX = null;
 
+    function activeSeries() { return series[seriesIndex]; }
+
     function buildIndicators() {
+      const slides = activeSeries().slides;
       storyProgress.innerHTML = "";
       slideDots.innerHTML = "";
-
+      storyProgress.style.setProperty("--story-count", slides.length);
       slides.forEach((_, i) => {
         const bar = document.createElement("span");
         bar.classList.toggle("active", i === index);
         storyProgress.appendChild(bar);
-
         const dot = document.createElement("span");
         dot.classList.toggle("active", i === index);
         slideDots.appendChild(dot);
       });
-
-      storyProgress.style.gridTemplateColumns = `repeat(${slides.length}, 1fr)`;
     }
 
-    function updateIndicators() {
-      [...storyProgress.children].forEach((bar, i) => {
-        bar.classList.toggle("active", i === index);
-      });
-      [...slideDots.children].forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
-      });
+    function updateUI() {
+      const current = activeSeries();
+      const slides = current.slides;
+      seriesNumber.textContent = `${String(seriesIndex + 1).padStart(2,"0")} / MINI-SERIES`;
+      seriesTitle.textContent = current.title;
+      seriesDescription.textContent = current.description;
+      storySeriesNumber.textContent = `${String(seriesIndex + 1).padStart(2,"0")} / ${String(series.length).padStart(2,"0")}`;
+      storySeriesTitle.textContent = current.title;
+      collectionTabs.forEach((tab, tabIndex) => tab.classList.toggle("active", tabIndex === seriesIndex));
+      totalSlides.textContent = String(slides.length).padStart(2,"0");
+      currentSlide.textContent = String(index + 1).padStart(2,"0");
+      storyImage.src = slides[index];
+      storyImage.alt = `${current.title} — photo ${index + 1}`;
+      buildIndicators();
     }
 
-    function renderSlide(animate = true) {
-      const update = () => {
-        storyImage.src = slides[index];
-        storyImage.alt = `${collections[activeCollection].title} — slide ${index + 1}`;
-        currentSlide.textContent = String(index + 1).padStart(2, "0");
-        totalSlides.textContent = String(slides.length).padStart(2, "0");
-        updateIndicators();
-      };
-
-      if (!animate) {
-        update();
-        return;
+    function showRelative(direction) {
+      const current = activeSeries();
+      let nextIndex = index + direction;
+      if (nextIndex >= current.slides.length) {
+        seriesIndex = (seriesIndex + 1) % series.length;
+        index = 0;
+      } else if (nextIndex < 0) {
+        seriesIndex = (seriesIndex - 1 + series.length) % series.length;
+        index = activeSeries().slides.length - 1;
+      } else {
+        index = nextIndex;
       }
-
       storyScreen.classList.add("is-changing");
       window.setTimeout(() => {
-        update();
+        updateUI();
         requestAnimationFrame(() => storyScreen.classList.remove("is-changing"));
       }, 150);
     }
 
-    function openCollection(key) {
-      activeCollection = key;
-      slides = collections[key].slides;
-      index = 0;
-
-      viewerKicker.textContent = collections[key].kicker;
-      viewerTitle.textContent = collections[key].title;
-      viewerDescription.textContent = collections[key].description;
-      document.body.classList.add("viewer-open");
-      buildIndicators();
-      renderSlide(false);
-
-      collectionsView.style.display = "none";
-      viewerView.classList.add("is-active");
-      navBack.textContent = "← Back to Collections";
-      navBack.setAttribute("href", "#collections");
-      viewerView.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function closeViewer() {
-      viewerView.classList.remove("is-active");
-      document.body.classList.remove("viewer-open");
-      collectionsView.style.display = "block";
-      activeCollection = null;
-      slides = [];
-      navBack.textContent = "← Back to Project Archive";
-      navBack.setAttribute("href", "projects.html");
-      collectionsView.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function showSlide(nextIndex) {
-      if (!slides.length) return;
-      index = (nextIndex + slides.length) % slides.length;
-      renderSlide(true);
-    }
-
-    document.querySelectorAll(".collection-card").forEach(card => {
-      card.addEventListener("click", () => openCollection(card.dataset.collection));
+    collectionTabs.forEach((tab, tabIndex) => {
+      tab.addEventListener("click", () => {
+        if (tabIndex === seriesIndex) return;
+        storyScreen.classList.add("is-changing");
+        window.setTimeout(() => {
+          seriesIndex = tabIndex;
+          index = 0;
+          updateUI();
+          requestAnimationFrame(() => storyScreen.classList.remove("is-changing"));
+        }, 150);
+      });
     });
 
-    navBack.addEventListener("click", event => {
-      if (viewerView.classList.contains("is-active")) {
-        event.preventDefault();
-        closeViewer();
-      }
-    });
-
-    prevSlide.addEventListener("click", () => showSlide(index - 1));
-    nextSlide.addEventListener("click", () => showSlide(index + 1));
-
+    prevSlide.addEventListener("click", () => showRelative(-1));
+    nextSlide.addEventListener("click", () => showRelative(1));
     document.addEventListener("keydown", event => {
-      if (!viewerView.classList.contains("is-active")) return;
-      if (event.key === "ArrowLeft") showSlide(index - 1);
-      if (event.key === "ArrowRight") showSlide(index + 1);
-      if (event.key === "Escape") closeViewer();
+      if (event.key === "ArrowLeft") showRelative(-1);
+      if (event.key === "ArrowRight") showRelative(1);
     });
-
-    storyScreen.addEventListener("touchstart", event => {
-      touchStartX = event.changedTouches[0].clientX;
-    }, { passive: true });
-
+    storyScreen.addEventListener("touchstart", event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
     storyScreen.addEventListener("touchend", event => {
       if (touchStartX === null) return;
       const delta = event.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(delta) > 45) {
-        if (delta < 0) showSlide(index + 1);
-        else showSlide(index - 1);
-      }
+      if (Math.abs(delta) > 45) showRelative(delta < 0 ? 1 : -1);
       touchStartX = null;
     }, { passive: true });
+    storyImage.addEventListener("error", () => { storyImage.alt = "Add your photo at " + activeSeries().slides[index]; });
+    updateUI();
   </script>
 </body>
 </html>
