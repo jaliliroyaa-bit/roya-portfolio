@@ -1568,11 +1568,9 @@
             ></div>
 
             <div class="timeline-ticks">
-
               <div class="tick"></div>
               <div class="tick"></div>
               <div class="tick"></div>
-
             </div>
               <div class="tick"></div>
               <div class="tick"></div>
@@ -1597,25 +1595,64 @@
         id="horizontal-scroll"
       >
 
-        <a href="topspin.html" class="carousel-card">
+        <a href="topspin.html" class="carousel-card" data-project="0">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
-
           <div class="project-info">
             <h3>Topspin</h3>
           </div>
         </a>
 
-        <a href="car-ir.html" class="carousel-card">
+        <a href="car-ir.html" class="carousel-card" data-project="1">
           <img src="assets/car-cover.jpg" alt="CAR.IR">
-
           <div class="project-info">
             <h3>CAR.IR</h3>
           </div>
         </a>
 
-        <a href="chavosh.html" class="carousel-card">
+        <a href="chavosh.html" class="carousel-card" data-project="2">
           <img src="assets/chavosh-cover.jpg" alt="Chavosh">
+          <div class="project-info">
+            <h3>Chavosh</h3>
+          </div>
+        </a>
 
+        <a href="topspin.html" class="carousel-card" data-project="0">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
+          <div class="project-info">
+            <h3>Topspin</h3>
+          </div>
+        </a>
+
+        <a href="car-ir.html" class="carousel-card" data-project="1">
+          <img src="assets/car-cover.jpg" alt="CAR.IR">
+          <div class="project-info">
+            <h3>CAR.IR</h3>
+          </div>
+        </a>
+
+        <a href="chavosh.html" class="carousel-card" data-project="2">
+          <img src="assets/chavosh-cover.jpg" alt="Chavosh">
+          <div class="project-info">
+            <h3>Chavosh</h3>
+          </div>
+        </a>
+
+        <a href="topspin.html" class="carousel-card" data-project="0">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
+          <div class="project-info">
+            <h3>Topspin</h3>
+          </div>
+        </a>
+
+        <a href="car-ir.html" class="carousel-card" data-project="1">
+          <img src="assets/car-cover.jpg" alt="CAR.IR">
+          <div class="project-info">
+            <h3>CAR.IR</h3>
+          </div>
+        </a>
+
+        <a href="chavosh.html" class="carousel-card" data-project="2">
+          <img src="assets/chavosh-cover.jpg" alt="Chavosh">
           <div class="project-info">
             <h3>Chavosh</h3>
           </div>
@@ -2051,817 +2088,476 @@
         document.querySelectorAll('.tick')
       );
 
+    const PROJECT_COUNT = 3;
+    const MIDDLE_SET_START = PROJECT_COUNT;
 
     let isDraggingCarousel = false;
-
     let isDraggingTimeline = false;
-
     let dragStartX = 0;
-
     let dragStartScroll = 0;
-
     let hasDragged = false;
+    let isRecentering = false;
 
-
-    function clamp(
-      value,
-      min,
-      max
-    ) {
-      return Math.min(
-        Math.max(
-          value,
-          min
-        ),
-        max
-      );
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     }
-
-
-    function getMaxScroll() {
-      return Math.max(
-        0,
-        scrollContainer.scrollWidth
-        -
-        scrollContainer.clientWidth
-      );
-    }
-
 
     function getClosestCardIndex() {
-
       const containerRect =
-        scrollContainer
-        .getBoundingClientRect();
+        scrollContainer.getBoundingClientRect();
 
       const containerCenter =
-        containerRect.left
-        +
-        containerRect.width / 2;
-
+        containerRect.left + containerRect.width / 2;
 
       let closestIndex = 0;
-
       let minDistance = Infinity;
 
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(cardCenter - containerCenter);
 
-      cards.forEach(
-        (
-          card,
-          index
-        ) => {
-
-          const rect =
-            card
-            .getBoundingClientRect();
-
-          const cardCenter =
-            rect.left
-            +
-            rect.width / 2;
-
-          const distance =
-            Math.abs(
-              cardCenter
-              -
-              containerCenter
-            );
-
-
-          if (
-            distance
-            <
-            minDistance
-          ) {
-
-            minDistance =
-              distance;
-
-            closestIndex =
-              index;
-
-          }
-
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
         }
-      );
-
+      });
 
       return closestIndex;
     }
 
+    function getCardTarget(card) {
+      const containerRect =
+        scrollContainer.getBoundingClientRect();
 
-    function updateActiveCard() {
+      const cardRect =
+        card.getBoundingClientRect();
 
-      const activeIndex =
-        getClosestCardIndex();
-
-
-      cards.forEach(
-        (
-          card,
-          index
-        ) => {
-
-          card
-          .classList
-          .toggle(
-            'active',
-            index === activeIndex
-          );
-
-        }
+      return (
+        scrollContainer.scrollLeft
+        + (cardRect.left - containerRect.left)
+        - ((containerRect.width - cardRect.width) / 2)
       );
     }
 
+    function scrollToCard(index, behavior = 'smooth') {
+      const card = cards[index];
+      if (!card) return;
+
+      scrollContainer.scrollTo({
+        left: getCardTarget(card),
+        behavior
+      });
+    }
+
+    function getCycleWidth() {
+      const firstMiddle = cards[MIDDLE_SET_START];
+      const firstNext = cards[MIDDLE_SET_START + PROJECT_COUNT];
+
+      if (!firstMiddle || !firstNext) return 0;
+
+      return firstNext.offsetLeft - firstMiddle.offsetLeft;
+    }
+
+    function getMiddleStartScroll() {
+      const firstMiddle = cards[MIDDLE_SET_START];
+      if (!firstMiddle) return 0;
+      return getCardTarget(firstMiddle);
+    }
+
+    function normalizeInfinitePosition() {
+      if (isRecentering || isDraggingTimeline) return;
+
+      const cycleWidth = getCycleWidth();
+      if (!cycleWidth) return;
+
+      const middleStart = getMiddleStartScroll();
+      const relative = scrollContainer.scrollLeft - middleStart;
+
+      /*
+        Keep the viewport around the middle copy.
+        Because the projects are duplicated, this jump is visually invisible.
+      */
+      if (relative < -cycleWidth * 0.5) {
+        isRecentering = true;
+        scrollContainer.scrollLeft += cycleWidth;
+        requestAnimationFrame(() => {
+          isRecentering = false;
+        });
+      } else if (relative > cycleWidth * 1.5) {
+        isRecentering = true;
+        scrollContainer.scrollLeft -= cycleWidth;
+        requestAnimationFrame(() => {
+          isRecentering = false;
+        });
+      }
+    }
+
+    function updateActiveCard() {
+      const activeIndex = getClosestCardIndex();
+
+      cards.forEach((card, index) => {
+        card.classList.toggle(
+          'active',
+          index === activeIndex
+        );
+      });
+    }
+
+    function getLoopProgress() {
+      const cycleWidth = getCycleWidth();
+      if (!cycleWidth) return 0;
+
+      const middleStart = getMiddleStartScroll();
+      let position =
+        (scrollContainer.scrollLeft - middleStart) % cycleWidth;
+
+      if (position < 0) {
+        position += cycleWidth;
+      }
+
+      return clamp(position / cycleWidth, 0, 1);
+    }
 
     function updateTimeline() {
-
-      const maxScroll =
-        getMaxScroll();
-
-
       const markerTravel =
         Math.max(
           0,
-          timeline.clientWidth
-          -
-          timelineMarker.offsetWidth
+          timeline.clientWidth - timelineMarker.offsetWidth
         );
 
-
-      const progress =
-        maxScroll > 0
-
-        ?
-
-        clamp(
-          scrollContainer.scrollLeft
-          /
-          maxScroll,
-
-          0,
-          1
-        )
-
-        :
-
-        0;
-
+      const progress = getLoopProgress();
 
       timelineMarker.style.left =
         `${progress * markerTravel}px`;
     }
 
+    function scrollToLogicalProject(projectIndex, behavior = 'smooth') {
+      const safeIndex =
+        ((projectIndex % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT;
 
-    function getCardTarget(card) {
+      const targetIndex =
+        MIDDLE_SET_START + safeIndex;
 
-      const containerRect =
-        scrollContainer
-        .getBoundingClientRect();
-
-
-      const cardRect =
-        card
-        .getBoundingClientRect();
-
-
-      const target =
-
-        scrollContainer.scrollLeft
-
-        +
-
-        (
-          cardRect.left
-          -
-          containerRect.left
-        )
-
-        -
-
-        (
-          (
-            containerRect.width
-            -
-            cardRect.width
-          )
-          /
-          2
-        );
-
-
-      return clamp(
-        target,
-        0,
-        getMaxScroll()
-      );
+      scrollToCard(targetIndex, behavior);
     }
 
-
-    function scrollToCard(
-      index,
-      behavior = 'smooth'
-    ) {
-
-      const card =
-        cards[index];
-
-
-      if (!card)
-        return;
-
-
-      scrollContainer.scrollTo({
-
-        left:
-          getCardTarget(card),
-
-        behavior
-
+    ticks.forEach((tick, index) => {
+      tick.addEventListener('click', event => {
+        event.stopPropagation();
+        scrollToLogicalProject(index);
       });
-    }
-
-
-    ticks.forEach(
-      (
-        tick,
-        index
-      ) => {
-
-        tick.addEventListener(
-          'click',
-          event => {
-
-            event.stopPropagation();
-
-            scrollToCard(index);
-
-          }
-        );
-
-      }
-    );
-
-
-    cards.forEach(card => {
-
-      card.setAttribute(
-        'draggable',
-        'false'
-      );
-
-
-      card.addEventListener(
-        'dragstart',
-        event => {
-
-          event.preventDefault();
-
-        }
-      );
-
-
-      const img =
-        card.querySelector('img');
-
-
-      if (img) {
-
-        img.setAttribute(
-          'draggable',
-          'false'
-        );
-
-      }
-
     });
 
+    cards.forEach(card => {
+      card.setAttribute('draggable', 'false');
+
+      card.addEventListener('dragstart', event => {
+        event.preventDefault();
+      });
+
+      const img = card.querySelector('img');
+
+      if (img) {
+        img.setAttribute('draggable', 'false');
+      }
+    });
 
     scrollContainer.addEventListener(
       'wheel',
       event => {
-
         const delta =
+          Math.abs(event.deltaX) > Math.abs(event.deltaY)
+            ? event.deltaX
+            : event.deltaY;
 
-          Math.abs(event.deltaX)
-          >
-          Math.abs(event.deltaY)
-
-          ?
-
-          event.deltaX
-
-          :
-
-          event.deltaY;
-
-
-        const maxScroll =
-          getMaxScroll();
-
-
-        const canGoLeft =
-
-          delta < 0
-
-          &&
-
-          scrollContainer.scrollLeft > 0;
-
-
-        const canGoRight =
-
-          delta > 0
-
-          &&
-
-          scrollContainer.scrollLeft
-          <
-          maxScroll;
-
-
-        if (
-          canGoLeft
-          ||
-          canGoRight
-        ) {
-
+        if (delta !== 0) {
           event.preventDefault();
-
-          scrollContainer.scrollLeft +=
-            delta;
-
+          scrollContainer.scrollLeft += delta;
+          normalizeInfinitePosition();
         }
-
       },
-
-      {
-        passive: false
-      }
+      { passive: false }
     );
-
 
     scrollContainer.addEventListener(
       'pointerdown',
       event => {
-
         if (
           event.pointerType === 'mouse'
           &&
           event.button !== 0
-        )
+        ) {
           return;
-
+        }
 
         isDraggingCarousel = true;
-
         hasDragged = false;
+        dragStartX = event.clientX;
+        dragStartScroll = scrollContainer.scrollLeft;
 
+        scrollContainer.classList.add('dragging');
 
-        dragStartX =
-          event.clientX;
-
-
-        dragStartScroll =
-          scrollContainer.scrollLeft;
-
-
-        scrollContainer
-        .classList
-        .add('dragging');
-
-
-        scrollContainer
-        .setPointerCapture(
+        scrollContainer.setPointerCapture(
           event.pointerId
         );
 
-
         event.preventDefault();
-
       }
     );
-
 
     scrollContainer.addEventListener(
       'pointermove',
       event => {
-
-        if (
-          !isDraggingCarousel
-        )
-          return;
-
+        if (!isDraggingCarousel) return;
 
         const distance =
+          event.clientX - dragStartX;
 
-          event.clientX
-          -
-          dragStartX;
-
-
-        if (
-          Math.abs(distance)
-          >
-          4
-        ) {
-
+        if (Math.abs(distance) > 4) {
           hasDragged = true;
-
         }
 
-
         scrollContainer.scrollLeft =
+          dragStartScroll - distance;
 
-          dragStartScroll
-          -
-          distance;
+        normalizeInfinitePosition();
 
+        /*
+          If we invisibly recenter while dragging,
+          refresh the drag origin so movement stays natural.
+        */
+        if (isRecentering) {
+          dragStartScroll = scrollContainer.scrollLeft;
+          dragStartX = event.clientX;
+        }
 
         event.preventDefault();
-
       }
     );
 
+    function endCarouselDrag(event) {
+      if (!isDraggingCarousel) return;
 
-    function endCarouselDrag(
-      event
-    ) {
-
-      if (
-        !isDraggingCarousel
-      )
-        return;
-
-
-      isDraggingCarousel =
-        false;
-
-
-      scrollContainer
-      .classList
-      .remove('dragging');
-
+      isDraggingCarousel = false;
+      scrollContainer.classList.remove('dragging');
 
       if (
         event
         &&
         event.pointerId !== undefined
         &&
-        scrollContainer
-        .hasPointerCapture(
-          event.pointerId
-        )
+        scrollContainer.hasPointerCapture(event.pointerId)
       ) {
-
-        scrollContainer
-        .releasePointerCapture(
+        scrollContainer.releasePointerCapture(
           event.pointerId
         );
-
       }
 
+      normalizeInfinitePosition();
 
-      if (
-        hasDragged
-      ) {
-
+      if (hasDragged) {
         const closestIndex =
           getClosestCardIndex();
 
-
-        requestAnimationFrame(
-          () => {
-
-            scrollToCard(
-              closestIndex
-            );
-
-          }
-        );
-
+        requestAnimationFrame(() => {
+          scrollToCard(closestIndex);
+        });
       }
 
-
       updateActiveCard();
-
       updateTimeline();
-
     }
-
 
     scrollContainer.addEventListener(
       'pointerup',
       endCarouselDrag
     );
 
-
     scrollContainer.addEventListener(
       'pointercancel',
       endCarouselDrag
     );
 
-
     cards.forEach(card => {
-
-      card.addEventListener(
-        'click',
-        event => {
-
-          if (
-            hasDragged
-          ) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            hasDragged = false;
-
-          }
-
+      card.addEventListener('click', event => {
+        if (hasDragged) {
+          event.preventDefault();
+          event.stopPropagation();
+          hasDragged = false;
         }
-      );
-
+      });
     });
-
 
     timelineMarker.addEventListener(
       'pointerdown',
       event => {
-
         isDraggingTimeline = true;
 
-
-        timelineMarker
-        .setPointerCapture(
+        timelineMarker.setPointerCapture(
           event.pointerId
         );
 
-
-        timelineMarker.style.cursor =
-          'grabbing';
-
+        timelineMarker.style.cursor = 'grabbing';
 
         event.preventDefault();
-
         event.stopPropagation();
-
       }
     );
-
 
     timelineMarker.addEventListener(
       'pointermove',
       event => {
-
-        if (
-          !isDraggingTimeline
-        )
-          return;
-
+        if (!isDraggingTimeline) return;
 
         const rect =
-          timeline
-          .getBoundingClientRect();
-
+          timeline.getBoundingClientRect();
 
         const markerWidth =
           timelineMarker.offsetWidth;
 
-
         const markerTravel =
-          Math.max(
-            0,
-            rect.width
-            -
-            markerWidth
-          );
-
+          Math.max(0, rect.width - markerWidth);
 
         const x =
           clamp(
-
             event.clientX
-            -
-            rect.left
-            -
-            markerWidth / 2,
-
+            - rect.left
+            - markerWidth / 2,
             0,
-
             markerTravel
-
           );
 
-
         const progress =
-
           markerTravel > 0
+            ? x / markerTravel
+            : 0;
 
-          ?
-
-          x
-          /
-          markerTravel
-
-          :
-
-          0;
-
+        const cycleWidth = getCycleWidth();
+        const middleStart = getMiddleStartScroll();
 
         scrollContainer.scrollLeft =
+          middleStart + progress * cycleWidth;
 
-          progress
-          *
-          getMaxScroll();
-
+        updateActiveCard();
+        updateTimeline();
       }
     );
 
+    function endTimelineDrag(event) {
+      if (!isDraggingTimeline) return;
 
-    function endTimelineDrag(
-      event
-    ) {
-
-      if (
-        !isDraggingTimeline
-      )
-        return;
-
-
-      isDraggingTimeline =
-        false;
-
-
-      timelineMarker.style.cursor =
-        'grab';
-
+      isDraggingTimeline = false;
+      timelineMarker.style.cursor = 'grab';
 
       if (
         event
         &&
         event.pointerId !== undefined
         &&
-        timelineMarker
-        .hasPointerCapture(
-          event.pointerId
-        )
+        timelineMarker.hasPointerCapture(event.pointerId)
       ) {
-
-        timelineMarker
-        .releasePointerCapture(
+        timelineMarker.releasePointerCapture(
           event.pointerId
         );
-
       }
-
 
       const closestIndex =
         getClosestCardIndex();
 
-
-      scrollToCard(
-        closestIndex
-      );
-
+      scrollToCard(closestIndex);
     }
-
 
     timelineMarker.addEventListener(
       'pointerup',
       endTimelineDrag
     );
 
-
     timelineMarker.addEventListener(
       'pointercancel',
       endTimelineDrag
     );
 
-
     timeline.addEventListener(
       'click',
       event => {
-
-        if (
-          event.target
-          ===
-          timelineMarker
-        )
-          return;
-
+        if (event.target === timelineMarker) return;
 
         const rect =
-          timeline
-          .getBoundingClientRect();
-
+          timeline.getBoundingClientRect();
 
         const progress =
           clamp(
-
-            (
-              event.clientX
-              -
-              rect.left
-            )
-
-            /
-
-            rect.width,
-
+            (event.clientX - rect.left) / rect.width,
             0,
-
             1
-
           );
 
+        const cycleWidth = getCycleWidth();
+        const middleStart = getMiddleStartScroll();
 
         scrollContainer.scrollTo({
-
           left:
-
-            progress
-            *
-            getMaxScroll(),
-
-          behavior:
-            'smooth'
-
+            middleStart
+            + progress * cycleWidth,
+          behavior: 'smooth'
         });
-
       }
     );
-
 
     scrollContainer.addEventListener(
       'scroll',
       () => {
-
+        normalizeInfinitePosition();
         updateActiveCard();
-
         updateTimeline();
-
       }
     );
-
 
     window.addEventListener(
       'load',
       () => {
+        requestAnimationFrame(() => {
+          /*
+            Start on TOPSPIN in the middle copy.
+            There is a complete duplicate set on both sides,
+            so the carousel can continue endlessly.
+          */
+          scrollToLogicalProject(0, 'auto');
 
-        requestAnimationFrame(
-          () => {
-
-            scrollToCard(
-              2,
-              'auto'
-            );
-
-
-            requestAnimationFrame(
-              () => {
-
-                updateActiveCard();
-
-                updateTimeline();
-
-              }
-            );
-
-          }
-        );
-
+          requestAnimationFrame(() => {
+            updateActiveCard();
+            updateTimeline();
+          });
+        });
       }
     );
-
 
     window.addEventListener(
       'resize',
       () => {
-
-        const closestIndex =
+        const activeIndex =
           getClosestCardIndex();
 
+        const logicalIndex =
+          Number(
+            cards[activeIndex]?.dataset.project || 0
+          );
 
-        scrollToCard(
-          closestIndex,
+        scrollToLogicalProject(
+          logicalIndex,
           'auto'
         );
 
-
         updateActiveCard();
-
         updateTimeline();
-
       }
     );
 
-
     updateActiveCard();
-
     updateTimeline();
 
+  
   </script>
 
 </body>
