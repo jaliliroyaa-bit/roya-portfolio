@@ -1568,10 +1568,8 @@
             ></div>
 
             <div class="timeline-ticks">
+
               <div class="tick"></div>
-              <div class="tick"></div>
-              <div class="tick"></div>
-            </div>
               <div class="tick"></div>
               <div class="tick"></div>
               <div class="tick"></div>
@@ -1594,6 +1592,48 @@
         class="project-carousel"
         id="horizontal-scroll"
       >
+
+        <a href="topspin.html" class="carousel-card" data-project="0">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
+          <div class="project-info">
+            <h3>Topspin</h3>
+          </div>
+        </a>
+
+        <a href="car-ir.html" class="carousel-card" data-project="1">
+          <img src="assets/car-cover.jpg" alt="CAR.IR">
+          <div class="project-info">
+            <h3>CAR.IR</h3>
+          </div>
+        </a>
+
+        <a href="chavosh.html" class="carousel-card" data-project="2">
+          <img src="assets/chavosh-cover.jpg" alt="Chavosh">
+          <div class="project-info">
+            <h3>Chavosh</h3>
+          </div>
+        </a>
+
+        <a href="topspin.html" class="carousel-card" data-project="0">
+          <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
+          <div class="project-info">
+            <h3>Topspin</h3>
+          </div>
+        </a>
+
+        <a href="car-ir.html" class="carousel-card" data-project="1">
+          <img src="assets/car-cover.jpg" alt="CAR.IR">
+          <div class="project-info">
+            <h3>CAR.IR</h3>
+          </div>
+        </a>
+
+        <a href="chavosh.html" class="carousel-card" data-project="2">
+          <img src="assets/chavosh-cover.jpg" alt="Chavosh">
+          <div class="project-info">
+            <h3>Chavosh</h3>
+          </div>
+        </a>
 
         <a href="topspin.html" class="carousel-card" data-project="0">
           <img src="assets/TOPSPIN-cover.jpg" alt="Topspin">
@@ -2089,17 +2129,32 @@
       );
 
     const PROJECT_COUNT = 3;
-    const MIDDLE_SET_START = PROJECT_COUNT;
+
+    /*
+      We render 5 identical sets:
+      [T C H] [T C H] [T C H] [T C H] [T C H]
+
+      The visitor lives around the middle set.
+      Whenever scrolling approaches either side,
+      we move by exactly one 3-card cycle.
+      Because the cards are identical, the jump is invisible.
+    */
+    const MIDDLE_SET = 2;
+    const MIDDLE_START_INDEX =
+      MIDDLE_SET * PROJECT_COUNT;
 
     let isDraggingCarousel = false;
     let isDraggingTimeline = false;
     let dragStartX = 0;
     let dragStartScroll = 0;
     let hasDragged = false;
-    let isRecentering = false;
+    let suppressLoop = false;
 
     function clamp(value, min, max) {
-      return Math.min(Math.max(value, min), max);
+      return Math.min(
+        Math.max(value, min),
+        max
+      );
     }
 
     function getClosestCardIndex() {
@@ -2107,15 +2162,22 @@
         scrollContainer.getBoundingClientRect();
 
       const containerCenter =
-        containerRect.left + containerRect.width / 2;
+        containerRect.left
+        +
+        containerRect.width / 2;
 
       let closestIndex = 0;
       let minDistance = Infinity;
 
       cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.left + rect.width / 2;
-        const distance = Math.abs(cardCenter - containerCenter);
+        const rect =
+          card.getBoundingClientRect();
+
+        const cardCenter =
+          rect.left + rect.width / 2;
+
+        const distance =
+          Math.abs(cardCenter - containerCenter);
 
         if (distance < minDistance) {
           minDistance = distance;
@@ -2124,6 +2186,18 @@
       });
 
       return closestIndex;
+    }
+
+    function updateActiveCard() {
+      const activeIndex =
+        getClosestCardIndex();
+
+      cards.forEach((card, index) => {
+        card.classList.toggle(
+          'active',
+          index === activeIndex
+        );
+      });
     }
 
     function getCardTarget(card) {
@@ -2135,13 +2209,22 @@
 
       return (
         scrollContainer.scrollLeft
-        + (cardRect.left - containerRect.left)
-        - ((containerRect.width - cardRect.width) / 2)
+        +
+        (cardRect.left - containerRect.left)
+        -
+        (
+          (containerRect.width - cardRect.width)
+          / 2
+        )
       );
     }
 
-    function scrollToCard(index, behavior = 'smooth') {
+    function scrollToCard(
+      index,
+      behavior = 'smooth'
+    ) {
       const card = cards[index];
+
       if (!card) return;
 
       scrollContainer.scrollTo({
@@ -2151,133 +2234,230 @@
     }
 
     function getCycleWidth() {
-      const firstMiddle = cards[MIDDLE_SET_START];
-      const firstNext = cards[MIDDLE_SET_START + PROJECT_COUNT];
+      const a =
+        cards[MIDDLE_START_INDEX];
 
-      if (!firstMiddle || !firstNext) return 0;
+      const b =
+        cards[MIDDLE_START_INDEX + PROJECT_COUNT];
 
-      return firstNext.offsetLeft - firstMiddle.offsetLeft;
+      if (!a || !b) return 0;
+
+      return b.offsetLeft - a.offsetLeft;
     }
 
-    function getMiddleStartScroll() {
-      const firstMiddle = cards[MIDDLE_SET_START];
-      if (!firstMiddle) return 0;
-      return getCardTarget(firstMiddle);
+    function getMiddleCycleStart() {
+      const first =
+        cards[MIDDLE_START_INDEX];
+
+      if (!first) return 0;
+
+      return getCardTarget(first);
     }
 
-    function normalizeInfinitePosition() {
-      if (isRecentering || isDraggingTimeline) return;
+    function keepCarouselInfinite() {
+      if (suppressLoop || isDraggingTimeline) return;
 
-      const cycleWidth = getCycleWidth();
+      const cycleWidth =
+        getCycleWidth();
+
       if (!cycleWidth) return;
 
-      const middleStart = getMiddleStartScroll();
-      const relative = scrollContainer.scrollLeft - middleStart;
+      const middleStart =
+        getMiddleCycleStart();
 
       /*
-        Keep the viewport around the middle copy.
-        Because the projects are duplicated, this jump is visually invisible.
+        Keep scroll position inside a generous middle zone.
+        Move by one whole cycle, never to the actual start/end.
       */
-      if (relative < -cycleWidth * 0.5) {
-        isRecentering = true;
-        scrollContainer.scrollLeft += cycleWidth;
+      const lowerLimit =
+        middleStart - cycleWidth * 0.65;
+
+      const upperLimit =
+        middleStart + cycleWidth * 1.65;
+
+      if (scrollContainer.scrollLeft < lowerLimit) {
+        suppressLoop = true;
+
+        scrollContainer.scrollLeft +=
+          cycleWidth;
+
+        /*
+          If the user is dragging, update the drag origin too,
+          otherwise the pointer would feel like it jumped.
+        */
+        if (isDraggingCarousel) {
+          dragStartScroll += cycleWidth;
+        }
+
         requestAnimationFrame(() => {
-          isRecentering = false;
+          suppressLoop = false;
         });
-      } else if (relative > cycleWidth * 1.5) {
-        isRecentering = true;
-        scrollContainer.scrollLeft -= cycleWidth;
+      }
+
+      else if (
+        scrollContainer.scrollLeft > upperLimit
+      ) {
+        suppressLoop = true;
+
+        scrollContainer.scrollLeft -=
+          cycleWidth;
+
+        if (isDraggingCarousel) {
+          dragStartScroll -= cycleWidth;
+        }
+
         requestAnimationFrame(() => {
-          isRecentering = false;
+          suppressLoop = false;
         });
       }
     }
 
-    function updateActiveCard() {
-      const activeIndex = getClosestCardIndex();
-
-      cards.forEach((card, index) => {
-        card.classList.toggle(
-          'active',
-          index === activeIndex
-        );
-      });
-    }
-
+    /*
+      Timeline remains the same full-length line as before.
+      Its marker represents progress through ONE repeating
+      Topspin -> CAR.IR -> Chavosh cycle.
+    */
     function getLoopProgress() {
-      const cycleWidth = getCycleWidth();
+      const cycleWidth =
+        getCycleWidth();
+
       if (!cycleWidth) return 0;
 
-      const middleStart = getMiddleStartScroll();
-      let position =
-        (scrollContainer.scrollLeft - middleStart) % cycleWidth;
+      const middleStart =
+        getMiddleCycleStart();
 
-      if (position < 0) {
-        position += cycleWidth;
+      let local =
+        (
+          scrollContainer.scrollLeft
+          -
+          middleStart
+        )
+        %
+        cycleWidth;
+
+      if (local < 0) {
+        local += cycleWidth;
       }
 
-      return clamp(position / cycleWidth, 0, 1);
+      return local / cycleWidth;
     }
 
     function updateTimeline() {
       const markerTravel =
         Math.max(
           0,
-          timeline.clientWidth - timelineMarker.offsetWidth
+          timeline.clientWidth
+          -
+          timelineMarker.offsetWidth
         );
 
-      const progress = getLoopProgress();
-
       timelineMarker.style.left =
-        `${progress * markerTravel}px`;
+        `${
+          getLoopProgress()
+          *
+          markerTravel
+        }px`;
     }
 
-    function scrollToLogicalProject(projectIndex, behavior = 'smooth') {
+    function scrollToLogicalProject(
+      logicalIndex,
+      behavior = 'smooth'
+    ) {
       const safeIndex =
-        ((projectIndex % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT;
+        (
+          (
+            logicalIndex
+            %
+            PROJECT_COUNT
+          )
+          +
+          PROJECT_COUNT
+        )
+        %
+        PROJECT_COUNT;
 
-      const targetIndex =
-        MIDDLE_SET_START + safeIndex;
-
-      scrollToCard(targetIndex, behavior);
+      scrollToCard(
+        MIDDLE_START_INDEX + safeIndex,
+        behavior
+      );
     }
 
+    /*
+      Keep all the old decorative ticks.
+      Clicking anywhere along them cycles through
+      the three real projects.
+    */
     ticks.forEach((tick, index) => {
-      tick.addEventListener('click', event => {
-        event.stopPropagation();
-        scrollToLogicalProject(index);
-      });
+      tick.addEventListener(
+        'click',
+        event => {
+          event.stopPropagation();
+
+          scrollToLogicalProject(
+            index % PROJECT_COUNT
+          );
+        }
+      );
     });
 
     cards.forEach(card => {
-      card.setAttribute('draggable', 'false');
+      card.setAttribute(
+        'draggable',
+        'false'
+      );
 
-      card.addEventListener('dragstart', event => {
-        event.preventDefault();
-      });
+      card.addEventListener(
+        'dragstart',
+        event => {
+          event.preventDefault();
+        }
+      );
 
-      const img = card.querySelector('img');
+      const img =
+        card.querySelector('img');
 
       if (img) {
-        img.setAttribute('draggable', 'false');
+        img.setAttribute(
+          'draggable',
+          'false'
+        );
       }
+
+      card.addEventListener(
+        'click',
+        event => {
+          if (hasDragged) {
+            event.preventDefault();
+            event.stopPropagation();
+            hasDragged = false;
+          }
+        }
+      );
     });
 
     scrollContainer.addEventListener(
       'wheel',
       event => {
         const delta =
-          Math.abs(event.deltaX) > Math.abs(event.deltaY)
-            ? event.deltaX
-            : event.deltaY;
+          Math.abs(event.deltaX)
+          >
+          Math.abs(event.deltaY)
+          ?
+          event.deltaX
+          :
+          event.deltaY;
 
-        if (delta !== 0) {
-          event.preventDefault();
-          scrollContainer.scrollLeft += delta;
-          normalizeInfinitePosition();
-        }
+        if (delta === 0) return;
+
+        event.preventDefault();
+
+        scrollContainer.scrollLeft += delta;
+
+        keepCarouselInfinite();
       },
-      { passive: false }
+      {
+        passive: false
+      }
     );
 
     scrollContainer.addEventListener(
@@ -2293,14 +2473,21 @@
 
         isDraggingCarousel = true;
         hasDragged = false;
-        dragStartX = event.clientX;
-        dragStartScroll = scrollContainer.scrollLeft;
 
-        scrollContainer.classList.add('dragging');
+        dragStartX =
+          event.clientX;
 
-        scrollContainer.setPointerCapture(
-          event.pointerId
-        );
+        dragStartScroll =
+          scrollContainer.scrollLeft;
+
+        scrollContainer
+          .classList
+          .add('dragging');
+
+        scrollContainer
+          .setPointerCapture(
+            event.pointerId
+          );
 
         event.preventDefault();
       }
@@ -2312,25 +2499,22 @@
         if (!isDraggingCarousel) return;
 
         const distance =
-          event.clientX - dragStartX;
+          event.clientX
+          -
+          dragStartX;
 
-        if (Math.abs(distance) > 4) {
+        if (
+          Math.abs(distance) > 4
+        ) {
           hasDragged = true;
         }
 
         scrollContainer.scrollLeft =
-          dragStartScroll - distance;
+          dragStartScroll
+          -
+          distance;
 
-        normalizeInfinitePosition();
-
-        /*
-          If we invisibly recenter while dragging,
-          refresh the drag origin so movement stays natural.
-        */
-        if (isRecentering) {
-          dragStartScroll = scrollContainer.scrollLeft;
-          dragStartX = event.clientX;
-        }
+        keepCarouselInfinite();
 
         event.preventDefault();
       }
@@ -2340,28 +2524,37 @@
       if (!isDraggingCarousel) return;
 
       isDraggingCarousel = false;
-      scrollContainer.classList.remove('dragging');
+
+      scrollContainer
+        .classList
+        .remove('dragging');
 
       if (
         event
         &&
         event.pointerId !== undefined
         &&
-        scrollContainer.hasPointerCapture(event.pointerId)
+        scrollContainer
+          .hasPointerCapture(
+            event.pointerId
+          )
       ) {
-        scrollContainer.releasePointerCapture(
-          event.pointerId
-        );
+        scrollContainer
+          .releasePointerCapture(
+            event.pointerId
+          );
       }
 
-      normalizeInfinitePosition();
+      keepCarouselInfinite();
 
       if (hasDragged) {
         const closestIndex =
           getClosestCardIndex();
 
         requestAnimationFrame(() => {
-          scrollToCard(closestIndex);
+          scrollToCard(
+            closestIndex
+          );
         });
       }
 
@@ -2379,26 +2572,22 @@
       endCarouselDrag
     );
 
-    cards.forEach(card => {
-      card.addEventListener('click', event => {
-        if (hasDragged) {
-          event.preventDefault();
-          event.stopPropagation();
-          hasDragged = false;
-        }
-      });
-    });
-
+    /*
+      Timeline marker is draggable just like before.
+      It navigates through one repeating cycle.
+    */
     timelineMarker.addEventListener(
       'pointerdown',
       event => {
         isDraggingTimeline = true;
 
-        timelineMarker.setPointerCapture(
-          event.pointerId
-        );
+        timelineMarker
+          .setPointerCapture(
+            event.pointerId
+          );
 
-        timelineMarker.style.cursor = 'grabbing';
+        timelineMarker.style.cursor =
+          'grabbing';
 
         event.preventDefault();
         event.stopPropagation();
@@ -2417,27 +2606,39 @@
           timelineMarker.offsetWidth;
 
         const markerTravel =
-          Math.max(0, rect.width - markerWidth);
+          Math.max(
+            0,
+            rect.width - markerWidth
+          );
 
         const x =
           clamp(
             event.clientX
-            - rect.left
-            - markerWidth / 2,
+            -
+            rect.left
+            -
+            markerWidth / 2,
             0,
             markerTravel
           );
 
         const progress =
           markerTravel > 0
-            ? x / markerTravel
-            : 0;
+          ?
+          x / markerTravel
+          :
+          0;
 
-        const cycleWidth = getCycleWidth();
-        const middleStart = getMiddleStartScroll();
+        const cycleWidth =
+          getCycleWidth();
+
+        const middleStart =
+          getMiddleCycleStart();
 
         scrollContainer.scrollLeft =
-          middleStart + progress * cycleWidth;
+          middleStart
+          +
+          progress * cycleWidth;
 
         updateActiveCard();
         updateTimeline();
@@ -2448,24 +2649,34 @@
       if (!isDraggingTimeline) return;
 
       isDraggingTimeline = false;
-      timelineMarker.style.cursor = 'grab';
+
+      timelineMarker.style.cursor =
+        'grab';
 
       if (
         event
         &&
         event.pointerId !== undefined
         &&
-        timelineMarker.hasPointerCapture(event.pointerId)
+        timelineMarker
+          .hasPointerCapture(
+            event.pointerId
+          )
       ) {
-        timelineMarker.releasePointerCapture(
-          event.pointerId
-        );
+        timelineMarker
+          .releasePointerCapture(
+            event.pointerId
+          );
       }
 
       const closestIndex =
         getClosestCardIndex();
 
-      scrollToCard(closestIndex);
+      scrollToCard(
+        closestIndex
+      );
+
+      keepCarouselInfinite();
     }
 
     timelineMarker.addEventListener(
@@ -2481,25 +2692,39 @@
     timeline.addEventListener(
       'click',
       event => {
-        if (event.target === timelineMarker) return;
+        if (
+          event.target === timelineMarker
+        ) {
+          return;
+        }
 
         const rect =
           timeline.getBoundingClientRect();
 
         const progress =
           clamp(
-            (event.clientX - rect.left) / rect.width,
+            (
+              event.clientX
+              -
+              rect.left
+            )
+            /
+            rect.width,
             0,
             1
           );
 
-        const cycleWidth = getCycleWidth();
-        const middleStart = getMiddleStartScroll();
+        const middleStart =
+          getMiddleCycleStart();
+
+        const cycleWidth =
+          getCycleWidth();
 
         scrollContainer.scrollTo({
           left:
             middleStart
-            + progress * cycleWidth,
+            +
+            progress * cycleWidth,
           behavior: 'smooth'
         });
       }
@@ -2508,7 +2733,7 @@
     scrollContainer.addEventListener(
       'scroll',
       () => {
-        normalizeInfinitePosition();
+        keepCarouselInfinite();
         updateActiveCard();
         updateTimeline();
       }
@@ -2518,12 +2743,15 @@
       'load',
       () => {
         requestAnimationFrame(() => {
+
           /*
-            Start on TOPSPIN in the middle copy.
-            There is a complete duplicate set on both sides,
-            so the carousel can continue endlessly.
+            CAR.IR starts in the centre, exactly like your screenshot:
+            Topspin on the left / CAR.IR centre / Chavosh right.
           */
-          scrollToLogicalProject(0, 'auto');
+          scrollToLogicalProject(
+            1,
+            'auto'
+          );
 
           requestAnimationFrame(() => {
             updateActiveCard();
@@ -2541,7 +2769,10 @@
 
         const logicalIndex =
           Number(
-            cards[activeIndex]?.dataset.project || 0
+            cards[activeIndex]
+              ?.dataset.project
+            ||
+            0
           );
 
         scrollToLogicalProject(
