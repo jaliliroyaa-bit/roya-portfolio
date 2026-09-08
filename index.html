@@ -1452,7 +1452,20 @@
     }
 
     .timeline-ticks {
-      display: none;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: absolute;
+      top: -4px;
+      padding: 0 2px;
+      pointer-events: none;
+    }
+
+    .timeline-ticks .tick {
+      width: 1px;
+      height: 9px;
+      background: rgba(255,255,255,.4);
+      position: relative;
     }
 
     .timeline-marker {
