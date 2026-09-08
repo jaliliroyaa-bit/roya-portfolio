@@ -1,42 +1,742 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>CHAVOSH — Roya Jalili</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="car-ir.css">
+
+  <style>
+    /* =========================================
+       BRAINSTORMING — SCROLL REVEAL
+    ========================================= */
+
+    .brainstorm-image {
+      opacity: 0;
+      transform: translateY(90px) scale(0.9);
+      filter: blur(10px);
+
+      transition:
+        opacity 1.2s cubic-bezier(.22, 1, .36, 1),
+        transform 1.5s cubic-bezier(.22, 1, .36, 1),
+        filter 2.4s cubic-bezier(.22, 1, .36, 1);
+
+      will-change: transform, opacity, filter;
+    }
+
+    .brainstorm-image.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brainstorm-image {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+    }
+  </style>
+
 </head>
+
+
 <body>
-<header class="site-header">
-  <a class="logo" href="index.html#top">Roya Jalili</a>
-  <nav>
-    <a href="index.html#work">Work</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
-</header>
-<main class="project-page">
-  <section class="project-intro">
-    <p class="eyebrow">Selected project</p>
-    <h1>CHAVOSH</h1>
-    <p class="project-category">Visual Identity & Illustration</p>
-  </section>
-  <section class="project-hero">
-    <img src="assets/chavosh-cover.jpg" alt="CHAVOSH cover">
-  </section>
-  <section class="case-section">
-    <div><p class="eyebrow">Overview</p></div>
-    <div class="case-copy"><p>A visual identity system combining logo design, color palette, stationery and a distinctive illustration language.</p></div>
-  </section>
-  <section class="case-section">
-    <div><h2>Case study</h2></div>
-    <div><div class="case-placeholder">Add project images, process, motion and final outcomes here.</div></div>
-  </section>
-  <section class="contact">
-    <a class="button" href="index.html#work">← Back to projects</a>
-  </section>
+
+<main id="top">
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="main-bg"></div>
+
+  <div class="ink-wrapper">
+    <div class="ink-blob color-1"></div>
+    <div class="ink-blob color-2"></div>
+    <div class="ink-blob color-3"></div>
+  </div>
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="site-header">
+
+    <a href="index.html" class="logo">
+      Roya Jalili
+    </a>
+
+    <nav>
+
+      <a href="projects.html" class="projects-btn">
+        Projects
+      </a>
+
+      <a href="index.html#about">
+        About
+      </a>
+
+      <a href="index.html#contact">
+        Contact
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================================
+       PROJECT PAGE
+  ====================================================== -->
+
+  <div class="project-page">
+
+
+    <!-- ===================================================
+         PROJECT INTRO
+    ==================================================== -->
+
+    <section class="project-intro">
+
+      <h1>
+        CHAVOSH
+      </h1>
+
+      <p class="project-category">
+        Brand Identity · Visual Communication & Applications
+      </p>
+
+    </section>
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="project-hero">
+
+      <img
+        src="assets/chavosh-cover.jpg"
+        alt="CHAVOSH Brand Identity"
+      >
+
+    </section>
+
+
+    <!-- ===================================================
+         BRAND OVERVIEW
+    ==================================================== -->
+
+    <section class="case-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Overview
+        </p>
+
+        <h2>
+          CHAVOSH
+        </h2>
+
+      </div>
+
+
+      <div class="case-content overview-copy">
+
+        <p>
+          CHAVOSH is a brand identity project focused on creating a clear and cohesive visual language across print and digital applications.
+        </p>
+
+        <p>
+          The identity system brings together logo design, typography, graphic elements, stationery and branded applications, creating a consistent visual experience that can adapt across different touchpoints.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BRAINSTORMING
+    ==================================================== -->
+
+    <section class="case-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Exploration
+        </p>
+
+        <h2>
+          Brainstorming
+        </h2>
+
+      </div>
+
+
+      <div class="case-content">
+
+        <img
+          class="brainstorm-image"
+          src="assets/chavosh/brainstorming.png"
+          alt="CHAVOSH Brand Brainstorming"
+          loading="lazy"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         IDENTITY SYSTEM
+    ==================================================== -->
+
+    <section class="case-row identity-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Identity
+        </p>
+
+        <h2>
+          Identity System
+        </h2>
+
+      </div>
+
+
+      <div class="case-content">
+
+        <div class="project-gallery">
+
+          <div class="project-image wide">
+            <img
+              src="assets/chavosh/CHAVOSH-01.jpg"
+              alt="CHAVOSH Brand Identity — 01"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="project-image">
+            <img
+              src="assets/chavosh/CHAVOSH-02.jpg"
+              alt="CHAVOSH Brand Identity — 02"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="project-image">
+            <img
+              src="assets/chavosh/CHAVOSH-03.jpg"
+              alt="CHAVOSH Brand Identity — 03"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="project-image wide">
+            <img
+              src="assets/chavosh/CHAVOSH-04.jpg"
+              alt="CHAVOSH Brand Identity — 04"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="project-image">
+            <img
+              src="assets/chavosh/CHAVOSH-05.jpg"
+              alt="CHAVOSH Brand Identity — 05"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="project-image">
+            <img
+              src="assets/chavosh/CHAVOSH-06.jpg"
+              alt="CHAVOSH Brand Identity — 06"
+              loading="lazy"
+            >
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PROJECT END
+    ==================================================== -->
+
+    <section class="project-end">
+
+      <a
+        href="projects.html"
+        class="projects-btn"
+      >
+        ← Back to Project Archive
+      </a>
+
+    </section>
+
+
+  </div>
+
 </main>
-<footer><span>© <span id="year"></span> Roya Jalili</span><a href="index.html">Home</a></footer>
-<script src="script.js"></script>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+  <div>
+    © 2026 Roya Jalili
+  </div>
+
+  <div>
+    CHAVOSH — Brand Identity
+  </div>
+
+</footer>
+
+
+<!-- =====================================================
+     LIGHTBOX
+====================================================== -->
+
+<div
+  class="project-lightbox"
+  id="projectLightbox"
+  aria-hidden="true"
+>
+
+  <!-- CLOSE -->
+
+  <button
+    class="lightbox-close"
+    type="button"
+    aria-label="Close image"
+  >
+    ×
+  </button>
+
+
+  <!-- PREVIOUS -->
+
+  <button
+    class="lightbox-arrow lightbox-prev"
+    type="button"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
+
+  <!-- IMAGE -->
+
+  <div class="lightbox-image-wrapper">
+
+    <img
+      class="lightbox-image"
+      src=""
+      alt=""
+    >
+
+    <div class="lightbox-counter"></div>
+
+  </div>
+
+
+  <!-- NEXT -->
+
+  <button
+    class="lightbox-arrow lightbox-next"
+    type="button"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     LIGHTBOX SCRIPT
+====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* -----------------------------------------
+     GET ALL IDENTITY SYSTEM IMAGES
+  ----------------------------------------- */
+
+  const images = Array.from(
+    document.querySelectorAll(
+      ".project-gallery .project-image img"
+    )
+  );
+
+
+  /* -----------------------------------------
+     LIGHTBOX ELEMENTS
+  ----------------------------------------- */
+
+  const lightbox =
+    document.getElementById("projectLightbox");
+
+  const lightboxImage =
+    lightbox.querySelector(".lightbox-image");
+
+  const counter =
+    lightbox.querySelector(".lightbox-counter");
+
+  const closeButton =
+    lightbox.querySelector(".lightbox-close");
+
+  const prevButton =
+    lightbox.querySelector(".lightbox-prev");
+
+  const nextButton =
+    lightbox.querySelector(".lightbox-next");
+
+
+  /* -----------------------------------------
+     VARIABLES
+  ----------------------------------------- */
+
+  let currentIndex = 0;
+
+  let touchStartX = 0;
+
+  let touchEndX = 0;
+
+
+  /* -----------------------------------------
+     UPDATE LIGHTBOX
+  ----------------------------------------- */
+
+  function updateLightbox() {
+
+    const selectedImage =
+      images[currentIndex];
+
+    lightboxImage.src =
+      selectedImage.src;
+
+    lightboxImage.alt =
+      selectedImage.alt;
+
+    counter.textContent =
+      `${currentIndex + 1} / ${images.length}`;
+
+  }
+
+
+  /* -----------------------------------------
+     OPEN
+  ----------------------------------------- */
+
+  function openLightbox(index) {
+
+    currentIndex = index;
+
+    updateLightbox();
+
+    lightbox.classList.add("open");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "lightbox-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     CLOSE
+  ----------------------------------------- */
+
+  function closeLightbox() {
+
+    lightbox.classList.remove("open");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "lightbox-open"
+    );
+
+  }
+
+
+  /* -----------------------------------------
+     NEXT IMAGE
+  ----------------------------------------- */
+
+  function nextImage() {
+
+    currentIndex =
+      (currentIndex + 1) %
+      images.length;
+
+    updateLightbox();
+
+  }
+
+
+  /* -----------------------------------------
+     PREVIOUS IMAGE
+  ----------------------------------------- */
+
+  function previousImage() {
+
+    currentIndex =
+      (
+        currentIndex -
+        1 +
+        images.length
+      ) %
+      images.length;
+
+    updateLightbox();
+
+  }
+
+
+  /* -----------------------------------------
+     OPEN IMAGE ON CLICK
+  ----------------------------------------- */
+
+  images.forEach(
+    function (image, index) {
+
+      image.addEventListener(
+        "click",
+        function () {
+
+          openLightbox(index);
+
+        }
+      );
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     BUTTONS
+  ----------------------------------------- */
+
+  closeButton.addEventListener(
+    "click",
+    closeLightbox
+  );
+
+
+  nextButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.stopPropagation();
+
+      nextImage();
+
+    }
+  );
+
+
+  prevButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.stopPropagation();
+
+      previousImage();
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     CLICK OUTSIDE IMAGE = CLOSE
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target === lightbox ||
+        event.target.classList.contains(
+          "lightbox-image-wrapper"
+        )
+      ) {
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     KEYBOARD
+  ----------------------------------------- */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        !lightbox.classList.contains("open")
+      ) {
+        return;
+      }
+
+
+      if (event.key === "Escape") {
+
+        closeLightbox();
+
+      }
+
+
+      if (event.key === "ArrowRight") {
+
+        nextImage();
+
+      }
+
+
+      if (event.key === "ArrowLeft") {
+
+        previousImage();
+
+      }
+
+    }
+  );
+
+
+  /* -----------------------------------------
+     MOBILE SWIPE — START
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "touchstart",
+    function (event) {
+
+      touchStartX =
+        event.changedTouches[0].screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /* -----------------------------------------
+     MOBILE SWIPE — END
+  ----------------------------------------- */
+
+  lightbox.addEventListener(
+    "touchend",
+    function (event) {
+
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+
+      const difference =
+        touchStartX - touchEndX;
+
+
+      if (
+        Math.abs(difference) < 50
+      ) {
+        return;
+      }
+
+
+      if (difference > 0) {
+
+        nextImage();
+
+      } else {
+
+        previousImage();
+
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /* -----------------------------------------
+     BRAINSTORMING SCROLL REVEAL
+  ----------------------------------------- */
+
+  const brainstormImage = document.querySelector(".brainstorm-image");
+
+  if (brainstormImage) {
+    const brainstormObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2
+      }
+    );
+
+    brainstormObserver.observe(brainstormImage);
+  }
+
+});
+
+</script>
+
+
 </body>
+
 </html>
