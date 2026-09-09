@@ -298,6 +298,19 @@ button{font:inherit}
   display:none !important;
 }
 
+
+/* Slide counter — centered under the phone */
+.slide-meta{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  width:100% !important;
+}
+.slide-count{
+  margin:0 auto !important;
+  justify-content:center !important;
+}
+
 </style>
 </head>
 <body>
@@ -385,7 +398,6 @@ button{font:inherit}
     <span class="line"></span>
     <span id="totalSlides">06</span>
   </div>
-  <div class="dots" id="slideDots" aria-hidden="true"></div>
 </div>
 
 </div>
@@ -459,14 +471,7 @@ function buildProgress(){
   });
 }
 
-function buildDots(){
-  slideDots.innerHTML = "";
-  series[activeSeries].slides.forEach((_,i)=>{
-    const dot = document.createElement("span");
-    dot.classList.toggle("active",i === index);
-    slideDots.appendChild(dot);
-  });
-}
+function buildDots(){}
 
 function updateSeriesInfo(){
   const current = series[activeSeries];
@@ -506,28 +511,13 @@ function switchSeries(key){
 
 function next(){
   const current = series[activeSeries];
-  if(index < current.slides.length - 1){
-    index++;
-    renderSlide();
-    return;
-  }
-  const currentSeriesIndex = seriesOrder.indexOf(activeSeries);
-  const nextSeriesIndex = (currentSeriesIndex + 1) % seriesOrder.length;
-  activeSeries = seriesOrder[nextSeriesIndex];
-  index = 0;
+  index = (index + 1) % current.slides.length;
   renderSlide();
 }
 
 function previous(){
-  if(index > 0){
-    index--;
-    renderSlide();
-    return;
-  }
-  const currentSeriesIndex = seriesOrder.indexOf(activeSeries);
-  const previousSeriesIndex = (currentSeriesIndex - 1 + seriesOrder.length) % seriesOrder.length;
-  activeSeries = seriesOrder[previousSeriesIndex];
-  index = series[activeSeries].slides.length - 1;
+  const current = series[activeSeries];
+  index = (index - 1 + current.slides.length) % current.slides.length;
   renderSlide();
 }
 
