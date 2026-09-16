@@ -261,7 +261,7 @@
 
     .timeline-container { position: relative; width: 100%; max-width: 500px; margin-top: 10px; }
     .timeline { position: relative; width: 100%; height: 1px; background: rgba(255,255,255,.32); cursor: pointer; }
-    .timeline-marker { position: absolute; top: -3px; left: 0; width: 24px; height: 7px; background: #fff; border-radius: 4px; cursor: grab; touch-action: none; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.4); transform: translateX(-50%); transition: left 0.1s ease-out; }
+    .timeline-marker { position: absolute; top: -3px; left: 0; width: 24px; height: 7px; background: #fff; border-radius: 4px; cursor: pointer; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.4); transform: translateX(-50%); transition: left 0.2s ease; }
     .timeline-ticks { display: flex; justify-content: space-between; width: 100%; position: absolute; top: -4px; padding: 0 2px; pointer-events: none; }
     .tick { width: 1px; height: 9px; background: rgba(255,255,255,.4); position: relative; }
 
@@ -277,14 +277,12 @@
       scroll-behavior: smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      cursor: grab;
       user-select: none;
       position: relative;
       z-index: 3;
     }
 
     .project-carousel::-webkit-scrollbar { display: none; }
-    .project-carousel.dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
 
     .carousel-card {
       flex: 0 0 var(--card-width);
@@ -461,7 +459,7 @@
       <div class="hero-line-animation" id="heroLineAnimation" aria-hidden="true"></div>
     </section>
 
-    <!-- بخش Selected Work با لینک‌های فعال و کاملاً کلیک‌خور -->
+    <!-- بخش Selected Work با قابلیت کنترل با اسکرول موس و لینک‌های کاملاً فعال -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -479,13 +477,15 @@
       </div>
 
       <div class="project-carousel" id="horizontal-scroll">
-        <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
-        <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
-        <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
+        <!-- سه پروژه اصلی با لینک‌های کاملاً درست -->
+        <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
+        <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
+        <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
         
-        <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
-        <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
-        <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
+        <!-- لوپ تکرار برای اسکرول بی‌نهایت -->
+        <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
+        <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
+        <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
       </div>
     </section>
 
@@ -626,13 +626,12 @@
     }
     startHeroAnimation();
 
-    // مدیریت کاروسل (حذف ست‌پوینترکپچر برای اجازه دادن به کلیک روی لینک‌ها)
+    // مدیریت کاروسل کاملاً وابسته به اسکرول موس با تایم‌لاین استاندارد و لینک‌های فعال
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.querySelector('.timeline');
     const timelineMarker = document.querySelector('#timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
     const PROJECT_COUNT = 3;
-    let isDraggingCarousel = false, dragStartX = 0, dragStartScroll = 0, hasMoved = false;
 
     function getClosestCardIndex() {
       const containerRect = scrollContainer.getBoundingClientRect();
@@ -673,40 +672,6 @@
         scrollContainer.scrollLeft = maxScroll / 2;
       }
     }
-
-    // اگر کاربر روی کارت کلیک کرد و حرکتی نداشت، لینک باز شود
-    cards.forEach(card => {
-      card.addEventListener('click', event => {
-        if (hasMoved) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-      });
-    });
-
-    scrollContainer.addEventListener('mousedown', event => {
-      isDraggingCarousel = true;
-      hasMoved = false;
-      dragStartX = event.clientX;
-      dragStartScroll = scrollContainer.scrollLeft;
-      scrollContainer.classList.add('dragging');
-    });
-
-    window.addEventListener('mousemove', event => {
-      if (!isDraggingCarousel) return;
-      const distance = event.clientX - dragStartX;
-      if (Math.abs(distance) > 5) {
-        hasMoved = true;
-      }
-      scrollContainer.scrollLeft = dragStartScroll - distance;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDraggingCarousel) {
-        isDraggingCarousel = false;
-        scrollContainer.classList.remove('dragging');
-      }
-    });
 
     scrollContainer.addEventListener('scroll', () => {
       updateActiveCard();
