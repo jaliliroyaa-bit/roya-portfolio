@@ -307,14 +307,15 @@
           <h1>Project Archive</h1>
         </section>
 
+        <!-- مقادیر data-filter حالا دقیقاً با منوی صفحه اصلی یکی شدند -->
         <div class="project-filters" aria-label="Project filters">
           <button class="filter-btn active" type="button" data-filter="all">All</button>
           <button class="filter-btn" type="button" data-filter="brand">Brand &amp; Identity</button>
-          <button class="filter-btn" type="button" data-filter="visual">Visual Arts</button>
-          <button class="filter-btn" type="button" data-filter="editorial">Editorial</button>
+          <button class="filter-btn" type="button" data-filter="visual">Visual Arts &amp; Art Direction</button>
+          <button class="filter-btn" type="button" data-filter="editorial">Editorial &amp; Layout</button>
           <button class="filter-btn" type="button" data-filter="digital">Digital &amp; Social</button>
-          <button class="filter-btn" type="button" data-filter="photo">Photography</button>
-          <button class="filter-btn" type="button" data-filter="concept">Concepts</button>
+          <button class="filter-btn" type="button" data-filter="photography">Photography &amp; Grading</button>
+          <button class="filter-btn" type="button" data-filter="concepts">Concepts &amp; Sketches</button>
         </div>
 
         <section class="project-grid">
@@ -349,19 +350,19 @@
           </a>
 
           <!-- Digital -->
-          <a href="#" class="project-card" data-category="digital concept">
+          <a href="#" class="project-card" data-category="digital concepts">
             <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 03</strong><span>AI Concepts</span></div></div></div>
             <div class="project-body"><h2>Digital &amp; Social</h2><p>Digital Content &amp; Concepts</p></div>
           </a>
 
           <!-- Mobile Graphy -->
-          <a href="mobile-graphy.html" class="project-card" data-category="photo">
+          <a href="mobile-graphy.html" class="project-card" data-category="photography">
             <div class="project-media"><img src="assets/mobile-graphy/wandering-02.jpg" alt="Mobile Graphy"></div>
             <div class="project-body"><h2>Mobile Graphy</h2><p>Photography · Personal Archive</p></div>
           </a>
 
           <!-- Concepts -->
-          <a href="#" class="project-card" data-category="concept">
+          <a href="#" class="project-card" data-category="concepts">
             <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 05</strong><span>Concepts &amp; Sketches</span></div></div></div>
             <div class="project-body"><h2>Concepts &amp; Sketches</h2><p>Ideas &amp; Explorations</p></div>
           </a>
@@ -391,7 +392,7 @@
       });
     }
 
-    filterButtons.endswith = filterButtons.forEach(button => {
+    filterButtons.forEach(button => {
       button.addEventListener("click", () => {
         applyFilter(button.dataset.filter);
       });
