@@ -140,7 +140,6 @@
       color: #fff;
     }
 
-    /* منوی کشویی با استایل شیشه‌ای ملایم و استاندارد */
     .dropdown {
       position: relative;
       display: inline-block;
@@ -298,6 +297,7 @@
       opacity: .7;
       transform: scale(.93);
       transition: filter .4s ease, opacity .4s ease, transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+      z-index: 4;
     }
 
     .carousel-card.active, .carousel-card:hover {
@@ -308,7 +308,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,.15);
     }
 
-    .carousel-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; display: block; pointer-events: none; }
+    .carousel-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; display: block; }
 
     .project-info {
       position: absolute;
@@ -461,7 +461,7 @@
       <div class="hero-line-animation" id="heroLineAnimation" aria-hidden="true"></div>
     </section>
 
-    <!-- بخش Selected Work با لینک‌های دقیق و صحیح پروژه‌ها -->
+    <!-- بخش Selected Work با لینک‌های فعال و کاملاً کلیک‌خور -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -479,12 +479,10 @@
       </div>
 
       <div class="project-carousel" id="horizontal-scroll">
-        <!-- 3 پروژه اصلی با لینک‌های دقیق HTML -->
         <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
         
-        <!-- تکرار برای ایجاد حالت لوپ بی‌نهایت و نرم -->
         <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
@@ -628,13 +626,13 @@
     }
     startHeroAnimation();
 
-    // مدیریت بی‌نهایت و همگام‌سازی تایم‌لاین با ۳ پروژه
+    // مدیریت کاروسل و کلیک‌پذیر بودن لینک‌ها
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.querySelector('.timeline');
     const timelineMarker = document.querySelector('#timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
     const PROJECT_COUNT = 3;
-    let isDraggingCarousel = false, dragStartX = 0, dragStartScroll = 0, hasDragged = false;
+    let isDraggingCarousel = false, dragStartX = 0, dragStartScroll = 0, hasMoved = false;
 
     function getCardTarget(card) {
       const containerRect = scrollContainer.getBoundingClientRect();
@@ -682,19 +680,19 @@
       }
     }
 
+    // جلوگیری از تداخل درگ با کلیک روی لینک‌ها
     cards.forEach(card => {
       card.addEventListener('click', event => {
-        if (hasDragged) {
+        if (hasMoved) {
           event.preventDefault();
           event.stopPropagation();
-          hasDragged = false;
         }
       });
     });
 
     scrollContainer.addEventListener('pointerdown', event => {
       isDraggingCarousel = true;
-      hasDragged = false;
+      hasMoved = false;
       dragStartX = event.clientX;
       dragStartScroll = scrollContainer.scrollLeft;
       scrollContainer.classList.add('dragging');
@@ -704,7 +702,9 @@
     scrollContainer.addEventListener('pointermove', event => {
       if (!isDraggingCarousel) return;
       const distance = event.clientX - dragStartX;
-      if (Math.abs(distance) > 4) hasDragged = true;
+      if (Math.abs(distance) > 6) {
+        hasMoved = true;
+      }
       scrollContainer.scrollLeft = dragStartScroll - distance;
     });
 
