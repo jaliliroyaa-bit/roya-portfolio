@@ -140,7 +140,7 @@
       color: #fff;
     }
 
-    /* DROPDOWN FIX - شیشه‌ایِ تیره و کاملاً مشخص */
+    /* اصلاح رنگ منوی کشویی به حالت شیشه‌ای ملایم و استاندارد */
     .dropdown {
       position: relative;
       display: inline-block;
@@ -162,12 +162,12 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      background: rgba(35, 60, 72, 0.82);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 13px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
       opacity: 0;
       visibility: hidden;
       transform: translateY(8px);
@@ -260,12 +260,14 @@
     .section-heading { margin-bottom: 20px; }
     h2 { font-size: clamp(34px, 4.5vw, 56px); line-height: 1.1; letter-spacing: -.02em; font-weight: 500; }
 
+    /* تایم‌لاین و درجه‌ها */
     .timeline-container { position: relative; width: 100%; max-width: 500px; margin-top: 10px; }
     .timeline { position: relative; width: 100%; height: 1px; background: rgba(255,255,255,.32); cursor: pointer; }
-    .timeline-marker { position: absolute; top: -3px; left: 0; width: 24px; height: 7px; background: #fff; border-radius: 4px; cursor: grab; touch-action: none; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.4); transform: translateX(-50%); }
+    .timeline-marker { position: absolute; top: -3px; left: 0; width: 24px; height: 7px; background: #fff; border-radius: 4px; cursor: grab; touch-action: none; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.4); transform: translateX(-50%); transition: left 0.1s ease-out; }
     .timeline-ticks { display: flex; justify-content: space-between; width: 100%; position: absolute; top: -4px; padding: 0 2px; pointer-events: none; }
     .tick { width: 1px; height: 9px; background: rgba(255,255,255,.4); position: relative; }
 
+    /* کاروسل پروژه‌ها */
     .project-carousel {
       --card-width: min(520px, 68vw);
       display: flex;
@@ -461,13 +463,14 @@
       <div class="hero-line-animation" id="heroLineAnimation" aria-hidden="true"></div>
     </section>
 
+    <!-- بخش Selected Work با لینک‌های دقیق پروژه‌ها -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
           <h2>Selected Work</h2>
         </div>
         <div class="timeline-container">
-          <div class="timeline">
+          <div class="timeline" id="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
             <div class="timeline-ticks">
               <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
@@ -478,10 +481,12 @@
       </div>
 
       <div class="project-carousel" id="horizontal-scroll">
+        <!-- ستونی از پروژه‌های اصلی با لینک‌های مستقیم -->
         <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
         
+        <!-- تکرار برای ایجاد حالت لوپ و بی‌نهایت نرم -->
         <a href="topspin.html" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir.html" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh.html" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
@@ -625,14 +630,13 @@
     }
     startHeroAnimation();
 
+    // اسلایدر بی‌نهایت و تنظیم دقیق تایم‌لاین روی ۳ پروژه اصلی
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.querySelector('.timeline');
     const timelineMarker = document.querySelector('#timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
-    const PROJECT_COUNT = 3, SET_COUNT = 2, MIDDLE_SET = 1, MIDDLE_START = MIDDLE_SET * PROJECT_COUNT;
-    let isDraggingCarousel = false, isDraggingTimeline = false, dragStartX = 0, dragStartScroll = 0, hasDragged = false, recentering = false, scrollEndTimer = null;
-
-    function clamp(value, min, max) { return Math.min(Math.max(value, min), max); }
+    const PROJECT_COUNT = 3;
+    let isDraggingCarousel = false, dragStartX = 0, dragStartScroll = 0, hasDragged = false;
 
     function getCardTarget(card) {
       const containerRect = scrollContainer.getBoundingClientRect();
@@ -652,29 +656,50 @@
       return bestIndex;
     }
 
-    function getLogicalIndex(index) { return ((index % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT; }
-
     function updateActiveCard() {
       const activeIndex = getClosestCardIndex();
       cards.forEach((card, index) => card.classList.toggle('active', index === activeIndex));
     }
 
     function updateTimeline() {
-      const logicalIndex = getLogicalIndex(getClosestCardIndex());
+      const activeIndex = getClosestCardIndex();
+      const logicalIndex = activeIndex % PROJECT_COUNT;
       const progress = PROJECT_COUNT > 1 ? logicalIndex / (PROJECT_COUNT - 1) : 0;
+      
       const lineWidth = timeline.clientWidth;
       const markerHalf = timelineMarker.offsetWidth / 2;
-      timelineMarker.style.left = `${markerHalf + progress * Math.max(0, lineWidth - markerHalf * 2)}px`;
+      const left = markerHalf + progress * Math.max(0, lineWidth - markerHalf * 2);
+      
+      timelineMarker.style.left = `${left}px`;
+    }
+
+    // چرخش بی‌نهایت (Loop) بدون نقطه پایان
+    function checkInfiniteScroll() {
+      const scrollLeft = scrollContainer.scrollLeft;
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      
+      if (scrollLeft <= 10) {
+        scrollContainer.scrollLeft = maxScroll / 2;
+      } else if (scrollLeft >= maxScroll - 10) {
+        scrollContainer.scrollLeft = maxScroll / 2;
+      }
     }
 
     cards.forEach(card => {
       card.addEventListener('click', event => {
-        if (hasDragged) { event.preventDefault(); event.stopPropagation(); hasDragged = false; }
+        if (hasDragged) {
+          event.preventDefault();
+          event.stopPropagation();
+          hasDragged = false;
+        }
       });
     });
 
     scrollContainer.addEventListener('pointerdown', event => {
-      isDraggingCarousel = true; hasDragged = false; dragStartX = event.clientX; dragStartScroll = scrollContainer.scrollLeft;
+      isDraggingCarousel = true;
+      hasDragged = false;
+      dragStartX = event.clientX;
+      dragStartScroll = scrollContainer.scrollLeft;
       scrollContainer.classList.add('dragging');
       scrollContainer.setPointerCapture(event.pointerId);
     });
@@ -701,18 +726,18 @@
     scrollContainer.addEventListener('scroll', () => {
       updateActiveCard();
       updateTimeline();
+      checkInfiniteScroll();
     });
 
     window.addEventListener('load', () => {
-      scrollToLogicalProject(1, 'auto');
+      // قرارگیری اولیه روی پروژه دوم (CAR.IR)
+      const targetCard = cards[1];
+      if (targetCard) {
+        scrollContainer.scrollLeft = getCardTarget(targetCard);
+      }
       updateActiveCard();
       updateTimeline();
     });
-
-    function scrollToLogicalProject(logicalIndex) {
-      const target = cards[MIDDLE_START + ((logicalIndex % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT];
-      if (target) scrollContainer.scrollTo({ left: getCardTarget(target), behavior: 'smooth' });
-    }
   </script>
 
 </body>
