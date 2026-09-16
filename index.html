@@ -259,10 +259,10 @@
     .section-heading { margin-bottom: 20px; }
     h2 { font-size: clamp(34px, 4.5vw, 56px); line-height: 1.1; letter-spacing: -.02em; font-weight: 500; }
 
-    /* تایم‌لاین فیزیکی و درجه‌بندی‌شده */
+    /* تایم‌لاین با درجه‌های (تیک‌های) بیشتر */
     .timeline-container { position: relative; width: 100%; max-width: 500px; margin-top: 10px; }
     .timeline { position: relative; width: 100%; height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; }
-    .timeline-marker { position: absolute; top: -4px; left: 0; width: 24px; height: 14px; background: #fff; border-radius: 4px; cursor: pointer; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.5); transform: translateX(-50%); transition: left 0.25s cubic-bezier(0.25, 1, 0.5, 1); }
+    .timeline-marker { position: absolute; top: -4px; left: 0; width: 24px; height: 14px; background: #fff; border-radius: 4px; cursor: pointer; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.5); transform: translateX(-50%); transition: left 0.15s ease-out; }
     .timeline-ticks { display: flex; justify-content: space-between; width: 100%; position: absolute; top: -2px; padding: 0 2px; pointer-events: none; }
     .tick { width: 1px; height: 10px; background: rgba(255,255,255,.5); position: relative; }
 
@@ -460,7 +460,7 @@
       <div class="hero-line-animation" id="heroLineAnimation" aria-hidden="true"></div>
     </section>
 
-    <!-- بخش Selected Work با قابلیت کنترل فیزیکی و کلیکی روی تایم‌لاین -->
+    <!-- بخش Selected Work با درجه‌بندی بیشتر و کنترل بی‌نهایت و دقیق روی نمودار -->
     <section id="work" class="section">
       <div class="section-header-wrapper">
         <div class="section-heading">
@@ -469,22 +469,33 @@
         <div class="timeline-container">
           <div class="timeline" id="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
+            <!-- افزایش تعداد درجه‌ها (تیک‌ها) برای حس دقت و فیزیکی بودن -->
             <div class="timeline-ticks">
-              <div class="tick" data-index="0"></div>
-              <div class="tick" data-index="1"></div>
-              <div class="tick" data-index="2"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
+              <div class="tick"></div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="project-carousel" id="horizontal-scroll">
-        <!-- سه پروژه اصلی با لینک‌های کاملاً درست -->
+        <!-- ستون‌های پروژه‌ها همراه با لوپ بی‌نهایتِ کپی‌شده برای جلوگیری از نقطه پایان -->
         <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
-        
-        <!-- لوپ تکرار برای اسکرول بی‌نهایت -->
+
+        <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
+        <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
+        <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
+
         <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
@@ -628,7 +639,7 @@
     }
     startHeroAnimation();
 
-    // اتصال دقیق و فیزیکی تایم‌لاین به ۳ پروژه اصلی
+    // مدیریت بی‌نهایت کاروسل و کنترل کامل با اسکرول موس و کلیک روی نمودار فیزیکی
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.getElementById('timeline');
     const timelineMarker = document.getElementById('timeline-marker');
@@ -664,15 +675,14 @@
       timelineMarker.style.left = `${left}px`;
     }
 
-    // عملکرد فیزیکی و کلیکی دقیق روی درجات تایم‌لاین
+    // کنترل کلیک روی خط نمودار برای تغییر پله‌ای پروژه‌ها
     timeline.addEventListener('click', (e) => {
       const rect = timeline.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const progress = Math.min(Math.max(clickX / rect.width, 0), 1);
       
-      // تقسیم به ۳ بخش دقیق (پله‌ای)
       const targetLogicalIndex = Math.round(progress * (PROJECT_COUNT - 1));
-      const targetCardIndex = PROJECT_COUNT + targetLogicalIndex; // انتخاب از ستون میانی برای لوپ بی‌نهایت
+      const targetCardIndex = PROJECT_COUNT + targetLogicalIndex; // انتخاب از بلوک وسط
       const targetCard = cards[targetCardIndex];
 
       if (targetCard) {
@@ -685,14 +695,15 @@
       }
     });
 
+    // لوپ بی‌نهایت نرم بدون نقطه پایان
     function checkInfiniteScroll() {
       const scrollLeft = scrollContainer.scrollLeft;
       const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       
-      if (scrollLeft <= 10) {
-        scrollContainer.scrollLeft = maxScroll / 2;
-      } else if (scrollLeft >= maxScroll - 10) {
-        scrollContainer.scrollLeft = maxScroll / 2;
+      if (scrollLeft <= 20) {
+        scrollContainer.scrollLeft = maxScroll / 3;
+      } else if (scrollLeft >= maxScroll - 20) {
+        scrollContainer.scrollLeft = maxScroll / 3;
       }
     }
 
@@ -703,7 +714,8 @@
     });
 
     window.addEventListener('load', () => {
-      const targetCard = cards[4]; // شروع روی CAR.IR در ستون میانی
+      // شروع روی بلوک میانی (CAR.IR)
+      const targetCard = cards[4]; 
       if (targetCard) {
         const containerRect = scrollContainer.getBoundingClientRect();
         const cardRect = targetCard.getBoundingClientRect();
