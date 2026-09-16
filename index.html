@@ -626,19 +626,13 @@
     }
     startHeroAnimation();
 
-    // مدیریت کاروسل و کلیک‌پذیر بودن لینک‌ها
+    // مدیریت کاروسل (حذف ست‌پوینترکپچر برای اجازه دادن به کلیک روی لینک‌ها)
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.querySelector('.timeline');
     const timelineMarker = document.querySelector('#timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
     const PROJECT_COUNT = 3;
     let isDraggingCarousel = false, dragStartX = 0, dragStartScroll = 0, hasMoved = false;
-
-    function getCardTarget(card) {
-      const containerRect = scrollContainer.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      return scrollContainer.scrollLeft + (cardRect.left - containerRect.left) - ((containerRect.width - cardRect.width) / 2);
-    }
 
     function getClosestCardIndex() {
       const containerRect = scrollContainer.getBoundingClientRect();
@@ -680,7 +674,7 @@
       }
     }
 
-    // جلوگیری از تداخل درگ با کلیک روی لینک‌ها
+    // اگر کاربر روی کارت کلیک کرد و حرکتی نداشت، لینک باز شود
     cards.forEach(card => {
       card.addEventListener('click', event => {
         if (hasMoved) {
@@ -690,35 +684,29 @@
       });
     });
 
-    scrollContainer.addEventListener('pointerdown', event => {
+    scrollContainer.addEventListener('mousedown', event => {
       isDraggingCarousel = true;
       hasMoved = false;
       dragStartX = event.clientX;
       dragStartScroll = scrollContainer.scrollLeft;
       scrollContainer.classList.add('dragging');
-      scrollContainer.setPointerCapture(event.pointerId);
     });
 
-    scrollContainer.addEventListener('pointermove', event => {
+    window.addEventListener('mousemove', event => {
       if (!isDraggingCarousel) return;
       const distance = event.clientX - dragStartX;
-      if (Math.abs(distance) > 6) {
+      if (Math.abs(distance) > 5) {
         hasMoved = true;
       }
       scrollContainer.scrollLeft = dragStartScroll - distance;
     });
 
-    function endCarouselDrag(event) {
-      if (!isDraggingCarousel) return;
-      isDraggingCarousel = false;
-      scrollContainer.classList.remove('dragging');
-      if (event && scrollContainer.hasPointerCapture(event.pointerId)) {
-        scrollContainer.releasePointerCapture(event.pointerId);
+    window.addEventListener('mouseup', () => {
+      if (isDraggingCarousel) {
+        isDraggingCarousel = false;
+        scrollContainer.classList.remove('dragging');
       }
-    }
-
-    scrollContainer.addEventListener('pointerup', endCarouselDrag);
-    scrollContainer.addEventListener('pointercancel', endCarouselDrag);
+    });
 
     scrollContainer.addEventListener('scroll', () => {
       updateActiveCard();
@@ -729,7 +717,9 @@
     window.addEventListener('load', () => {
       const targetCard = cards[1]; // شروع روی CAR.IR
       if (targetCard) {
-        scrollContainer.scrollLeft = getCardTarget(targetCard);
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const cardRect = targetCard.getBoundingClientRect();
+        scrollContainer.scrollLeft = scrollContainer.scrollLeft + (cardRect.left - containerRect.left) - ((containerRect.width - cardRect.width) / 2);
       }
       updateActiveCard();
       updateTimeline();
