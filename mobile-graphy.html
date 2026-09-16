@@ -124,26 +124,19 @@ button{font:inherit}
   align-items:center;
   justify-content:flex-start;
   gap:7px;
-
   padding:10px 14px;
-
   border:1px solid rgba(255,255,255,.18);
   border-radius:999px;
-
   background:rgba(255,255,255,.035);
   color:rgba(255,255,255,.64);
-
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-
   cursor:pointer;
-
   font-size:10px;
   line-height:1;
   font-weight:600;
   letter-spacing:.055em;
   text-transform:uppercase;
-
   transition:
     background .18s ease,
     border-color .18s ease,
@@ -189,7 +182,7 @@ button{font:inherit}
 }
 .story-image{
   display:block;width:100%;height:100%;object-fit:cover;opacity:1;transform:scale(1);
-  transition:opacity .20s ease,transform .28s ease
+  transition:opacity .15s ease,transform .2s ease
 }
 .story-screen.is-changing .story-image{opacity:0;transform:scale(.985)}
 .story-overlay{
@@ -239,18 +232,19 @@ button{font:inherit}
   stroke-linecap:round;stroke-linejoin:round
 }
 .slide-meta{
-  width:min(100%,350px);margin:14px auto 0;display:flex;align-items:center;
-  justify-content:space-between;gap:16px
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  width:100% !important;
+  margin:14px auto 0;
 }
 .slide-count{
+  margin:0 auto !important;
+  justify-content:center !important;
   display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.78)
 }
 .slide-count .line{width:42px;height:1px;background:rgba(255,255,255,.28)}
-.dots{display:flex;align-items:center;gap:6px}
-.dots span{
-  width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.28);transition:.18s ease
-}
-.dots span.active{width:18px;border-radius:999px;background:rgba(255,255,255,.92)}
+
 @media(max-width:900px){
   .page-shell{width:calc(100% - 28px);padding:14px 0 28px}
   .inner{padding:24px 30px 34px}
@@ -282,7 +276,7 @@ button{font:inherit}
   .intro{padding-top:28px}
   .intro h1{font-size:44px}
   .intro p:last-child{font-size:13px}
-  .story-wrap,.slide-meta{width:78vw}
+  .story-wrap{width:78vw}
   .arrow{width:36px;height:36px}
   .arrow.prev{left:-44px}.arrow.next{right:-44px}
 }
@@ -297,20 +291,6 @@ button{font:inherit}
 .story-time{
   display:none !important;
 }
-
-
-/* Slide counter — centered under the phone */
-.slide-meta{
-  display:flex !important;
-  justify-content:center !important;
-  align-items:center !important;
-  width:100% !important;
-}
-.slide-count{
-  margin:0 auto !important;
-  justify-content:center !important;
-}
-
 </style>
 </head>
 <body>
@@ -441,7 +421,6 @@ const series = {
   }
 };
 
-const seriesOrder = ["market","wandering"];
 const storyScreen = document.getElementById("storyScreen");
 const storyImage = document.getElementById("storyImage");
 const storyProgress = document.getElementById("storyProgress");
@@ -450,7 +429,6 @@ const seriesTitle = document.getElementById("seriesTitle");
 const seriesDescription = document.getElementById("seriesDescription");
 const currentSlide = document.getElementById("currentSlide");
 const totalSlides = document.getElementById("totalSlides");
-const slideDots = document.getElementById("slideDots");
 const prevSlide = document.getElementById("prevSlide");
 const nextSlide = document.getElementById("nextSlide");
 const tabs = [...document.querySelectorAll(".series-tab")];
@@ -458,12 +436,24 @@ const tabs = [...document.querySelectorAll(".series-tab")];
 let activeSeries = "market";
 let index = 0;
 let touchStartX = null;
+let changeTimeout = null;
+
+// پیش‌بارگذاری تمام عکس‌ها در پس‌زمینه برای حذف لگ و سفید شدن تصویر
+function preloadAllImages() {
+  Object.values(series).forEach(item => {
+    item.slides.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  });
+}
+preloadAllImages();
 
 function pad(n){ return String(n).padStart(2,"0"); }
 
 function buildProgress(){
   storyProgress.innerHTML = "";
-  series[activeSeries].slides.forEach((_,i)=>{
+  series[activeSeries].slides.forEach((_, i) => {
     const bar = document.createElement("span");
     if(i < index) bar.classList.add("done");
     if(i === index) bar.classList.add("active");
@@ -471,78 +461,89 @@ function buildProgress(){
   });
 }
 
-function buildDots(){}
-
 function updateSeriesInfo(){
   const current = series[activeSeries];
   seriesKicker.textContent = `Collection ${current.number}`;
   seriesTitle.textContent = current.title;
   seriesDescription.textContent = current.description;
-  tabs.forEach(tab=>tab.classList.toggle("active",tab.dataset.series === activeSeries));
+  tabs.forEach(tab => tab.classList.toggle("active", tab.dataset.series === activeSeries));
 }
 
-function renderSlide(animate=true){
+function renderSlide(animate = true){
   const current = series[activeSeries];
   const nextSrc = current.slides[index];
 
-  const swap = ()=>{
+  const updateDOM = () => {
     storyImage.src = nextSrc;
-    storyImage.alt = "";
-    currentSlide.textContent = pad(index+1);
+    currentSlide.textContent = pad(index + 1);
     totalSlides.textContent = pad(current.slides.length);
     buildProgress();
-    buildDots();
     updateSeriesInfo();
-    requestAnimationFrame(()=>storyScreen.classList.remove("is-changing"));
+    requestAnimationFrame(() => {
+      storyScreen.classList.remove("is-changing");
+    });
   };
 
-  if(!animate){ swap(); return; }
+  if (!animate) {
+    updateDOM();
+    return;
+  }
+
+  if (changeTimeout) clearTimeout(changeTimeout);
 
   storyScreen.classList.add("is-changing");
-  setTimeout(swap,160);
+  changeTimeout = setTimeout(updateDOM, 80);
 }
 
 function switchSeries(key){
-  if(!series[key]) return;
+  if(!series[key] || activeSeries === key) return;
   activeSeries = key;
   index = 0;
-  renderSlide();
+  renderSlide(true);
 }
 
 function next(){
-  const current = series[activeSeries];
-  index = (index + 1) % current.slides.length;
-  renderSlide();
+  const list = series[activeSeries].slides;
+  index = (index + 1) % list.length;
+  renderSlide(true);
 }
 
 function previous(){
-  const current = series[activeSeries];
-  index = (index - 1 + current.slides.length) % current.slides.length;
-  renderSlide();
+  const list = series[activeSeries].slides;
+  index = (index - 1 + list.length) % list.length;
+  renderSlide(true);
 }
 
-tabs.forEach(tab=>tab.addEventListener("click",()=>switchSeries(tab.dataset.series)));
-prevSlide.addEventListener("click",previous);
-nextSlide.addEventListener("click",next);
+// رویدادهای کلیک دکمه‌ها و تب‌ها
+tabs.forEach(tab => tab.addEventListener("click", () => switchSeries(tab.dataset.series)));
+prevSlide.addEventListener("click", previous);
+nextSlide.addEventListener("click", next);
 
-document.addEventListener("keydown",e=>{
-  if(e.key === "ArrowLeft") previous();
-  if(e.key === "ArrowRight") next();
+// کنترل کلیدهای کیبورد بدون تداخل و پرش صفحه
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") {
+    e.preventDefault();
+    next();
+  } else if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    previous();
+  }
 });
 
-storyScreen.addEventListener("touchstart",e=>{
+// کنترل سوایپ لمسی موبایل
+storyScreen.addEventListener("touchstart", e => {
   touchStartX = e.changedTouches[0].clientX;
-},{passive:true});
+}, { passive: true });
 
-storyScreen.addEventListener("touchend",e=>{
-  if(touchStartX === null) return;
+storyScreen.addEventListener("touchend", e => {
+  if (touchStartX === null) return;
   const delta = e.changedTouches[0].clientX - touchStartX;
-  if(Math.abs(delta) > 45){
-    if(delta < 0) next();
+  if (Math.abs(delta) > 35) {
+    if (delta < 0) next();
     else previous();
   }
   touchStartX = null;
-},{passive:true});
+}, { passive: true });
 
 renderSlide(false);
 </script>
