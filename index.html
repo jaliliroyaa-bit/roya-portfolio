@@ -638,88 +638,128 @@
     }
     startHeroAnimation();
 
-    // مدیریت کاروسل و کلیک روی نمودار
+    // Stable project carousel + timeline
     const scrollContainer = document.querySelector('#horizontal-scroll');
     const timeline = document.getElementById('timeline');
     const timelineMarker = document.getElementById('timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
     const PROJECT_COUNT = 3;
+    const realCards = cards.slice(PROJECT_COUNT, PROJECT_COUNT * 2);
+
+    let scrollRaf = null;
+    let isJumping = false;
+    let scrollEndTimer = null;
+
+    function cardCenter(card) {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      return scrollContainer.scrollLeft
+        + (cardRect.left - containerRect.left)
+        - ((containerRect.width - cardRect.width) / 2);
+    }
 
     function getClosestCardIndex() {
       const containerRect = scrollContainer.getBoundingClientRect();
       const center = containerRect.left + containerRect.width / 2;
-      let bestIndex = 0, bestDistance = Infinity;
+      let bestIndex = 0;
+      let bestDistance = Infinity;
+
       cards.forEach((card, index) => {
         const rect = card.getBoundingClientRect();
         const distance = Math.abs((rect.left + rect.width / 2) - center);
-        if (distance < bestDistance) { bestDistance = distance; bestIndex = index; }
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
       });
+
       return bestIndex;
     }
 
-    function updateActiveCard() {
-      const activeIndex = getClosestCardIndex();
-      cards.forEach((card, index) => card.classList.toggle('active', index === activeIndex));
+    function logicalIndex(cardIndex) {
+      return ((cardIndex % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT;
     }
 
-    function updateTimeline() {
+    function updateCarouselUI() {
       const activeIndex = getClosestCardIndex();
-      const logicalIndex = activeIndex % PROJECT_COUNT;
-      const progress = PROJECT_COUNT > 1 ? logicalIndex / (PROJECT_COUNT - 1) : 0;
-      
-      const lineWidth = timeline.clientWidth;
+      const current = logicalIndex(activeIndex);
+
+      cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex);
+      });
+
       const markerHalf = timelineMarker.offsetWidth / 2;
-      const left = markerHalf + progress * Math.max(0, lineWidth - markerHalf * 2);
-      
-      timelineMarker.style.left = `${left}px`;
+      const usableWidth = Math.max(0, timeline.clientWidth - markerHalf * 2);
+      const progress = current / (PROJECT_COUNT - 1);
+
+      timelineMarker.style.left =
+        `${markerHalf + progress * usableWidth}px`;
     }
 
-    // اتصال کلیک روی نمودار برای پرش دقیق روی پروژه متناظر
-    timeline.addEventListener('click', (e) => {
+    function jumpToMiddleCopy(index) {
+      const target = realCards[index];
+      if (!target) return;
+
+      isJumping = true;
+      scrollContainer.scrollTo({
+        left: cardCenter(target),
+        behavior: 'auto'
+      });
+
+      requestAnimationFrame(() => {
+        updateCarouselUI();
+        isJumping = false;
+      });
+    }
+
+    function normalizeInfinitePosition() {
+      if (isJumping) return;
+
+      const activeIndex = getClosestCardIndex();
+
+      if (
+        activeIndex < PROJECT_COUNT ||
+        activeIndex >= PROJECT_COUNT * 2
+      ) {
+        jumpToMiddleCopy(logicalIndex(activeIndex));
+      }
+    }
+
+    timeline.addEventListener('click', (event) => {
       const rect = timeline.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const progress = Math.min(Math.max(clickX / rect.width, 0), 1);
-      
-      const targetLogicalIndex = Math.round(progress * (PROJECT_COUNT - 1));
-      const targetCardIndex = PROJECT_COUNT + targetLogicalIndex; 
-      const targetCard = cards[targetCardIndex];
+      const x = event.clientX - rect.left;
+      const progress = Math.min(Math.max(x / rect.width, 0), 1);
+      const index = Math.round(progress * (PROJECT_COUNT - 1));
+      const target = realCards[index];
 
-      if (targetCard) {
-        const containerRect = scrollContainer.getBoundingClientRect();
-        const cardRect = targetCard.getBoundingClientRect();
-        scrollContainer.scrollTo({
-          left: scrollContainer.scrollLeft + (cardRect.left - containerRect.left) - ((containerRect.width - cardRect.width) / 2),
-          behavior: 'smooth'
-        });
-      }
+      if (!target) return;
+
+      scrollContainer.scrollTo({
+        left: cardCenter(target),
+        behavior: 'smooth'
+      });
     });
-
-    function checkInfiniteScroll() {
-      const scrollLeft = scrollContainer.scrollLeft;
-      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      
-      if (scrollLeft <= 20) {
-        scrollContainer.scrollLeft = maxScroll / 3;
-      } else if (scrollLeft >= maxScroll - 20) {
-        scrollContainer.scrollLeft = maxScroll / 3;
-      }
-    }
 
     scrollContainer.addEventListener('scroll', () => {
-      updateActiveCard();
-      updateTimeline();
-      checkInfiniteScroll();
-    });
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+
+      scrollRaf = requestAnimationFrame(updateCarouselUI);
+
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(normalizeInfinitePosition, 160);
+    }, { passive: true });
 
     window.addEventListener('load', () => {
-      const targetCard = cards[4]; // شروع روی CAR.IR در ستون میانی
-      if (targetCard) {
-        const containerRect = scrollContainer.getBoundingClientRect();
-        const cardRect = targetCard.getBoundingClientRect();
-        scrollContainer.scrollLeft = scrollContainer.scrollLeft + (cardRect.left - containerRect.left) - ((containerRect.width - cardRect.width) / 2);
+      const initialCard = realCards[1]; // CAR.IR
+
+      if (initialCard) {
+        scrollContainer.scrollTo({
+          left: cardCenter(initialCard),
+          behavior: 'auto'
+        });
       }
-      updateActiveCard();
-      updateTimeline();
+
+      requestAnimationFrame(updateCarouselUI);
     });
   </script>
 
