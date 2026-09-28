@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mahboubeh — Roya Jalili</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="car-ir.css">
+
+  <style>
+
+    /* =========================================
+       BRAINSTORMING — SCROLL REVEAL
+    ========================================= */
+
+    .brainstorm-image {
+      display: block;
+      width: 100%;
+      height: auto;
+
+      opacity: 0;
+      transform: translateY(90px) scale(0.9);
+      filter: blur(10px);
+
+      transition:
+        opacity 1.2s cubic-bezier(.22, 1, .36, 1),
+        transform 1.5s cubic-bezier(.22, 1, .36, 1),
+        filter 2.4s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .brainstorm-image.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .brainstorm-image {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<main id="top">
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="main-bg"></div>
+
+  <div class="ink-wrapper">
+    <div class="ink-blob color-1"></div>
+    <div class="ink-blob color-2"></div>
+    <div class="ink-blob color-3"></div>
+  </div>
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="site-header">
+
+    <a href="index.html" class="logo">
+      Roya Jalili
+    </a>
+
+    <nav>
+
+      <a href="projects.html" class="projects-btn">
+        Projects
+      </a>
+
+      <a href="index.html#about">
+        About
+      </a>
+
+      <a href="index.html#contact">
+        Contact
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================================
+       PROJECT PAGE
+  ====================================================== -->
+
+  <div class="project-page">
+
+
+    <!-- ===================================================
+         PROJECT INTRO
+    ==================================================== -->
+
+    <section class="project-intro">
+
+      <h1>
+        MAHBOUBEH
+      </h1>
+
+      <p class="project-category">
+        Brand Identity · Occupational Therapy
+      </p>
+
+    </section>
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="project-hero">
+
+      <img
+        src="assets/mahboubeh/cover.jpg"
+        alt="Mahboubeh Occupational Therapy Brand Identity"
+      >
+
+    </section>
+
+
+    <!-- ===================================================
+         BRAND OVERVIEW
+    ==================================================== -->
+
+    <section class="case-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Overview
+        </p>
+
+        <h2>
+          Mahboubeh
+        </h2>
+
+      </div>
+
+
+      <div class="case-content overview-copy">
+
+        <p>
+          Mahboubeh is an occupational therapy clinic primarily focused
+          on working with children. The visual identity was designed to
+          create a friendly and approachable presence while maintaining
+          the professional character of the clinic.
+        </p>
+
+        <p>
+          The identity is built around a character-based logo inspired
+          by the therapist herself. The character was developed as a
+          recognizable visual element that could give the clinic a more
+          personal and human presence while remaining simple enough to
+          work consistently across different brand applications.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BRAINSTORMING
+    ==================================================== -->
+
+    <section class="case-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Exploration
+        </p>
+
+        <h2>
+          Brainstorming
+        </h2>
+
+      </div>
+
+
+      <div class="case-content">
+
+        <img
+          class="brainstorm-image"
+          src="assets/mahboubeh/brainstorming.png"
+          alt="Mahboubeh Brand Brainstorming"
+          loading="lazy"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         IDENTITY SYSTEM
+    ==================================================== -->
+
+    <section class="case-row identity-row">
+
+      <div class="case-label">
+
+        <p class="case-eyebrow">
+          Brand Identity
+        </p>
+
+        <h2>
+          Identity System
+        </h2>
+
+      </div>
+
+
+      <div class="case-content">
+
+        <!--
+
+        تصاویر Identity System محبوبه بعداً اینجا اضافه می‌شوند.
+
+        ساختار نمونه:
+
+        <div class="project-gallery">
+
+          <div class="project-image wide">
+
+            <img
+              src="assets/mahboubeh/01.jpg"
+              alt="Mahboubeh Brand Identity — 01"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="project-image">
+
+            <img
+              src="assets/mahboubeh/02.jpg"
+              alt="Mahboubeh Brand Identity — 02"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="project-image">
+
+            <img
+              src="assets/mahboubeh/03.jpg"
+              alt="Mahboubeh Brand Identity — 03"
+              loading="lazy"
+            >
+
+          </div>
+
+        </div>
+
+        -->
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PROJECT END
+    ==================================================== -->
+
+    <section class="project-end">
+
+      <a
+        href="projects.html"
+        class="projects-btn"
+      >
+        ← Back to Project Archive
+      </a>
+
+    </section>
+
+
+  </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+  <div>
+    © 2026 Roya Jalili
+  </div>
+
+  <div>
+    Mahboubeh — Brand Identity
+  </div>
+
+</footer>
+
+
+<!-- =====================================================
+     SCRIPT
+====================================================== -->
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+
+    /* =========================================
+       BRAINSTORMING — SCROLL REVEAL
+    ========================================= */
+
+    const brainstormImage =
+      document.querySelector(".brainstorm-image");
+
+
+    if (brainstormImage) {
+
+      const brainstormObserver =
+        new IntersectionObserver(
+
+          function (entries, observer) {
+
+            entries.forEach(
+              function (entry) {
+
+                if (entry.isIntersecting) {
+
+                  entry.target.classList.add(
+                    "is-visible"
+                  );
+
+                  observer.unobserve(
+                    entry.target
+                  );
+
+                }
+
+              }
+            );
+
+          },
+
+          {
+            threshold: 0.2
+          }
+
+        );
+
+
+      brainstormObserver.observe(
+        brainstormImage
+      );
+
+    }
+
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
