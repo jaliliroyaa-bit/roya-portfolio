@@ -706,6 +706,11 @@
     let scrollRaf = null;
     let settleTimer = null;
 
+    // Magnetic feel around the three main project degrees.
+    const MAGNET_RADIUS = 0.085;   // ~8.5% of ruler width around each main stop
+    const MAGNET_STRENGTH = 0.78; // strong pull without making the ruler feel stuck
+
+
     const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
     function markerBounds() {
@@ -746,17 +751,36 @@
     function setMarkerProgress(progress, animate = false) {
       const b = markerBounds();
       timelineMarker.style.transition = animate
-        ? 'left .22s cubic-bezier(.2,.8,.2,1)'
+        ? 'left .11s cubic-bezier(.2,.9,.2,1)'
         : 'none';
       timelineMarker.style.left =
         `${b.min + clamp(progress, 0, 1) * (b.max - b.min)}px`;
     }
 
+    function magneticProgress(rawProgress) {
+      if (cards.length <= 1) return 0;
+
+      const step = 1 / (cards.length - 1);
+      const nearestIndex = Math.round(rawProgress / step);
+      const stop = clamp(nearestIndex * step, 0, 1);
+      const distance = Math.abs(rawProgress - stop);
+
+      if (distance >= MAGNET_RADIUS) return rawProgress;
+
+      // Stronger attraction as the marker approaches the main degree.
+      const closeness = 1 - (distance / MAGNET_RADIUS);
+      const pull = MAGNET_STRENGTH * closeness * closeness;
+
+      return rawProgress + (stop - rawProgress) * pull;
+    }
+
     function moveFromRuler(clientX) {
-      const progress = progressFromClientX(clientX);
+      const rawProgress = progressFromClientX(clientX);
+      const progress = magneticProgress(rawProgress);
       const range = scrollRangeForCards();
 
       // Circle and cover strip move continuously together.
+      // Near a main degree they are pulled quickly toward that stop.
       setMarkerProgress(progress, false);
       scrollContainer.scrollLeft =
         range.start + progress * (range.end - range.start);
