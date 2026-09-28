@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Project Archive — Roya Jalili</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap"
     rel="stylesheet"
@@ -45,10 +48,24 @@
       min-height: 100vh;
       font-family: "Inter", Arial, sans-serif;
       color: var(--text-main);
+
       background:
-        radial-gradient(circle at 5% 5%, rgba(127,178,201,.55), transparent 38%),
-        radial-gradient(circle at 95% 95%, rgba(201,196,188,.70), transparent 40%),
-        linear-gradient(120deg, #dcecf3 0%, #e6eef0 48%, #ddd9d2 100%);
+        radial-gradient(
+          circle at 5% 5%,
+          rgba(127,178,201,.55),
+          transparent 38%
+        ),
+        radial-gradient(
+          circle at 95% 95%,
+          rgba(201,196,188,.70),
+          transparent 40%
+        ),
+        linear-gradient(
+          120deg,
+          #dcecf3 0%,
+          #e6eef0 48%,
+          #ddd9d2 100%
+        );
     }
 
     a {
@@ -71,11 +88,24 @@
       overflow: hidden;
       width: 100%;
       min-height: calc(100vh - 44px);
+
       padding: 36px 38px 34px;
+
       border-radius: var(--radius-main);
-      background: linear-gradient(135deg, rgba(127,178,201,.78) 0%, rgba(142,179,195,.73) 35%, rgba(171,168,161,.74) 74%, rgba(201,196,188,.78) 100%);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(127,178,201,.78) 0%,
+          rgba(142,179,195,.73) 35%,
+          rgba(171,168,161,.74) 74%,
+          rgba(201,196,188,.78) 100%
+        );
+
       border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 18px 48px rgba(42,60,69,.11);
+
+      box-shadow:
+        0 18px 48px rgba(42,60,69,.11);
     }
 
     .page-glass::before {
@@ -83,7 +113,13 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0));
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,0)
+        );
     }
 
     .page-content {
@@ -95,8 +131,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 2px 2px 30px;
-      border-bottom: 1px solid rgba(255,255,255,.17);
+
+      border-bottom:
+        1px solid rgba(255,255,255,.17);
     }
 
     .logo {
@@ -113,7 +152,10 @@
 
     .archive-head h1 {
       margin: 0;
-      font-size: clamp(34px, 4vw, 46px);
+
+      font-size:
+        clamp(34px, 4vw, 46px);
+
       line-height: 1.05;
       font-weight: 700;
       letter-spacing: -.035em;
@@ -123,24 +165,39 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+
       gap: 10px;
+
       margin: 0 auto 48px;
     }
 
     .filter-btn {
       appearance: none;
+
       padding: 9px 17px;
-      border: 1px solid var(--glass-border);
+
+      border:
+        1px solid var(--glass-border);
+
       border-radius: 999px;
+
       background: var(--glass-bg);
+
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
+
       color: rgba(255,255,255,.92);
+
       font-size: 12.5px;
       line-height: 1;
       font-weight: 500;
+
       cursor: pointer;
-      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+
+      transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease;
     }
 
     .filter-btn:hover {
@@ -156,26 +213,47 @@
 
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
       gap: 30px;
     }
 
     .project-card {
       display: block;
+
       padding: 11px;
+
       border-radius: var(--radius-card);
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.055);
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      background:
+        rgba(255,255,255,.055);
+
       backdrop-filter: blur(13px);
       -webkit-backdrop-filter: blur(13px);
-      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+
+      transition:
+        transform .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
     }
 
     .project-card:hover {
       transform: translateY(-4px);
-      background: rgba(255,255,255,.095);
-      border-color: rgba(255,255,255,.23);
-      box-shadow: 0 12px 28px rgba(38,52,59,.09);
+
+      background:
+        rgba(255,255,255,.095);
+
+      border-color:
+        rgba(255,255,255,.23);
+
+      box-shadow:
+        0 12px 28px rgba(38,52,59,.09);
     }
 
     .project-card[hidden] {
@@ -184,18 +262,27 @@
 
     .project-media {
       overflow: hidden;
+
       width: 100%;
+
       aspect-ratio: 1.46 / 1;
+
       border-radius: 12px;
-      background: rgba(255,255,255,.10);
+
+      background:
+        rgba(255,255,255,.10);
     }
 
     .project-media img {
       display: block;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
-      transition: transform .35s ease;
+
+      transition:
+        transform .35s ease;
     }
 
     .project-card:hover .project-media img {
@@ -208,6 +295,7 @@
 
     .project-body h2 {
       margin: 0 0 6px;
+
       font-size: 16px;
       line-height: 1.3;
       font-weight: 700;
@@ -215,46 +303,73 @@
 
     .project-body p {
       margin: 0;
+
       font-size: 10.5px;
       line-height: 1.4;
       font-weight: 500;
+
       letter-spacing: .065em;
       text-transform: uppercase;
+
       color: var(--text-muted);
     }
 
     .placeholder {
       display: grid;
       place-items: center;
+
       width: 100%;
       height: 100%;
+
       color: #121212;
-      background: radial-gradient(circle at 82% 20%, #cecdc8 0 12%, transparent 12.5%), linear-gradient(135deg, #ecebe7, #f7f6f2);
+
+      background:
+        radial-gradient(
+          circle at 82% 20%,
+          #cecdc8 0 12%,
+          transparent 12.5%
+        ),
+        linear-gradient(
+          135deg,
+          #ecebe7,
+          #f7f6f2
+        );
     }
 
     .placeholder-box {
       width: 56%;
+
       padding: 26px 16px;
+
       border-radius: 8px;
-      background: rgba(255,255,255,.72);
+
+      background:
+        rgba(255,255,255,.72);
     }
 
     .placeholder-box strong {
       display: block;
+
       margin-bottom: 8px;
+
       font-size: 18px;
       font-weight: 800;
     }
 
     .placeholder-box span {
       font-size: 8px;
-      color: rgba(0,0,0,.55);
+
+      color:
+        rgba(0,0,0,.55);
     }
 
     .page-footer {
       margin-top: 52px;
       padding-top: 22px;
-      border-top: 1px solid rgba(255,255,255,.14);
+
+      border-top:
+        1px solid rgba(255,255,255,.14);
+
       display: flex;
       justify-content: flex-start;
     }
@@ -262,164 +377,666 @@
     .page-back {
       display: inline-flex;
       align-items: center;
+
       gap: 6px;
+
       padding: 10px 14px;
-      border: 1px solid rgba(255,255,255,.24);
+
+      border:
+        1px solid rgba(255,255,255,.24);
+
       border-radius: 999px;
-      background: rgba(255,255,255,.075);
+
+      background:
+        rgba(255,255,255,.075);
+
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      color: rgba(255,255,255,.92);
+
+      color:
+        rgba(255,255,255,.92);
+
       font-size: 13px;
       line-height: 1;
       font-weight: 600;
-      transition: background .18s ease, transform .18s ease;
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
     }
 
     .page-back:hover {
-      background: rgba(255,255,255,.13);
-      transform: translateX(-2px);
+      background:
+        rgba(255,255,255,.13);
+
+      transform:
+        translateX(-2px);
     }
 
     @media (max-width: 980px) {
-      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .project-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
     }
 
     @media (max-width: 760px) {
-      .page-shell { width: calc(100% - 28px); padding: 14px 0 48px; }
-      .page-glass { padding: 25px 18px 26px; border-radius: 22px; }
-      .project-grid { grid-template-columns: 1fr; gap: 22px; }
+
+      .page-shell {
+        width: calc(100% - 28px);
+        padding: 14px 0 48px;
+      }
+
+      .page-glass {
+        padding: 25px 18px 26px;
+        border-radius: 22px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
   <div class="page-shell">
+
     <main class="page-glass">
+
       <div class="page-content">
 
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
         <header class="site-header">
-          <a class="logo" href="index.html">Roya Jalili</a>
+
+          <a
+            class="logo"
+            href="index.html"
+          >
+            Roya Jalili
+          </a>
+
         </header>
 
+
+        <!-- =========================================
+             TITLE
+        ========================================== -->
+
         <section class="archive-head">
-          <h1>Project Archive</h1>
+
+          <h1>
+            Project Archive
+          </h1>
+
         </section>
 
-        <!-- مقادیر data-filter حالا دقیقاً با منوی صفحه اصلی یکی شدند -->
-        <div class="project-filters" aria-label="Project filters">
-          <button class="filter-btn active" type="button" data-filter="all">All</button>
-          <button class="filter-btn" type="button" data-filter="brand">Brand &amp; Identity</button>
-          <button class="filter-btn" type="button" data-filter="visual">Visual Arts &amp; Art Direction</button>
-          <button class="filter-btn" type="button" data-filter="editorial">Editorial &amp; Layout</button>
-          <button class="filter-btn" type="button" data-filter="digital">Digital &amp; Social</button>
-          <button class="filter-btn" type="button" data-filter="photography">Photography &amp; Grading</button>
-          <button class="filter-btn" type="button" data-filter="concepts">Concepts &amp; Sketches</button>
+
+        <!-- =========================================
+             FILTERS
+        ========================================== -->
+
+        <div
+          class="project-filters"
+          aria-label="Project filters"
+        >
+
+          <button
+            class="filter-btn active"
+            type="button"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="brand"
+          >
+            Brand &amp; Identity
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="visual"
+          >
+            Visual Arts &amp; Art Direction
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="editorial"
+          >
+            Editorial &amp; Layout
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="digital"
+          >
+            Digital &amp; Social
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="photography"
+          >
+            Photography &amp; Grading
+          </button>
+
+          <button
+            class="filter-btn"
+            type="button"
+            data-filter="concepts"
+          >
+            Concepts &amp; Sketches
+          </button>
+
         </div>
 
+
+        <!-- =========================================
+             PROJECT GRID
+        ========================================== -->
+
         <section class="project-grid">
-          <!-- CAR.IR -->
-          <a href="car-ir.html" class="project-card" data-category="brand digital">
-            <div class="project-media"><img src="assets/car-cover.jpg" alt="CAR.IR"></div>
-            <div class="project-body"><h2>CAR.IR</h2><p>Brand Identity &amp; Digital Experience</p></div>
-          </a>
 
-          <!-- Topspin -->
-          <a href="topspin.html" class="project-card" data-category="brand">
-            <div class="project-media"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"></div>
-            <div class="project-body"><h2>Topspin</h2><p>Brand &amp; Identity</p></div>
-          </a>
 
-          <!-- Chavosh -->
-          <a href="chavosh.html" class="project-card" data-category="brand">
-            <div class="project-media"><img src="assets/chavosh-cover.jpg" alt="Chavosh"></div>
-            <div class="project-body"><h2>Chavosh</h2><p>Brand &amp; Identity</p></div>
-          </a>
-          <!-- Mahboubeh -->
-          <a href="mahboubeh.html" class="project-card" data-category="brand">
+          <!-- =======================================
+               CAR.IR
+          ======================================== -->
+
+          <a
+            href="car-ir.html"
+            class="project-card"
+            data-category="brand digital"
+          >
+
             <div class="project-media">
+
+              <img
+                src="assets/car-cover.jpg"
+                alt="CAR.IR"
+              >
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                CAR.IR
+              </h2>
+
+              <p>
+                Brand Identity &amp; Digital Experience
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =======================================
+               TOPSPIN
+          ======================================== -->
+
+          <a
+            href="topspin.html"
+            class="project-card"
+            data-category="brand"
+          >
+
+            <div class="project-media">
+
+              <img
+                src="assets/TOPSPIN-cover.jpg"
+                alt="Topspin"
+              >
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Topspin
+              </h2>
+
+              <p>
+                Brand &amp; Identity
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =======================================
+               CHAVOSH
+          ======================================== -->
+
+          <a
+            href="chavosh.html"
+            class="project-card"
+            data-category="brand"
+          >
+
+            <div class="project-media">
+
+              <img
+                src="assets/chavosh-cover.jpg"
+                alt="Chavosh"
+              >
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Chavosh
+              </h2>
+
+              <p>
+                Brand &amp; Identity
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =======================================
+               MAHBOUBEH
+          ======================================== -->
+
+          <a
+            href="mahboubeh.html"
+            class="project-card"
+            data-category="brand"
+          >
+
+            <div class="project-media">
+
               <img
                 src="assets/mahboubeh/cover.jpg"
                 alt="Mahboubeh Occupational Therapy"
               >
+
             </div>
 
             <div class="project-body">
-              <h2>Mahboubeh</h2>
-              <p>Brand &amp; Identity</p>
+
+              <h2>
+                Mahboubeh
+              </h2>
+
+              <p>
+                Brand &amp; Identity
+              </p>
+
             </div>
-          </a>
-          <!-- Visual Arts -->
-          <a href="#" class="project-card" data-category="visual">
-            <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 01</strong><span>Automotive Visuals</span></div></div></div>
-            <div class="project-body"><h2>Visual Arts</h2><p>Art Direction &amp; Visual Exploration</p></div>
+
           </a>
 
-          <!-- Editorial -->
-          <a href="#" class="project-card" data-category="editorial">
-            <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 02</strong><span>Advertising Imagery</span></div></div></div>
-            <div class="project-body"><h2>Editorial Design</h2><p>Editorial &amp; Layout</p></div>
+
+          <!-- =======================================
+               VISUAL ARTS
+          ======================================== -->
+
+          <a
+            href="#"
+            class="project-card"
+            data-category="visual"
+          >
+
+            <div class="project-media">
+
+              <div class="placeholder">
+
+                <div class="placeholder-box">
+
+                  <strong>
+                    PROJECT 01
+                  </strong>
+
+                  <span>
+                    Automotive Visuals
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Visual Arts
+              </h2>
+
+              <p>
+                Art Direction &amp; Visual Exploration
+              </p>
+
+            </div>
+
           </a>
 
-          <!-- Digital -->
-          <a href="#" class="project-card" data-category="digital concepts">
-            <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 03</strong><span>AI Concepts</span></div></div></div>
-            <div class="project-body"><h2>Digital &amp; Social</h2><p>Digital Content &amp; Concepts</p></div>
+
+          <!-- =======================================
+               EDITORIAL
+          ======================================== -->
+
+          <a
+            href="#"
+            class="project-card"
+            data-category="editorial"
+          >
+
+            <div class="project-media">
+
+              <div class="placeholder">
+
+                <div class="placeholder-box">
+
+                  <strong>
+                    PROJECT 02
+                  </strong>
+
+                  <span>
+                    Advertising Imagery
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Editorial Design
+              </h2>
+
+              <p>
+                Editorial &amp; Layout
+              </p>
+
+            </div>
+
           </a>
 
-          <!-- Mobile Graphy -->
-          <a href="mobile-graphy.html" class="project-card" data-category="photography">
-            <div class="project-media"><img src="assets/mobile-graphy/wandering-02.jpg" alt="Mobile Graphy"></div>
-            <div class="project-body"><h2>Mobile Graphy</h2><p>Photography · Personal Archive</p></div>
+
+          <!-- =======================================
+               DIGITAL
+          ======================================== -->
+
+          <a
+            href="#"
+            class="project-card"
+            data-category="digital concepts"
+          >
+
+            <div class="project-media">
+
+              <div class="placeholder">
+
+                <div class="placeholder-box">
+
+                  <strong>
+                    PROJECT 03
+                  </strong>
+
+                  <span>
+                    AI Concepts
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Digital &amp; Social
+              </h2>
+
+              <p>
+                Digital Content &amp; Concepts
+              </p>
+
+            </div>
+
           </a>
 
-          <!-- Concepts -->
-          <a href="#" class="project-card" data-category="concepts">
-            <div class="project-media"><div class="placeholder"><div class="placeholder-box"><strong>PROJECT 05</strong><span>Concepts &amp; Sketches</span></div></div></div>
-            <div class="project-body"><h2>Concepts &amp; Sketches</h2><p>Ideas &amp; Explorations</p></div>
+
+          <!-- =======================================
+               MOBILE GRAPHY
+          ======================================== -->
+
+          <a
+            href="mobile-graphy.html"
+            class="project-card"
+            data-category="photography"
+          >
+
+            <div class="project-media">
+
+              <img
+                src="assets/mobile-graphy/wandering-02.jpg"
+                alt="Mobile Graphy"
+              >
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Mobile Graphy
+              </h2>
+
+              <p>
+                Photography · Personal Archive
+              </p>
+
+            </div>
+
           </a>
+
+
+          <!-- =======================================
+               CONCEPTS
+          ======================================== -->
+
+          <a
+            href="#"
+            class="project-card"
+            data-category="concepts"
+          >
+
+            <div class="project-media">
+
+              <div class="placeholder">
+
+                <div class="placeholder-box">
+
+                  <strong>
+                    PROJECT 05
+                  </strong>
+
+                  <span>
+                    Concepts &amp; Sketches
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="project-body">
+
+              <h2>
+                Concepts &amp; Sketches
+              </h2>
+
+              <p>
+                Ideas &amp; Explorations
+              </p>
+
+            </div>
+
+          </a>
+
+
         </section>
 
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
         <footer class="page-footer">
-          <a class="page-back" href="index.html">← Back to Home</a>
+
+          <a
+            class="page-back"
+            href="index.html"
+          >
+            ← Back to Home
+          </a>
+
         </footer>
 
+
       </div>
+
     </main>
+
   </div>
 
+
+  <!-- =============================================
+       FILTER SCRIPT
+  ============================================== -->
+
   <script>
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const projectCards = document.querySelectorAll(".project-card");
+
+    const filterButtons =
+      document.querySelectorAll(
+        ".filter-btn"
+      );
+
+    const projectCards =
+      document.querySelectorAll(
+        ".project-card"
+      );
+
 
     function applyFilter(filter) {
-      filterButtons.forEach(item => {
-        item.classList.toggle("active", item.dataset.filter === filter);
-      });
 
-      projectCards.forEach(card => {
-        const categories = (card.dataset.category || "").split(" ");
-        const show = filter === "all" || categories.includes(filter);
-        card.hidden = !show;
-      });
+      filterButtons.forEach(
+        item => {
+
+          item.classList.toggle(
+            "active",
+            item.dataset.filter === filter
+          );
+
+        }
+      );
+
+
+      projectCards.forEach(
+        card => {
+
+          const categories =
+            (
+              card.dataset.category || ""
+            ).split(" ");
+
+
+          const show =
+            filter === "all" ||
+            categories.includes(filter);
+
+
+          card.hidden = !show;
+
+        }
+      );
+
     }
 
-    filterButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        applyFilter(button.dataset.filter);
-      });
-    });
 
-    // خواندن خودکار فیلتر از آدرس (URL) هنگام باز شدن صفحه
-    window.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const filterParam = urlParams.get("filter");
-      if (filterParam) {
-        applyFilter(filterParam);
+    filterButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            applyFilter(
+              button.dataset.filter
+            );
+
+          }
+        );
+
       }
-    });
+    );
+
+
+    /* -----------------------------------------
+       FILTER FROM URL
+    ----------------------------------------- */
+
+    window.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        const urlParams =
+          new URLSearchParams(
+            window.location.search
+          );
+
+        const filterParam =
+          urlParams.get("filter");
+
+
+        if (filterParam) {
+
+          applyFilter(
+            filterParam
+          );
+
+        }
+
+      }
+    );
+
   </script>
 
+
 </body>
+
 </html>
