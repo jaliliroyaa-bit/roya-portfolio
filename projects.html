@@ -314,55 +314,6 @@
       color: var(--text-muted);
     }
 
-    .placeholder {
-      display: grid;
-      place-items: center;
-
-      width: 100%;
-      height: 100%;
-
-      color: #121212;
-
-      background:
-        radial-gradient(
-          circle at 82% 20%,
-          #cecdc8 0 12%,
-          transparent 12.5%
-        ),
-        linear-gradient(
-          135deg,
-          #ecebe7,
-          #f7f6f2
-        );
-    }
-
-    .placeholder-box {
-      width: 56%;
-
-      padding: 26px 16px;
-
-      border-radius: 8px;
-
-      background:
-        rgba(255,255,255,.72);
-    }
-
-    .placeholder-box strong {
-      display: block;
-
-      margin-bottom: 8px;
-
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .placeholder-box span {
-      font-size: 8px;
-
-      color:
-        rgba(0,0,0,.55);
-    }
-
     .page-footer {
       margin-top: 52px;
       padding-top: 22px;
@@ -669,73 +620,33 @@
             </div>
 
           </a>
-<!-- FARAZ DENTAL LABORATORY -->
 
-<a
-  href="#"
-  class="project-card"
-  data-category="brand"
->
 
-  <div class="project-media">
-
-    <img
-      src="assets/faraz-dental/cover.jpg"
-      alt="Faraz Dental Laboratory"
-    >
-
-  </div>
-
-  <div class="project-body">
-
-    <h2>
-      Faraz Dental Laboratory
-    </h2>
-
-    <p>
-      Brand &amp; Identity
-    </p>
-
-  </div>
-
-</a>
-
-          <!-- VISUAL ARTS -->
+          <!-- FARAZ DENTAL LABORATORY -->
 
           <a
             href="#"
             class="project-card"
-            data-category="visual"
+            data-category="brand"
           >
 
             <div class="project-media">
 
-              <div class="placeholder">
-
-                <div class="placeholder-box">
-
-                  <strong>
-                    PROJECT 01
-                  </strong>
-
-                  <span>
-                    Automotive Visuals
-                  </span>
-
-                </div>
-
-              </div>
+              <img
+                src="assets/faraz-dental/cover.jpg"
+                alt="Faraz Dental Laboratory"
+              >
 
             </div>
 
             <div class="project-body">
 
               <h2>
-                Visual Arts
+                Faraz Dental Laboratory
               </h2>
 
               <p>
-                Art Direction &amp; Visual Exploration
+                Brand &amp; Identity
               </p>
 
             </div>
@@ -775,42 +686,31 @@
           </a>
 
 
-          <!-- DIGITAL -->
+          <!-- RENAULT SOCIAL MEDIA -->
 
           <a
             href="#"
             class="project-card"
-            data-category="digital concepts"
+            data-category="digital"
           >
 
             <div class="project-media">
 
-              <div class="placeholder">
-
-                <div class="placeholder-box">
-
-                  <strong>
-                    PROJECT 03
-                  </strong>
-
-                  <span>
-                    AI Concepts
-                  </span>
-
-                </div>
-
-              </div>
+              <img
+                src="assets/renault/cover.jpg"
+                alt="Renault Social Media"
+              >
 
             </div>
 
             <div class="project-body">
 
               <h2>
-                Digital &amp; Social
+                Renault Social Media
               </h2>
 
               <p>
-                Digital Content &amp; Concepts
+                Digital &amp; Social
               </p>
 
             </div>
@@ -850,49 +750,6 @@
           </a>
 
 
-          <!-- CONCEPTS -->
-
-          <a
-            href="#"
-            class="project-card"
-            data-category="concepts"
-          >
-
-            <div class="project-media">
-
-              <div class="placeholder">
-
-                <div class="placeholder-box">
-
-                  <strong>
-                    PROJECT 05
-                  </strong>
-
-                  <span>
-                    Concepts &amp; Sketches
-                  </span>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="project-body">
-
-              <h2>
-                Concepts &amp; Sketches
-              </h2>
-
-              <p>
-                Ideas &amp; Explorations
-              </p>
-
-            </div>
-
-          </a>
-
-
         </section>
 
 
@@ -922,68 +779,51 @@
   <script>
 
     const filterButtons =
-      document.querySelectorAll(
-        ".filter-btn"
-      );
+      document.querySelectorAll(".filter-btn");
 
     const projectCards =
-      document.querySelectorAll(
-        ".project-card"
-      );
+      document.querySelectorAll(".project-card");
 
 
     function applyFilter(filter) {
 
-      filterButtons.forEach(
-        item => {
+      filterButtons.forEach(item => {
 
-          item.classList.toggle(
-            "active",
-            item.dataset.filter === filter
-          );
+        item.classList.toggle(
+          "active",
+          item.dataset.filter === filter
+        );
 
-        }
-      );
+      });
 
 
-      projectCards.forEach(
-        card => {
+      projectCards.forEach(card => {
 
-          const categories =
-            (
-              card.dataset.category || ""
-            ).split(" ");
+        const categories =
+          (card.dataset.category || "").split(" ");
 
+        const show =
+          filter === "all" ||
+          categories.includes(filter);
 
-          const show =
-            filter === "all" ||
-            categories.includes(filter);
+        card.hidden = !show;
 
-
-          card.hidden = !show;
-
-        }
-      );
+      });
 
     }
 
 
-    filterButtons.forEach(
-      button => {
+    filterButtons.forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener("click", () => {
 
-            applyFilter(
-              button.dataset.filter
-            );
-
-          }
+        applyFilter(
+          button.dataset.filter
         );
 
-      }
-    );
+      });
+
+    });
 
 
     /* FILTER FROM URL */
@@ -1000,12 +840,9 @@
         const filterParam =
           urlParams.get("filter");
 
-
         if (filterParam) {
 
-          applyFilter(
-            filterParam
-          );
+          applyFilter(filterParam);
 
         }
 
