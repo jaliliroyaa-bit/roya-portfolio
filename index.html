@@ -260,11 +260,59 @@
     h2 { font-size: clamp(34px, 4.5vw, 56px); line-height: 1.1; letter-spacing: -.02em; font-weight: 500; }
 
     /* تایم‌لاین اصلاح شده برای دریافت صحیح کلیک */
-    .timeline-container { position: relative; width: 100%; max-width: 500px; margin-top: 10px; }
-    .timeline { position: relative; width: 100%; height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; cursor: pointer; }
-    .timeline-marker { position: absolute; top: -4px; left: 0; width: 24px; height: 14px; background: #fff; border-radius: 4px; cursor: pointer; z-index: 5; box-shadow: 0 0 10px rgba(255,255,255,.5); transform: translateX(-50%); transition: left 0.15s ease-out; pointer-events: none; }
-    .timeline-ticks { display: flex; justify-content: space-between; width: 100%; position: absolute; top: -2px; padding: 0 2px; pointer-events: none; }
-    .tick { width: 1px; height: 10px; background: rgba(255,255,255,.5); position: relative; }
+    .timeline-container {
+      position: relative;
+      width: min(760px, 72vw);
+      height: 30px;
+      margin: 20px auto 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .timeline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 14px;
+      height: 1px;
+      background: rgba(255,255,255,.58);
+    }
+    .timeline-marker {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid rgba(255,255,255,.62);
+      box-shadow: 0 0 0 2px rgba(127,178,201,.22);
+      transform: translateX(-50%);
+      z-index: 5;
+      cursor: grab;
+      pointer-events: auto;
+      touch-action: none;
+      transition: left .22s cubic-bezier(.2,.8,.2,1);
+    }
+    .timeline-marker:active { cursor: grabbing; }
+    .tick.major {
+      height: 14px;
+      background: rgba(255,255,255,.72);
+    }
+    .timeline-ticks {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .tick {
+      position: relative;
+      top: 8px;
+      width: 1px;
+      height: 9px;
+      background: rgba(255,255,255,.42);
+    }
 
     .project-carousel {
       --card-width: min(520px, 68vw);
@@ -470,31 +518,22 @@
           <div class="timeline" id="timeline">
             <div class="timeline-marker" id="timeline-marker"></div>
             <div class="timeline-ticks">
+              <div class="tick major"></div>
               <div class="tick"></div>
               <div class="tick"></div>
               <div class="tick"></div>
+              <div class="tick major"></div>
               <div class="tick"></div>
               <div class="tick"></div>
               <div class="tick"></div>
-              <div class="tick"></div>
-              <div class="tick"></div>
-              <div class="tick"></div>
-              <div class="tick"></div>
+              <div class="tick major"></div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="project-carousel" id="horizontal-scroll">
-        <!-- سه پروژه اصلی با لوپ بی‌نهایت -->
-        <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
-        <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
-        <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
-
-        <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
-        <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
-        <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
-
+        <!-- سه پروژه اصلی؛ هر درجه دقیقاً یک پروژه -->
         <a href="topspin" class="carousel-card" data-project="0"><img src="assets/TOPSPIN-cover.jpg" alt="Topspin"><div class="project-info"><h3>Topspin</h3></div></a>
         <a href="car-ir" class="carousel-card" data-project="1"><img src="assets/car-cover.jpg" alt="CAR.IR"><div class="project-info"><h3>CAR.IR</h3></div></a>
         <a href="chavosh" class="carousel-card" data-project="2"><img src="assets/chavosh-cover.jpg" alt="Chavosh"><div class="project-info"><h3>Chavosh</h3></div></a>
@@ -638,129 +677,119 @@
     }
     startHeroAnimation();
 
-    // Stable project carousel + timeline
-    const scrollContainer = document.querySelector('#horizontal-scroll');
+    // Selected Work — minimal degree selector, synced with the cards
+    const scrollContainer = document.getElementById('horizontal-scroll');
     const timeline = document.getElementById('timeline');
     const timelineMarker = document.getElementById('timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
-    const PROJECT_COUNT = 3;
-    const realCards = cards.slice(PROJECT_COUNT, PROJECT_COUNT * 2);
-
-    let scrollRaf = null;
-    let isJumping = false;
+    let currentIndex = Math.min(1, cards.length - 1);
+    let dragging = false;
     let scrollEndTimer = null;
 
-    function cardCenter(card) {
-      const containerRect = scrollContainer.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      return scrollContainer.scrollLeft
-        + (cardRect.left - containerRect.left)
-        - ((containerRect.width - cardRect.width) / 2);
+    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+    function markerXFor(index) {
+      const half = timelineMarker.offsetWidth / 2;
+      const usable = Math.max(0, timeline.clientWidth - half * 2);
+      const progress = cards.length > 1 ? index / (cards.length - 1) : 0;
+      return half + progress * usable;
     }
 
-    function getClosestCardIndex() {
-      const containerRect = scrollContainer.getBoundingClientRect();
-      const center = containerRect.left + containerRect.width / 2;
-      let bestIndex = 0;
-      let bestDistance = Infinity;
-
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const distance = Math.abs((rect.left + rect.width / 2) - center);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          bestIndex = index;
-        }
-      });
-
-      return bestIndex;
+    function updateMarker(index) {
+      timelineMarker.style.left = `${markerXFor(index)}px`;
     }
 
-    function logicalIndex(cardIndex) {
-      return ((cardIndex % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT;
+    function setActive(index) {
+      currentIndex = clamp(index, 0, cards.length - 1);
+      cards.forEach((card, i) => card.classList.toggle('active', i === currentIndex));
+      updateMarker(currentIndex);
     }
 
-    function updateCarouselUI() {
-      const activeIndex = getClosestCardIndex();
-      const current = logicalIndex(activeIndex);
+    function centerCard(index, behavior = 'smooth') {
+      const card = cards[index];
+      if (!card) return;
 
-      cards.forEach((card, index) => {
-        card.classList.toggle('active', index === activeIndex);
-      });
-
-      const markerHalf = timelineMarker.offsetWidth / 2;
-      const usableWidth = Math.max(0, timeline.clientWidth - markerHalf * 2);
-      const progress = current / (PROJECT_COUNT - 1);
-
-      timelineMarker.style.left =
-        `${markerHalf + progress * usableWidth}px`;
+      const left = card.offsetLeft - (scrollContainer.clientWidth - card.offsetWidth) / 2;
+      setActive(index);
+      scrollContainer.scrollTo({ left, behavior });
     }
 
-    function jumpToMiddleCopy(index) {
-      const target = realCards[index];
-      if (!target) return;
-
-      isJumping = true;
-      scrollContainer.scrollTo({
-        left: cardCenter(target),
-        behavior: 'auto'
-      });
-
-      requestAnimationFrame(() => {
-        updateCarouselUI();
-        isJumping = false;
-      });
-    }
-
-    function normalizeInfinitePosition() {
-      if (isJumping) return;
-
-      const activeIndex = getClosestCardIndex();
-
-      if (
-        activeIndex < PROJECT_COUNT ||
-        activeIndex >= PROJECT_COUNT * 2
-      ) {
-        jumpToMiddleCopy(logicalIndex(activeIndex));
-      }
-    }
-
-    timeline.addEventListener('click', (event) => {
+    function indexFromX(clientX) {
       const rect = timeline.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const progress = Math.min(Math.max(x / rect.width, 0), 1);
-      const index = Math.round(progress * (PROJECT_COUNT - 1));
-      const target = realCards[index];
+      const half = timelineMarker.offsetWidth / 2;
+      const usable = Math.max(1, rect.width - half * 2);
+      const x = clamp(clientX - rect.left - half, 0, usable);
+      return Math.round((x / usable) * (cards.length - 1));
+    }
 
-      if (!target) return;
-
-      scrollContainer.scrollTo({
-        left: cardCenter(target),
-        behavior: 'smooth'
-      });
+    // Click a degree: select that project.
+    timeline.addEventListener('click', (e) => {
+      if (dragging) return;
+      centerCard(indexFromX(e.clientX));
     });
 
+    // Drag the white point; release snaps to the nearest project.
+    timelineMarker.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      timelineMarker.setPointerCapture(e.pointerId);
+      timelineMarker.style.transition = 'none';
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    timelineMarker.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const rect = timeline.getBoundingClientRect();
+      const half = timelineMarker.offsetWidth / 2;
+      const x = clamp(e.clientX - rect.left, half, rect.width - half);
+      timelineMarker.style.left = `${x}px`;
+    });
+
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      timelineMarker.style.transition = '';
+      try { timelineMarker.releasePointerCapture(e.pointerId); } catch (_) {}
+      centerCard(indexFromX(e.clientX));
+    }
+
+    timelineMarker.addEventListener('pointerup', endDrag);
+    timelineMarker.addEventListener('pointercancel', endDrag);
+
+    // Manual horizontal swipe/scroll also updates the degree selector.
     scrollContainer.addEventListener('scroll', () => {
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-
-      scrollRaf = requestAnimationFrame(updateCarouselUI);
-
       clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(normalizeInfinitePosition, 160);
+      scrollEndTimer = setTimeout(() => {
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const center = containerRect.left + containerRect.width / 2;
+        let nearest = currentIndex;
+        let distance = Infinity;
+
+        cards.forEach((card, i) => {
+          const rect = card.getBoundingClientRect();
+          const d = Math.abs((rect.left + rect.width / 2) - center);
+          if (d < distance) {
+            distance = d;
+            nearest = i;
+          }
+        });
+
+        setActive(nearest);
+      }, 80);
     }, { passive: true });
 
-    window.addEventListener('load', () => {
-      const initialCard = realCards[1]; // CAR.IR
-
-      if (initialCard) {
-        scrollContainer.scrollTo({
-          left: cardCenter(initialCard),
-          behavior: 'auto'
-        });
-      }
-
-      requestAnimationFrame(updateCarouselUI);
+    // Side card = bring to centre. Active card = follow its project link.
+    cards.forEach((card, index) => {
+      card.addEventListener('click', (e) => {
+        if (index !== currentIndex) {
+          e.preventDefault();
+          centerCard(index);
+        }
+      });
     });
+
+    window.addEventListener('load', () => centerCard(currentIndex, 'auto'));
+    window.addEventListener('resize', () => centerCard(currentIndex, 'auto'));
   </script>
 
 </body>
