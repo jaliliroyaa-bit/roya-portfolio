@@ -322,7 +322,7 @@
       overflow-x: auto;
       overflow-y: hidden;
       padding: 10px max(32px, calc((100% - var(--card-width)) / 2)) 80px;
-      scroll-snap-type: x mandatory;
+      scroll-snap-type: none;
       scroll-behavior: smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -339,7 +339,7 @@
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      scroll-snap-align: center;
+      scroll-snap-align: none;
       filter: blur(2px);
       opacity: .7;
       transform: scale(.93);
@@ -467,7 +467,23 @@
       .social-item { width: 100%; max-width: 100% !important; justify-content: flex-start; padding: 0 16px; height: 44px; }
       .social-text { opacity: 1 !important; transform: none !important; }
     }
-  </style>
+  
+    #horizontal-scroll.is-settling { scroll-behavior: smooth; }
+
+    #timeline {
+      touch-action: none;
+      cursor: ew-resize;
+    }
+    #timeline-marker {
+      pointer-events: auto;
+      cursor: grab;
+      touch-action: none;
+    }
+    #timeline-marker:active {
+      cursor: grabbing;
+    }
+
+</style>
 </head>
 
 <body>
@@ -677,119 +693,196 @@
     }
     startHeroAnimation();
 
-    // Selected Work — minimal degree selector, synced with the cards
+    // Selected Work — ruler/degree carousel
     const scrollContainer = document.getElementById('horizontal-scroll');
     const timeline = document.getElementById('timeline');
     const timelineMarker = document.getElementById('timeline-marker');
     const cards = Array.from(document.querySelectorAll('.carousel-card'));
+
     let currentIndex = Math.min(1, cards.length - 1);
-    let dragging = false;
-    let scrollEndTimer = null;
+    let isDraggingRuler = false;
+    let didDragRuler = false;
+    let pointerStartX = 0;
+    let scrollRaf = null;
+    let settleTimer = null;
 
     const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
-    function markerXFor(index) {
+    function markerBounds() {
       const half = timelineMarker.offsetWidth / 2;
-      const usable = Math.max(0, timeline.clientWidth - half * 2);
-      const progress = cards.length > 1 ? index / (cards.length - 1) : 0;
-      return half + progress * usable;
+      return {
+        half,
+        min: half,
+        max: Math.max(half, timeline.clientWidth - half)
+      };
     }
 
-    function updateMarker(index) {
-      timelineMarker.style.left = `${markerXFor(index)}px`;
+    function progressFromClientX(clientX) {
+      const rect = timeline.getBoundingClientRect();
+      const b = markerBounds();
+      const x = clamp(clientX - rect.left, b.min, b.max);
+      return (x - b.min) / Math.max(1, b.max - b.min);
+    }
+
+    function cardScrollPosition(index) {
+      const card = cards[index];
+      return card.offsetLeft - (scrollContainer.clientWidth - card.offsetWidth) / 2;
+    }
+
+    function scrollRangeForCards() {
+      return {
+        start: cardScrollPosition(0),
+        end: cardScrollPosition(cards.length - 1)
+      };
     }
 
     function setActive(index) {
       currentIndex = clamp(index, 0, cards.length - 1);
-      cards.forEach((card, i) => card.classList.toggle('active', i === currentIndex));
-      updateMarker(currentIndex);
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === currentIndex);
+      });
     }
 
-    function centerCard(index, behavior = 'smooth') {
-      const card = cards[index];
-      if (!card) return;
+    function setMarkerProgress(progress, animate = false) {
+      const b = markerBounds();
+      timelineMarker.style.transition = animate
+        ? 'left .22s cubic-bezier(.2,.8,.2,1)'
+        : 'none';
+      timelineMarker.style.left =
+        `${b.min + clamp(progress, 0, 1) * (b.max - b.min)}px`;
+    }
 
-      const left = card.offsetLeft - (scrollContainer.clientWidth - card.offsetWidth) / 2;
+    function moveFromRuler(clientX) {
+      const progress = progressFromClientX(clientX);
+      const range = scrollRangeForCards();
+
+      // Circle and cover strip move continuously together.
+      setMarkerProgress(progress, false);
+      scrollContainer.scrollLeft =
+        range.start + progress * (range.end - range.start);
+
+      const floatingIndex = progress * (cards.length - 1);
+      setActive(Math.round(floatingIndex));
+    }
+
+    function snapToIndex(index, smooth = true) {
+      index = clamp(index, 0, cards.length - 1);
       setActive(index);
-      scrollContainer.scrollTo({ left, behavior });
+
+      const progress =
+        cards.length > 1 ? index / (cards.length - 1) : 0;
+
+      setMarkerProgress(progress, smooth);
+
+      scrollContainer.scrollTo({
+        left: cardScrollPosition(index),
+        behavior: smooth ? 'smooth' : 'auto'
+      });
     }
 
-    function indexFromX(clientX) {
-      const rect = timeline.getBoundingClientRect();
-      const half = timelineMarker.offsetWidth / 2;
-      const usable = Math.max(1, rect.width - half * 2);
-      const x = clamp(clientX - rect.left - half, 0, usable);
-      return Math.round((x / usable) * (cards.length - 1));
-    }
-
-    // Click a degree: select that project.
-    timeline.addEventListener('click', (e) => {
-      if (dragging) return;
-      centerCard(indexFromX(e.clientX));
-    });
-
-    // Drag the white point; release snaps to the nearest project.
+    // IMPORTANT: dragging starts anywhere on the ruler.
+    // The tiny white circle is no longer the only draggable hit target.
     timelineMarker.addEventListener('pointerdown', (e) => {
-      dragging = true;
-      timelineMarker.setPointerCapture(e.pointerId);
-      timelineMarker.style.transition = 'none';
+      if (e.button !== undefined && e.button !== 0) return;
+
+      isDraggingRuler = true;
+      didDragRuler = false;
+      pointerStartX = e.clientX;
+
+      timeline.setPointerCapture(e.pointerId);
+      moveFromRuler(e.clientX);
       e.preventDefault();
       e.stopPropagation();
     });
 
-    timelineMarker.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      const rect = timeline.getBoundingClientRect();
-      const half = timelineMarker.offsetWidth / 2;
-      const x = clamp(e.clientX - rect.left, half, rect.width - half);
-      timelineMarker.style.left = `${x}px`;
+    timeline.addEventListener('pointerdown', (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+
+      isDraggingRuler = true;
+      didDragRuler = false;
+      pointerStartX = e.clientX;
+
+      timeline.setPointerCapture(e.pointerId);
+      moveFromRuler(e.clientX);
+      e.preventDefault();
     });
 
-    function endDrag(e) {
-      if (!dragging) return;
-      dragging = false;
-      timelineMarker.style.transition = '';
-      try { timelineMarker.releasePointerCapture(e.pointerId); } catch (_) {}
-      centerCard(indexFromX(e.clientX));
+    timeline.addEventListener('pointermove', (e) => {
+      if (!isDraggingRuler) return;
+
+      if (Math.abs(e.clientX - pointerStartX) > 3) {
+        didDragRuler = true;
+      }
+
+      moveFromRuler(e.clientX);
+      e.preventDefault();
+    });
+
+    function finishRulerDrag(e) {
+      if (!isDraggingRuler) return;
+
+      moveFromRuler(e.clientX);
+      isDraggingRuler = false;
+
+      try {
+        timeline.releasePointerCapture(e.pointerId);
+      } catch (_) {}
+
+      // Snap only after release.
+      const index = Math.round(
+        progressFromClientX(e.clientX) * (cards.length - 1)
+      );
+      snapToIndex(index, true);
     }
 
-    timelineMarker.addEventListener('pointerup', endDrag);
-    timelineMarker.addEventListener('pointercancel', endDrag);
+    timeline.addEventListener('pointerup', finishRulerDrag);
+    timeline.addEventListener('pointercancel', finishRulerDrag);
 
-    // Manual horizontal swipe/scroll also updates the degree selector.
+    // Keep the ruler synced when the user scrolls/swipes the covers themselves.
+    function syncRulerFromCards() {
+      if (isDraggingRuler) return;
+
+      const range = scrollRangeForCards();
+      const denominator = Math.max(1, range.end - range.start);
+      const progress = clamp(
+        (scrollContainer.scrollLeft - range.start) / denominator,
+        0,
+        1
+      );
+
+      setMarkerProgress(progress, false);
+      setActive(Math.round(progress * (cards.length - 1)));
+    }
+
     scrollContainer.addEventListener('scroll', () => {
-      clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(() => {
-        const containerRect = scrollContainer.getBoundingClientRect();
-        const center = containerRect.left + containerRect.width / 2;
-        let nearest = currentIndex;
-        let distance = Infinity;
+      if (isDraggingRuler) return;
 
-        cards.forEach((card, i) => {
-          const rect = card.getBoundingClientRect();
-          const d = Math.abs((rect.left + rect.width / 2) - center);
-          if (d < distance) {
-            distance = d;
-            nearest = i;
-          }
-        });
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(syncRulerFromCards);
 
-        setActive(nearest);
-      }, 80);
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        if (!isDraggingRuler) snapToIndex(currentIndex, true);
+      }, 120);
     }, { passive: true });
 
-    // Side card = bring to centre. Active card = follow its project link.
+    // Side card first comes to the center; active card opens its project.
     cards.forEach((card, index) => {
       card.addEventListener('click', (e) => {
         if (index !== currentIndex) {
           e.preventDefault();
-          centerCard(index);
+          snapToIndex(index, true);
         }
       });
     });
 
-    window.addEventListener('load', () => centerCard(currentIndex, 'auto'));
-    window.addEventListener('resize', () => centerCard(currentIndex, 'auto'));
+    window.addEventListener('load', () => {
+      snapToIndex(currentIndex, false); // CAR.IR
+    });
+
+    window.addEventListener('resize', () => {
+      snapToIndex(currentIndex, false);
+    });
   </script>
 
 </body>
